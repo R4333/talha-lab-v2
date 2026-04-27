@@ -1,0 +1,434 @@
+import { Arrow, ArrowUpRight, ClientLogos, Footer, type NavigateToPage } from './shared'
+import { contactHref } from '../utils/seo'
+
+type HeadlineVariant = 'outcomes' | 'partner' | 'leverage' | 'chatbots'
+
+function Hero({ headlineVariant = 'outcomes' }: { headlineVariant?: HeadlineVariant; showPhoto?: boolean }) {
+  const headlines = {
+    outcomes: <>I help founders ship <em>production AI</em> that actually makes money.</>,
+    partner: <>The <em>AI engineer</em> founders call when the prototype has to become revenue.</>,
+    leverage: <>Turn messy company data into <em>measurable leverage.</em></>,
+    chatbots: <>Build AI products your users <em>trust</em> and your team can measure.</>,
+  };
+  const stats = [
+    { value: '22', label: 'AI systems shipped' },
+    { value: '$2.4M', label: 'Tracked client savings' },
+    { value: '92%', label: 'Best support deflection' },
+    { value: '100%', label: 'Delivered on scope' },
+  ];
+
+  return (
+    <section className="hero">
+      <div className="container">
+        <div className="hero__top">
+          <span className="hero__status"><span className="hero__pulse" />Available · Booking Q2 2026</span>
+          <span className="tiny-mono">Independent AI engineering · Est. 2021</span>
+        </div>
+
+        <div className="hero__impact">
+          <div className="eyebrow hero__eyebrow">ML engineer · RAG · Agents · LLM apps · MLOps</div>
+          <h1 className="h-display">
+            {headlines[headlineVariant] || headlines.outcomes}
+          </h1>
+          <p className="lede hero__lede">
+            Twelve shipped engagements across support automation, legal AI, forecasting and internal copilots. I turn AI from a deck into production systems that move revenue, margin, speed and headcount.
+          </p>
+          <div className="hero__actions">
+            <a href="#book" className="btn btn--accent btn--lg">Book a 30-min call <Arrow /></a>
+            <a href="#work" className="btn btn--ghost btn--lg">Projects that moved numbers <ArrowUpRight /></a>
+          </div>
+        </div>
+
+        <div className="hero__stats">
+          {stats.map((stat) => (
+            <div className="hero__stat" key={stat.label}>
+              <div className="hero__stat-value">{stat.value}</div>
+              <div className="hero__stat-label">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="hero__meta">
+          <div className="hero__meta-item">
+            <div className="tiny-mono">[ 01 ] What I build</div>
+            <p>RAG systems · AI agents · LLM apps · ML models · MLOps</p>
+          </div>
+          <div className="hero__meta-item">
+            <div className="tiny-mono">[ 02 ] Who I work with</div>
+            <p>Funded startups, AI agencies, product teams without an in-house ML lead.</p>
+          </div>
+          <div className="hero__meta-item">
+            <div className="tiny-mono">[ 03 ] How I engage</div>
+            <p>Fixed-scope projects · fractional retainer · embedded with your team.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
+  const cases = [
+    {
+      id: "thalamus",
+      idx: "01",
+      client: "Thalamus · Series A · Healthtech",
+      title: <>From a 14-person <em>support queue</em> to a 24/7 medical knowledge agent.</>,
+      desc: "Replaced a brittle FAQ chatbot with a RAG system grounded in their internal protocols, EHR notes, and policy docs. Survived a 10× spike in queries during open enrollment with no degradation.",
+      tags: ["RAG", "LLM Eval", "GPT-4o", "Pinecone", "LangGraph"],
+      metrics: [
+        { value: <>92<em>%</em></>, label: "Auto-resolution" },
+        { value: <>$840<em>k</em></>, label: "Annual savings" },
+      ],
+    },
+    {
+      id: "alethia",
+      idx: "02",
+      client: "Alethia · Seed · Legal AI",
+      title: <>An <em>agent</em> that drafts contracts in 90 seconds — and won't hallucinate a clause.</>,
+      desc: "Designed a multi-agent workflow with a strict tool-use contract, citation-grounded retrieval, and a human-in-the-loop checkpoint. Replaced two paralegal contractors and shipped on a 6-week timeline.",
+      tags: ["Agents", "LangGraph", "Eval", "Postgres", "FastAPI"],
+      metrics: [
+        { value: <>14×</>, label: "Faster drafts" },
+        { value: <>0</>, label: "Hallucinated clauses (90d)" },
+      ],
+    },
+    {
+      id: "retina",
+      idx: "03",
+      client: "Retina · Bootstrapped · DTC analytics",
+      title: <>A <em>forecast model</em> that finally beat the founder's gut.</>,
+      desc: "Built an end-to-end demand forecasting pipeline — feature store, training, eval, and a Slack-native interface. Founders went from quarterly buy decisions to weekly, with full confidence intervals attached.",
+      tags: ["XGBoost", "MLOps", "Airflow", "Modal", "Slack API"],
+      metrics: [
+        { value: <>−31<em>%</em></>, label: "Stockouts" },
+        { value: <>+18<em>%</em></>, label: "Margin per SKU" },
+      ],
+    },
+  ];
+
+  return (
+    <section className="section" id="work">
+      <div className="container">
+        <div className="section-header">
+          <div>
+            <div className="eyebrow mb-24">Selected work</div>
+            <h2 className="h1">Projects that moved numbers.</h2>
+          </div>
+          <div>
+            <p className="lede">
+              Three engagements where AI moved a real business metric. Click through for the brief, architecture, and the numbers.
+            </p>
+          </div>
+        </div>
+
+        <div className="cases">
+          {cases.map((c, i) => (
+            <a key={c.id} className="case" href={`/case-studies/${c.id}`}>
+              <div className="case__index">
+                <strong>CS / {c.idx}</strong>
+                <div style={{ marginTop: 12 }}>{c.client}</div>
+              </div>
+              <div>
+                <div className="case__client" style={{ display: i === 0 ? "block" : "none" }}>{c.client}</div>
+                <h3 className="case__title">{c.title}</h3>
+                <p className="case__desc">{c.desc}</p>
+                <div className="case__tags">
+                  {c.tags.map((t, j) => <span key={j} className="case__tag">{t}</span>)}
+                </div>
+                <div className="case__cta mt-24">Read case study <Arrow /></div>
+              </div>
+              <div className="case__visual">
+                <div className="tiny-mono mb-16">[ Outcome ]</div>
+                <div className="case__metrics">
+                  {c.metrics.map((m, j) => (
+                    <div key={j} className="metric">
+                      <div className="metric__value">{m.value}</div>
+                      <div className="metric__label">{m.label}</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="tiny-mono" style={{ paddingTop: 14, borderTop: "1px dashed var(--line)" }}>
+                  Shipped · production · {c.idx === "01" ? "12 wk" : c.idx === "02" ? "6 wk" : "10 wk"}
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ServicesHome({ navigate }: { navigate: NavigateToPage }) {
+  const services = [
+    { num: "01", title: <>AI <em>chatbots</em></>, desc: "Customer support, internal helpdesk, knowledge concierge.", problem: "Your support team is drowning in repeat questions." },
+    { num: "02", title: <>RAG <em>systems</em></>, desc: "Search & chat grounded in your contracts, docs, code, tickets.", problem: "Your data is locked in 6 different SaaS tools." },
+    { num: "03", title: <>AI <em>agents</em></>, desc: "Multi-step workflow agents that book, draft, classify, escalate.", problem: "Hiring ops people to do work an agent should do." },
+    { num: "04", title: <>LLM <em>apps</em></>, desc: "Custom copilots, assistants and chat experiences with eval & streaming.", problem: "Prototype works in dev, breaks in production." },
+    { num: "05", title: <>ML <em>model dev</em></>, desc: "Forecasting, scoring, ranking, classification — trained on your data.", problem: "You have data. You don't have a model running on it." },
+    { num: "06", title: <>MLOps</>, desc: "Deployment, eval pipelines, monitoring, cost & retrieval-quality dashboards.", problem: "Your AI feature degraded and nobody noticed." },
+    { num: "07", title: <>AI <em>consulting</em></>, desc: "Architecture reviews, vendor selection, build-vs-buy, hiring panels.", problem: "You're about to spend 6 figures on the wrong stack." },
+    { num: "08", title: <>Fractional <em>AI lead</em></>, desc: "Embedded part-time or full-time. Ship code, hire, set the roadmap.", problem: "You need a senior AI hire — but not for 12 months yet." },
+  ];
+
+  return (
+    <section className="section" style={{ paddingTop: "calc(var(--section-y) * 0.4)" }}>
+      <div className="container">
+        <div className="section-header">
+          <div>
+            <div className="eyebrow mb-24">Services</div>
+            <h2 className="h1">Pick the <em>outcome</em>. I'll bring the&nbsp;stack.</h2>
+          </div>
+          <div>
+            <p className="lede">
+              Clients don't buy LangGraph or Pinecone. They buy chatbots that resolve, agents that ship, and models that earn their compute. Here's what I deliver.
+            </p>
+            <a href="/services#capabilities" className="btn btn--ghost mt-32">
+              See engagement options <ArrowUpRight />
+            </a>
+          </div>
+        </div>
+
+        <div className="services-grid">
+          {services.map((s, i) => (
+            <a key={i} className="service" href={`/services#cap-${s.num}`}>
+              <div className="service__num">CAP / {s.num}</div>
+              <h3 className="service__title">{s.title}</h3>
+              <p className="service__desc">{s.desc}</p>
+              <div className="service__problem"><strong>For when:</strong>{s.problem}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HowIWork() {
+  const steps = [
+    {
+      num: "01",
+      title: <>Discovery — <em>1 week, free.</em></>,
+      desc: "We get on a call, you show me your data and the problem. I come back with a written brief: what's actually buildable, what isn't, what it costs, what it'll move.",
+    },
+    {
+      num: "02",
+      title: <>Prototype — <em>2–3 weeks.</em></>,
+      desc: "Working system on real data. Not a demo. Not a Streamlit toy. Something your team can poke at, break, and form an opinion on.",
+    },
+    {
+      num: "03",
+      title: <>Production — <em>4–10 weeks.</em></>,
+      desc: "Eval pipelines, observability, cost guardrails, retrieval-quality dashboards. The boring infra that keeps AI alive after launch.",
+    },
+    {
+      num: "04",
+      title: <>Handover or <em>retainer.</em></>,
+      desc: "Either I document everything and your team takes over, or I stay on as fractional AI engineer at a predictable monthly. Your choice.",
+    },
+  ];
+  return (
+    <section className="section">
+      <div className="container">
+        <div className="section-header">
+          <div>
+            <div className="eyebrow mb-24">How I work</div>
+            <h2 className="h1">Four steps. No bait-and-switch.</h2>
+          </div>
+          <div>
+            <p className="lede">
+              Most AI projects fail because they jump from a slide deck to a hire. I run a process built for de-risking spend before you commit headcount.
+            </p>
+          </div>
+        </div>
+
+        <div className="process">
+          {steps.map((s, i) => (
+            <div key={i} className="process__step">
+              <div className="process__num"><strong>0{i + 1}</strong></div>
+              <h3 className="process__title">{s.title}</h3>
+              <p className="process__desc">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function About({ showPhoto = true }: { showPhoto?: boolean }) {
+  return (
+    <section className="section" id="about">
+      <div className="container">
+        <div className="about-band">
+          {showPhoto && (
+            <div>
+              <div className="about-photo">
+                <img src="assets/talha.jpg" alt="Talha Turab" />
+              </div>
+              <div className="tiny-mono mt-16">Talha Turab — Lahore · 2024</div>
+            </div>
+          )}
+          <div>
+            <div className="eyebrow mb-24">About</div>
+            <h2 className="h1">A <em>senior</em> hire — without the&nbsp;headcount.</h2>
+            <div className="mt-32" style={{ display: "flex", flexDirection: "column", gap: 18, maxWidth: 600 }}>
+              <p className="body" style={{ fontSize: 17, color: "var(--fg-2)" }}>
+                I'm a <strong style={{ color: "var(--fg)" }}>machine learning engineer</strong> who's spent the last five years shipping AI systems for funded startups, agencies and product teams. Before that, research labs and a stint in classical ML.
+              </p>
+              <p className="body" style={{ fontSize: 17, color: "var(--fg-2)" }}>
+                I work the way a good senior hire would: write a brief, build the prototype, ship the production system, document it, and either hand it over or stay on. No discovery calls that don't go anywhere. No 80-page proposals. No reselling of someone else's work.
+              </p>
+              <p className="body" style={{ fontSize: 17, color: "var(--fg-2)" }}>
+                If you've got a problem and you're not sure whether AI is the right tool — I'll tell you, on the first call. The best work comes from saying no to the wrong projects.
+              </p>
+            </div>
+            <div className="about-stats">
+              <div>
+                <div className="about-stat__value"><em>22</em></div>
+                <div className="about-stat__label">Production AI systems shipped</div>
+              </div>
+              <div>
+                <div className="about-stat__value"><em>5</em>yr</div>
+                <div className="about-stat__label">Building ML & LLM systems</div>
+              </div>
+              <div>
+                <div className="about-stat__value">100<em>%</em></div>
+                <div className="about-stat__label">Projects delivered on scope</div>
+              </div>
+              <div>
+                <div className="about-stat__value">$2.4<em>M</em></div>
+                <div className="about-stat__label">Tracked client savings (2024–25)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Testimonials() {
+  const items = [
+    {
+      quote: "We'd burned six months and two contractors on this before Talha. He shipped a production RAG system in seven weeks and our support deflection rate jumped from 14% to 92%. He just gets it.",
+      name: "Sarah Mendez",
+      role: "VP Engineering · Thalamus Health",
+      initials: "SM",
+    },
+    {
+      quote: "Most engineers hand you a pile of code and a Notion doc. Talha hands you a system, an eval harness, and a one-pager your CTO can actually read. Best money we've spent.",
+      name: "Daniel Okafor",
+      role: "Founder & CEO · Alethia",
+      initials: "DO",
+    },
+    {
+      quote: "I came in skeptical of AI. Talha did a one-week paid discovery, told me what wasn't worth building, and shipped the one piece that was. Founders, hire him.",
+      name: "Priya Krishnan",
+      role: "Founder · Retina",
+      initials: "PK",
+    },
+  ];
+  return (
+    <section className="section">
+      <div className="container">
+        <div className="section-header">
+          <div>
+            <div className="eyebrow mb-24">Testimonials</div>
+            <h2 className="h1">From the <em>people</em> who hired&nbsp;me.</h2>
+          </div>
+          <div>
+            <p className="lede">
+              Three quotes that capture how I actually work — and what clients say when the project is over.
+            </p>
+          </div>
+        </div>
+        <div className="testimonials">
+          {items.map((t, i) => (
+            <div key={i} className="testimonial">
+              <p className="testimonial__quote">{t.quote}</p>
+              <div className="testimonial__author">
+                <div className="testimonial__avatar">{t.initials}</div>
+                <div>
+                  <div className="testimonial__name">{t.name}</div>
+                  <div className="testimonial__role">{t.role}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function CTA() {
+  return (
+    <section className="section" id="book">
+      <div className="container">
+        <div className="cta-band">
+          <div className="cta-band__content">
+            <div>
+              <div className="eyebrow mb-24">Book a call</div>
+              <h2 className="h1" style={{ marginBottom: 20 }}>
+                Got a problem AI <em>might</em> solve?
+              </h2>
+              <p className="lede" style={{ maxWidth: 520 }}>
+                30 minutes. Free. You leave with a clear yes/no on whether to build, and a one-pager you can forward to your team.
+              </p>
+            </div>
+            <div>
+              <div className="cta-band__actions">
+                <a href={contactHref('Booking a 30-minute AI engineering call')} className="btn btn--accent btn--lg">Pick a time <Arrow /></a>
+                <a href={contactHref()} className="btn btn--ghost btn--lg">Email instead</a>
+              </div>
+              <div className="cta-band__meta">
+                <div className="cta-band__meta-item">
+                  <div className="tiny-mono">[ Response ]</div>
+                  <p style={{ fontSize: 14, color: "var(--fg)" }}>Within 24 hours</p>
+                </div>
+                <div className="cta-band__meta-item">
+                  <div className="tiny-mono">[ Timezone ]</div>
+                  <p style={{ fontSize: 14, color: "var(--fg)" }}>GMT+5 · flexible</p>
+                </div>
+                <div className="cta-band__meta-item">
+                  <div className="tiny-mono">[ Discovery ]</div>
+                  <p style={{ fontSize: 14, color: "var(--fg)" }}>Free · no NDA needed</p>
+                </div>
+                <div className="cta-band__meta-item">
+                  <div className="tiny-mono">[ Engagement ]</div>
+                  <p style={{ fontSize: 14, color: "var(--fg)" }}>From $8k / 4 wks</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function HomePage({
+  navigate,
+  headlineVariant = 'outcomes',
+  showPhoto = true,
+}: {
+  navigate: NavigateToPage
+  headlineVariant?: HeadlineVariant
+  showPhoto?: boolean
+}) {
+  return (
+    <>
+      <Hero headlineVariant={headlineVariant} showPhoto={showPhoto} />
+      <ClientLogos />
+      <CaseStudiesHome navigate={navigate} />
+      <ServicesHome navigate={navigate} />
+      <About showPhoto={showPhoto} />
+      <Testimonials />
+      <HowIWork />
+      <CTA />
+      <Footer navigate={navigate} />
+    </>
+  );
+}
