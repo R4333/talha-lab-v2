@@ -3,10 +3,12 @@ import { Arrow, Footer, type NavigateToPage } from './shared'
 
 type CaseStudy = {
   id: string
+  aliases?: string[]
   index: string
   shortName: string
   client: string
   clientMeta: string
+  liveUrl?: string
   title: React.ReactNode
   lede: string
   engagement: string
@@ -21,6 +23,7 @@ type CaseStudy = {
   problem: React.ReactNode[]
   approach: React.ReactNode[]
   bullets: string[]
+  screenshots?: Array<{ title: string; src: string; alt: string; caption: string }>
   architecture: Array<{ title: string; name: string; items: string[]; accent?: boolean }>
   architectureNote: React.ReactNode
   codeTitle: string
@@ -35,130 +38,251 @@ export const CASE_STUDIES: CaseStudy[] = [
     id: 'thalamus',
     index: '01',
     shortName: 'Thalamus',
-    client: 'Thalamus Health',
-    clientMeta: 'Series A · Healthtech · 80k members',
-    title: <>From a 14-person <em>support queue</em> to a 24/7 medical knowledge agent.</>,
+    client: 'Thalamus by Levitate Data',
+    clientMeta: 'Enterprise RAG · Retrieval infrastructure',
+    liveUrl: 'https://thalamus.levitatedata.com/',
+    title: <>Enterprise-grade <em>agentic RAG</em> for document-heavy AI products.</>,
     lede:
-      'Thalamus is a Series A digital-health platform serving 80,000 members. Their support load was doubling every quarter. We replaced a brittle FAQ chatbot with a production RAG system grounded in their internal protocols, EHR notes and policy docs, and shipped it through HIPAA review in 12 weeks.',
-    engagement: 'Sprint + 6mo retainer',
-    engagementMeta: '12 weeks build · ongoing MLOps',
-    role: 'Lead AI engineer',
-    roleMeta: 'Solo build · embedded with Eng',
-    year: '2025',
-    yearMeta: 'Q1 - Q2, ongoing',
-    resultsLabel: 'Results · 6 months post-launch',
-    resultsNote: 'verified by client finance',
+      'Thalamus gives product and engineering teams a trusted retrieval layer for AI systems that cannot afford vague answers. It transforms complex documents, scans, images, video and enterprise knowledge stores into grounded, citation-backed intelligence without forcing teams to build fragile RAG infrastructure from scratch.',
+    engagement: 'Product launch narrative',
+    engagementMeta: 'Positioning · product story · proof',
+    role: 'Product strategy',
+    roleMeta: 'RAG narrative · technical proof',
+    year: '2026',
+    yearMeta: 'Launch positioning',
+    resultsLabel: 'Business case',
+    resultsNote: 'build-vs-buy value drivers',
     results: [
-      { value: <em>92%</em>, label: 'Auto-resolution', sub: 'Up from 14% on legacy bot' },
-      { value: <em>$840k</em>, label: 'Annual savings', sub: 'Net of LLM costs' },
-      { value: <>10<em>x</em></>, label: 'Query spike absorbed', sub: 'Open-enrollment week' },
-      { value: <em>0</em>, label: 'PHI violations', sub: 'Audit-clean since launch' },
+      { value: <>66<em>%</em></>, label: 'Lower TCO', sub: 'Vs. building RAG in-house' },
+      { value: <>$485<em>k</em></>, label: 'Average savings', sub: 'Compared with offshore build' },
+      { value: <>6<em>mo</em></>, label: 'Faster to production', sub: 'Documented build-vs-buy gap' },
+      { value: <em>Day 1</em>, label: 'Production readiness', sub: 'Hardened retrieval layer' },
     ],
     problem: [
-      <>Thalamus's support team had grown from 4 to 14 in 18 months and was still missing SLAs. <strong>The legacy FAQ bot was deflecting only 14% of queries</strong> and was actively making things worse by quoting out-of-date procedures.</>,
-      <>Members were frustrated. Engineering had tried two rounds of vendor RAG products; neither passed HIPAA review, neither beat the FAQ bot on accuracy.</>,
-      <>The CTO's brief was specific: <strong>build something they could put their name on, that does not lie, survives an audit, and pays for itself in 12 months.</strong></>,
+      <>Enterprise AI breaks when retrieval is treated as a prototype detail. Real customer data includes scanned PDFs, dense tables, handwritten notes, long policy documents, multimedia files and source systems that change faster than static indexes can keep up.</>,
+      <>Thalamus is built for the teams where <strong>retrieval failure is product failure</strong>: SaaS companies, regulated operators and AI builders whose answers must be accurate, auditable and defensible.</>,
+      <>The buying question is simple: build and maintain a custom retrieval stack for months, or plug into infrastructure purpose-built for grounded AI from day one.</>,
     ],
     approach: [
-      <>I started with a one-week paid discovery: shadowed the queue, talked to support agents, classified 1,400 historical tickets, and mapped the existing bot's failure modes.</>,
-      <>The conclusion: <strong>this was not an LLM problem, it was a retrieval problem.</strong> Truth lived in Notion, Confluence, SharePoint and a custom CMS with no reconciliation layer.</>,
-      <>Plan: build unified ingestion, ground retrieval with citations, add a multi-stage eval harness, and keep humans in the loop for anything PHI-adjacent.</>,
+      <>The product story centers on Thalamus as <strong>retrieval infrastructure for production AI</strong>, the intelligence layer between messy proprietary knowledge and answers users can trust.</>,
+      <>Its value is framed around the capabilities buyers can evaluate immediately: multimodal ingestion, knowledge processing, agentic retrieval orchestration, model-agnostic integration and compliance-ready controls.</>,
+      <>The commercial narrative makes the build-vs-buy decision concrete with TCO, timeline and maintenance comparisons that map directly to executive approval criteria.</>,
     ],
     bullets: [
-      'Unified ingest from Notion, Confluence, SharePoint and the internal CMS, with diff-tracking for deprecated content.',
-      'Hybrid retrieval with citation-mandatory output, so answers cannot ship without source grounding.',
-      'HIPAA-safe redaction layer in front of every LLM call. PHI never leaves the VPC.',
-      'Nightly eval harness over 800 golden queries with Slack regression alerts.',
-      'Human-in-the-loop escalation for clinical-decision intent classifiers.',
+      'A retrieval backbone for AI products, not a thin wrapper around vector search.',
+      'Native multimodal ingestion across documents, scans, images, video, tables and complex layouts.',
+      'Agentic retrieval, gap detection, reranking and citation-level attribution for answers users can verify.',
+      'Enterprise controls built around tenant isolation, encryption, audit trails, compliance readiness and no customer-data training.',
+      'A board-level build-vs-buy case around cost, speed, reliability and future model flexibility.',
+    ],
+    screenshots: [
+      {
+        title: 'Homepage positioning',
+        src: '/assets/case-studies/thalamus-home.png',
+        alt: 'Screenshot of the Thalamus homepage showing enterprise-grade agentic RAG positioning',
+        caption: 'The homepage positions Thalamus as the enterprise-grade answer to unreliable retrieval, with multimodal ingestion, auditability and a clear cost/time advantage.',
+      },
+      {
+        title: 'Product walkthrough',
+        src: '/assets/case-studies/thalamus-product.png',
+        alt: 'Screenshot of the Thalamus product page showing multimodal ingestion and agentic retrieval sections',
+        caption: 'The product page turns the platform into a clear buyer journey: ingest, process, retrieve, integrate and govern.',
+      },
+      {
+        title: 'Build-vs-buy analysis',
+        src: '/assets/case-studies/thalamus-why.png',
+        alt: 'Screenshot of the Thalamus build versus buy page showing TCO analysis',
+        caption: 'The Why Thalamus page gives executives the commercial proof: lower TCO, faster production readiness and less long-term platform burden.',
+      },
     ],
     architecture: [
-      { title: '[ 01 ] Sources', name: 'Knowledge ingest', items: ['Notion API', 'Confluence', 'SharePoint', 'Internal CMS'] },
-      { title: '[ 02 ] Index', name: 'Hybrid retrieval', items: ['BM25', 'Dense vectors', 'Reranker', 'Diff tracker'] },
-      { title: '[ 03 ] Reasoning', name: 'LLM + guardrails', items: ['GPT-4o-mini', 'PHI redactor', 'Citation enforcer', 'Intent classifier'], accent: true },
-      { title: '[ 04 ] Surface', name: 'Member chat + ops', items: ['Member web app', 'Agent assist', 'Eval dashboard', 'Slack escalation'] },
+      { title: '[ 01 ] Sources', name: 'Document sources', items: ['Enterprise systems', 'File uploads', 'APIs', 'Rich media'] },
+      { title: '[ 02 ] Ingest', name: 'Multimodal parsing', items: ['PDFs', 'Scans', 'Tables', 'Images + video'] },
+      { title: '[ 03 ] Retrieve', name: 'Agentic retrieval', items: ['Query decomposition', 'Gap detection', 'Reranking', 'Citations'], accent: true },
+      { title: '[ 04 ] Deliver', name: 'Application layer', items: ['LLMs', 'Agents', 'Workflows', 'Audit trails'] },
     ],
-    architectureNote: <>The whole stack runs inside Thalamus's VPC. <strong>No member data, PHI, or transcript content ever touches my infrastructure.</strong> Eval runs nightly against a frozen golden set; any retrieval regression fires a Slack alert.</>,
-    codeTitle: 'Citation-enforced response contract',
+    architectureNote: <>Thalamus owns the hard retrieval layer underneath the customer application. <strong>Teams keep their proprietary agents, workflows and vertical IP while Thalamus handles ingestion, grounding, citations and infrastructure reliability.</strong></>,
+    codeTitle: 'Auditable retrieval response',
     code: <>
-      <span className="k">class</span> GroundedResponse(BaseModel):{'\n'}
+      <span className="k">type</span> RetrievalAnswer = {'{'}{'\n'}
       {'  '}answer: str{'\n'}
-      {'  '}citations: list[Citation]{'\n'}
-      {'  '}confidence: Literal[<span className="k">"high"</span>, <span className="k">"med"</span>, <span className="k">"low"</span>]{'\n'}
-      {'  '}intent: ClinicalIntent
+      {'  '}citations: SourceCitation[]{'\n'}
+      {'  '}confidence: <span className="k">"high"</span> | <span className="k">"medium"</span> | <span className="k">"low"</span>{'\n'}
+      {'  '}auditTrailId: string{'\n'}
+      {'  '}knowledgeGaps: string[]{'\n'}
+      {'}'}
     </>,
     outcome: [
-      <>The system shipped in 12 weeks. We launched to 10% of members, ramped to 100% over 4 weeks, and hit <strong>92% auto-resolution by week 6</strong>.</>,
-      <>During open enrollment it absorbed a 10x spike in query volume with no degradation in latency or accuracy.</>,
-      <>Six months on, the system has zero PHI violations, zero rolled-back deploys, and the eval harness has caught 4 silent regressions before members saw them.</>,
+      <>Thalamus presents a premium infrastructure product for teams building AI on proprietary knowledge, where citations, auditability and retrieval quality are business-critical.</>,
+      <>The narrative connects deep technical capability to the buyer's real decision: reduce hallucination risk, move faster, avoid infrastructure drag and keep control of sensitive data.</>,
+      <>The live product experience backs the promise with a homepage, product walkthrough and build-vs-buy analysis that make the platform easy to understand and easier to justify.</>,
     ],
-    quote: 'Talha shipped a production RAG system in 12 weeks that survived our HIPAA audit on the first try. Best money we have spent.',
-    quoteBy: 'Sarah Mendez, VP Engineering, Thalamus Health',
+    quote: 'When the data matters, retrieval failure is product failure.',
+    quoteBy: 'Thalamus product documentation',
   },
   {
-    id: 'alethia',
+    id: 'aletheia',
+    aliases: ['alethia'],
     index: '02',
-    shortName: 'Alethia',
-    client: 'Alethia',
-    clientMeta: 'Seed · Legal AI · Contract automation',
-    title: <>An <em>agent</em> that drafts contracts in 90 seconds and will not hallucinate a clause.</>,
+    shortName: 'Aletheia',
+    client: 'Aletheia by Levitate Data',
+    clientMeta: 'Behavioral intelligence · Multimodal AI',
+    liveUrl: 'https://levitatedata.com/product#Aletheia',
+    title: <>Multimodal <em>behavioral intelligence</em> for high-stakes communication.</>,
     lede:
-      'Alethia needed a contract-drafting agent that could work from precedent libraries, client playbooks and clause policies without inventing legal language. We shipped a multi-step workflow with strict retrieval, citation checks and human approval gates in 6 weeks.',
-    engagement: 'Fixed sprint',
-    engagementMeta: '6 weeks build · founder handover',
-    role: 'AI product engineer',
-    roleMeta: 'Architecture · workflow · evals',
-    year: '2025',
-    yearMeta: 'Q3 sprint',
-    resultsLabel: 'Results · first 90 days',
-    resultsNote: 'measured in production workflow',
+      'Aletheia brings the emotional and behavioral layer of communication into focus. By combining facial, vocal and linguistic analysis, it helps teams understand confidence, stress, sentiment and tone across video, audio and conversation, turning subtle human signals into explainable intelligence.',
+    engagement: 'Product narrative',
+    engagementMeta: 'Positioning · product story · use cases',
+    role: 'Product strategy',
+    roleMeta: 'Multimodal AI narrative',
+    year: '2026',
+    yearMeta: 'Product positioning',
+    resultsLabel: 'Platform promise',
+    resultsNote: 'behavioral intelligence layer',
     results: [
-      { value: <>14<em>x</em></>, label: 'Faster drafts', sub: 'Down from 22 min to 90 sec' },
-      { value: <em>0</em>, label: 'Hallucinated clauses', sub: 'Across 90-day audit sample' },
-      { value: <em>68%</em>, label: 'Manual review saved', sub: 'Paralegal time per draft' },
-      { value: <em>6wk</em>, label: 'Time to ship', sub: 'MVP to production' },
+      { value: <em>3</em>, label: 'Signal types', sub: 'Visual, vocal and linguistic cues' },
+      { value: <em>Realtime</em>, label: 'Perception modeling', sub: 'Live or recorded media' },
+      { value: <em>API</em>, label: 'Integration mode', sub: 'Service-layer module' },
+      { value: <em>Explainable</em>, label: 'Output standard', sub: 'Interpretable high-stakes insights' },
     ],
     problem: [
-      <>The prototype could draft a contract, but it invented clause language whenever source coverage was thin. <strong>That made it unusable for a legal workflow.</strong></>,
-      <>The founders had a tight timeline and no tolerance for a black-box model. Every draft needed traceable precedent, policy checks and a clean handoff to human reviewers.</>,
-      <>The core product question became: can an agent draft fast while making uncertainty visible enough for lawyers to trust it?</>,
+      <>Most conversation AI stops at transcripts and summaries. That leaves out the signals that often matter most: hesitation, confidence, stress, sentiment, tone and behavioral change over time.</>,
+      <>Aletheia is built for the moments where <strong>how something was said changes what it means</strong>, especially when the stakes are legal, operational, financial or reputational.</>,
+      <>Its product story gives buyers a clear category: multimodal behavioral intelligence for teams that need deeper context than words alone can provide.</>,
     ],
     approach: [
-      <>I broke the drafting flow into explicit steps: classify deal type, retrieve precedent, select clause templates, draft section-by-section, run policy checks, then route exceptions to review.</>,
-      <>The agent could not write unsupported clauses. If retrieval confidence fell below threshold, it had to ask for human input rather than improvise.</>,
-      <>We built a small eval set from historical contracts and measured clause accuracy, citation coverage, policy violations and review time before release.</>,
+      <>The message leads with a simple, memorable premise: understanding how something was said is as important as knowing what was said.</>,
+      <>From there, the platform value unfolds across three signal streams, visual, vocal and linguistic, fused into explainable timelines of emotion, confidence and stress.</>,
+      <>The use-case framing speaks to precision-critical workflows such as depositions, compliance analytics, customer interactions and investigations where context, trust and interpretability matter.</>,
     ],
     bullets: [
-      'Multi-agent drafting flow with explicit tool contracts and deterministic checkpoints.',
-      'Citation-grounded retrieval over precedent documents, client playbooks and clause policies.',
-      'Policy checker that blocks disallowed fallback language before the draft reaches users.',
-      'Human approval queue for low-confidence clauses and non-standard deal terms.',
-      'Eval harness covering clause selection, citation coverage and redline review time.',
+      'A foundational intelligence layer for interpreting human behavior across media.',
+      'Facial micro-expression, vocal stress and linguistic nuance treated as complementary evidence streams.',
+      'Behavioral signal fusion that converts raw communication into structured insight.',
+      'Explainable outputs, emotional timelines and confidence markers for high-stakes review workflows.',
+      'Enterprise-ready delivery through API access, compliance readiness and scalable integration.',
+    ],
+    screenshots: [
+      {
+        title: 'Aletheia product section',
+        src: '/assets/case-studies/aletheia-section.png',
+        alt: 'Screenshot of the Aletheia product section on Levitate Data',
+        caption: 'The product section introduces Aletheia as the intelligence layer that reveals emotion, confidence, tone and stress across communication.',
+      },
+      {
+        title: 'Levitate Data product catalog',
+        src: '/assets/case-studies/aletheia-product-page.png',
+        alt: 'Screenshot of the Levitate Data product catalog containing Thalamus, Aletheia and Theia',
+        caption: 'The product catalog places Aletheia inside Levitate Data\'s broader suite of AI infrastructure and intelligence products.',
+      },
     ],
     architecture: [
-      { title: '[ 01 ] Inputs', name: 'Matter context', items: ['Deal intake', 'Client playbook', 'Precedents', 'Clause bank'] },
-      { title: '[ 02 ] Retrieve', name: 'Grounding layer', items: ['pgvector', 'Metadata filters', 'Reranking', 'Citation spans'] },
-      { title: '[ 03 ] Draft', name: 'Agent workflow', items: ['LangGraph', 'Tool contracts', 'Policy checks', 'Human gates'], accent: true },
-      { title: '[ 04 ] Review', name: 'Legal surface', items: ['Draft editor', 'Redlines', 'Audit trail', 'Export'] },
+      { title: '[ 01 ] Inputs', name: 'Human signals', items: ['Video', 'Audio', 'Transcript', 'Conversation'] },
+      { title: '[ 02 ] Detect', name: 'Signal analysis', items: ['Facial cues', 'Vocal stress', 'Sentiment', 'Tone'] },
+      { title: '[ 03 ] Fuse', name: 'Behavioral model', items: ['Confidence shifts', 'Stress markers', 'Emotion timelines', 'Intent context'], accent: true },
+      { title: '[ 04 ] Deliver', name: 'Decision layer', items: ['API', 'Dashboards', 'Case review', 'Audit trail'] },
     ],
-    architectureNote: <>The system treats unsupported generation as a product failure, not an acceptable model behavior. <strong>Every clause has either a citation, a policy reason, or a review flag.</strong></>,
-    codeTitle: 'Drafting guardrail',
+    architectureNote: <>Aletheia turns unstructured human communication into structured behavioral signals. <strong>The output is designed to be interpretable enough for high-stakes review, not a black-box score detached from evidence.</strong></>,
+    codeTitle: 'Behavioral signal output',
     code: <>
-      <span className="k">if</span> clause.confidence &lt; MIN_CONFIDENCE:{'\n'}
-      {'  '}return HumanReview(reason=<span className="k">"weak_grounding"</span>){'\n'}
-      <span className="k">if</span> not clause.citations:{'\n'}
-      {'  '}raise UnsupportedClauseError()
+      signals = analyze(video, audio, transcript){'\n'}
+      timeline = fuse_behavioral_signals(signals){'\n'}
+      <span className="k">return</span> BehavioralInsight(confidence=timeline.confidence, stress=timeline.stress, evidence=signals.sources)
     </>,
     outcome: [
-      <>The first production version shipped in 6 weeks and reduced average first-draft time from 22 minutes to <strong>90 seconds</strong>.</>,
-      <>The founder replaced two contractor workflows while keeping a human checkpoint for non-standard deal terms.</>,
-      <>The 90-day audit found zero hallucinated clauses in accepted drafts because unsupported sections were blocked or routed to review.</>,
+      <>Aletheia stands as a distinct product story with a clear market promise: make human communication more interpretable, explainable and actionable.</>,
+      <>The positioning turns multimodal emotion analysis, behavioral signal fusion and real-time perception modeling into a cohesive enterprise platform narrative.</>,
+      <>The live product section reinforces the message with a focused description of Aletheia's role in high-stakes analysis, compliance and investigative workflows.</>,
     ],
-    quote: 'Most engineers hand you a pile of code and a doc. Talha handed us a system, an eval harness and a workflow lawyers could trust.',
-    quoteBy: 'Daniel Okafor, Founder & CEO, Alethia',
+    quote: 'Understanding how something was said is as important as knowing what was said.',
+    quoteBy: 'Aletheia product documentation',
+  },
+  {
+    id: 'frcm',
+    index: '03',
+    shortName: 'FRCM',
+    client: 'First Rule Contract Manager',
+    clientMeta: 'Construction contracts · Playbook AI',
+    liveUrl: 'https://www.firstrulecm.ai/',
+    title: <>Construction contract <em>review</em> with clause-linked AI playbooks.</>,
+    lede:
+      'First Rule Contract Manager gives construction teams the contract discipline to spot risk before it becomes project cost. Teams upload a prime contract or subcontract, review clause-level risks tied to source language, apply playbook guidance and turn the review into a kickoff-ready handoff.',
+    engagement: 'Product narrative',
+    engagementMeta: 'Positioning · product story · proof',
+    role: 'Product strategy',
+    roleMeta: 'Contract AI narrative',
+    year: '2026',
+    yearMeta: 'Product positioning',
+    resultsLabel: 'Product promise',
+    resultsNote: 'construction contract discipline',
+    results: [
+      { value: <em>1</em>, label: 'Free upload', sub: 'Start with one contract' },
+      { value: <>Prime <em>+</em> Sub</>, label: 'Contract coverage', sub: 'Including flow-down checks' },
+      { value: <em>30d</em>, label: 'Money-back guarantee', sub: 'After purchase' },
+      { value: <em>Azure</em>, label: 'Deployment option', sub: 'Can run in customer environment' },
+    ],
+    problem: [
+      <>Construction contracts move fast, but the consequences last for the life of the job. Indemnity, delay, notice, payment and lien language can quietly shift risk before a project even starts.</>,
+      <>FRCM is designed for construction teams that need <strong>practical contract clarity, not generic legal AI</strong>: visible risk, source-linked rationale and guidance that fits how project teams actually work.</>,
+      <>The product promise is operational as much as legal: help executives, precon, PMs, risk teams and field leaders understand the contract before it becomes a jobsite problem.</>,
+    ],
+    approach: [
+      <>The story centers on <strong>playbook-driven contract discipline</strong>: repeatable standards that show up beside the clause while the review is happening.</>,
+      <>FRCM is positioned around the workflow buyers can immediately picture: upload, detect clause risk, review plain-language rationale, apply preferred or fallback language and generate a project handoff.</>,
+      <>Marten, the AI contract coach, adds an approachable product layer by letting teams ask plain-language questions while staying anchored to contract text and playbook guidance.</>,
+    ],
+    bullets: [
+      'Construction-trained contract review built for project risk, not generic document management.',
+      'Prime contract, subcontract and flow-down checks for construction operators.',
+      'Clause categories, risk levels and source-linked rationale packaged into a clear review workflow.',
+      'Playbooks as the standards engine behind preferred language, fallback language and escalation paths.',
+      'AI review connected to the jobsite through kickoff-ready summaries, Marten coaching and training in the flow of work.',
+    ],
+    screenshots: [
+      {
+        title: 'Homepage positioning',
+        src: '/assets/case-studies/frcm-home.png',
+        alt: 'Screenshot of the First Rule Contract Manager homepage',
+        caption: 'The homepage sells a focused promise: confident contract decisions backed by construction-trained AI, playbooks and human-readable next steps.',
+      },
+      {
+        title: 'Contract Manager overview',
+        src: '/assets/case-studies/frcm-contract-manager.png',
+        alt: 'Screenshot of the First Rule Contract Manager product overview page',
+        caption: 'The product page turns contract review into an operational workflow, from upload to risk review to kickoff handoff.',
+      },
+      {
+        title: 'Construction playbooks',
+        src: '/assets/case-studies/frcm-playbooks.png',
+        alt: 'Screenshot of the First Rule construction contract playbooks page',
+        caption: 'The playbooks page makes the standards layer tangible, showing how negotiation posture becomes repeatable guidance across projects.',
+      },
+    ],
+    architecture: [
+      { title: '[ 01 ] Upload', name: 'Contract intake', items: ['Prime contracts', 'Subcontracts', 'Exhibits', 'Riders'] },
+      { title: '[ 02 ] Detect', name: 'Clause review', items: ['Clause categories', 'Risk levels', 'Flow-down checks', 'Source links'] },
+      { title: '[ 03 ] Guide', name: 'Playbook layer', items: ['Preferred language', 'Fallback language', 'Company standards', 'Escalation'], accent: true },
+      { title: '[ 04 ] Handoff', name: 'Project action', items: ['Risk summary', 'PM handoff', 'Marten Q&A', 'Training'] },
+    ],
+    architectureNote: <>First Rule keeps the AI answer attached to the contract and the playbook. <strong>The product teaches while work happens: clause-linked rationale, coaching and standards appear in the review flow instead of living in a separate training binder.</strong></>,
+    codeTitle: 'Clause review contract',
+    code: <>
+      review = detect_clause_risk(contract, playbook){'\n'}
+      rationale = explain_in_plain_language(review, source_clause){'\n'}
+      handoff = build_kickoff_summary(review, standards){'\n'}
+      <span className="k">return</span> ClauseReview(risk=review.level, source=source_clause, next_steps=handoff)
+    </>,
+    outcome: [
+      <>FRCM presents a category-specific AI product for construction teams that need contract clarity before work begins.</>,
+      <>The positioning turns clause detection, playbook guidance, Marten coaching and kickoff summaries into a single value proposition: better contract decisions, better project outcomes.</>,
+      <>The live site supports that promise with a focused homepage, product walkthrough and playbook documentation built around the way construction teams actually review risk.</>,
+    ],
+    quote: 'Better contracts. Better outcomes.',
+    quoteBy: 'First Rule Contract Manager product documentation',
   },
   {
     id: 'retina',
-    index: '03',
+    index: '04',
     shortName: 'Retina',
     client: 'Retina',
     clientMeta: 'Bootstrapped · DTC analytics · Forecasting',
@@ -220,7 +344,7 @@ export const CASE_STUDIES: CaseStudy[] = [
 ]
 
 export function getCaseStudy(caseId: string | undefined) {
-  return CASE_STUDIES.find((caseStudy) => caseStudy.id === caseId) ?? CASE_STUDIES[0]
+  return CASE_STUDIES.find((caseStudy) => caseStudy.id === caseId || caseStudy.aliases?.includes(caseId ?? '')) ?? CASE_STUDIES[0]
 }
 
 export function CaseStudyPage({
@@ -275,6 +399,13 @@ export function CaseStudyPage({
             {selectedCase.title}
           </h1>
           <p className="lede cs-hero__lede mt-32">{selectedCase.lede}</p>
+          {selectedCase.liveUrl && (
+            <div className="cs-hero__actions">
+              <a className="btn btn--accent" href={selectedCase.liveUrl} target="_blank" rel="noreferrer">
+                Visit live site <Arrow />
+              </a>
+            </div>
+          )}
 
           <div className="cs-hero__meta">
             <MetaBlock label="[ Client ]" title={selectedCase.client} detail={selectedCase.clientMeta} />
@@ -306,10 +437,35 @@ export function CaseStudyPage({
       <CaseSection label="[ 01 ] The Problem" paragraphs={selectedCase.problem} borderTop />
       <CaseSection label="[ 02 ] Approach" paragraphs={selectedCase.approach} bullets={selectedCase.bullets} />
 
+      {selectedCase.screenshots && (
+        <section>
+          <div className="container">
+            <div className="cs-section">
+              <div className="cs-section__label">[ 03 ] Screenshots</div>
+              <div className="cs-section__body">
+                <div className="case-shots">
+                  {selectedCase.screenshots.map((shot) => (
+                    <figure className="case-shot" key={shot.src}>
+                      <div className="case-shot__frame">
+                        <img src={shot.src} alt={shot.alt} loading="lazy" />
+                      </div>
+                      <figcaption>
+                        <strong>{shot.title}</strong>
+                        <span>{shot.caption}</span>
+                      </figcaption>
+                    </figure>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       <section>
         <div className="container">
           <div className="cs-section">
-            <div className="cs-section__label">[ 03 ] Architecture</div>
+            <div className="cs-section__label">{selectedCase.screenshots ? '[ 04 ] Architecture' : '[ 03 ] Architecture'}</div>
             <div className="cs-section__body">
               <div className="arch">
                 <div className="arch__inner">
@@ -338,7 +494,7 @@ export function CaseStudyPage({
       <section>
         <div className="container">
           <div className="cs-section">
-            <div className="cs-section__label">[ 04 ] Outcome</div>
+            <div className="cs-section__label">{selectedCase.screenshots ? '[ 05 ] Outcome' : '[ 04 ] Outcome'}</div>
             <div className="cs-section__body">
               {selectedCase.outcome.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
               <p className="case-quote">"{selectedCase.quote}"</p>

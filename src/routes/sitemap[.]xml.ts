@@ -6,7 +6,8 @@ const paths = [
   '/',
   '/services',
   '/case-studies/thalamus',
-  '/case-studies/alethia',
+  '/case-studies/aletheia',
+  '/case-studies/frcm',
   '/case-studies/retina',
 ]
 

@@ -65,7 +65,8 @@ export function Nav({ page, navigate }: { page: SitePage; navigate: NavigateToPa
 export function ClientLogos() {
   const logos = [
     { name: "Thalamus", style: "serif" },
-    { name: "Alethia", style: "serif", italic: true },
+    { name: "Aletheia", style: "serif", italic: true },
+    { name: "First Rule", style: "serif", italic: true },
     { name: "Retina", style: "sans" },
     { name: "Northwind", style: "mono" },
     { name: "Helix Labs", style: "serif" },

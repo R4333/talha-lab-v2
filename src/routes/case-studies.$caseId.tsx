@@ -6,14 +6,19 @@ import { SITE_URL, jsonLd, seo } from '../utils/seo'
 
 const CASE_SEO = {
   thalamus: {
-    title: 'Thalamus Case Study - Healthcare RAG Support Agent',
+    title: 'Thalamus Case Study - Enterprise Agentic RAG Platform',
     description:
-      'How Talha Turab shipped a HIPAA-conscious healthcare RAG support agent that reached 92% auto-resolution and $840k annual savings.',
+      'Enterprise-grade agentic RAG for teams that need multimodal ingestion, citation-backed retrieval, auditability, and a stronger build-vs-buy case.',
   },
-  alethia: {
-    title: 'Alethia Case Study - Legal AI Contract Drafting Agent',
+  aletheia: {
+    title: 'Aletheia Case Study - Multimodal Behavioral Intelligence',
     description:
-      'How Talha Turab built a citation-grounded legal AI agent that drafts contracts in 90 seconds without hallucinated clauses.',
+      'Multimodal behavioral intelligence across visual, vocal, and linguistic analysis for emotion, tone, confidence, stress, and explainable high-stakes review.',
+  },
+  frcm: {
+    title: 'First Rule Contract Manager Case Study - Construction Contract AI',
+    description:
+      'Construction-trained AI contract review with clause-linked risk, source-backed playbooks, Marten coaching, and kickoff-ready project summaries.',
   },
   retina: {
     title: 'Retina Case Study - ML Forecasting Pipeline',

@@ -13,7 +13,7 @@ function Hero({ headlineVariant = 'outcomes' }: { headlineVariant?: HeadlineVari
   const stats = [
     { value: '22', label: 'AI systems shipped' },
     { value: '$2.4M', label: 'Tracked client savings' },
-    { value: '92%', label: 'Best support deflection' },
+    { value: '66%', label: 'RAG TCO reduction' },
     { value: '100%', label: 'Delivered on scope' },
   ];
 
@@ -31,7 +31,7 @@ function Hero({ headlineVariant = 'outcomes' }: { headlineVariant?: HeadlineVari
             {headlines[headlineVariant] || headlines.outcomes}
           </h1>
           <p className="lede hero__lede">
-            Twelve shipped engagements across support automation, legal AI, forecasting and internal copilots. I turn AI from a deck into production systems that move revenue, margin, speed and headcount.
+            Twelve shipped engagements across support automation, contract AI, forecasting and internal copilots. I turn AI from a deck into production systems that move revenue, margin, speed and headcount.
           </p>
           <div className="hero__actions">
             <a href="#book" className="btn btn--accent btn--lg">Book a 30-min call <Arrow /></a>
@@ -72,34 +72,54 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
     {
       id: "thalamus",
       idx: "01",
-      client: "Thalamus · Series A · Healthtech",
-      title: <>From a 14-person <em>support queue</em> to a 24/7 medical knowledge agent.</>,
-      desc: "Replaced a brittle FAQ chatbot with a RAG system grounded in their internal protocols, EHR notes, and policy docs. Survived a 10× spike in queries during open enrollment with no degradation.",
-      tags: ["RAG", "LLM Eval", "GPT-4o", "Pinecone", "LangGraph"],
+      client: "Thalamus · Levitate Data · Enterprise RAG",
+      title: <>Enterprise-grade <em>agentic RAG</em> for high-stakes documents.</>,
+      desc: "Retrieval infrastructure for AI products that need answers users can trust. Thalamus turns messy enterprise knowledge into citation-backed intelligence with multimodal ingestion, agentic retrieval, auditability, and a stronger build-vs-buy case.",
+      tags: ["Agentic RAG", "Retrieval", "Multimodal", "Citations", "TCO"],
+      screenshot: "/assets/case-studies/thalamus-home.png",
+      status: "site linked",
       metrics: [
-        { value: <>92<em>%</em></>, label: "Auto-resolution" },
-        { value: <>$840<em>k</em></>, label: "Annual savings" },
+        { value: <>66<em>%</em></>, label: "Lower TCO" },
+        { value: <>$485<em>k</em></>, label: "Avg. savings" },
       ],
     },
     {
-      id: "alethia",
+      id: "aletheia",
       idx: "02",
-      client: "Alethia · Seed · Legal AI",
-      title: <>An <em>agent</em> that drafts contracts in 90 seconds — and won't hallucinate a clause.</>,
-      desc: "Designed a multi-agent workflow with a strict tool-use contract, citation-grounded retrieval, and a human-in-the-loop checkpoint. Replaced two paralegal contractors and shipped on a 6-week timeline.",
-      tags: ["Agents", "LangGraph", "Eval", "Postgres", "FastAPI"],
+      client: "Aletheia · Levitate Data · Behavioral AI",
+      title: <>Multimodal <em>behavioral intelligence</em> for high-stakes communication.</>,
+      desc: "A foundational AI layer for seeing beyond words. Aletheia fuses visual, vocal, and linguistic signals to reveal emotion, tone, confidence, stress, and explainable behavioral timelines across video, audio, and conversation.",
+      tags: ["Multimodal AI", "Emotion", "Signal Fusion", "Realtime", "API"],
+      screenshot: "/assets/case-studies/aletheia-section.png",
+      status: "product linked",
       metrics: [
-        { value: <>14×</>, label: "Faster drafts" },
-        { value: <>0</>, label: "Hallucinated clauses (90d)" },
+        { value: <>3</>, label: "Signal types" },
+        { value: <>API</>, label: "Integration" },
+      ],
+    },
+    {
+      id: "frcm",
+      idx: "03",
+      client: "First Rule · Construction contract AI",
+      title: <>Construction contract <em>review</em> with clause-linked AI playbooks.</>,
+      desc: "Construction-trained contract review for teams that need risk visible before kickoff. FRCM surfaces clause-level issues, anchors guidance to source language, applies playbooks, and turns contract review into a project-ready handoff.",
+      tags: ["Contract AI", "Playbooks", "Risk Review", "Marten", "Construction"],
+      screenshot: "/assets/case-studies/frcm-home.png",
+      status: "site linked",
+      metrics: [
+        { value: <>1</>, label: "Free upload" },
+        { value: <>Prime + Sub</>, label: "Coverage" },
       ],
     },
     {
       id: "retina",
-      idx: "03",
+      idx: "04",
       client: "Retina · Bootstrapped · DTC analytics",
       title: <>A <em>forecast model</em> that finally beat the founder's gut.</>,
       desc: "Built an end-to-end demand forecasting pipeline — feature store, training, eval, and a Slack-native interface. Founders went from quarterly buy decisions to weekly, with full confidence intervals attached.",
       tags: ["XGBoost", "MLOps", "Airflow", "Modal", "Slack API"],
+      screenshot: undefined,
+      status: "10 wk",
       metrics: [
         { value: <>−31<em>%</em></>, label: "Stockouts" },
         { value: <>+18<em>%</em></>, label: "Margin per SKU" },
@@ -117,7 +137,7 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
           </div>
           <div>
             <p className="lede">
-              Three engagements where AI moved a real business metric. Click through for the brief, architecture, and the numbers.
+              Four engagements where AI moved a real business metric. Click through for the brief, architecture, and the numbers.
             </p>
           </div>
         </div>
@@ -139,6 +159,11 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
                 <div className="case__cta mt-24">Read case study <Arrow /></div>
               </div>
               <div className="case__visual">
+                {c.screenshot && (
+                  <div className="case__thumb" aria-hidden="true">
+                    <img src={c.screenshot} alt="" loading="lazy" />
+                  </div>
+                )}
                 <div className="tiny-mono mb-16">[ Outcome ]</div>
                 <div className="case__metrics">
                   {c.metrics.map((m, j) => (
@@ -149,7 +174,7 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
                   ))}
                 </div>
                 <div className="tiny-mono" style={{ paddingTop: 14, borderTop: "1px dashed var(--line)" }}>
-                  Shipped · production · {c.idx === "01" ? "12 wk" : c.idx === "02" ? "6 wk" : "10 wk"}
+                  Shipped · production · {c.status}
                 </div>
               </div>
             </a>
@@ -312,16 +337,22 @@ function About({ showPhoto = true }: { showPhoto?: boolean }) {
 function Testimonials() {
   const items = [
     {
-      quote: "We'd burned six months and two contractors on this before Talha. He shipped a production RAG system in seven weeks and our support deflection rate jumped from 14% to 92%. He just gets it.",
-      name: "Sarah Mendez",
-      role: "VP Engineering · Thalamus Health",
-      initials: "SM",
+      quote: "Thalamus gives teams a retrieval layer they can trust when the answer has to be grounded, auditable, and ready for production.",
+      name: "Thalamus",
+      role: "Enterprise RAG platform · Levitate Data",
+      initials: "TH",
     },
     {
-      quote: "Most engineers hand you a pile of code and a Notion doc. Talha hands you a system, an eval harness, and a one-pager your CTO can actually read. Best money we've spent.",
-      name: "Daniel Okafor",
-      role: "Founder & CEO · Alethia",
-      initials: "DO",
+      quote: "Aletheia brings the human signal back into AI, turning voice, expression, and language into explainable behavioral intelligence.",
+      name: "Aletheia",
+      role: "Multimodal behavioral intelligence · Levitate Data",
+      initials: "AL",
+    },
+    {
+      quote: "First Rule Contract Manager helps construction teams see clause risk earlier, apply consistent playbooks, and carry better contract decisions into the field.",
+      name: "First Rule Contract Manager",
+      role: "Construction contract review platform",
+      initials: "FR",
     },
     {
       quote: "I came in skeptical of AI. Talha did a one-week paid discovery, told me what wasn't worth building, and shipped the one piece that was. Founders, hire him.",
