@@ -56,9 +56,9 @@ export const CASE_STUDIES: CaseStudy[] = [
     resultsNote: 'build-vs-buy value drivers',
     results: [
       { value: <>66<em>%</em></>, label: 'Lower TCO', sub: 'Vs. building RAG in-house' },
-      { value: <>$485<em>k</em></>, label: 'Average savings', sub: 'Compared with offshore build' },
-      { value: <>6<em>mo</em></>, label: 'Faster to production', sub: 'Documented build-vs-buy gap' },
-      { value: <em>Day 1</em>, label: 'Production readiness', sub: 'Hardened retrieval layer' },
+      { value: <>$485<em>K</em></>, label: 'Average savings', sub: 'Compared with offshore build' },
+      { value: <>6<em>{'\u00A0'}mo</em></>, label: 'Faster to production', sub: 'Documented build-vs-buy gap' },
+      { value: <em>Day{'\u00A0'}1</em>, label: 'Production readiness', sub: 'Hardened retrieval layer' },
     ],
     impact: [
       { label: 'Cost advantage', value: 66, detail: 'Lower TCO versus an in-house retrieval build.' },
@@ -338,7 +338,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     lede:
       'Retina was making inventory decisions from spreadsheets, intuition and stale dashboards. We built an end-to-end forecasting pipeline with confidence intervals and a Slack-native planning interface in 10 weeks.',
     engagement: 'Sprint + advisory',
-    engagementMeta: '10 weeks build · async support',
+    engagementMeta: '10\u00A0weeks build · async support',
     role: 'ML engineer',
     roleMeta: 'Forecasting · MLOps · product surface',
     year: '2024',
@@ -424,7 +424,7 @@ export function CaseStudyPage({
             <span>/</span>
             <a href="/#work">Case studies</a>
             <span>/</span>
-            <span>{selectedCase.shortName}</span>
+            <span translate="no">{selectedCase.shortName}</span>
           </div>
 
           <div className="case-picker">
@@ -432,7 +432,7 @@ export function CaseStudyPage({
             <details className="case-picker__menu">
               <summary className="case-picker__summary">
                 <span>CS / {selectedCase.index}</span>
-                <strong>{selectedCase.shortName}</strong>
+                <strong translate="no">{selectedCase.shortName}</strong>
                 <small>{selectedCase.clientMeta}</small>
               </summary>
               <div className="case-picker__options">
@@ -444,7 +444,7 @@ export function CaseStudyPage({
                     href={`/case-studies/${caseStudy.id}`}
                   >
                     <span>CS / {caseStudy.index}</span>
-                    <strong>{caseStudy.shortName}</strong>
+                    <strong translate="no">{caseStudy.shortName}</strong>
                     <small>{caseStudy.clientMeta}</small>
                   </a>
                 ))}
@@ -619,7 +619,7 @@ function MetaBlock({ label, title, detail }: { label: string; title: string; det
   return (
     <div>
       <div className="tiny-mono mb-8">{label}</div>
-      <p style={{ fontSize: 16, color: 'var(--fg)' }}>{title}</p>
+      <p style={{ fontSize: 16, color: 'var(--fg)' }} translate="no">{title}</p>
       <p className="small">{detail}</p>
     </div>
   )

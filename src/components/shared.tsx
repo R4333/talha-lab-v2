@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { Link } from '@tanstack/react-router'
 
 import { SITE_EMAIL, contactHref } from '../utils/seo'
@@ -8,13 +9,13 @@ export type NavigateToPage = (page: SitePage) => void
 
 // Arrow icon
 export const Arrow = ({ size = 14, className = 'arrow' }) => (
-  <svg className={className} width={size} height={size} viewBox="0 0 16 16" fill="none">
+  <svg className={className} width={size} height={size} viewBox="0 0 16 16" fill="none" aria-hidden="true">
     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
 export const ArrowUpRight = ({ size = 14 }) => (
-  <svg width={size} height={size} viewBox="0 0 16 16" fill="none">
+  <svg width={size} height={size} viewBox="0 0 16 16" fill="none" aria-hidden="true">
     <path d="M5 11L11 5M11 5H6M11 5V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
@@ -27,11 +28,31 @@ export const BrandMark = ({ className = 'nav__mark' }: { className?: string }) =
 
 // Nav
 export function Nav({ page, navigate }: { page: SitePage; navigate: NavigateToPage }) {
+  const mobileDetailsRef = useRef<HTMLDetailsElement>(null)
+  const toggleRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const details = mobileDetailsRef.current
+    if (!details) return
+
+    const handleToggle = () => {
+      if (details.open) {
+        const firstLink = details.querySelector<HTMLElement>('.nav__mobile-panel .nav__link, .nav__mobile-panel .nav__cta')
+        firstLink?.focus()
+      } else {
+        toggleRef.current?.focus()
+      }
+    }
+
+    details.addEventListener('toggle', handleToggle)
+    return () => details.removeEventListener('toggle', handleToggle)
+  }, [])
+
   return (
     <nav className="nav">
       <Link className="nav__brand" to="/">
         <BrandMark />
-        <span>Talha Turab<span style={{ color: "var(--fg-3)", marginLeft: 6, fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: "0.04em" }}>/ AI ENGINEERING</span></span>
+        <span>Talha Turab<span translate="no" style={{ color: "var(--fg-3)", marginLeft: 6, fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: "0.04em" }}>/ AI ENGINEERING</span></span>
       </Link>
       <div className="nav__links">
         <Link className="nav__link" data-active={page === "home"} to="/">Work</Link>
@@ -42,8 +63,8 @@ export function Nav({ page, navigate }: { page: SitePage; navigate: NavigateToPa
           Book a call <Arrow />
         </a>
       </div>
-      <details className="nav__mobile">
-        <summary className="nav__menu" aria-label="Toggle navigation menu">
+      <details className="nav__mobile" ref={mobileDetailsRef}>
+        <summary className="nav__menu" aria-label="Toggle navigation menu" ref={toggleRef as React.RefObject<HTMLElement>}>
           <span />
           <span />
         </summary>
@@ -117,7 +138,7 @@ export function Footer({ navigate }: { navigate: NavigateToPage }) {
               Independent AI engineering for founders, agencies, and teams shipping production AI.
             </p>
             <div className="mt-24" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              <span className="hero__status"><span className="hero__pulse" />Booking Q2 — 1 slot left</span>
+              <span className="hero__status"><span className="hero__pulse" />Booking Q2 — 1{'\u00A0'}slot left</span>
             </div>
           </div>
           <div className="footer__col">

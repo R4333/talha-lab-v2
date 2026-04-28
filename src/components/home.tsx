@@ -21,7 +21,7 @@ function Hero({ headlineVariant = 'outcomes' }: { headlineVariant?: HeadlineVari
     <section className="hero">
       <div className="container">
         <div className="hero__top">
-          <span className="hero__status"><span className="hero__pulse" />Available · Booking Q2 2026</span>
+          <span className="hero__status"><span className="hero__pulse" />Available · Booking Q2{'\u00A0'}2026</span>
           <span className="tiny-mono">Independent AI engineering · Est. 2021</span>
         </div>
 
@@ -85,7 +85,7 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
       ],
       metrics: [
         { value: <>66<em>%</em></>, label: "Lower TCO" },
-        { value: <>$485<em>k</em></>, label: "Avg. savings" },
+        { value: <>$485<em>K</em></>, label: "Avg. savings" },
       ],
     },
     {
@@ -202,7 +202,7 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
                   ))}
                 </div>
                 <div className="tiny-mono" style={{ paddingTop: 14, borderTop: "1px dashed var(--line)" }}>
-                  Shipped · production · {c.status}
+                  Shipped · production · {c.status.replace(' ', '\u00A0')}
                 </div>
               </div>
             </a>
@@ -292,7 +292,7 @@ function ServicesHome({ navigate }: { navigate: NavigateToPage }) {
           </div>
           <div>
             <p className="lede">
-              Clients don't buy LangGraph or Pinecone. They buy chatbots that resolve, agents that ship, and models that earn their compute. Here's what I deliver.
+              Clients don't buy <span translate="no">LangGraph</span> or <span translate="no">Pinecone</span>. They buy chatbots that resolve, agents that ship, and models that earn their compute. Here's what I deliver.
             </p>
             <a href="/services#capabilities" className="btn btn--ghost mt-32">
               See engagement options <ArrowUpRight />
@@ -467,8 +467,8 @@ function Testimonials() {
               <div className="testimonial__author">
                 <div className="testimonial__avatar">{t.initials}</div>
                 <div>
-                  <div className="testimonial__name">{t.name}</div>
-                  <div className="testimonial__role">{t.role}</div>
+                  <div className="testimonial__name" translate="no">{t.name}</div>
+                  <div className="testimonial__role" translate="no">{t.role}</div>
                 </div>
               </div>
             </div>
@@ -502,7 +502,7 @@ export function CTA() {
               <div className="cta-band__meta">
                 <div className="cta-band__meta-item">
                   <div className="tiny-mono">[ Response ]</div>
-                  <p style={{ fontSize: 14, color: "var(--fg)" }}>Within 24 hours</p>
+                  <p style={{ fontSize: 14, color: "var(--fg)" }}>Within 24{'\u00A0'}hours</p>
                 </div>
                 <div className="cta-band__meta-item">
                   <div className="tiny-mono">[ Timezone ]</div>
@@ -514,7 +514,7 @@ export function CTA() {
                 </div>
                 <div className="cta-band__meta-item">
                   <div className="tiny-mono">[ Engagement ]</div>
-                  <p style={{ fontSize: 14, color: "var(--fg)" }}>From $8k / 4 wks</p>
+                  <p style={{ fontSize: 14, color: "var(--fg)" }}>From $8k / 4{'\u00A0'}wks</p>
                 </div>
               </div>
             </div>

@@ -49,7 +49,7 @@ function HomeRoute() {
   return (
     <>
       <Nav page="home" navigate={navigate} />
-      <main>
+      <main id="main">
         <HomePage navigate={navigate} />
       </main>
     </>

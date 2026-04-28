@@ -73,6 +73,33 @@ function RootComponent() {
   )
 }
 
+function SkipLink() {
+  return (
+    <a
+      href="#main"
+      style={{
+        position: 'absolute',
+        top: '-40px',
+        left: 0,
+        zIndex: 100,
+        padding: '8px 16px',
+        background: 'var(--accent)',
+        color: 'var(--accent-fg)',
+        fontFamily: 'var(--font-sans)',
+        fontSize: 14,
+        fontWeight: 500,
+        textDecoration: 'none',
+        borderRadius: '0 0 8px 0',
+        transition: 'top 0.2s ease',
+      }}
+      onFocus={(e) => { e.currentTarget.style.top = '0px'; }}
+      onBlur={(e) => { e.currentTarget.style.top = '-40px'; }}
+    >
+      Skip to content
+    </a>
+  )
+}
+
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en" data-theme="dark" data-density="spacious">
@@ -80,6 +107,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <HeadContent />
       </head>
       <body>
+        <SkipLink />
         {children}
         <Scripts />
       </body>

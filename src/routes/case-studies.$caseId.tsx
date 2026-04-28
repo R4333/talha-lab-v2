@@ -96,7 +96,7 @@ function CaseStudyRoute() {
   return (
     <>
       <Nav page="case" navigate={siteNavigate} />
-      <main>
+      <main id="main">
         <CaseStudyPage
           navigate={siteNavigate}
           selectedId={selectedCase.id}

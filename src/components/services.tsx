@@ -7,7 +7,7 @@ export function ServicesPage({ navigate }: { navigate: NavigateToPage }) {
       id: "sprint",
       name: "Sprint",
       price: "from $8k",
-      tag: "Fixed scope · 4 weeks",
+      tag: "Fixed scope · 4{'\u00A0'}weeks",
       desc: "One narrow problem, one shipped solution. Best for: 'we need a working RAG/chatbot/forecast model and we need it before next quarter.'",
       includes: [
         "Discovery & written brief",
@@ -21,10 +21,10 @@ export function ServicesPage({ navigate }: { navigate: NavigateToPage }) {
       id: "embedded",
       name: "Embedded",
       price: "from $14k / mo",
-      tag: "Fractional · 3 mo min",
+      tag: "Fractional · 3{'\u00A0'}mo min",
       desc: "I work as your part-time AI engineer. 2–3 days a week, deep in your codebase, in your standups, on your Slack.",
       includes: [
-        "20–30 hrs / week",
+        "20–30{'\u00A0'}hrs / week",
         "Architecture, code, hiring help",
         "Direct access on Slack/Linear",
         "Weekly written status",
@@ -145,7 +145,7 @@ export function ServicesPage({ navigate }: { navigate: NavigateToPage }) {
           </div>
           <div style={{ marginTop: 48, display: "grid", gridTemplateColumns: "1fr", gap: 0 }}>
             {[
-              { q: "How fast can you start?", a: "I usually have one slot opening per month. The earliest is typically 2–3 weeks out — but I always reply within 24 hours so we'll know quickly." },
+               { q: "How fast can you start?", a: "I usually have one slot opening per month. The earliest is typically 2–3{'\u00A0'}weeks out — but I always reply within 24{'\u00A0'}hours so we'll know quickly." },
               { q: "Do you work with non-technical founders?", a: "Most of my clients are non-technical or technical-but-not-AI. I write the brief in plain English and translate it into engineering. That's half the job." },
               { q: "Can you white-label for my agency?", a: "Yes — about a third of my work is sub-contracted through agencies. I'll show up under your brand, your client never sees my name unless you want them to." },
               { q: "Do you take equity?", a: "For early-stage companies, partial-equity engagements are possible after the first paid sprint. I won't do equity-only." },
