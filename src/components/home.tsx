@@ -76,8 +76,13 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
       title: <>Enterprise-grade <em>agentic RAG</em> for high-stakes documents.</>,
       desc: "Retrieval infrastructure for AI products that need answers users can trust. Thalamus turns messy enterprise knowledge into citation-backed intelligence with multimodal ingestion, agentic retrieval, auditability, and a stronger build-vs-buy case.",
       tags: ["Agentic RAG", "Retrieval", "Multimodal", "Citations", "TCO"],
-      screenshot: "/assets/case-studies/thalamus-home.png",
+      screenshot: "/assets/projects/thalamus-curated.webp",
       status: "site linked",
+      profile: [
+        { label: "Trust", value: 92 },
+        { label: "Speed", value: 84 },
+        { label: "Coverage", value: 88 },
+      ],
       metrics: [
         { value: <>66<em>%</em></>, label: "Lower TCO" },
         { value: <>$485<em>k</em></>, label: "Avg. savings" },
@@ -90,8 +95,13 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
       title: <>Multimodal <em>behavioral intelligence</em> for high-stakes communication.</>,
       desc: "A foundational AI layer for seeing beyond words. Aletheia fuses visual, vocal, and linguistic signals to reveal emotion, tone, confidence, stress, and explainable behavioral timelines across video, audio, and conversation.",
       tags: ["Multimodal AI", "Emotion", "Signal Fusion", "Realtime", "API"],
-      screenshot: "/assets/case-studies/aletheia-section.png",
+      screenshot: "/assets/projects/aletheia-curated.webp",
       status: "product linked",
+      profile: [
+        { label: "Visual", value: 88 },
+        { label: "Vocal", value: 84 },
+        { label: "Fusion", value: 92 },
+      ],
       metrics: [
         { value: <>3</>, label: "Signal types" },
         { value: <>API</>, label: "Integration" },
@@ -104,8 +114,13 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
       title: <>Construction contract <em>review</em> with clause-linked AI playbooks.</>,
       desc: "Construction-trained contract review for teams that need risk visible before kickoff. FRCM surfaces clause-level issues, anchors guidance to source language, applies playbooks, and turns contract review into a project-ready handoff.",
       tags: ["Contract AI", "Playbooks", "Risk Review", "Marten", "Construction"],
-      screenshot: "/assets/case-studies/frcm-home.png",
+      screenshot: "/assets/projects/frcm-curated.webp",
       status: "site linked",
+      profile: [
+        { label: "Risk", value: 86 },
+        { label: "Standards", value: 90 },
+        { label: "Handoff", value: 82 },
+      ],
       metrics: [
         { value: <>1</>, label: "Free upload" },
         { value: <>Prime + Sub</>, label: "Coverage" },
@@ -118,8 +133,13 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
       title: <>A <em>forecast model</em> that finally beat the founder's gut.</>,
       desc: "Built an end-to-end demand forecasting pipeline — feature store, training, eval, and a Slack-native interface. Founders went from quarterly buy decisions to weekly, with full confidence intervals attached.",
       tags: ["XGBoost", "MLOps", "Airflow", "Modal", "Slack API"],
-      screenshot: undefined,
+      screenshot: "/assets/projects/retina-curated.webp",
       status: "10 wk",
+      profile: [
+        { label: "Cadence", value: 86 },
+        { label: "Accuracy", value: 86 },
+        { label: "Margin", value: 58 },
+      ],
       metrics: [
         { value: <>−31<em>%</em></>, label: "Stockouts" },
         { value: <>+18<em>%</em></>, label: "Margin per SKU" },
@@ -161,9 +181,17 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
               <div className="case__visual">
                 {c.screenshot && (
                   <div className="case__thumb" aria-hidden="true">
-                    <img src={c.screenshot} alt="" loading="lazy" />
+                    <img src={c.screenshot} alt="" loading="lazy" width="1600" height="1000" />
                   </div>
                 )}
+                <div className="case__profile" aria-hidden="true">
+                  {c.profile.map((item) => (
+                    <div className="case__profile-row" key={item.label} style={{ '--value': item.value } as React.CSSProperties}>
+                      <span>{item.label}</span>
+                      <i />
+                    </div>
+                  ))}
+                </div>
                 <div className="tiny-mono mb-16">[ Outcome ]</div>
                 <div className="case__metrics">
                   {c.metrics.map((m, j) => (
@@ -179,6 +207,63 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
               </div>
             </a>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function OperatingSystem() {
+  const lanes = [
+    {
+      num: "01",
+      title: "Find the leverage",
+      desc: "Map the workflow, data, risk, and metric before a single model decision gets made.",
+      items: ["Business metric", "Data surface", "Failure modes"],
+      score: 74,
+    },
+    {
+      num: "02",
+      title: "Build the engine",
+      desc: "Ship the retrieval, agent, model, eval, and interface as one production system.",
+      items: ["RAG / agents", "Evals", "UX surface"],
+      score: 88,
+    },
+    {
+      num: "03",
+      title: "Prove it holds",
+      desc: "Add observability, cost guardrails, regression checks, and a handover path.",
+      items: ["Monitoring", "Cost control", "Docs"],
+      score: 82,
+    },
+  ];
+
+  return (
+    <section className="section section--tight">
+      <div className="container">
+        <div className="os-panel">
+          <div className="os-panel__intro">
+            <div className="eyebrow mb-24">Operating system</div>
+            <h2 className="h2">AI projects need a <em>decision loop</em>, not a demo loop.</h2>
+            <p className="body">
+              The best systems compound because every release teaches the next one what to retrieve, measure, and improve.
+            </p>
+          </div>
+          <div className="os-lanes">
+            {lanes.map((lane) => (
+              <div className="os-lane" key={lane.num} style={{ '--score': lane.score } as React.CSSProperties}>
+                <div className="os-lane__top">
+                  <span>{lane.num}</span>
+                  <strong>{lane.title}</strong>
+                </div>
+                <p>{lane.desc}</p>
+                <div className="os-lane__items">
+                  {lane.items.map((item) => <span key={item}>{item}</span>)}
+                </div>
+                <div className="os-lane__bar" aria-hidden="true"><span /></div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -290,7 +375,7 @@ function About({ showPhoto = true }: { showPhoto?: boolean }) {
           {showPhoto && (
             <div>
               <div className="about-photo">
-                <img src="assets/talha.jpg" alt="Talha Turab" />
+                <img src="/assets/talha.jpg" alt="Talha Turab" loading="lazy" width="1048" height="1043" />
               </div>
               <div className="tiny-mono mt-16">Talha Turab — Lahore · 2024</div>
             </div>
@@ -371,7 +456,7 @@ function Testimonials() {
           </div>
           <div>
             <p className="lede">
-              Three quotes that capture how I actually work — and what clients say when the project is over.
+              Four quotes that capture how I actually work — and what clients say when the project is over.
             </p>
           </div>
         </div>
@@ -453,6 +538,7 @@ export function HomePage({
     <>
       <Hero headlineVariant={headlineVariant} showPhoto={showPhoto} />
       <ClientLogos />
+      <OperatingSystem />
       <CaseStudiesHome navigate={navigate} />
       <ServicesHome navigate={navigate} />
       <About showPhoto={showPhoto} />

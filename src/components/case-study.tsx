@@ -20,10 +20,12 @@ type CaseStudy = {
   resultsLabel: string
   resultsNote: string
   results: Array<{ value: React.ReactNode; label: string; sub: string }>
+  impact: Array<{ label: string; value: number; detail: string }>
   problem: React.ReactNode[]
   approach: React.ReactNode[]
   bullets: string[]
-  screenshots?: Array<{ title: string; src: string; alt: string; caption: string }>
+  heroVisual?: { src: string; alt: string }
+  screenshots?: Array<{ title: string; src: string; alt: string; caption: string; width: number; height: number }>
   architecture: Array<{ title: string; name: string; items: string[]; accent?: boolean }>
   architectureNote: React.ReactNode
   codeTitle: string
@@ -58,6 +60,12 @@ export const CASE_STUDIES: CaseStudy[] = [
       { value: <>6<em>mo</em></>, label: 'Faster to production', sub: 'Documented build-vs-buy gap' },
       { value: <em>Day 1</em>, label: 'Production readiness', sub: 'Hardened retrieval layer' },
     ],
+    impact: [
+      { label: 'Cost advantage', value: 66, detail: 'Lower TCO versus an in-house retrieval build.' },
+      { label: 'Deployment speed', value: 84, detail: 'Avoids months of ingestion and eval plumbing.' },
+      { label: 'Answer trust', value: 92, detail: 'Citation-first retrieval for auditable outputs.' },
+      { label: 'Data coverage', value: 88, detail: 'Documents, scans, tables, images, and video.' },
+    ],
     problem: [
       <>Enterprise AI breaks when retrieval is treated as a prototype detail. Real customer data includes scanned PDFs, dense tables, handwritten notes, long policy documents, multimedia files and source systems that change faster than static indexes can keep up.</>,
       <>Thalamus is built for the teams where <strong>retrieval failure is product failure</strong>: SaaS companies, regulated operators and AI builders whose answers must be accurate, auditable and defensible.</>,
@@ -75,24 +83,34 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Enterprise controls built around tenant isolation, encryption, audit trails, compliance readiness and no customer-data training.',
       'A board-level build-vs-buy case around cost, speed, reliability and future model flexibility.',
     ],
+    heroVisual: {
+      src: '/assets/projects/thalamus-curated.webp',
+      alt: 'Abstract curated visual for Thalamus showing layered documents, citation threads, and retrieval nodes',
+    },
     screenshots: [
       {
         title: 'Homepage positioning',
         src: '/assets/case-studies/thalamus-home.png',
         alt: 'Screenshot of the Thalamus homepage showing enterprise-grade agentic RAG positioning',
         caption: 'The homepage positions Thalamus as the enterprise-grade answer to unreliable retrieval, with multimodal ingestion, auditability and a clear cost/time advantage.',
+        width: 1440,
+        height: 6036,
       },
       {
         title: 'Product walkthrough',
         src: '/assets/case-studies/thalamus-product.png',
         alt: 'Screenshot of the Thalamus product page showing multimodal ingestion and agentic retrieval sections',
         caption: 'The product page turns the platform into a clear buyer journey: ingest, process, retrieve, integrate and govern.',
+        width: 1440,
+        height: 3799,
       },
       {
         title: 'Build-vs-buy analysis',
         src: '/assets/case-studies/thalamus-why.png',
         alt: 'Screenshot of the Thalamus build versus buy page showing TCO analysis',
         caption: 'The Why Thalamus page gives executives the commercial proof: lower TCO, faster production readiness and less long-term platform burden.',
+        width: 1440,
+        height: 4981,
       },
     ],
     architecture: [
@@ -145,6 +163,12 @@ export const CASE_STUDIES: CaseStudy[] = [
       { value: <em>API</em>, label: 'Integration mode', sub: 'Service-layer module' },
       { value: <em>Explainable</em>, label: 'Output standard', sub: 'Interpretable high-stakes insights' },
     ],
+    impact: [
+      { label: 'Visual signal', value: 88, detail: 'Facial expression and visible behavioral change.' },
+      { label: 'Vocal signal', value: 84, detail: 'Stress, emphasis, pacing, and confidence shifts.' },
+      { label: 'Language signal', value: 80, detail: 'Sentiment, nuance, and conversational context.' },
+      { label: 'Fused insight', value: 92, detail: 'A single explainable timeline for review.' },
+    ],
     problem: [
       <>Most conversation AI stops at transcripts and summaries. That leaves out the signals that often matter most: hesitation, confidence, stress, sentiment, tone and behavioral change over time.</>,
       <>Aletheia is built for the moments where <strong>how something was said changes what it means</strong>, especially when the stakes are legal, operational, financial or reputational.</>,
@@ -162,18 +186,26 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Explainable outputs, emotional timelines and confidence markers for high-stakes review workflows.',
       'Enterprise-ready delivery through API access, compliance readiness and scalable integration.',
     ],
+    heroVisual: {
+      src: '/assets/projects/aletheia-curated.webp',
+      alt: 'Abstract curated visual for Aletheia showing vocal, facial, and language signals converging',
+    },
     screenshots: [
       {
         title: 'Aletheia product section',
         src: '/assets/case-studies/aletheia-section.png',
         alt: 'Screenshot of the Aletheia product section on Levitate Data',
         caption: 'The product section introduces Aletheia as the intelligence layer that reveals emotion, confidence, tone and stress across communication.',
+        width: 1440,
+        height: 1200,
       },
       {
         title: 'Levitate Data product catalog',
         src: '/assets/case-studies/aletheia-product-page.png',
         alt: 'Screenshot of the Levitate Data product catalog containing Thalamus, Aletheia and Theia',
         caption: 'The product catalog places Aletheia inside Levitate Data\'s broader suite of AI infrastructure and intelligence products.',
+        width: 1440,
+        height: 4246,
       },
     ],
     architecture: [
@@ -221,6 +253,12 @@ export const CASE_STUDIES: CaseStudy[] = [
       { value: <em>30d</em>, label: 'Money-back guarantee', sub: 'After purchase' },
       { value: <em>Azure</em>, label: 'Deployment option', sub: 'Can run in customer environment' },
     ],
+    impact: [
+      { label: 'Clause visibility', value: 86, detail: 'Risk surfaced at the clause level before kickoff.' },
+      { label: 'Playbook consistency', value: 90, detail: 'Preferred and fallback language made repeatable.' },
+      { label: 'Handoff clarity', value: 82, detail: 'Summaries built for PMs and field leadership.' },
+      { label: 'Review speed', value: 76, detail: 'A faster path from upload to decision-ready review.' },
+    ],
     problem: [
       <>Construction contracts move fast, but the consequences last for the life of the job. Indemnity, delay, notice, payment and lien language can quietly shift risk before a project even starts.</>,
       <>FRCM is designed for construction teams that need <strong>practical contract clarity, not generic legal AI</strong>: visible risk, source-linked rationale and guidance that fits how project teams actually work.</>,
@@ -238,24 +276,34 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Playbooks as the standards engine behind preferred language, fallback language and escalation paths.',
       'AI review connected to the jobsite through kickoff-ready summaries, Marten coaching and training in the flow of work.',
     ],
+    heroVisual: {
+      src: '/assets/projects/frcm-curated.webp',
+      alt: 'Abstract curated visual for First Rule Contract Manager showing contracts, playbooks, and construction planning objects',
+    },
     screenshots: [
       {
         title: 'Homepage positioning',
         src: '/assets/case-studies/frcm-home.png',
         alt: 'Screenshot of the First Rule Contract Manager homepage',
         caption: 'The homepage sells a focused promise: confident contract decisions backed by construction-trained AI, playbooks and human-readable next steps.',
+        width: 1440,
+        height: 6362,
       },
       {
         title: 'Contract Manager overview',
         src: '/assets/case-studies/frcm-contract-manager.png',
         alt: 'Screenshot of the First Rule Contract Manager product overview page',
         caption: 'The product page turns contract review into an operational workflow, from upload to risk review to kickoff handoff.',
+        width: 1440,
+        height: 5461,
       },
       {
         title: 'Construction playbooks',
         src: '/assets/case-studies/frcm-playbooks.png',
         alt: 'Screenshot of the First Rule construction contract playbooks page',
         caption: 'The playbooks page makes the standards layer tangible, showing how negotiation posture becomes repeatable guidance across projects.',
+        width: 1440,
+        height: 4404,
       },
     ],
     architecture: [
@@ -303,6 +351,12 @@ export const CASE_STUDIES: CaseStudy[] = [
       { value: <em>7d</em>, label: 'Planning cadence', sub: 'Down from quarterly buys' },
       { value: <em>86%</em>, label: 'Forecast accuracy', sub: 'Weighted MAPE target hit' },
     ],
+    impact: [
+      { label: 'Stockout reduction', value: 69, detail: 'Inventory risk moved down across top SKUs.' },
+      { label: 'Margin lift', value: 58, detail: 'Better buying cadence improved SKU economics.' },
+      { label: 'Planning speed', value: 86, detail: 'Quarterly decisions became weekly planning.' },
+      { label: 'Forecast trust', value: 86, detail: 'Weighted accuracy reached the operating target.' },
+    ],
     problem: [
       <>The founder knew demand patterns better than the dashboards, but the business had outgrown intuition. <strong>Quarterly buying decisions were too slow</strong> for promotion swings and supplier delays.</>,
       <>Past forecasting attempts failed because they stopped at notebooks. There was no repeatable pipeline, no confidence intervals, and no planning workflow the team would actually use.</>,
@@ -320,6 +374,10 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Slack-native planning interface for weekly buying decisions.',
       'Scheduled retraining, drift checks and alerting for demand regime changes.',
     ],
+    heroVisual: {
+      src: '/assets/projects/retina-curated.webp',
+      alt: 'Abstract curated visual for Retina showing inventory forecasting blocks, demand curves, and confidence bands',
+    },
     architecture: [
       { title: '[ 01 ] Data', name: 'Demand history', items: ['Shopify', 'Ads spend', 'Inventory', 'Suppliers'] },
       { title: '[ 02 ] Features', name: 'Forecast table', items: ['Promotions', 'Lead times', 'Seasonality', 'Stockout flags'] },
@@ -395,17 +453,26 @@ export function CaseStudyPage({
           </div>
 
           <div className="eyebrow mb-24">Case study · {selectedCase.index} / {CASE_STUDIES.length.toString().padStart(2, '0')}</div>
-          <h1 className="h-display" style={{ maxWidth: 1100 }}>
-            {selectedCase.title}
-          </h1>
-          <p className="lede cs-hero__lede mt-32">{selectedCase.lede}</p>
-          {selectedCase.liveUrl && (
-            <div className="cs-hero__actions">
-              <a className="btn btn--accent" href={selectedCase.liveUrl} target="_blank" rel="noreferrer">
-                Visit live site <Arrow />
-              </a>
+          <div className="cs-hero__main">
+            <div>
+              <h1 className="h-display">
+                {selectedCase.title}
+              </h1>
+              <p className="lede cs-hero__lede mt-32">{selectedCase.lede}</p>
+              {selectedCase.liveUrl && (
+                <div className="cs-hero__actions">
+                  <a className="btn btn--accent" href={selectedCase.liveUrl} target="_blank" rel="noreferrer">
+                    Visit live site <Arrow />
+                  </a>
+                </div>
+              )}
             </div>
-          )}
+            {selectedCase.heroVisual && (
+              <figure className="cs-hero__visual" aria-label={`${selectedCase.shortName} curated visual`}>
+                <img src={selectedCase.heroVisual.src} alt={selectedCase.heroVisual.alt} width="1600" height="1000" />
+              </figure>
+            )}
+          </div>
 
           <div className="cs-hero__meta">
             <MetaBlock label="[ Client ]" title={selectedCase.client} detail={selectedCase.clientMeta} />
@@ -447,7 +514,7 @@ export function CaseStudyPage({
                   {selectedCase.screenshots.map((shot) => (
                     <figure className="case-shot" key={shot.src}>
                       <div className="case-shot__frame">
-                        <img src={shot.src} alt={shot.alt} loading="lazy" />
+                        <img src={shot.src} alt={shot.alt} loading="lazy" width={shot.width} height={shot.height} />
                       </div>
                       <figcaption>
                         <strong>{shot.title}</strong>
@@ -465,7 +532,31 @@ export function CaseStudyPage({
       <section>
         <div className="container">
           <div className="cs-section">
-            <div className="cs-section__label">{selectedCase.screenshots ? '[ 04 ] Architecture' : '[ 03 ] Architecture'}</div>
+            <div className="cs-section__label">{selectedCase.screenshots ? '[ 04 ] Value Profile' : '[ 03 ] Value Profile'}</div>
+            <div className="cs-section__body">
+              <div className="impact-chart" aria-label={`${selectedCase.shortName} value profile`}>
+                {selectedCase.impact.map((item) => (
+                  <div className="impact-chart__row" key={item.label} style={{ '--value': item.value } as React.CSSProperties}>
+                    <div>
+                      <strong>{item.label}</strong>
+                      <span>{item.detail}</span>
+                    </div>
+                    <div className="impact-chart__track" aria-hidden="true">
+                      <span />
+                    </div>
+                    <em>{item.value}</em>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div className="container">
+          <div className="cs-section">
+            <div className="cs-section__label">{selectedCase.screenshots ? '[ 05 ] Architecture' : '[ 04 ] Architecture'}</div>
             <div className="cs-section__body">
               <div className="arch">
                 <div className="arch__inner">
@@ -494,7 +585,7 @@ export function CaseStudyPage({
       <section>
         <div className="container">
           <div className="cs-section">
-            <div className="cs-section__label">{selectedCase.screenshots ? '[ 05 ] Outcome' : '[ 04 ] Outcome'}</div>
+            <div className="cs-section__label">{selectedCase.screenshots ? '[ 06 ] Outcome' : '[ 05 ] Outcome'}</div>
             <div className="cs-section__body">
               {selectedCase.outcome.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
               <p className="case-quote">"{selectedCase.quote}"</p>
