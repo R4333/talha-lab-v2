@@ -9,6 +9,11 @@ const paths = [
   '/case-studies/aletheia',
   '/case-studies/frcm',
   '/case-studies/retina',
+  '/case-studies/category/automation',
+  '/case-studies/category/chatbot',
+  '/case-studies/category/python-scripts',
+  '/case-studies/category/mvp-saas',
+  '/case-studies/category/voice-ai',
 ]
 
 export const Route = createFileRoute('/sitemap.xml')({

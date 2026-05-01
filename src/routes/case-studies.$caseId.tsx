@@ -6,24 +6,24 @@ import { SITE_URL, jsonLd, seo } from '../utils/seo'
 
 const CASE_SEO = {
   thalamus: {
-    title: 'Thalamus Case Study - Enterprise Agentic RAG Platform',
+    title: 'Thalamus Case Study - Document Automation Platform',
     description:
-      'Enterprise-grade agentic RAG for teams that need multimodal ingestion, citation-backed retrieval, auditability, and a stronger build-vs-buy case.',
+      'Document automation for teams that need source-backed answers, clear buyer proof, and a stronger buy-vs-build case.',
   },
   aletheia: {
-    title: 'Aletheia Case Study - Multimodal Behavioral Intelligence',
+    title: 'Aletheia Case Study - Voice and Video Review AI',
     description:
-      'Multimodal behavioral intelligence across visual, vocal, and linguistic analysis for emotion, tone, confidence, stress, and explainable high-stakes review.',
+      'Voice and video review tools that help teams understand tone, confidence, stress, and high-stakes communication context.',
   },
   frcm: {
-    title: 'First Rule Contract Manager Case Study - Construction Contract AI',
+    title: 'First Rule Contract Manager Case Study - Contract Review Automation',
     description:
-      'Construction-trained AI contract review with clause-linked risk, source-backed playbooks, Marten coaching, and kickoff-ready project summaries.',
+      'Construction contract review automation with clause-linked risk, plain-language guidance, and kickoff-ready project summaries.',
   },
   retina: {
-    title: 'Retina Case Study - ML Forecasting Pipeline',
+    title: 'Retina Case Study - Sales Forecast Automation',
     description:
-      'How Talha Turab shipped a demand forecasting system that reduced stockouts by 31% and improved margin per SKU by 18%.',
+      'How Talha Turab shipped a sales forecast workflow that reduced stockouts by 31% and improved product margin by 18%.',
   },
 } as const
 

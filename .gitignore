@@ -3,6 +3,9 @@ dist
 .output
 .tanstack
 .env
-.env.*
 !.env.example
 .vercel
+
+.playwright-cli
+
+

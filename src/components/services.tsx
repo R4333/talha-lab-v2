@@ -1,62 +1,62 @@
 import { CTA } from './home'
-import { ArrowUpRight, Footer, type NavigateToPage } from './shared'
+import { Footer, type NavigateToPage } from './shared'
 
 export function ServicesPage({ navigate }: { navigate: NavigateToPage }) {
   const tiers = [
     {
       id: "sprint",
       name: "Sprint",
-      price: "from $8k",
-      tag: "Fixed scope · 4{'\u00A0'}weeks",
-      desc: "One narrow problem, one shipped solution. Best for: 'we need a working RAG/chatbot/forecast model and we need it before next quarter.'",
+      price: "$1,000 / week",
+      tag: "Fixed scope · 4 weeks",
+      desc: "One narrow problem, one shipped solution. Best for a chatbot, automation, Python script, forecast helper, or first SaaS feature.",
       includes: [
-        "Discovery & written brief",
-        "Working prototype on real data",
-        "Eval pipeline + observability",
-        "Documented handover to your team",
+        "Discovery and written brief",
+        "Working tool on real data",
+        "Simple checks and launch notes",
+        "Documented handover",
       ],
-      best: "AI startups, agencies, founders building MVPs.",
+      best: "Founders, agencies, and teams that need a useful tool in four weeks.",
     },
     {
       id: "embedded",
       name: "Embedded",
-      price: "from $14k / mo",
-      tag: "Fractional · 3{'\u00A0'}mo min",
-      desc: "I work as your part-time AI engineer. 2–3 days a week, deep in your codebase, in your standups, on your Slack.",
+      price: "from $14k / month",
+      tag: "Part-time · 3 month min",
+      desc: "I work as your part-time AI builder for bigger product pushes. Useful when one sprint is not enough.",
       includes: [
-        "20–30{'\u00A0'}hrs / week",
-        "Architecture, code, hiring help",
-        "Direct access on Slack/Linear",
+        "20-30 hrs / week",
+        "Product, code, and launch help",
+        "Direct access on Slack or Linear",
         "Weekly written status",
       ],
-      best: "Series A/B teams without an in-house ML lead.",
+      best: "Product teams that need steady senior execution without a full-time hire.",
       featured: true,
     },
     {
       id: "advisory",
       name: "Advisory",
-      price: "from $4k / mo",
+      price: "from $4k / month",
       tag: "Fractional · async",
-      desc: "Ongoing technical advisor. Code reviews, architecture calls, vendor selection, hiring panels.",
+      desc: "Ongoing technical advisor for deciding what to build, what to avoid, and who to hire.",
       includes: [
         "Bi-weekly 60-min calls",
-        "Async Slack / async review",
-        "Architecture decision docs",
-        "Hiring & vendor support",
+        "Async Slack review",
+        "Build plan notes",
+        "Hiring and vendor support",
       ],
-      best: "Founders who need a senior brain on call.",
+      best: "Founders who need a senior AI builder on call.",
     },
   ];
 
   const services = [
-    { id: "ai-chatbots", num: "01", title: "AI chatbots", desc: "Customer support, internal helpdesk, knowledge concierge.", problem: "Your support team is drowning in repeat questions." },
-    { id: "rag-systems", num: "02", title: "RAG systems", desc: "Search & chat grounded in your contracts, docs, code, tickets.", problem: "Your data is locked in 6 different SaaS tools." },
-    { id: "ai-agents", num: "03", title: "AI agents", desc: "Multi-step workflow agents that book, draft, classify, escalate.", problem: "Hiring ops people to do work an agent should do." },
-    { id: "llm-apps", num: "04", title: "LLM apps", desc: "Custom copilots, assistants and chat experiences with eval & streaming.", problem: "Prototype works in dev, breaks in production." },
-    { id: "ml-model-dev", num: "05", title: "ML model dev", desc: "Forecasting, scoring, ranking, classification — trained on your data.", problem: "You have data. You don't have a model running on it." },
-    { id: "mlops", num: "06", title: "MLOps", desc: "Deployment, eval pipelines, monitoring, cost & retrieval-quality dashboards.", problem: "Your AI feature degraded and nobody noticed." },
-    { id: "ai-consulting", num: "07", title: "AI consulting", desc: "Architecture reviews, vendor selection, build-vs-buy, hiring panels.", problem: "You're about to spend 6 figures on the wrong stack." },
-    { id: "fractional-ai-lead", num: "08", title: "Fractional AI lead", desc: "Embedded part-time or full-time. Ship code, hire, set the roadmap.", problem: "You need a senior AI hire — but not for 12 months yet." },
+    { id: "ai-chatbots", href: "/case-studies/category/chatbot", num: "01", title: "AI chatbots", desc: "Customer support, internal helpdesk, and knowledge assistants.", problem: "Customers or staff keep asking the same questions." },
+    { id: "automations", href: "/case-studies/category/automation", num: "02", title: "Automations", desc: "Tools that move data, create reports, route work, and remove repeat admin.", problem: "Your team repeats the same manual task every week." },
+    { id: "python-scripts", href: "/case-studies/category/python-scripts", num: "03", title: "Python scripts", desc: "Small scripts for cleanup, scraping, reports, file processing, and data handoffs.", problem: "A spreadsheet or manual process is starting to break." },
+    { id: "mvp-saas", href: "/case-studies/category/mvp-saas", num: "04", title: "MVP SaaS", desc: "First-version products with the core workflow, simple UI, and buyer-ready story.", problem: "You need a usable product before investing in a full team." },
+    { id: "voice-ai", href: "/case-studies/category/voice-ai", num: "05", title: "Voice AI", desc: "Voice, call, and audio tools for review, routing, summaries, and follow-up.", problem: "Calls and recordings contain useful work nobody has time to review." },
+    { id: "forecast-tools", href: "/case-studies/category/python-scripts", num: "06", title: "Forecast tools", desc: "Sales, inventory, demand, and planning tools trained on your business data.", problem: "You have data, but decisions still happen from gut feel." },
+    { id: "document-review", href: "/case-studies/category/document-review", num: "07", title: "Document review", desc: "Contract, policy, PDF, and knowledge-base review with source-backed answers.", problem: "Important answers are buried in documents nobody has time to read." },
+    { id: "fractional-ai-lead", href: "/case-studies/category/mvp-saas", num: "08", title: "Fractional AI lead", desc: "Senior build support for roadmap, code, vendors, hiring, and launch decisions.", problem: "You need senior AI judgment, but not a full-time hire yet." },
   ];
 
   return (
@@ -70,7 +70,7 @@ export function ServicesPage({ navigate }: { navigate: NavigateToPage }) {
           </div>
           <div className="eyebrow mb-24">What I do</div>
           <h1 className="h-display" style={{ maxWidth: 1100 }}>
-            Engagements built around <em>your problem</em>, not my stack.
+            Simple AI services built around <em>your problem</em>, not my stack.
           </h1>
           <p className="lede mt-32" style={{ maxWidth: 720 }}>
             Three ways to work with me. Pick the one that matches the shape of your problem and your timeline.
@@ -104,8 +104,8 @@ export function ServicesPage({ navigate }: { navigate: NavigateToPage }) {
                     </li>
                   ))}
                 </ul>
-                <div className="service__problem" style={{ marginTop: "auto" }}>
-                  <strong>Best for:</strong>{t.best}
+              <div className="service__problem" style={{ marginTop: "auto" }}>
+                  <strong>Best for:</strong> {t.best}
                 </div>
               </div>
             ))}
@@ -121,17 +121,17 @@ export function ServicesPage({ navigate }: { navigate: NavigateToPage }) {
               <h2 className="h1">Everything I&nbsp;build.</h2>
             </div>
             <div>
-              <p className="lede">Not every project needs all of these. The discovery call narrows it down.</p>
+              <p className="lede">Most clients need one focused piece first. The discovery call narrows it down.</p>
             </div>
           </div>
           <div className="services-grid">
             {services.map((s, i) => (
-              <div key={s.id} id={`cap-${s.num}`} className="service">
+              <a key={s.id} id={`cap-${s.num}`} className="service" href={s.href}>
                 <div className="service__num">CAP / {s.num}</div>
                 <h3 className="service__title">{s.title}</h3>
                 <p className="service__desc">{s.desc}</p>
                 <div className="service__problem"><strong>For when:</strong>{s.problem}</div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
@@ -145,11 +145,11 @@ export function ServicesPage({ navigate }: { navigate: NavigateToPage }) {
           </div>
           <div style={{ marginTop: 48, display: "grid", gridTemplateColumns: "1fr", gap: 0 }}>
             {[
-               { q: "How fast can you start?", a: "I usually have one slot opening per month. The earliest is typically 2–3{'\u00A0'}weeks out — but I always reply within 24{'\u00A0'}hours so we'll know quickly." },
+              { q: "How fast can you start?", a: "I usually have one slot opening per month. The earliest is typically 2-3 weeks out, and I reply within 24 hours." },
               { q: "Do you work with non-technical founders?", a: "Most of my clients are non-technical or technical-but-not-AI. I write the brief in plain English and translate it into engineering. That's half the job." },
-              { q: "Can you white-label for my agency?", a: "Yes — about a third of my work is sub-contracted through agencies. I'll show up under your brand, your client never sees my name unless you want them to." },
+              { q: "Can you white-label for my agency?", a: "Yes. About a third of my work is sub-contracted through agencies. I can work under your brand, and your client only sees my name if you want that." },
               { q: "Do you take equity?", a: "For early-stage companies, partial-equity engagements are possible after the first paid sprint. I won't do equity-only." },
-              { q: "What stack do you use?", a: "Whatever fits. Usually: Python, FastAPI, Postgres, Pinecone or pgvector, OpenAI/Anthropic/open models, LangGraph or hand-rolled orchestration, Modal/Render/AWS for serving. Stack follows the problem." },
+              { q: "What do you build with?", a: "Whatever fits the job. Most projects use Python, a clean database, a simple web app, and the right AI model. The stack follows the problem." },
               { q: "Do you sign NDAs?", a: "Always, before any code or data is shared. The discovery call doesn't require one." },
             ].map((f, i) => (
               <details key={i} style={{ borderTop: "1px solid var(--line)", padding: "24px 0" }}>

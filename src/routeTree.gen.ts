@@ -14,6 +14,7 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CaseStudiesCaseIdRouteImport } from './routes/case-studies.$caseId'
+import { Route as CaseStudiesCategoryCategoryIdRouteImport } from './routes/case-studies.category.$categoryId'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -40,6 +41,12 @@ const CaseStudiesCaseIdRoute = CaseStudiesCaseIdRouteImport.update({
   path: '/case-studies/$caseId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CaseStudiesCategoryCategoryIdRoute =
+  CaseStudiesCategoryCategoryIdRouteImport.update({
+    id: '/case-studies/category/$categoryId',
+    path: '/case-studies/category/$categoryId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +54,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/case-studies/$caseId': typeof CaseStudiesCaseIdRoute
+  '/case-studies/category/$categoryId': typeof CaseStudiesCategoryCategoryIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +62,7 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/case-studies/$caseId': typeof CaseStudiesCaseIdRoute
+  '/case-studies/category/$categoryId': typeof CaseStudiesCategoryCategoryIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,6 +71,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/case-studies/$caseId': typeof CaseStudiesCaseIdRoute
+  '/case-studies/category/$categoryId': typeof CaseStudiesCategoryCategoryIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -71,6 +81,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/case-studies/$caseId'
+    | '/case-studies/category/$categoryId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -78,6 +89,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/case-studies/$caseId'
+    | '/case-studies/category/$categoryId'
   id:
     | '__root__'
     | '/'
@@ -85,6 +97,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/case-studies/$caseId'
+    | '/case-studies/category/$categoryId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -93,6 +106,7 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   CaseStudiesCaseIdRoute: typeof CaseStudiesCaseIdRoute
+  CaseStudiesCategoryCategoryIdRoute: typeof CaseStudiesCategoryCategoryIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -132,6 +146,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CaseStudiesCaseIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/case-studies/category/$categoryId': {
+      id: '/case-studies/category/$categoryId'
+      path: '/case-studies/category/$categoryId'
+      fullPath: '/case-studies/category/$categoryId'
+      preLoaderRoute: typeof CaseStudiesCategoryCategoryIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -141,6 +162,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   CaseStudiesCaseIdRoute: CaseStudiesCaseIdRoute,
+  CaseStudiesCategoryCategoryIdRoute: CaseStudiesCategoryCategoryIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -9,19 +9,14 @@ function normalizeSiteUrl(value: string | undefined) {
 export const SITE_URL = normalizeSiteUrl(import.meta.env.VITE_SITE_URL)
 export const SITE_NAME = import.meta.env.VITE_SITE_NAME || 'Talha Turab'
 export const SITE_EMAIL = import.meta.env.VITE_SITE_EMAIL || 'hi@talhaturab.ai'
+export const CONTACT_URL = 'https://www.upwork.com/freelancers/~013b9c6ef838feea61'
 export const DEFAULT_IMAGE = new URL(
   import.meta.env.VITE_DEFAULT_OG_IMAGE || '/assets/talha.jpg',
   SITE_URL,
 ).toString()
 
 export function contactHref(subject?: string) {
-  const url = new URL(`mailto:${SITE_EMAIL}`)
-
-  if (subject) {
-    url.searchParams.set('subject', subject)
-  }
-
-  return url.toString()
+  return CONTACT_URL
 }
 
 type SeoInput = {
@@ -52,7 +47,7 @@ export function seo({
       { property: 'og:description', content: description },
       { property: 'og:url', content: canonical },
       { property: 'og:image', content: image },
-      { property: 'og:image:alt', content: 'Talha Turab, independent AI engineer' },
+      { property: 'og:image:alt', content: 'Talha Turab, independent AI automation builder' },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: title },
       { name: 'twitter:description', content: description },

@@ -33,6 +33,20 @@ export const Route = createRootRoute({
       { rel: 'stylesheet', href: stylesUrl },
     ],
     scripts: [
+      ...(import.meta.env.MODE !== 'production'
+        ? [
+            {
+              type: 'module',
+              children: `
+                import RefreshRuntime from "/@react-refresh"
+                RefreshRuntime.injectIntoGlobalHook(window)
+                window.$RefreshReg$ = () => {}
+                window.$RefreshSig$ = () => (type) => type
+                window.__vite_plugin_react_preamble_installed__ = true
+              `,
+            },
+          ]
+        : []),
       jsonLd({
         '@context': 'https://schema.org',
         '@type': 'WebSite',
@@ -45,7 +59,7 @@ export const Route = createRootRoute({
         name: 'Talha Turab',
         url: SITE_URL,
         image: DEFAULT_IMAGE,
-        jobTitle: 'AI/ML Engineer',
+        jobTitle: 'AI Automation Builder',
         address: {
           '@type': 'PostalAddress',
           addressLocality: 'Lahore',
@@ -53,11 +67,11 @@ export const Route = createRootRoute({
         },
         knowsAbout: [
           'Artificial Intelligence',
-          'Machine Learning',
-          'Retrieval-Augmented Generation',
-          'AI Agents',
-          'MLOps',
-          'LLM Applications',
+          'Automation',
+          'Chatbots',
+          'Python scripts',
+          'SaaS MVPs',
+          'Voice AI',
         ],
       }),
     ],

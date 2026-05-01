@@ -7,9 +7,9 @@ import { SITE_URL, jsonLd, seo } from '../utils/seo'
 export const Route = createFileRoute('/')({
   head: () => {
     const pageSeo = seo({
-      title: 'Talha Turab - Production AI Engineer for Founders',
+      title: 'Talha Turab - AI Automation Builder for Founders',
       description:
-        'Independent AI/ML engineer helping founders ship production AI systems, RAG, agents, LLM apps and MLOps that move revenue, cost and speed.',
+        'Independent AI builder helping founders ship automations, chatbots, Python scripts, MVP SaaS products, and voice AI tools.',
       path: '/',
       type: 'profile',
     })
@@ -23,18 +23,18 @@ export const Route = createFileRoute('/')({
           name: 'Talha Turab AI Engineering',
           url: SITE_URL,
           description:
-            'Independent AI engineering for founders, agencies and teams shipping production AI.',
+            'Independent AI automation for founders, agencies and teams shipping useful tools.',
           areaServed: 'Worldwide',
           founder: {
             '@type': 'Person',
             name: 'Talha Turab',
           },
           serviceType: [
-            'RAG systems',
-            'AI agents',
-            'LLM application development',
-            'MLOps',
-            'Machine learning model development',
+            'AI automations',
+            'Chatbots',
+            'Python scripts',
+            'MVP SaaS products',
+            'Voice AI',
           ],
         }),
       ],

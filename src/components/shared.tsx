@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Link } from '@tanstack/react-router'
 
-import { SITE_EMAIL, contactHref } from '../utils/seo'
+import { contactHref } from '../utils/seo'
 
 export type SitePage = 'home' | 'services' | 'case'
 
@@ -52,14 +52,14 @@ export function Nav({ page, navigate }: { page: SitePage; navigate: NavigateToPa
     <nav className="nav">
       <Link className="nav__brand" to="/">
         <BrandMark />
-        <span>Talha Turab<span translate="no" style={{ color: "var(--fg-3)", marginLeft: 6, fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: "0.04em" }}>/ AI ENGINEERING</span></span>
+        <span>Talha Turab<span translate="no" style={{ color: "var(--fg-3)", marginLeft: 6, fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: "0.04em" }}>/ AI AUTOMATION</span></span>
       </Link>
       <div className="nav__links">
         <Link className="nav__link" data-active={page === "home"} to="/">Work</Link>
         <Link className="nav__link" data-active={page === "services"} to="/services">Services</Link>
-        <Link className="nav__link" data-active={page === "case"} to="/case-studies/$caseId" params={{ caseId: 'thalamus' }}>Case studies</Link>
+        <Link className="nav__link" data-active={page === "case"} to="/case-studies/$caseId" params={{ caseId: 'thalamus' }}>Case Studies</Link>
         <a className="nav__link" href="/#about">About</a>
-        <a className="btn btn--accent nav__cta" href="/#book">
+        <a className="btn btn--accent nav__cta" href={contactHref()}>
           Book a call <Arrow />
         </a>
       </div>
@@ -71,9 +71,9 @@ export function Nav({ page, navigate }: { page: SitePage; navigate: NavigateToPa
         <div className="nav__mobile-panel">
           <Link className="nav__link" data-active={page === "home"} to="/">Work</Link>
           <Link className="nav__link" data-active={page === "services"} to="/services">Services</Link>
-          <Link className="nav__link" data-active={page === "case"} to="/case-studies/$caseId" params={{ caseId: 'thalamus' }}>Case studies</Link>
+          <Link className="nav__link" data-active={page === "case"} to="/case-studies/$caseId" params={{ caseId: 'thalamus' }}>Case Studies</Link>
           <a className="nav__link" href="/#about">About</a>
-          <a className="btn btn--accent nav__cta" href="/#book">
+          <a className="btn btn--accent nav__cta" href={contactHref()}>
             Book a call <Arrow />
           </a>
         </div>
@@ -107,7 +107,7 @@ export function ClientLogos() {
   return (
     <div className="logos">
       <div className="container">
-        <div className="logos__label tiny-mono">Trusted by founders & teams shipping AI to production</div>
+        <div className="logos__label tiny-mono">Trusted by founders and teams shipping useful AI tools</div>
         <div className="logos__viewport" aria-label="Client logos">
           <div className="logos__track">
             {tickerLogos.map((l, i) => (
@@ -135,7 +135,7 @@ export function Footer({ navigate }: { navigate: NavigateToPage }) {
               <span style={{ fontWeight: 500, fontSize: 15 }}>Talha Turab</span>
             </div>
             <p className="small" style={{ maxWidth: 300 }}>
-              Independent AI engineering for founders, agencies, and teams shipping production AI.
+              Independent AI automation for founders, agencies, and teams shipping useful tools.
             </p>
             <div className="mt-24" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               <span className="hero__status"><span className="hero__pulse" />Booking Q2 — 1{'\u00A0'}slot left</span>
@@ -145,21 +145,21 @@ export function Footer({ navigate }: { navigate: NavigateToPage }) {
             <h5>Pages</h5>
             <Link to="/">Home</Link>
             <Link to="/services">Services</Link>
-            <Link to="/case-studies/$caseId" params={{ caseId: 'thalamus' }}>Case studies</Link>
+            <Link to="/case-studies/$caseId" params={{ caseId: 'thalamus' }}>Case Studies</Link>
             <a href="/#about">About</a>
           </div>
           <div className="footer__col">
             <h5>Services</h5>
-            <a href="/services#cap-02">RAG systems</a>
-            <a href="/services#cap-03">AI agents</a>
-            <a href="/services#cap-04">LLM apps</a>
-            <a href="/services#cap-06">MLOps</a>
-            <a href="/services#cap-08">Fractional AI</a>
+            <a href="/services#cap-01">AI chatbots</a>
+            <a href="/services#cap-02">Automations</a>
+            <a href="/services#cap-03">Python scripts</a>
+            <a href="/services#cap-04">MVP SaaS</a>
+            <a href="/services#cap-05">Voice AI</a>
           </div>
           <div className="footer__col">
             <h5>Contact</h5>
-            <a href={contactHref()}>{SITE_EMAIL}</a>
-            <a href={contactHref('Booking a 30-minute AI engineering call')}>Book a call ↗</a>
+            <a href={contactHref()}>Upwork profile</a>
+            <a href={contactHref('Booking a 30-minute AI automation call')}>Book a call ↗</a>
             <a href="/#work">Selected work</a>
             <a href="/services">Services</a>
           </div>

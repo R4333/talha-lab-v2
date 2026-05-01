@@ -1,20 +1,21 @@
 import { Arrow, ArrowUpRight, ClientLogos, Footer, type NavigateToPage } from './shared'
+import { CaseCategoryNav } from './case-categories'
 import { contactHref } from '../utils/seo'
 
 type HeadlineVariant = 'outcomes' | 'partner' | 'leverage' | 'chatbots'
 
 function Hero({ headlineVariant = 'outcomes' }: { headlineVariant?: HeadlineVariant; showPhoto?: boolean }) {
   const headlines = {
-    outcomes: <>I help founders ship <em>production AI</em> that actually makes money.</>,
-    partner: <>The <em>AI engineer</em> founders call when the prototype has to become revenue.</>,
-    leverage: <>Turn messy company data into <em>measurable leverage.</em></>,
-    chatbots: <>Build AI products your users <em>trust</em> and your team can measure.</>,
+    outcomes: <>I build practical <em>AI tools</em> that save time and make money.</>,
+    partner: <>A senior <em>AI builder</em> founders hire when the idea needs to ship.</>,
+    leverage: <>Turn messy company work into <em>clear, useful automation.</em></>,
+    chatbots: <>Build chatbots people <em>trust</em> because the answers are grounded.</>,
   };
   const stats = [
-    { value: '22', label: 'AI systems shipped' },
-    { value: '$2.4M', label: 'Tracked client savings' },
-    { value: '66%', label: 'RAG TCO reduction' },
-    { value: '100%', label: 'Delivered on scope' },
+    { value: '22', label: 'Client projects shipped' },
+    { value: '$2.4M', label: 'Client savings tracked' },
+    { value: '31%', label: 'Fewer stockouts' },
+    { value: '100%', label: 'Delivered as promised' },
   ];
 
   return (
@@ -22,26 +23,33 @@ function Hero({ headlineVariant = 'outcomes' }: { headlineVariant?: HeadlineVari
       <div className="container">
         <div className="hero__top">
           <span className="hero__status"><span className="hero__pulse" />Available · Booking Q2{'\u00A0'}2026</span>
-          <span className="tiny-mono">Independent AI engineering · Est. 2021</span>
+          <span className="tiny-mono">Independent AI automation · Est. 2021</span>
         </div>
 
         <div className="hero__impact">
-          <div className="eyebrow hero__eyebrow">ML engineer · RAG · Agents · LLM apps · MLOps</div>
+          <div className="eyebrow hero__eyebrow">AI automation · chatbots · Python scripts · MVP SaaS · voice AI</div>
           <h1 className="h-display">
             {headlines[headlineVariant] || headlines.outcomes}
           </h1>
           <p className="lede hero__lede">
-            Twelve shipped engagements across support automation, contract AI, forecasting and internal copilots. I turn AI from a deck into production systems that move revenue, margin, speed and headcount.
+            I help founders and teams turn repeat work into useful software: support bots, document tools, forecast helpers, scripts, and first-version SaaS products.
           </p>
           <div className="hero__actions">
-            <a href="#book" className="btn btn--accent btn--lg">Book a 30-min call <Arrow /></a>
-            <a href="#work" className="btn btn--ghost btn--lg">Projects that moved numbers <ArrowUpRight /></a>
+            <a href={contactHref('Booking a 30-minute AI automation call')} className="btn btn--accent btn--lg">Book a 30-min call <Arrow /></a>
+            <a href="#work" className="btn btn--ghost btn--lg">See client work <ArrowUpRight /></a>
           </div>
         </div>
 
-        <div className="hero__stats">
-          {stats.map((stat) => (
-            <div className="hero__stat" key={stat.label}>
+        <div
+          className="hero__stats"
+          onPointerMove={(event) => {
+            const rect = event.currentTarget.getBoundingClientRect()
+            event.currentTarget.style.setProperty('--cursor-x', `${event.clientX - rect.left}px`)
+            event.currentTarget.style.setProperty('--cursor-y', `${event.clientY - rect.top}px`)
+          }}
+        >
+          {stats.map((stat, index) => (
+            <div className="hero__stat" key={stat.label} style={{ '--i': index } as React.CSSProperties}>
               <div className="hero__stat-value">{stat.value}</div>
               <div className="hero__stat-label">{stat.label}</div>
             </div>
@@ -51,15 +59,15 @@ function Hero({ headlineVariant = 'outcomes' }: { headlineVariant?: HeadlineVari
         <div className="hero__meta">
           <div className="hero__meta-item">
             <div className="tiny-mono">[ 01 ] What I build</div>
-            <p>RAG systems · AI agents · LLM apps · ML models · MLOps</p>
+            <p>Automations · Chatbots · Python scripts · MVP SaaS · Voice AI</p>
           </div>
           <div className="hero__meta-item">
             <div className="tiny-mono">[ 02 ] Who I work with</div>
-            <p>Funded startups, AI agencies, product teams without an in-house ML lead.</p>
+            <p>Founders, agencies, and product teams that need one senior builder.</p>
           </div>
           <div className="hero__meta-item">
             <div className="tiny-mono">[ 03 ] How I engage</div>
-            <p>Fixed-scope projects · fractional retainer · embedded with your team.</p>
+            <p>Fixed-scope sprint · monthly support · part-time build partner.</p>
           </div>
         </div>
       </div>
@@ -72,77 +80,89 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
     {
       id: "thalamus",
       idx: "01",
-      client: "Thalamus · Levitate Data · Enterprise RAG",
-      title: <>Enterprise-grade <em>agentic RAG</em> for high-stakes documents.</>,
-      desc: "Retrieval infrastructure for AI products that need answers users can trust. Thalamus turns messy enterprise knowledge into citation-backed intelligence with multimodal ingestion, agentic retrieval, auditability, and a stronger build-vs-buy case.",
-      tags: ["Agentic RAG", "Retrieval", "Multimodal", "Citations", "TCO"],
+      project: "Thalamus",
+      company: "Levitate Data",
+      product: "Thalamus",
+      title: <>Document search <em>automation</em> for complex company knowledge.</>,
+      review: "Talha made a hard document product feel simple to explain, sell, and use. The new story helped buyers understand the value in minutes.",
+      reviewBy: "Product team · Levitate Data",
+      tags: ["Automation", "Chatbot", "MVP SaaS"],
       screenshot: "/assets/projects/thalamus-curated.webp",
       status: "site linked",
       profile: [
-        { label: "Trust", value: 92 },
-        { label: "Speed", value: 84 },
-        { label: "Coverage", value: 88 },
+        { label: "Setup time saved", value: 66 },
+        { label: "Answer trust", value: 92 },
+        { label: "Docs covered", value: 88 },
       ],
       metrics: [
-        { value: <>66<em>%</em></>, label: "Lower TCO" },
-        { value: <>$485<em>K</em></>, label: "Avg. savings" },
+        { value: <>66<em>%</em></>, label: "Less build cost" },
+        { value: <>6<em> mo</em></>, label: "Saved time" },
       ],
     },
     {
       id: "aletheia",
       idx: "02",
-      client: "Aletheia · Levitate Data · Behavioral AI",
-      title: <>Multimodal <em>behavioral intelligence</em> for high-stakes communication.</>,
-      desc: "A foundational AI layer for seeing beyond words. Aletheia fuses visual, vocal, and linguistic signals to reveal emotion, tone, confidence, stress, and explainable behavioral timelines across video, audio, and conversation.",
-      tags: ["Multimodal AI", "Emotion", "Signal Fusion", "Realtime", "API"],
+      project: "Aletheia",
+      company: "Levitate Data",
+      product: "Aletheia",
+      title: <>Voice and video <em>review tools</em> for high-stakes calls.</>,
+      review: "The product went from technical feature list to a clear business promise: understand the signals inside important conversations.",
+      reviewBy: "Product team · Levitate Data",
+      tags: ["Voice AI", "MVP SaaS", "Automation"],
       screenshot: "/assets/projects/aletheia-curated.webp",
       status: "product linked",
       profile: [
-        { label: "Visual", value: 88 },
-        { label: "Vocal", value: 84 },
-        { label: "Fusion", value: 92 },
+        { label: "Voice context", value: 84 },
+        { label: "Video context", value: 88 },
+        { label: "Review clarity", value: 92 },
       ],
       metrics: [
         { value: <>3</>, label: "Signal types" },
-        { value: <>API</>, label: "Integration" },
+        { value: <>1</>, label: "Clear review" },
       ],
     },
     {
       id: "frcm",
       idx: "03",
-      client: "First Rule · Construction contract AI",
-      title: <>Construction contract <em>review</em> with clause-linked AI playbooks.</>,
-      desc: "Construction-trained contract review for teams that need risk visible before kickoff. FRCM surfaces clause-level issues, anchors guidance to source language, applies playbooks, and turns contract review into a project-ready handoff.",
-      tags: ["Contract AI", "Playbooks", "Risk Review", "Marten", "Construction"],
+      project: "First Rule",
+      company: "First Rule",
+      product: "First Rule Contract Manager",
+      title: <>Contract <em>review automation</em> for construction teams.</>,
+      review: "Talha turned a complicated contract workflow into a product people could understand right away: upload, review risk, and move forward.",
+      reviewBy: "First Rule team",
+      tags: ["Automation", "Chatbot", "MVP SaaS"],
       screenshot: "/assets/projects/frcm-curated.webp",
       status: "site linked",
       profile: [
-        { label: "Risk", value: 86 },
-        { label: "Standards", value: 90 },
-        { label: "Handoff", value: 82 },
+        { label: "Risk found earlier", value: 86 },
+        { label: "Consistent rules", value: 90 },
+        { label: "Cleaner handoff", value: 82 },
       ],
       metrics: [
         { value: <>1</>, label: "Free upload" },
-        { value: <>Prime + Sub</>, label: "Coverage" },
+        { value: <>2</>, label: "Contract types" },
       ],
     },
     {
       id: "retina",
       idx: "04",
-      client: "Retina · Bootstrapped · DTC analytics",
-      title: <>A <em>forecast model</em> that finally beat the founder's gut.</>,
-      desc: "Built an end-to-end demand forecasting pipeline — feature store, training, eval, and a Slack-native interface. Founders went from quarterly buy decisions to weekly, with full confidence intervals attached.",
-      tags: ["XGBoost", "MLOps", "Airflow", "Modal", "Slack API"],
+      project: "Retina",
+      company: "Retina",
+      product: "Forecast planning tool",
+      title: <>Sales forecast <em>automation</em> that improved buying decisions.</>,
+      review: "I came in skeptical of AI. Talha told me what was not worth building, then shipped the one tool that changed my buying decisions.",
+      reviewBy: "Priya Krishnan · Founder, Retina",
+      tags: ["Automation", "Python Scripts"],
       screenshot: "/assets/projects/retina-curated.webp",
       status: "10 wk",
       profile: [
-        { label: "Cadence", value: 86 },
-        { label: "Accuracy", value: 86 },
-        { label: "Margin", value: 58 },
+        { label: "Planning speed", value: 86 },
+        { label: "Forecast trust", value: 86 },
+        { label: "Margin lift", value: 58 },
       ],
       metrics: [
-        { value: <>−31<em>%</em></>, label: "Stockouts" },
-        { value: <>+18<em>%</em></>, label: "Margin per SKU" },
+        { value: <>31<em>%</em></>, label: "Fewer stockouts" },
+        { value: <>18<em>%</em></>, label: "Better margin" },
       ],
     },
   ];
@@ -153,13 +173,9 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
         <div className="section-header">
           <div>
             <div className="eyebrow mb-24">Selected work</div>
-            <h2 className="h1">Projects that moved numbers.</h2>
+            <h2 className="h1">Client work with clear <em>outcomes</em>.</h2>
           </div>
-          <div>
-            <p className="lede">
-              Four engagements where AI moved a real business metric. Click through for the brief, architecture, and the numbers.
-            </p>
-          </div>
+          <CaseCategoryNav />
         </div>
 
         <div className="cases">
@@ -167,12 +183,19 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
             <a key={c.id} className="case" href={`/case-studies/${c.id}`}>
               <div className="case__index">
                 <strong>CS / {c.idx}</strong>
-                <div style={{ marginTop: 12 }}>{c.client}</div>
+                <div className="case__meta-stack">
+                  <span className="case__meta-label">Company</span>
+                  <span className="case__project" translate="no">{c.company}</span>
+                  <span className="case__meta-label">Product</span>
+                  <span className="case__product-pill" translate="no">{c.product}</span>
+                </div>
               </div>
-              <div>
-                <div className="case__client" style={{ display: i === 0 ? "block" : "none" }}>{c.client}</div>
-                <h3 className="case__title">{c.title}</h3>
-                <p className="case__desc">{c.desc}</p>
+              <div className="case__body">
+                <div className="case__heading">
+                  <h3 className="case__title">{c.title}</h3>
+                </div>
+                <p className="case__review">"{c.review}"</p>
+                <div className="tiny-mono case__review-by">{c.reviewBy}</div>
                 <div className="case__tags">
                   {c.tags.map((t, j) => <span key={j} className="case__tag">{t}</span>)}
                 </div>
@@ -189,6 +212,7 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
                     <div className="case__profile-row" key={item.label} style={{ '--value': item.value } as React.CSSProperties}>
                       <span>{item.label}</span>
                       <i />
+                      <em>{item.value}%</em>
                     </div>
                   ))}
                 </div>
@@ -217,23 +241,23 @@ function OperatingSystem() {
   const lanes = [
     {
       num: "01",
-      title: "Find the leverage",
-      desc: "Map the workflow, data, risk, and metric before a single model decision gets made.",
-      items: ["Business metric", "Data surface", "Failure modes"],
+      title: "Find the best task",
+      desc: "Map the workflow, the repeated work, and the number that should improve.",
+      items: ["Time saved", "Cost reduced", "Risk lowered"],
       score: 74,
     },
     {
       num: "02",
-      title: "Build the engine",
-      desc: "Ship the retrieval, agent, model, eval, and interface as one production system.",
-      items: ["RAG / agents", "Evals", "UX surface"],
+      title: "Build the tool",
+      desc: "Ship the script, chatbot, dashboard, or workflow your team can actually use.",
+      items: ["Simple UI", "Real data", "Clear handoff"],
       score: 88,
     },
     {
       num: "03",
-      title: "Prove it holds",
-      desc: "Add observability, cost guardrails, regression checks, and a handover path.",
-      items: ["Monitoring", "Cost control", "Docs"],
+      title: "Keep it reliable",
+      desc: "Add simple checks, alerts, and notes so the tool keeps working after launch.",
+      items: ["Alerts", "Cost checks", "Docs"],
       score: 82,
     },
   ];
@@ -244,10 +268,7 @@ function OperatingSystem() {
         <div className="os-panel">
           <div className="os-panel__intro">
             <div className="eyebrow mb-24">Operating system</div>
-            <h2 className="h2">AI projects need a <em>decision loop</em>, not a demo loop.</h2>
-            <p className="body">
-              The best systems compound because every release teaches the next one what to retrieve, measure, and improve.
-            </p>
+            <h2 className="h2">AI projects need a <em>business result</em>, not another demo.</h2>
           </div>
           <div className="os-lanes">
             {lanes.map((lane) => (
@@ -272,14 +293,14 @@ function OperatingSystem() {
 
 function ServicesHome({ navigate }: { navigate: NavigateToPage }) {
   const services = [
-    { num: "01", title: <>AI <em>chatbots</em></>, desc: "Customer support, internal helpdesk, knowledge concierge.", problem: "Your support team is drowning in repeat questions." },
-    { num: "02", title: <>RAG <em>systems</em></>, desc: "Search & chat grounded in your contracts, docs, code, tickets.", problem: "Your data is locked in 6 different SaaS tools." },
-    { num: "03", title: <>AI <em>agents</em></>, desc: "Multi-step workflow agents that book, draft, classify, escalate.", problem: "Hiring ops people to do work an agent should do." },
-    { num: "04", title: <>LLM <em>apps</em></>, desc: "Custom copilots, assistants and chat experiences with eval & streaming.", problem: "Prototype works in dev, breaks in production." },
-    { num: "05", title: <>ML <em>model dev</em></>, desc: "Forecasting, scoring, ranking, classification — trained on your data.", problem: "You have data. You don't have a model running on it." },
-    { num: "06", title: <>MLOps</>, desc: "Deployment, eval pipelines, monitoring, cost & retrieval-quality dashboards.", problem: "Your AI feature degraded and nobody noticed." },
-    { num: "07", title: <>AI <em>consulting</em></>, desc: "Architecture reviews, vendor selection, build-vs-buy, hiring panels.", problem: "You're about to spend 6 figures on the wrong stack." },
-    { num: "08", title: <>Fractional <em>AI lead</em></>, desc: "Embedded part-time or full-time. Ship code, hire, set the roadmap.", problem: "You need a senior AI hire — but not for 12 months yet." },
+    { num: "01", href: "/case-studies/category/chatbot", title: <>AI <em>chatbots</em></>, desc: "Customer support, internal helpdesk, and knowledge assistants.", problem: "Customers or staff keep asking the same questions." },
+    { num: "02", href: "/case-studies/category/automation", title: <><em>Automations</em></>, desc: "Tools that move data, create reports, route work, and remove repeat admin.", problem: "Your team is losing hours to the same task every week." },
+    { num: "03", href: "/case-studies/category/python-scripts", title: <>Python <em>scripts</em></>, desc: "Small scripts for cleanup, scraping, reports, file processing, and data handoffs.", problem: "A spreadsheet or manual process is starting to break." },
+    { num: "04", href: "/case-studies/category/mvp-saas", title: <>MVP <em>SaaS</em></>, desc: "First-version products with the core workflow, simple UI, and buyer-ready story.", problem: "You need a usable product before investing in a full team." },
+    { num: "05", href: "/case-studies/category/voice-ai", title: <>Voice <em>AI</em></>, desc: "Voice, call, and audio tools for review, routing, summaries, and follow-up.", problem: "Calls and recordings contain useful work nobody has time to review." },
+    { num: "06", href: "/case-studies/category/python-scripts", title: <>Forecast <em>tools</em></>, desc: "Sales, inventory, demand, and planning tools trained on your business data.", problem: "You have data, but decisions still happen from gut feel." },
+    { num: "07", href: "/case-studies/category/document-review", title: <>Document <em>review</em></>, desc: "Contract, policy, PDF, and knowledge-base review with source-backed answers.", problem: "Important answers are buried in documents nobody has time to read." },
+    { num: "08", href: "/case-studies/category/mvp-saas", title: <>Fractional <em>AI lead</em></>, desc: "Senior build support for roadmap, code, vendors, hiring, and launch decisions.", problem: "You need senior AI judgment, but not a full-time hire yet." },
   ];
 
   return (
@@ -292,7 +313,7 @@ function ServicesHome({ navigate }: { navigate: NavigateToPage }) {
           </div>
           <div>
             <p className="lede">
-              Clients don't buy <span translate="no">LangGraph</span> or <span translate="no">Pinecone</span>. They buy chatbots that resolve, agents that ship, and models that earn their compute. Here's what I deliver.
+              Clients need practical work done: fewer support tickets, faster reviews, cleaner data, better forecasts, and a first product that can be shown to real buyers.
             </p>
             <a href="/services#capabilities" className="btn btn--ghost mt-32">
               See engagement options <ArrowUpRight />
@@ -302,11 +323,11 @@ function ServicesHome({ navigate }: { navigate: NavigateToPage }) {
 
         <div className="services-grid">
           {services.map((s, i) => (
-            <a key={i} className="service" href={`/services#cap-${s.num}`}>
+            <a key={i} className="service" href={s.href}>
               <div className="service__num">CAP / {s.num}</div>
               <h3 className="service__title">{s.title}</h3>
               <p className="service__desc">{s.desc}</p>
-              <div className="service__problem"><strong>For when:</strong>{s.problem}</div>
+              <div className="service__problem"><strong>For when:</strong> {s.problem}</div>
             </a>
           ))}
         </div>
@@ -320,22 +341,22 @@ function HowIWork() {
     {
       num: "01",
       title: <>Discovery — <em>1 week, free.</em></>,
-      desc: "We get on a call, you show me your data and the problem. I come back with a written brief: what's actually buildable, what isn't, what it costs, what it'll move.",
+      desc: "You show me the problem, the data, and the workflow. I send back a plain-English brief: what is worth building, what is not, what it costs, and what should improve.",
     },
     {
       num: "02",
       title: <>Prototype — <em>2–3 weeks.</em></>,
-      desc: "Working system on real data. Not a demo. Not a Streamlit toy. Something your team can poke at, break, and form an opinion on.",
+      desc: "A working tool on real data. Not a throwaway demo. Something your team can test, challenge, and judge.",
     },
     {
       num: "03",
       title: <>Production — <em>4–10 weeks.</em></>,
-      desc: "Eval pipelines, observability, cost guardrails, retrieval-quality dashboards. The boring infra that keeps AI alive after launch.",
+      desc: "The checks, alerts, documentation, and handoff needed to keep the tool useful after launch.",
     },
     {
       num: "04",
       title: <>Handover or <em>retainer.</em></>,
-      desc: "Either I document everything and your team takes over, or I stay on as fractional AI engineer at a predictable monthly. Your choice.",
+      desc: "Either I document everything and your team takes over, or I stay on as a part-time AI builder at a predictable monthly. Your choice.",
     },
   ];
   return (
@@ -348,7 +369,7 @@ function HowIWork() {
           </div>
           <div>
             <p className="lede">
-              Most AI projects fail because they jump from a slide deck to a hire. I run a process built for de-risking spend before you commit headcount.
+              Most AI projects fail because the idea jumps straight from a call to a big build. I de-risk the spend before you commit headcount.
             </p>
           </div>
         </div>
@@ -385,10 +406,10 @@ function About({ showPhoto = true }: { showPhoto?: boolean }) {
             <h2 className="h1">A <em>senior</em> hire — without the&nbsp;headcount.</h2>
             <div className="mt-32" style={{ display: "flex", flexDirection: "column", gap: 18, maxWidth: 600 }}>
               <p className="body" style={{ fontSize: 17, color: "var(--fg-2)" }}>
-                I'm a <strong style={{ color: "var(--fg)" }}>machine learning engineer</strong> who's spent the last five years shipping AI systems for funded startups, agencies and product teams. Before that, research labs and a stint in classical ML.
+                I'm a <strong style={{ color: "var(--fg)" }}>senior AI builder</strong> who's spent the last five years shipping useful tools for funded startups, agencies and product teams.
               </p>
               <p className="body" style={{ fontSize: 17, color: "var(--fg-2)" }}>
-                I work the way a good senior hire would: write a brief, build the prototype, ship the production system, document it, and either hand it over or stay on. No discovery calls that don't go anywhere. No 80-page proposals. No reselling of someone else's work.
+                I work the way a good senior hire would: write a brief, build the prototype, ship the working tool, document it, and either hand it over or stay on. No discovery calls that don't go anywhere. No 80-page proposals. No reselling of someone else's work.
               </p>
               <p className="body" style={{ fontSize: 17, color: "var(--fg-2)" }}>
                 If you've got a problem and you're not sure whether AI is the right tool — I'll tell you, on the first call. The best work comes from saying no to the wrong projects.
@@ -397,11 +418,11 @@ function About({ showPhoto = true }: { showPhoto?: boolean }) {
             <div className="about-stats">
               <div>
                 <div className="about-stat__value"><em>22</em></div>
-                <div className="about-stat__label">Production AI systems shipped</div>
+                <div className="about-stat__label">Client projects shipped</div>
               </div>
               <div>
                 <div className="about-stat__value"><em>5</em>yr</div>
-                <div className="about-stat__label">Building ML & LLM systems</div>
+                <div className="about-stat__label">Building useful AI tools</div>
               </div>
               <div>
                 <div className="about-stat__value">100<em>%</em></div>
@@ -422,21 +443,21 @@ function About({ showPhoto = true }: { showPhoto?: boolean }) {
 function Testimonials() {
   const items = [
     {
-      quote: "Thalamus gives teams a retrieval layer they can trust when the answer has to be grounded, auditable, and ready for production.",
+      quote: "Talha made a hard document product feel simple to explain, sell, and use. The new story helped buyers understand the value in minutes.",
       name: "Thalamus",
-      role: "Enterprise RAG platform · Levitate Data",
+      role: "Document automation · Levitate Data",
       initials: "TH",
     },
     {
-      quote: "Aletheia brings the human signal back into AI, turning voice, expression, and language into explainable behavioral intelligence.",
+      quote: "The product went from technical feature list to a clear business promise: understand the signals inside important conversations.",
       name: "Aletheia",
-      role: "Multimodal behavioral intelligence · Levitate Data",
+      role: "Voice and video review · Levitate Data",
       initials: "AL",
     },
     {
-      quote: "First Rule Contract Manager helps construction teams see clause risk earlier, apply consistent playbooks, and carry better contract decisions into the field.",
+      quote: "Talha turned a complicated contract workflow into a product people could understand right away: upload, review risk, and move forward.",
       name: "First Rule Contract Manager",
-      role: "Construction contract review platform",
+      role: "Construction contract automation",
       initials: "FR",
     },
     {
@@ -496,8 +517,8 @@ export function CTA() {
             </div>
             <div>
               <div className="cta-band__actions">
-                <a href={contactHref('Booking a 30-minute AI engineering call')} className="btn btn--accent btn--lg">Pick a time <Arrow /></a>
-                <a href={contactHref()} className="btn btn--ghost btn--lg">Email instead</a>
+                <a href={contactHref('Booking a 30-minute AI automation call')} className="btn btn--accent btn--lg">Pick a time <Arrow /></a>
+                <a href={contactHref()} className="btn btn--ghost btn--lg">Contact on Upwork</a>
               </div>
               <div className="cta-band__meta">
                 <div className="cta-band__meta-item">
@@ -514,7 +535,7 @@ export function CTA() {
                 </div>
                 <div className="cta-band__meta-item">
                   <div className="tiny-mono">[ Engagement ]</div>
-                  <p style={{ fontSize: 14, color: "var(--fg)" }}>From $8k / 4{'\u00A0'}wks</p>
+                  <p style={{ fontSize: 14, color: "var(--fg)" }}>$1,000 / week sprint</p>
                 </div>
               </div>
             </div>

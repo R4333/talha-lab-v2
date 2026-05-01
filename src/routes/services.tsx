@@ -7,9 +7,9 @@ import { SITE_URL, jsonLd, seo } from '../utils/seo'
 export const Route = createFileRoute('/services')({
   head: () => {
     const pageSeo = seo({
-      title: 'AI Engineering Services - RAG, Agents, LLM Apps & MLOps',
+      title: 'AI Automation Services - Chatbots, Scripts, MVP SaaS and Voice AI',
       description:
-        'AI engineering services by Talha Turab: RAG systems, AI agents, LLM apps, ML models, MLOps, AI consulting and fractional AI lead engagements.',
+        'AI automation services by Talha Turab: automations, chatbots, Python scripts, MVP SaaS products, voice AI, and fractional AI build support.',
       path: '/services',
     })
 
@@ -19,7 +19,7 @@ export const Route = createFileRoute('/services')({
         jsonLd({
           '@context': 'https://schema.org',
           '@type': 'Service',
-          name: 'AI Engineering Services',
+          name: 'AI Automation Services',
           provider: {
             '@type': 'Person',
             name: 'Talha Turab',
@@ -27,14 +27,12 @@ export const Route = createFileRoute('/services')({
           },
           areaServed: 'Worldwide',
           serviceType: [
-            'AI chatbots',
-            'RAG systems',
-            'AI agents',
-            'LLM apps',
-            'ML model development',
-            'MLOps',
-            'AI consulting',
-            'Fractional AI lead',
+            'AI automations',
+            'Chatbots',
+            'Python scripts',
+            'MVP SaaS products',
+            'Voice AI',
+            'Fractional AI builder',
           ],
         }),
       ],
