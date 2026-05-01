@@ -85,24 +85,14 @@ export function Nav({ page, navigate }: { page: SitePage; navigate: NavigateToPa
 // Logos row
 export function ClientLogos() {
   const logos = [
-    { name: "Thalamus", style: "serif" },
-    { name: "Aletheia", style: "serif", italic: true },
-    { name: "First Rule", style: "serif", italic: true },
-    { name: "Retina", style: "sans" },
-    { name: "Northwind", style: "mono" },
-    { name: "Helix Labs", style: "serif" },
+    { name: "Levitate Data", src: "/assets/logos/levitate-data.png", slug: "levitate" },
+    { name: "Thalamus", src: "/assets/logos/thalamus-mark.png", slug: "thalamus" },
+    { name: "Aletheia", src: "/assets/logos/aletheia-mark.png", slug: "aletheia" },
+    { name: "First Rule", src: "/assets/logos/first-rule-mark.png", slug: "first-rule" },
+    { name: "Retina", src: "/assets/logos/retina-mark.png", slug: "retina" },
+    { name: "Helix Labs", src: "/assets/logos/helix-labs-mark.png", slug: "helix" },
   ];
   const tickerLogos = [...logos, ...logos, ...logos];
-
-  const getLogoStyle = (logo: (typeof logos)[number]) => ({
-    fontFamily: logo.style === "mono" ? "var(--font-mono)" : logo.style === "sans" ? "var(--font-sans)" : "var(--font-serif)",
-    fontStyle: logo.italic ? "italic" : "normal",
-    fontSize: logo.style === "mono" ? 16 : logo.style === "sans" ? 18 : 22,
-    fontWeight: logo.style === "sans" ? 500 : 400,
-    letterSpacing: logo.style === "mono" ? "0.04em" : "-0.02em",
-    textTransform: logo.style === "mono" ? "uppercase" : "none",
-    fontVariationSettings: logo.italic ? '"SOFT" 100, "WONK" 1' : "normal",
-  });
 
   return (
     <div className="logos">
@@ -111,9 +101,11 @@ export function ClientLogos() {
         <div className="logos__viewport" aria-label="Client logos">
           <div className="logos__track">
             {tickerLogos.map((l, i) => (
-              <div key={`${l.name}-${i}`} className="logo-mark" style={getLogoStyle(l)} aria-hidden={i >= logos.length}>
-                <span className="logo-mark__dot" style={{ background: l.style === "serif" && l.italic ? "var(--accent)" : "var(--fg-3)" }} />
-                {l.name}
+              <div key={`${l.name}-${i}`} className={`logo-mark logo-mark--${l.slug}`} aria-hidden={i >= logos.length}>
+                <span className="logo-mark__image" aria-hidden="true">
+                  <img src={l.src} alt="" loading="lazy" width="96" height="96" />
+                </span>
+                <span className="logo-mark__name" translate="no">{l.name}</span>
               </div>
             ))}
           </div>

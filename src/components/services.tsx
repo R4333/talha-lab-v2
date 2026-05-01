@@ -55,7 +55,7 @@ export function ServicesPage({ navigate }: { navigate: NavigateToPage }) {
     { id: "mvp-saas", href: "/case-studies/category/mvp-saas", num: "04", title: "MVP SaaS", desc: "First-version products with the core workflow, simple UI, and buyer-ready story.", problem: "You need a usable product before investing in a full team." },
     { id: "voice-ai", href: "/case-studies/category/voice-ai", num: "05", title: "Voice AI", desc: "Voice, call, and audio tools for review, routing, summaries, and follow-up.", problem: "Calls and recordings contain useful work nobody has time to review." },
     { id: "forecast-tools", href: "/case-studies/category/python-scripts", num: "06", title: "Forecast tools", desc: "Sales, inventory, demand, and planning tools trained on your business data.", problem: "You have data, but decisions still happen from gut feel." },
-    { id: "document-review", href: "/case-studies/category/document-review", num: "07", title: "Document review", desc: "Contract, policy, PDF, and knowledge-base review with source-backed answers.", problem: "Important answers are buried in documents nobody has time to read." },
+    { id: "document-review", href: "/case-studies/category/document-review", num: "07", title: "Knowledge intelligence", desc: "Contract, policy, PDF, and knowledge-base review with source-backed answers.", problem: "Important answers are buried in documents nobody has time to read." },
     { id: "fractional-ai-lead", href: "/case-studies/category/mvp-saas", num: "08", title: "Fractional AI lead", desc: "Senior build support for roadmap, code, vendors, hiring, and launch decisions.", problem: "You need senior AI judgment, but not a full-time hire yet." },
   ];
 

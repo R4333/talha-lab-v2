@@ -48,8 +48,8 @@ export const CASE_CATEGORIES: CaseCategory[] = [
   },
   {
     id: 'document-review',
-    name: 'Document Review',
-    shortName: 'Documents',
+    name: 'Knowledge Intelligence',
+    shortName: 'Knowledge',
     summary: 'Contract, PDF, and knowledge-base tools that make buried details easy to act on.',
     proof: 'Best when important answers live in long documents nobody has time to read.',
   },
@@ -71,7 +71,6 @@ export function CaseCategoryNav({ activeId }: { activeId?: string }) {
         >
           <span>{category.shortName}</span>
           <strong>{category.name}</strong>
-          <small>{category.summary}</small>
           <i aria-hidden="true"><ArrowUpRight size={13} /></i>
         </a>
       ))}

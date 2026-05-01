@@ -4,6 +4,12 @@ import { contactHref } from '../utils/seo'
 
 type HeadlineVariant = 'outcomes' | 'partner' | 'leverage' | 'chatbots'
 
+function setPointerGlow(event: React.PointerEvent<HTMLElement>) {
+  const rect = event.currentTarget.getBoundingClientRect()
+  event.currentTarget.style.setProperty('--cursor-x', `${event.clientX - rect.left}px`)
+  event.currentTarget.style.setProperty('--cursor-y', `${event.clientY - rect.top}px`)
+}
+
 function Hero({ headlineVariant = 'outcomes' }: { headlineVariant?: HeadlineVariant; showPhoto?: boolean }) {
   const headlines = {
     outcomes: <>I build practical <em>AI tools</em> that save time and make money.</>,
@@ -12,10 +18,10 @@ function Hero({ headlineVariant = 'outcomes' }: { headlineVariant?: HeadlineVari
     chatbots: <>Build chatbots people <em>trust</em> because the answers are grounded.</>,
   };
   const stats = [
-    { value: '22', label: 'Client projects shipped' },
+    { value: '22', label: 'Projects shipped' },
     { value: '$2.4M', label: 'Client savings tracked' },
-    { value: '31%', label: 'Fewer stockouts' },
-    { value: '100%', label: 'Delivered as promised' },
+    { value: '$9M+', label: 'Total revenue' },
+    { value: '5/5', label: 'Client rating' },
   ];
 
   return (
@@ -26,27 +32,28 @@ function Hero({ headlineVariant = 'outcomes' }: { headlineVariant?: HeadlineVari
           <span className="tiny-mono">Independent AI automation · Est. 2021</span>
         </div>
 
-        <div className="hero__impact">
-          <div className="eyebrow hero__eyebrow">AI automation · chatbots · Python scripts · MVP SaaS · voice AI</div>
-          <h1 className="h-display">
-            {headlines[headlineVariant] || headlines.outcomes}
-          </h1>
-          <p className="lede hero__lede">
-            I help founders and teams turn repeat work into useful software: support bots, document tools, forecast helpers, scripts, and first-version SaaS products.
-          </p>
-          <div className="hero__actions">
-            <a href={contactHref('Booking a 30-minute AI automation call')} className="btn btn--accent btn--lg">Book a 30-min call <Arrow /></a>
-            <a href="#work" className="btn btn--ghost btn--lg">See client work <ArrowUpRight /></a>
+        <div className="hero__main">
+          <div className="hero__impact">
+            <div className="eyebrow hero__eyebrow">AI automation · chatbots · Python scripts · MVP SaaS · voice AI</div>
+            <h1 className="h-display">
+              {headlines[headlineVariant] || headlines.outcomes}
+            </h1>
+            <p className="lede hero__lede">
+              I help founders and teams replace manual workflows with useful AI tools built around how their business actually works.
+            </p>
+            <div className="hero__actions">
+              <a href={contactHref('Booking a 30-minute AI automation call')} className="btn btn--accent btn--lg">Book a 30-min call <Arrow /></a>
+              <a href="#work" className="btn btn--ghost btn--lg">See client work <ArrowUpRight /></a>
+            </div>
           </div>
+          <figure className="hero__visual hero__visual--portrait" onPointerMove={setPointerGlow}>
+            <img src="/assets/talha.jpg" alt="Talha Turab" width="1048" height="1043" />
+          </figure>
         </div>
 
         <div
           className="hero__stats"
-          onPointerMove={(event) => {
-            const rect = event.currentTarget.getBoundingClientRect()
-            event.currentTarget.style.setProperty('--cursor-x', `${event.clientX - rect.left}px`)
-            event.currentTarget.style.setProperty('--cursor-y', `${event.clientY - rect.top}px`)
-          }}
+          onPointerMove={setPointerGlow}
         >
           {stats.map((stat, index) => (
             <div className="hero__stat" key={stat.label} style={{ '--i': index } as React.CSSProperties}>
@@ -58,16 +65,16 @@ function Hero({ headlineVariant = 'outcomes' }: { headlineVariant?: HeadlineVari
 
         <div className="hero__meta">
           <div className="hero__meta-item">
-            <div className="tiny-mono">[ 01 ] What I build</div>
-            <p>Automations · Chatbots · Python scripts · MVP SaaS · Voice AI</p>
+            <div className="tiny-mono">[ Client note ] Levitate Data</div>
+            <p>He turned a technical product into a clear buyer story our team could use immediately.</p>
           </div>
           <div className="hero__meta-item">
-            <div className="tiny-mono">[ 02 ] Who I work with</div>
-            <p>Founders, agencies, and product teams that need one senior builder.</p>
+            <div className="tiny-mono">[ Client note ] First Rule</div>
+            <p>The contract workflow finally felt simple, credible, and ready to show customers.</p>
           </div>
           <div className="hero__meta-item">
-            <div className="tiny-mono">[ 03 ] How I engage</div>
-            <p>Fixed-scope sprint · monthly support · part-time build partner.</p>
+            <div className="tiny-mono">[ Client note ] Retina</div>
+            <p>He told me what was not worth building, then shipped the one tool that mattered.</p>
           </div>
         </div>
       </div>
@@ -83,16 +90,18 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
       project: "Thalamus",
       company: "Levitate Data",
       product: "Thalamus",
-      title: <>Document search <em>automation</em> for complex company knowledge.</>,
+      logo: "/assets/logos/levitate-data.png",
+      title: <><em>AI</em> document search for complex company knowledge.</>,
       review: "Talha made a hard document product feel simple to explain, sell, and use. The new story helped buyers understand the value in minutes.",
       reviewBy: "Product team · Levitate Data",
       tags: ["Automation", "Chatbot", "MVP SaaS"],
-      screenshot: "/assets/projects/thalamus-curated.webp",
       status: "site linked",
+      visual: "/assets/projects/thalamus-curated-ui-v2.webp",
+      visualAlt: "Stylized Thalamus UI mockup showing document search, cited sources, and answer confidence",
       profile: [
+        { label: "Sales clarity", value: 92 },
+        { label: "Buyer confidence", value: 88 },
         { label: "Setup time saved", value: 66 },
-        { label: "Answer trust", value: 92 },
-        { label: "Docs covered", value: 88 },
       ],
       metrics: [
         { value: <>66<em>%</em></>, label: "Less build cost" },
@@ -105,16 +114,18 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
       project: "Aletheia",
       company: "Levitate Data",
       product: "Aletheia",
-      title: <>Voice and video <em>review tools</em> for high-stakes calls.</>,
+      logo: "/assets/logos/levitate-data.png",
+      title: <>Conversation <em>intelligence</em> for high-stakes customer calls.</>,
       review: "The product went from technical feature list to a clear business promise: understand the signals inside important conversations.",
       reviewBy: "Product team · Levitate Data",
       tags: ["Voice AI", "MVP SaaS", "Automation"],
-      screenshot: "/assets/projects/aletheia-curated.webp",
       status: "product linked",
+      visual: "/assets/projects/aletheia-curated-ui-v2.webp",
+      visualAlt: "Stylized Aletheia UI mockup showing call review, transcript, waveform, and signal tracks",
       profile: [
-        { label: "Voice context", value: 84 },
-        { label: "Video context", value: 88 },
-        { label: "Review clarity", value: 92 },
+        { label: "Message clarity", value: 92 },
+        { label: "Demo readiness", value: 88 },
+        { label: "Buyer trust", value: 84 },
       ],
       metrics: [
         { value: <>3</>, label: "Signal types" },
@@ -127,16 +138,18 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
       project: "First Rule",
       company: "First Rule",
       product: "First Rule Contract Manager",
+      logo: "/assets/logos/first-rule-mark.png",
       title: <>Contract <em>review automation</em> for construction teams.</>,
       review: "Talha turned a complicated contract workflow into a product people could understand right away: upload, review risk, and move forward.",
       reviewBy: "First Rule team",
       tags: ["Automation", "Chatbot", "MVP SaaS"],
-      screenshot: "/assets/projects/frcm-curated.webp",
       status: "site linked",
+      visual: "/assets/projects/frcm-curated-ui-v2.webp",
+      visualAlt: "Stylized First Rule Contract Manager UI mockup showing contract risk review and playbook guidance",
       profile: [
-        { label: "Risk found earlier", value: 86 },
-        { label: "Consistent rules", value: 90 },
-        { label: "Cleaner handoff", value: 82 },
+        { label: "Review time cut", value: 86 },
+        { label: "Risk visibility", value: 90 },
+        { label: "Sales handoff", value: 82 },
       ],
       metrics: [
         { value: <>1</>, label: "Free upload" },
@@ -149,15 +162,17 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
       project: "Retina",
       company: "Retina",
       product: "Forecast planning tool",
+      logo: "/assets/logos/retina-mark.png",
       title: <>Sales forecast <em>automation</em> that improved buying decisions.</>,
       review: "I came in skeptical of AI. Talha told me what was not worth building, then shipped the one tool that changed my buying decisions.",
       reviewBy: "Priya Krishnan · Founder, Retina",
       tags: ["Automation", "Python Scripts"],
-      screenshot: "/assets/projects/retina-curated.webp",
       status: "10 wk",
+      visual: "/assets/projects/retina-curated-ui-v2.webp",
+      visualAlt: "Stylized Retina UI mockup showing retail demand forecasting, purchase planning, and chat workflow",
       profile: [
         { label: "Planning speed", value: 86 },
-        { label: "Forecast trust", value: 86 },
+        { label: "Stockout risk cut", value: 86 },
         { label: "Margin lift", value: 58 },
       ],
       metrics: [
@@ -181,32 +196,33 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
         <div className="cases">
           {cases.map((c, i) => (
             <a key={c.id} className="case" href={`/case-studies/${c.id}`}>
-              <div className="case__index">
-                <strong>CS / {c.idx}</strong>
-                <div className="case__meta-stack">
-                  <span className="case__meta-label">Company</span>
-                  <span className="case__project" translate="no">{c.company}</span>
-                  <span className="case__meta-label">Product</span>
-                  <span className="case__product-pill" translate="no">{c.product}</span>
+              <div className="case__copy">
+                <div className="case__index">
+                  <strong>Case Study / {c.idx}</strong>
+                  <div className="case__brand-row">
+                    {c.logo && <img src={c.logo} alt="" loading="lazy" width="96" height="96" />}
+                    <span className="case__project" translate="no">{c.company}</span>
+                    <span className="case__divider" aria-hidden="true" />
+                    <span className="case__meta-label">Product</span>
+                    <span className="case__product-pill" translate="no">{c.product}</span>
+                  </div>
                 </div>
-              </div>
-              <div className="case__body">
-                <div className="case__heading">
-                  <h3 className="case__title">{c.title}</h3>
+                <div className="case__body">
+                  <div className="case__heading">
+                    <h3 className="case__title">{c.title}</h3>
+                  </div>
+                  <p className="case__review">"{c.review}"</p>
+                  <div className="tiny-mono case__review-by">{c.reviewBy}</div>
+                  <div className="case__tags">
+                    {c.tags.map((t, j) => <span key={j} className="case__tag">{t}</span>)}
+                  </div>
+                  <div className="case__cta mt-24">Read case study <Arrow /></div>
                 </div>
-                <p className="case__review">"{c.review}"</p>
-                <div className="tiny-mono case__review-by">{c.reviewBy}</div>
-                <div className="case__tags">
-                  {c.tags.map((t, j) => <span key={j} className="case__tag">{t}</span>)}
-                </div>
-                <div className="case__cta mt-24">Read case study <Arrow /></div>
               </div>
               <div className="case__visual">
-                {c.screenshot && (
-                  <div className="case__thumb" aria-hidden="true">
-                    <img src={c.screenshot} alt="" loading="lazy" width="1600" height="1000" />
-                  </div>
-                )}
+                <div className="case__thumb case__thumb--curated">
+                  <img src={c.visual} alt={c.visualAlt} width="1586" height="992" loading="eager" decoding="async" />
+                </div>
                 <div className="case__profile" aria-hidden="true">
                   {c.profile.map((item) => (
                     <div className="case__profile-row" key={item.label} style={{ '--value': item.value } as React.CSSProperties}>
@@ -238,27 +254,21 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
 }
 
 function OperatingSystem() {
-  const lanes = [
+  const checks = [
     {
       num: "01",
-      title: "Find the best task",
-      desc: "Map the workflow, the repeated work, and the number that should improve.",
-      items: ["Time saved", "Cost reduced", "Risk lowered"],
-      score: 74,
+      title: "Repeat work",
+      desc: "A task happens often enough that removing it changes the week.",
     },
     {
       num: "02",
-      title: "Build the tool",
-      desc: "Ship the script, chatbot, dashboard, or workflow your team can actually use.",
-      items: ["Simple UI", "Real data", "Clear handoff"],
-      score: 88,
+      title: "Known source",
+      desc: "The answer, rule, or decision path already exists in your data or documents.",
     },
     {
       num: "03",
-      title: "Keep it reliable",
-      desc: "Add simple checks, alerts, and notes so the tool keeps working after launch.",
-      items: ["Alerts", "Cost checks", "Docs"],
-      score: 82,
+      title: "Clear owner",
+      desc: "Someone can approve the workflow and judge whether the tool is useful.",
     },
   ];
 
@@ -267,23 +277,30 @@ function OperatingSystem() {
       <div className="container">
         <div className="os-panel">
           <div className="os-panel__intro">
-            <div className="eyebrow mb-24">Operating system</div>
-            <h2 className="h2">AI projects need a <em>business result</em>, not another demo.</h2>
+            <div className="eyebrow mb-24">What to automate</div>
+            <h2 className="h2">Not every workflow needs <em>automation</em>. The useful ones share three signs.</h2>
           </div>
-          <div className="os-lanes">
-            {lanes.map((lane) => (
-              <div className="os-lane" key={lane.num} style={{ '--score': lane.score } as React.CSSProperties}>
-                <div className="os-lane__top">
-                  <span>{lane.num}</span>
-                  <strong>{lane.title}</strong>
-                </div>
-                <p>{lane.desc}</p>
-                <div className="os-lane__items">
-                  {lane.items.map((item) => <span key={item}>{item}</span>)}
-                </div>
-                <div className="os-lane__bar" aria-hidden="true"><span /></div>
+          <div className="fit-check">
+            <div className="fit-check__card">
+              <div className="tiny-mono">[ Before building ]</div>
+              <div className="fit-check__question">Can this save time, reduce risk, or help a buyer decide?</div>
+              <div className="fit-check__route">
+                <span>Manual workflow</span>
+                <i />
+                <span>AI-assisted tool</span>
               </div>
-            ))}
+            </div>
+            <div className="fit-check__list">
+              {checks.map((check) => (
+                <div className="fit-check__item" key={check.num}>
+                  <span>{check.num}</span>
+                  <div>
+                    <strong>{check.title}</strong>
+                    <p>{check.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -299,7 +316,7 @@ function ServicesHome({ navigate }: { navigate: NavigateToPage }) {
     { num: "04", href: "/case-studies/category/mvp-saas", title: <>MVP <em>SaaS</em></>, desc: "First-version products with the core workflow, simple UI, and buyer-ready story.", problem: "You need a usable product before investing in a full team." },
     { num: "05", href: "/case-studies/category/voice-ai", title: <>Voice <em>AI</em></>, desc: "Voice, call, and audio tools for review, routing, summaries, and follow-up.", problem: "Calls and recordings contain useful work nobody has time to review." },
     { num: "06", href: "/case-studies/category/python-scripts", title: <>Forecast <em>tools</em></>, desc: "Sales, inventory, demand, and planning tools trained on your business data.", problem: "You have data, but decisions still happen from gut feel." },
-    { num: "07", href: "/case-studies/category/document-review", title: <>Document <em>review</em></>, desc: "Contract, policy, PDF, and knowledge-base review with source-backed answers.", problem: "Important answers are buried in documents nobody has time to read." },
+    { num: "07", href: "/case-studies/category/document-review", title: <>Knowledge <em>intelligence</em></>, desc: "Contract, policy, PDF, and knowledge-base review with source-backed answers.", problem: "Important answers are buried in documents nobody has time to read." },
     { num: "08", href: "/case-studies/category/mvp-saas", title: <>Fractional <em>AI lead</em></>, desc: "Senior build support for roadmap, code, vendors, hiring, and launch decisions.", problem: "You need senior AI judgment, but not a full-time hire yet." },
   ];
 
@@ -374,9 +391,9 @@ function HowIWork() {
           </div>
         </div>
 
-        <div className="process">
+        <div className="process" onPointerMove={setPointerGlow}>
           {steps.map((s, i) => (
-            <div key={i} className="process__step">
+            <div key={i} className="process__step" style={{ '--i': i } as React.CSSProperties}>
               <div className="process__num"><strong>0{i + 1}</strong></div>
               <h3 className="process__title">{s.title}</h3>
               <p className="process__desc">{s.desc}</p>
@@ -392,7 +409,7 @@ function About({ showPhoto = true }: { showPhoto?: boolean }) {
   return (
     <section className="section" id="about">
       <div className="container">
-        <div className="about-band">
+        <div className="about-band" onPointerMove={setPointerGlow}>
           {showPhoto && (
             <div>
               <div className="about-photo">
@@ -403,7 +420,7 @@ function About({ showPhoto = true }: { showPhoto?: boolean }) {
           )}
           <div>
             <div className="eyebrow mb-24">About</div>
-            <h2 className="h1">A <em>senior</em> hire — without the&nbsp;headcount.</h2>
+            <h2 className="h1">A <em>senior</em> hire — without the headcount.</h2>
             <div className="mt-32" style={{ display: "flex", flexDirection: "column", gap: 18, maxWidth: 600 }}>
               <p className="body" style={{ fontSize: 17, color: "var(--fg-2)" }}>
                 I'm a <strong style={{ color: "var(--fg)" }}>senior AI builder</strong> who's spent the last five years shipping useful tools for funded startups, agencies and product teams.
@@ -425,8 +442,8 @@ function About({ showPhoto = true }: { showPhoto?: boolean }) {
                 <div className="about-stat__label">Building useful AI tools</div>
               </div>
               <div>
-                <div className="about-stat__value">100<em>%</em></div>
-                <div className="about-stat__label">Projects delivered on scope</div>
+                <div className="about-stat__value">5<em>/5</em></div>
+                <div className="about-stat__label">Client rating</div>
               </div>
               <div>
                 <div className="about-stat__value">$2.4<em>M</em></div>
@@ -481,9 +498,9 @@ function Testimonials() {
             </p>
           </div>
         </div>
-        <div className="testimonials">
+        <div className="testimonials" onPointerMove={setPointerGlow}>
           {items.map((t, i) => (
-            <div key={i} className="testimonial">
+            <div key={i} className="testimonial" style={{ '--i': i } as React.CSSProperties}>
               <p className="testimonial__quote">{t.quote}</p>
               <div className="testimonial__author">
                 <div className="testimonial__avatar">{t.initials}</div>
@@ -504,7 +521,7 @@ export function CTA() {
   return (
     <section className="section" id="book">
       <div className="container">
-        <div className="cta-band">
+        <div className="cta-band" onPointerMove={setPointerGlow}>
           <div className="cta-band__content">
             <div>
               <div className="eyebrow mb-24">Book a call</div>

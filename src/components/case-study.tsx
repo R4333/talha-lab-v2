@@ -87,8 +87,8 @@ export const CASE_STUDIES: CaseStudy[] = [
       'A clear buy-vs-build case around cost, speed, reliability, and maintenance.',
     ],
     heroVisual: {
-      src: '/assets/projects/thalamus-curated.webp',
-      alt: 'Abstract curated visual for Thalamus showing layered documents and source-linked answers',
+      src: '/assets/projects/thalamus-curated-ui-v2.webp',
+      alt: 'Stylized Thalamus UI mockup showing document search, cited sources, and answer confidence',
     },
     screenshots: [
       {
@@ -191,8 +191,8 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Built to connect into other products and compliance workflows.',
     ],
     heroVisual: {
-      src: '/assets/projects/aletheia-curated.webp',
-      alt: 'Abstract curated visual for Aletheia showing voice, face, and language signals converging',
+      src: '/assets/projects/aletheia-curated-ui-v2.webp',
+      alt: 'Stylized Aletheia UI mockup showing call review, transcript, waveform, and signal tracks',
     },
     screenshots: [
       {
@@ -282,8 +282,8 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Review connected to the jobsite through kickoff-ready summaries, Marten coaching and training in the flow of work.',
     ],
     heroVisual: {
-      src: '/assets/projects/frcm-curated.webp',
-      alt: 'Abstract curated visual for First Rule Contract Manager showing contracts, playbooks, and construction planning objects',
+      src: '/assets/projects/frcm-curated-ui-v2.webp',
+      alt: 'Stylized First Rule Contract Manager UI mockup showing contract risk review and playbook guidance',
     },
     screenshots: [
       {
@@ -381,8 +381,8 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Scheduled refreshes and alerts for major demand changes.',
     ],
     heroVisual: {
-      src: '/assets/projects/retina-curated.webp',
-      alt: 'Abstract curated visual for Retina showing inventory forecasts, demand curves, and planning blocks',
+      src: '/assets/projects/retina-curated-ui-v2.webp',
+      alt: 'Stylized Retina UI mockup showing retail demand forecasting, purchase planning, and chat workflow',
     },
     architecture: [
       { title: '[ 01 ] Data', name: 'Demand history', items: ['Shopify', 'Ads spend', 'Inventory', 'Suppliers'] },
