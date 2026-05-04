@@ -1,3 +1,4 @@
+import React from 'react'
 import { CTA } from './home'
 import { Arrow, Footer, type NavigateToPage } from './shared'
 import { CaseCategoryNav, type CaseCategoryId } from './case-categories'
@@ -13,6 +14,7 @@ type CaseStudy = {
   liveUrl?: string
   title: React.ReactNode
   lede: string
+  oneLiner?: string
   engagement: string
   engagementMeta: string
   role: string
@@ -35,6 +37,12 @@ type CaseStudy = {
   outcome: React.ReactNode[]
   quote: string
   quoteBy: string
+  // Enhanced Remix-style sections (optional)
+  hard?: Array<{ title: string; detail: string }>
+  decisions?: Array<{ key: string; value: string }>
+  build?: Array<{ week: string; title: string; detail: string }>
+  stack?: Array<{ group: string; items: string[] }>
+  related?: Array<{ id: string; tag: string; title: string; metric: string }>
 }
 
 export const CASE_STUDIES: CaseStudy[] = [
@@ -46,9 +54,10 @@ export const CASE_STUDIES: CaseStudy[] = [
     client: 'Thalamus by Levitate Data',
     clientMeta: 'Document automation · Knowledge search',
     liveUrl: 'https://thalamus.levitatedata.com/',
-    title: <>Document search <em>automation</em> for complex company knowledge.</>,
+    title: <>AI search that <em>understands</em> your company documents.</>,
     lede:
-      'Thalamus helps teams ask questions across messy documents, scans, images, videos, and internal knowledge. The product gives clear answers with source links, so users can trust what they see.',
+      'Thalamus turns messy company knowledge into source-backed answers teams can trust.',
+    oneLiner: 'Upload documents, ask questions, and get verified answers without building a custom system.',
     engagement: 'Product launch narrative',
     engagementMeta: 'Positioning · product story · buyer proof',
     role: 'Product strategy',
@@ -58,33 +67,33 @@ export const CASE_STUDIES: CaseStudy[] = [
     resultsLabel: 'Buyer case',
     resultsNote: 'cost and launch-speed proof',
     results: [
-      { value: <>66<em>%</em></>, label: 'Less build cost', sub: 'Compared with building the tool from scratch' },
-      { value: <>$485<em>K</em></>, label: 'Average savings', sub: 'Compared with a custom offshore build' },
-      { value: <>6<em>{'\u00A0'}mo</em></>, label: 'Faster to production', sub: 'Documented build-vs-buy gap' },
-      { value: <em>Day{'\u00A0'}1</em>, label: 'Ready to use', sub: 'Built for real customer work' },
+      { value: <>66<em>%</em></>, label: 'Less build cost', sub: 'Versus a custom build' },
+      { value: <>$485<em>K</em></>, label: 'Average savings', sub: 'Estimated build savings' },
+      { value: <>6<em>{'\u00A0'}mo</em></>, label: 'Faster launch', sub: 'Build-vs-buy gap' },
+      { value: <em>Day{'\u00A0'}1</em>, label: 'Ready to use', sub: 'Built for customer work' },
     ],
     impact: [
-      { label: 'Build cost saved', value: 66, detail: 'A clearer reason to buy instead of building from scratch.' },
-      { label: 'Launch speed', value: 84, detail: 'Avoids months of setup work before a customer can use it.' },
-      { label: 'Answer trust', value: 92, detail: 'Answers stay tied to the original source material.' },
-      { label: 'Content coverage', value: 88, detail: 'Documents, scans, tables, images, and video.' },
+      { label: 'Build cost saved', value: 66, detail: 'A stronger case to buy.' },
+      { label: 'Launch speed', value: 84, detail: 'Less setup before use.' },
+      { label: 'Answer trust', value: 92, detail: 'Answers stay source-linked.' },
+      { label: 'Content coverage', value: 88, detail: 'Docs, scans, tables, images, video.' },
     ],
     problem: [
-      <>Document-heavy AI products often fail because the answer is hard to verify. Real customer data includes scanned PDFs, tables, notes, long policies, video, and files that change often.</>,
-      <>Thalamus is built for teams where <strong>a wrong answer creates real risk</strong>: SaaS companies, regulated operators, and builders whose users need accurate answers with proof.</>,
-      <>The buying question is simple: spend months building a custom document system, or use a product that already handles the hard parts.</>,
+      <strong className="cs-section__lead">Most knowledge tools can answer questions — but they fail when users need proof.</strong>,
+      <>Company knowledge lives across messy PDFs, scans, tables, notes, and media.</>,
+      <>Thalamus reduces the build-or-buy decision to what matters: speed, trust, and control.</>,
     ],
     approach: [
-      <>The product story centers on Thalamus as <strong>the document answer layer</strong> between messy company knowledge and answers users can trust.</>,
-      <>The value is framed around things buyers can understand quickly: upload the material, ask a question, get a source-backed answer, and keep control of sensitive data.</>,
-      <>The commercial story makes the build-or-buy decision concrete with cost, timeline, and maintenance comparisons that are easy to approve.</>,
+      <strong className="cs-section__lead">We positioned Thalamus as the document answer layer.</strong>,
+      <>The story became simple: upload knowledge, ask questions, verify sources, and control access.</>,
+      <>The buyer case focused on speed, trust, and lower maintenance.</>,
     ],
     bullets: [
-      'A document answer product for teams that need reliable answers, not a simple search box.',
-      'Support for documents, scans, images, video, tables, and complex layouts.',
-      'Source links and confidence cues so users can verify important answers.',
-      'Business controls around privacy, access, audit trails, and sensitive customer data.',
-      'A clear buy-vs-build case around cost, speed, reliability, and maintenance.',
+      'Reliable answers, not basic search.',
+      'Support for messy formats and layouts.',
+      'Source links for quick verification.',
+      'Privacy, access, and audit controls.',
+      'Clear buy-vs-build proof.',
     ],
     heroVisual: {
       src: '/assets/projects/thalamus-curated.webp',
@@ -92,26 +101,26 @@ export const CASE_STUDIES: CaseStudy[] = [
     },
     screenshots: [
       {
-        title: 'Homepage positioning',
+        title: 'Homepage',
         src: '/assets/case-studies/thalamus-home.png',
         alt: 'Screenshot of the Thalamus homepage showing document search positioning',
-        caption: 'The homepage positions Thalamus as a clearer way to answer questions from complex company documents, with proof, privacy, and a clear cost/time advantage.',
+        caption: 'A concise homepage story for source-backed document answers.',
         width: 1440,
         height: 6036,
       },
       {
-        title: 'Product walkthrough',
+        title: 'Product page',
         src: '/assets/case-studies/thalamus-product.png',
         alt: 'Screenshot of the Thalamus product page showing document and media support',
-        caption: 'The product page turns the platform into a clear buyer journey: add knowledge, ask questions, verify sources, and control access.',
+        caption: 'A product journey from upload to verified answer.',
         width: 1440,
         height: 3799,
       },
       {
-        title: 'Build-vs-buy analysis',
+        title: 'Why Thalamus',
         src: '/assets/case-studies/thalamus-why.png',
         alt: 'Screenshot of the Thalamus build versus buy page showing cost analysis',
-        caption: 'The Why Thalamus page gives executives the commercial proof: lower build cost, faster launch, and less long-term maintenance.',
+        caption: 'A shorter buy-vs-build case for faster approval.',
         width: 1440,
         height: 4981,
       },
@@ -122,7 +131,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       { title: '[ 03 ] Answer', name: 'Source-backed search', items: ['Questions', 'Gaps', 'Best sources', 'Citations'], accent: true },
       { title: '[ 04 ] Deliver', name: 'Customer tool', items: ['Chat', 'Workflows', 'Reports', 'History'] },
     ],
-    architectureNote: <>Thalamus owns the hard document-answering layer underneath the customer application. <strong>Teams keep their product workflow while Thalamus handles content cleanup, source links, and reliability.</strong></>,
+    architectureNote: <>Thalamus handles the document-answering layer: cleanup, source links, and reliability.</>,
     codeTitle: 'Source-backed answer',
     code: <>
       <span className="k">type</span> DocumentAnswer = {'{'}{'\n'}
@@ -134,12 +143,44 @@ export const CASE_STUDIES: CaseStudy[] = [
       {'}'}
     </>,
     outcome: [
-      <>Thalamus presents a premium document-answer product for teams working with proprietary knowledge, where accuracy and source links matter.</>,
-      <>The narrative connects the technical product to a buyer's real decision: reduce wrong-answer risk, move faster, avoid maintenance drag, and keep control of sensitive data.</>,
-      <>The live product experience backs the promise with a homepage, product walkthrough, and buy-vs-build analysis that make the platform easy to understand and justify.</>,
+      <><strong>Clearer product story:</strong> Thalamus now reads as a focused document-answer product for teams that need proof.</>,
+      <><strong>Sharper buyer case:</strong> move faster, reduce risk, and avoid maintenance drag.</>,
     ],
-    quote: 'Talha made a hard document product feel simple to explain, sell, and use. The new story helped buyers understand the value in minutes.',
+    quote: 'Talha made a hard document product simple to explain, sell, and use.',
     quoteBy: 'Product team, Levitate Data',
+    hard: [
+      { title: 'Documents are messy', detail: 'Real knowledge lives in scans, tables, media, and changing files. Thalamus needed to handle the full mix.' },
+      { title: 'Answers need proof', detail: 'Users need citations, confidence, and an audit trail before they trust high-stakes answers.' },
+      { title: 'Knowledge changes fast', detail: 'Policies, contracts, and product details change often. Answers have to stay current.' },
+      { title: 'Build vs. buy is hard', detail: 'The story had to make cost, timeline, and maintenance easy to compare.' },
+    ],
+    decisions: [
+      { key: 'Document pipeline', value: 'Multi-format ingestion for scans, tables, layouts, and media.' },
+      { key: 'Source-backed answers', value: 'Answers carry citations, confidence, and an audit trail.' },
+      { key: 'Privacy first', value: 'Access controls and sensitive-data handling became part of the pitch.' },
+      { key: 'Buy-vs-build framing', value: 'Cost, timeline, and maintenance were packaged for faster approval.' },
+      { key: 'Product story', value: 'Thalamus became an answer layer, not a search box.' },
+      { key: 'Launch narrative', value: 'Homepage, product page, and why page each served a clear buyer need.' },
+    ],
+    build: [
+      { week: '1–2', title: 'Discovery + audit', detail: 'Reviewed materials, competitors, and buyer concerns.' },
+      { week: '2–3', title: 'Core narrative', detail: 'Defined the answer-layer positioning.' },
+      { week: '3–5', title: 'Product pages', detail: 'Shaped the homepage, walkthrough, and why page.' },
+      { week: '5–6', title: 'Buyer proof', detail: 'Simplified the cost and savings case.' },
+      { week: '6–7', title: 'Launch assets', detail: 'Prepared sales copy and demo messaging.' },
+      { week: '7–8', title: 'Go live', detail: 'Launched and refined the messaging.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Company systems', 'File uploads', 'Tool links', 'Rich media'] },
+      { group: 'Processing', items: ['PDF parsing', 'OCR + scans', 'Table extraction', 'Images + video'] },
+      { group: 'Answer layer', items: ['Source search', 'Citation links', 'Confidence scores', 'Knowledge gaps'] },
+      { group: 'Delivery', items: ['Chat interface', 'Workflows', 'Reports', 'History'] },
+      { group: 'Governance', items: ['Access controls', 'Audit trails', 'Privacy rules', 'Compliance'] },
+    ],
+    related: [
+      { id: 'frcm', tag: 'Document automation', title: 'Contract review automation for construction teams.', metric: 'Clause-level risk' },
+      { id: 'aletheia', tag: 'Voice + video AI', title: 'Review tools for high-stakes calls and recordings.', metric: '3 signal types' },
+    ],
   },
   {
     id: 'aletheia',
@@ -421,6 +462,8 @@ export function CaseStudyPage({
   const selectedCase = getCaseStudy(selectedId)
   const nextCase = CASE_STUDIES[(CASE_STUDIES.findIndex((caseStudy) => caseStudy.id === selectedCase.id) + 1) % CASE_STUDIES.length]
 
+  const isEnhanced = !!selectedCase.hard
+
   return (
     <>
       <section className="cs-hero">
@@ -461,12 +504,17 @@ export function CaseStudyPage({
           </div>
 
           <div className="eyebrow mb-24">Case study · {selectedCase.index} / {CASE_STUDIES.length.toString().padStart(2, '0')}</div>
-          <div className="cs-hero__main">
+          <div className="cs-hero__main" style={{ alignItems: selectedCase.id === 'thalamus' ? 'start' : 'center' }}>
             <div>
               <h1 className="h-display">
                 {selectedCase.title}
               </h1>
-              <p className="lede cs-hero__lede mt-32">{selectedCase.lede}</p>
+              {selectedCase.oneLiner && (
+                <p className="cs-hero__one-liner">{selectedCase.oneLiner}</p>
+              )}
+              {!selectedCase.oneLiner && (
+                <p className="lede cs-hero__lede mt-32">{selectedCase.lede}</p>
+              )}
               {selectedCase.liveUrl && (
                 <div className="cs-hero__actions">
                   <a className="btn btn--accent" href={selectedCase.liveUrl} target="_blank" rel="noreferrer">
@@ -476,8 +524,8 @@ export function CaseStudyPage({
               )}
               <div className="cs-review-card">
                 <div className="tiny-mono">[ Client review ]</div>
-                <p>"{selectedCase.quote}"</p>
-                <span>- {selectedCase.quoteBy}</span>
+                <p>{selectedCase.quote}</p>
+                <span>&mdash; {selectedCase.quoteBy}</span>
               </div>
             </div>
             {selectedCase.heroVisual && (
@@ -488,10 +536,21 @@ export function CaseStudyPage({
           </div>
 
           <div className="cs-hero__meta">
-            <MetaBlock label="[ Client ]" title={selectedCase.client} detail={selectedCase.clientMeta} />
-            <MetaBlock label="[ Engagement ]" title={selectedCase.engagement} detail={selectedCase.engagementMeta} />
-            <MetaBlock label="[ Role ]" title={selectedCase.role} detail={selectedCase.roleMeta} />
-            <MetaBlock label="[ Year ]" title={selectedCase.year} detail={selectedCase.yearMeta} />
+            {selectedCase.id === 'thalamus' ? (
+              <>
+                <MetaBlock label="Client" title={selectedCase.client} detail={selectedCase.clientMeta} icon={<ClientIcon />} />
+                <MetaBlock label="Engagement" title={selectedCase.engagement} detail={selectedCase.engagementMeta} icon={<EngagementIcon />} />
+                <MetaBlock label="Role" title={selectedCase.role} detail={selectedCase.roleMeta} icon={<RoleIcon />} />
+                <MetaBlock label="Year" title={selectedCase.year} detail={selectedCase.yearMeta} icon={<YearIcon />} />
+              </>
+            ) : (
+              <>
+                <MetaBlock label="[ Client ]" title={selectedCase.client} detail={selectedCase.clientMeta} />
+                <MetaBlock label="[ Engagement ]" title={selectedCase.engagement} detail={selectedCase.engagementMeta} />
+                <MetaBlock label="[ Role ]" title={selectedCase.role} detail={selectedCase.roleMeta} />
+                <MetaBlock label="[ Year ]" title={selectedCase.year} detail={selectedCase.yearMeta} />
+              </>
+            )}
           </div>
         </div>
       </section>
@@ -515,15 +574,28 @@ export function CaseStudyPage({
       </section>
 
       <CaseSection label="[ 01 ] The Problem" paragraphs={selectedCase.problem} borderTop />
-      <CaseSection label="[ 02 ] Approach" paragraphs={selectedCase.approach} bullets={selectedCase.bullets} />
+
+      {isEnhanced && selectedCase.hard && (
+        <WhyHardSection label="[ 02 ] Why this was hard" items={selectedCase.hard} />
+      )}
+
+      <CaseSection label={isEnhanced ? '[ 03 ] Approach' : '[ 02 ] Approach'} paragraphs={selectedCase.approach} bullets={selectedCase.bullets} bulletsLabel={selectedCase.id === 'thalamus' ? 'Key points' : undefined} />
+
+      {isEnhanced && selectedCase.decisions && (
+        <DecisionsSection label="[ 04 ] Key decisions" items={selectedCase.decisions} />
+      )}
+
+      {isEnhanced && selectedCase.build && (
+        <BuildSection label="[ 05 ] How we shipped" items={selectedCase.build} />
+      )}
 
       {selectedCase.screenshots && (
         <section>
           <div className="container">
             <div className="cs-section">
-              <div className="cs-section__label">[ 03 ] Screenshots</div>
+              <div className="cs-section__label">{isEnhanced ? '[ 06 ] Screenshots' : (selectedCase.hard ? '[ 06 ] Screenshots' : '[ 03 ] Screenshots')}</div>
               <div className="cs-section__body">
-                <div className="case-shots">
+                <div className={`case-shots${selectedCase.id === 'thalamus' ? ' case-shots--scroll' : ''}`}>
                   {selectedCase.screenshots.map((shot) => (
                     <figure className="case-shot" key={shot.src}>
                       <div className="case-shot__frame">
@@ -545,7 +617,7 @@ export function CaseStudyPage({
       <section>
         <div className="container">
           <div className="cs-section">
-            <div className="cs-section__label">{selectedCase.screenshots ? '[ 04 ] Value Profile' : '[ 03 ] Value Profile'}</div>
+            <div className="cs-section__label">{isEnhanced ? '[ 07 ] Value Profile' : (selectedCase.screenshots ? '[ 04 ] Value Profile' : '[ 03 ] Value Profile')}</div>
             <div className="cs-section__body">
               <div className="impact-chart" aria-label={`${selectedCase.shortName} value profile`}>
                 {selectedCase.impact.map((item) => (
@@ -569,7 +641,7 @@ export function CaseStudyPage({
       <section>
         <div className="container">
           <div className="cs-section">
-            <div className="cs-section__label">{selectedCase.screenshots ? '[ 05 ] How it works' : '[ 04 ] How it works'}</div>
+            <div className="cs-section__label">{isEnhanced ? '[ 08 ] How it works' : (selectedCase.screenshots ? '[ 05 ] How it works' : '[ 04 ] How it works')}</div>
             <div className="cs-section__body">
               <div className="arch">
                 <div className="arch__inner">
@@ -594,7 +666,7 @@ export function CaseStudyPage({
       <section>
         <div className="container">
           <div className="cs-section">
-            <div className="cs-section__label">{selectedCase.screenshots ? '[ 06 ] Outcome' : '[ 05 ] Outcome'}</div>
+            <div className="cs-section__label">{isEnhanced ? '[ 09 ] Outcome' : (selectedCase.screenshots ? '[ 06 ] Outcome' : '[ 05 ] Outcome')}</div>
             <div className="cs-section__body">
               {selectedCase.outcome.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
             </div>
@@ -602,19 +674,33 @@ export function CaseStudyPage({
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
-          <div className="divider-mono">
-            <span>More work</span>
-            <span>{nextCase.index} / {CASE_STUDIES.length.toString().padStart(2, '0')} next</span>
+      {isEnhanced && (
+        <QuoteBlockSection quote={selectedCase.quote} by={selectedCase.quoteBy} />
+      )}
+
+      {isEnhanced && selectedCase.stack && (
+        <StackSection label="[ 10 ] Stack" items={selectedCase.stack} />
+      )}
+
+      {isEnhanced && selectedCase.related && (
+        <RelatedSection items={selectedCase.related} />
+      )}
+
+      {!isEnhanced && (
+        <section className="section">
+          <div className="container">
+            <div className="divider-mono">
+              <span>More work</span>
+              <span>{nextCase.index} / {CASE_STUDIES.length.toString().padStart(2, '0')} next</span>
+            </div>
+            <a href={`/case-studies/${nextCase.id}`} className="case case--button">
+              <div className="case__index"><strong>CS / {nextCase.index}</strong><div style={{ marginTop: 12 }}>{nextCase.clientMeta}</div></div>
+              <h3 className="case__title">{nextCase.title}</h3>
+              <div className="case__cta">Next case <Arrow /></div>
+            </a>
           </div>
-          <a href={`/case-studies/${nextCase.id}`} className="case case--button">
-            <div className="case__index"><strong>CS / {nextCase.index}</strong><div style={{ marginTop: 12 }}>{nextCase.clientMeta}</div></div>
-            <h3 className="case__title">{nextCase.title}</h3>
-            <div className="case__cta">Next case <Arrow /></div>
-          </a>
-        </div>
-      </section>
+        </section>
+      )}
 
       <CTA />
       <Footer navigate={navigate} />
@@ -622,10 +708,47 @@ export function CaseStudyPage({
   )
 }
 
-function MetaBlock({ label, title, detail }: { label: string; title: string; detail: string }) {
+const ClientIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+    <circle cx="12" cy="7" r="4" />
+  </svg>
+);
+
+const EngagementIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10" />
+    <circle cx="12" cy="12" r="6" />
+    <circle cx="12" cy="12" r="2" />
+  </svg>
+);
+
+const RoleIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+    <polyline points="14 2 14 8 20 8" />
+    <line x1="16" y1="13" x2="8" y2="13" />
+    <line x1="16" y1="17" x2="8" y2="17" />
+    <line x1="10" y1="9" x2="8" y2="9" />
+  </svg>
+);
+
+const YearIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+    <line x1="16" y1="2" x2="16" y2="6" />
+    <line x1="8" y1="2" x2="8" y2="6" />
+    <line x1="3" y1="10" x2="21" y2="10" />
+  </svg>
+);
+
+function MetaBlock({ label, title, detail, icon }: { label: string; title: string; detail: string; icon?: React.ReactNode }) {
   return (
     <div>
-      <div className="tiny-mono mb-8">{label}</div>
+      <div className="tiny-mono mb-8" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        {icon && <span style={{ color: 'var(--accent)', display: 'inline-flex' }}>{icon}</span>}
+        {label}
+      </div>
       <p style={{ fontSize: 16, color: 'var(--fg)' }} translate="no">{title}</p>
       <p className="small">{detail}</p>
     </div>
@@ -636,11 +759,13 @@ function CaseSection({
   label,
   paragraphs,
   bullets,
+  bulletsLabel,
   borderTop,
 }: {
   label: string
   paragraphs: React.ReactNode[]
   bullets?: string[]
+  bulletsLabel?: string
   borderTop?: boolean
 }) {
   return (
@@ -651,11 +776,170 @@ function CaseSection({
           <div className="cs-section__body">
             {paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
             {bullets && (
-              <ul className="cs-list">
-                {bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
-              </ul>
+              <>
+                {bulletsLabel && <div className="cs-bullets-label">{bulletsLabel}</div>}
+                <ul className="cs-list">
+                  {bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
+                </ul>
+              </>
             )}
           </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function WhyHardSection({ label, items }: { label: string; items: Array<{ title: string; detail: string }> }) {
+  const [open, setOpen] = React.useState(0)
+  return (
+    <section className="cs-why-hard">
+      <div className="container">
+        <div className="cs-section">
+          <div className="cs-section__label">{label}</div>
+          <div className="cs-section__body">
+            <div className="cs-accordion">
+              {items.map((item, i) => {
+                const isOpen = open === i
+                return (
+                  <div key={item.title} className="cs-accordion__item">
+                    <button
+                      className="cs-accordion__trigger"
+                      onClick={() => setOpen(isOpen ? -1 : i)}
+                      aria-expanded={isOpen}
+                    >
+                      <span className="cs-accordion__num">0{i + 1}</span>
+                      <span className="cs-accordion__title">{item.title}</span>
+                      <span className={`cs-accordion__icon${isOpen ? ' is-open' : ''}`}>{isOpen ? '–' : '+'}</span>
+                    </button>
+                    <div className={`cs-accordion__panel${isOpen ? ' is-open' : ''}`}>
+                      <p>{item.detail}</p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function DecisionsSection({ label, items }: { label: string; items: Array<{ key: string; value: string }> }) {
+  return (
+    <section className="cs-decisions">
+      <div className="container">
+        <div className="cs-section">
+          <div className="cs-section__label">{label}</div>
+          <div className="cs-section__body">
+            <div className="cs-decisions__grid">
+              {items.map((d) => (
+                <div key={d.key} className="cs-decision">
+                  <span className="cs-decision__key">{d.key}</span>
+                  <p>{d.value}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function BuildSection({ label, items }: { label: string; items: Array<{ week: string; title: string; detail: string }> }) {
+  return (
+    <section className="cs-build">
+      <div className="container">
+        <div className="cs-section">
+          <div className="cs-section__label">{label}</div>
+          <div className="cs-section__body">
+            <div className="cs-build__grid">
+              {items.map((b) => (
+                <div key={b.title} className="cs-build__card">
+                  <span className="cs-build__week">Week {b.week}</span>
+                  <h4 className="cs-build__title">{b.title}</h4>
+                  <p>{b.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function QuoteBlockSection({ quote, by }: { quote: string; by: string }) {
+  return (
+    <section className="cs-quote-block">
+      <div className="container">
+        <div className="cs-quote-block__inner">
+          <span className="cs-quote-block__mark">"</span>
+          <p className="cs-quote-block__text">{quote}</p>
+          <div className="cs-quote-block__by">
+            <span className="cs-quote-block__avatar">{by.charAt(0)}</span>
+            <div>
+              <span className="cs-quote-block__name">{by}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function StackSection({ label, items }: { label: string; items: Array<{ group: string; items: string[] }> }) {
+  return (
+    <section className="cs-stack">
+      <div className="container">
+        <div className="cs-section">
+          <div className="cs-section__label">{label}</div>
+          <div className="cs-section__body">
+            <div className="cs-stack__grid">
+              {items.map((g) => (
+                <div key={g.group} className="cs-stack__group">
+                  <div className="cs-stack__group-label">{g.group}</div>
+                  <ul>
+                    {g.items.map((it) => (
+                      <li key={it}>
+                        <span />
+                        {it}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function RelatedSection({ items }: { items: Array<{ id: string; tag: string; title: string; metric: string }> }) {
+  return (
+    <section className="cs-related">
+      <div className="container">
+        <div className="cs-related__header">
+          <h2>Related case studies</h2>
+        </div>
+        <div className="cs-related__grid">
+          {items.map((r) => {
+            const cs = getCaseStudy(r.id)
+            return (
+              <a href={`/case-studies/${r.id}`} className="cs-related__card" key={r.id}>
+                <span className="cs-related__tag">{r.tag}</span>
+                <h3>{r.title}</h3>
+                <div className="cs-related__footer">
+                  <span>{r.metric}</span>
+                  <Arrow size={12} />
+                </div>
+              </a>
+            )
+          })}
         </div>
       </div>
     </section>

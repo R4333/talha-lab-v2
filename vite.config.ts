@@ -6,6 +6,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   server: {
     port: 3000,
+    allowedHosts: ['3761-160-250-51-107.ngrok-free.app'],
   },
   plugins: [tanstackStart(), nitro(), react()],
 })
