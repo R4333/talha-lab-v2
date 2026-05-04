@@ -57,7 +57,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     title: <>AI search that <em>understands</em> your company documents.</>,
     lede:
       'Thalamus turns messy company knowledge into source-backed answers teams can trust.',
-    oneLiner: 'Upload documents, ask questions, and get verified answers without building a custom system.',
+    oneLiner: 'Upload any rough or unstructured data, from PDFs and tables to books, images, videos, and more, and get your queries answered without the risk of inaccurate responses.',
     engagement: 'Product launch narrative',
     engagementMeta: 'Positioning · product story · buyer proof',
     role: 'Product strategy',
@@ -466,7 +466,7 @@ export function CaseStudyPage({
 
   return (
     <>
-      <section className="cs-hero">
+      <section className={`cs-hero${selectedCase.id === 'thalamus' ? ' cs-hero--thalamus' : ''}`}>
         <div className="container">
           <div className="cs-hero__breadcrumb">
             <a href="/">Home</a>

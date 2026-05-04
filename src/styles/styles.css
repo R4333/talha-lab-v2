@@ -235,6 +235,46 @@ summary { touch-action: manipulation; }
   margin-left: 6px;
 }
 
+@media (min-width: 900px) {
+  .nav {
+    top: 24px;
+    width: calc(100% - 256px);
+    max-width: 1396px;
+    min-height: 78px;
+    padding: 12px 18px 12px 22px;
+    background: color-mix(in oklab, var(--bg) 74%, transparent);
+    border-color: color-mix(in oklab, var(--fg) 14%, transparent);
+    border-radius: 999px;
+  }
+  .nav__brand {
+    gap: 14px;
+    font-size: 16px;
+  }
+  .nav__mark {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+  .nav__links {
+    gap: 18px;
+  }
+  .nav__link {
+    padding: 9px 16px;
+    font-size: 16px;
+  }
+  .nav__link[data-active="true"] {
+    background: transparent;
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--fg) 28%, transparent);
+  }
+  .nav__cta {
+    height: 50px;
+    padding: 0 24px;
+    margin-left: 8px;
+    font-size: 16px;
+    box-shadow: 0 8px 24px -16px color-mix(in oklab, var(--accent) 80%, transparent);
+  }
+}
+
 /* ============ BUTTON ============ */
 .btn {
   display: inline-flex;
@@ -1610,6 +1650,158 @@ summary { touch-action: manipulation; }
 @keyframes picker-options {
   from { opacity: 0; transform: translateY(-6px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Thalamus case-study top treatment */
+.cs-hero--thalamus {
+  padding-top: 170px;
+  padding-bottom: 72px;
+  border-bottom: 0;
+}
+.cs-hero--thalamus .container {
+  max-width: 1376px;
+}
+.cs-hero--thalamus .cs-hero__breadcrumb {
+  margin-bottom: 28px;
+  gap: 14px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--fg);
+}
+.cs-hero--thalamus .case-picker {
+  margin-bottom: 86px;
+  padding: 18px 22px 22px;
+  border-radius: 8px;
+  border-color: color-mix(in oklab, var(--fg) 16%, transparent);
+  background:
+    radial-gradient(circle at 40% 22%, color-mix(in oklab, var(--accent) 8%, transparent), transparent 34%),
+    color-mix(in oklab, var(--bg-2) 64%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, var(--fg) 6%, transparent),
+    0 30px 80px -68px color-mix(in oklab, var(--accent) 44%, transparent);
+}
+.cs-hero--thalamus .case-picker__label {
+  margin-bottom: 12px;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: color-mix(in oklab, var(--fg) 82%, var(--bg));
+}
+.cs-hero--thalamus .case-picker__label--categories {
+  margin-top: 30px;
+  margin-bottom: 18px;
+}
+.cs-hero--thalamus .case-picker__summary {
+  min-height: 118px;
+  padding: 20px 24px;
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 38% 36%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 42%),
+    color-mix(in oklab, var(--bg) 76%, var(--accent) 5%);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in oklab, var(--accent) 62%, transparent),
+    0 0 0 1px color-mix(in oklab, var(--accent) 72%, transparent);
+}
+.cs-hero--thalamus .case-picker__summary::before {
+  display: none;
+}
+.cs-hero--thalamus .case-picker__summary::after {
+  top: 36px;
+  right: 30px;
+  width: 14px;
+  height: 14px;
+  border-width: 2.5px;
+  animation: none;
+}
+.cs-hero--thalamus .case-picker__summary span {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+}
+.cs-hero--thalamus .case-picker__summary strong {
+  font-size: 32px;
+  line-height: 1.02;
+  letter-spacing: 0;
+}
+.cs-hero--thalamus .case-picker__summary small {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: color-mix(in oklab, var(--fg) 78%, var(--bg));
+}
+.cs-hero--thalamus .case-categories {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 16px;
+}
+.cs-hero--thalamus .case-category {
+  min-height: 154px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+  place-items: center;
+  gap: 12px;
+  padding: 26px 18px 22px;
+  border-radius: 7px;
+  border-color: color-mix(in oklab, var(--fg) 14%, transparent);
+  background:
+    radial-gradient(circle at 50% 34%, color-mix(in oklab, var(--accent) 7%, transparent), transparent 55%),
+    color-mix(in oklab, var(--bg) 82%, var(--fg) 3%);
+}
+.cs-hero--thalamus .case-category::before {
+  display: none;
+}
+.cs-hero--thalamus .case-category:hover,
+.cs-hero--thalamus .case-category[data-active="true"] {
+  transform: translateY(-2px);
+  border-color: color-mix(in oklab, var(--accent) 70%, var(--line));
+  background:
+    radial-gradient(circle at 50% 34%, color-mix(in oklab, var(--accent) 11%, transparent), transparent 58%),
+    color-mix(in oklab, var(--bg) 80%, var(--accent) 5%);
+}
+.cs-hero--thalamus .case-category__icon {
+  grid-row: 1 / 2;
+  width: 66px;
+  height: 66px;
+  color: var(--accent);
+  stroke-width: 2.3;
+}
+.cs-hero--thalamus .case-category span,
+.cs-hero--thalamus .case-category small {
+  display: none;
+}
+.cs-hero--thalamus .case-category strong {
+  grid-column: 1;
+  grid-row: 2 / 3;
+  font-size: 20px;
+  line-height: 1.1;
+  text-align: center;
+}
+.cs-hero--thalamus .case-category i {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  color: var(--fg);
+}
+.cs-hero--thalamus .eyebrow {
+  margin-bottom: 28px;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+}
+.cs-hero--thalamus .cs-hero__main {
+  grid-template-columns: minmax(0, 1.06fr) minmax(480px, 0.94fr);
+  gap: 56px;
+  align-items: start !important;
+}
+.cs-hero--thalamus .h-display {
+  font-size: clamp(84px, 6vw, 116px);
+  line-height: 0.98;
+  max-width: 720px;
+}
+.cs-hero--thalamus .cs-hero__one-liner {
+  max-width: 560px;
+  margin-top: 30px;
+}
+.cs-hero--thalamus .cs-hero__visual {
+  margin-top: 4px;
+  max-width: 570px;
+  border-radius: 8px;
 }
 .case--button {
   width: 100%;
