@@ -79,14 +79,14 @@ export const CASE_STUDIES: CaseStudy[] = [
       { label: 'Content coverage', value: 88, detail: 'Docs, scans, tables, images, video.' },
     ],
     problem: [
-      <strong className="cs-section__lead">Most knowledge tools can answer questions — but they fail when users need proof.</strong>,
-      <>Company knowledge lives across messy PDFs, scans, tables, notes, and media.</>,
-      <>Thalamus reduces the build-or-buy decision to what matters: speed, trust, and control.</>,
+      <strong className="cs-section__lead">Most question-and-answer systems fail when producing accurate answers.</strong>,
+      <>Company data is stored in various messy format such as PDF's, scans, images, tables and media.</>,
+      <>Thalamus provides one clear path for uploading this data and getting your questions answered with proper citations.</>,
     ],
     approach: [
-      <strong className="cs-section__lead">We positioned Thalamus as the document answer layer.</strong>,
-      <>The story became simple: upload knowledge, ask questions, verify sources, and control access.</>,
-      <>The buyer case focused on speed, trust, and lower maintenance.</>,
+      <strong className="cs-section__lead">We showed Thalamus as the place where teams can ask questions from company knowledge.</strong>,
+      <>The message became simple: add your files, ask a question, see the source, and control who can access what.</>,
+      <>The buyer case focused on faster answers, easier trust, and less work to maintain.</>,
     ],
     bullets: [
       'Reliable answers, not basic search.',
@@ -149,10 +149,10 @@ export const CASE_STUDIES: CaseStudy[] = [
     quote: 'Talha made a hard document product simple to explain, sell, and use.',
     quoteBy: 'Product team, Levitate Data',
     hard: [
-      { title: 'Documents are messy', detail: 'Real knowledge lives in scans, tables, media, and changing files. Thalamus needed to handle the full mix.' },
-      { title: 'Answers need proof', detail: 'Users need citations, confidence, and an audit trail before they trust high-stakes answers.' },
-      { title: 'Knowledge changes fast', detail: 'Policies, contracts, and product details change often. Answers have to stay current.' },
-      { title: 'Build vs. buy is hard', detail: 'The story had to make cost, timeline, and maintenance easy to compare.' },
+      { title: 'Information is scattered', detail: 'Important company knowledge is spread across PDFs, scans, tables, videos, and files that keep changing.' },
+      { title: 'Answers must be trusted', detail: 'People need to see where an answer came from before they rely on it for important decisions.' },
+      { title: 'Company knowledge changes often', detail: 'Policies, contracts, and product details get updated regularly, so answers need to stay up to date.' },
+      { title: 'Starting from scratch is difficult', detail: 'The page had to clearly show the cost, time, and effort saved by using Thalamus instead of building everything from zero.' },
     ],
     decisions: [
       { key: 'Document pipeline', value: 'Multi-format ingestion for scans, tables, layouts, and media.' },
@@ -557,23 +557,27 @@ export function CaseStudyPage({
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
-          <div className="divider-mono mb-32">
-            <span>{selectedCase.resultsLabel}</span>
-            <span>{selectedCase.resultsNote}</span>
+      {selectedCase.id === 'thalamus' ? (
+        <ThalamusBuyerCaseSection />
+      ) : (
+        <section className="section">
+          <div className="container">
+            <div className="divider-mono mb-32">
+              <span>{selectedCase.resultsLabel}</span>
+              <span>{selectedCase.resultsNote}</span>
+            </div>
+            <div className="results">
+              {selectedCase.results.map((result) => (
+                <div className="result" key={result.label}>
+                  <div className="result__value">{result.value}</div>
+                  <div className="result__label">{result.label}</div>
+                  <div className="result__sub">{result.sub}</div>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="results">
-            {selectedCase.results.map((result) => (
-              <div className="result" key={result.label}>
-                <div className="result__value">{result.value}</div>
-                <div className="result__label">{result.label}</div>
-                <div className="result__sub">{result.sub}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <CaseSection label="[ 01 ] The Problem" paragraphs={selectedCase.problem} borderTop />
 
@@ -584,7 +588,11 @@ export function CaseStudyPage({
       <CaseSection label={isEnhanced ? '[ 03 ] Approach' : '[ 02 ] Approach'} paragraphs={selectedCase.approach} bullets={selectedCase.bullets} bulletsLabel={selectedCase.id === 'thalamus' ? 'Key points' : undefined} />
 
       {isEnhanced && selectedCase.decisions && (
-        <DecisionsSection label="[ 04 ] Key decisions" items={selectedCase.decisions} />
+        selectedCase.id === 'thalamus' ? (
+          <ThalamusDecisionsSection />
+        ) : (
+          <DecisionsSection label="[ 04 ] Key decisions" items={selectedCase.decisions} />
+        )
       )}
 
       {isEnhanced && selectedCase.build && (
@@ -742,6 +750,21 @@ const ImpactGrowthIcon = () => (
   </svg>
 )
 
+const BuyerClockIcon = () => (
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="8" />
+    <path d="M12 7v5l4 2" />
+  </svg>
+)
+
+const BuyerChartIcon = () => (
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 19V9M10 19v-5M16 19v-8" />
+    <path d="m4 14 5-5 4 4 7-8" />
+    <path d="M15 5h5v5" />
+  </svg>
+)
+
 function ThalamusImpactStrip() {
   const items = [
     { icon: <ImpactDocsIcon />, value: '1M+', label: 'docs indexed' },
@@ -765,6 +788,56 @@ function ThalamusImpactStrip() {
         ))}
       </div>
     </div>
+  )
+}
+
+function ThalamusBuyerCaseSection() {
+  const items = [
+    {
+      icon: <ImpactAccuracyIcon />,
+      value: <>99<em>%</em></>,
+      label: 'Accuracy',
+      text: 'Performance you can trust',
+    },
+    {
+      icon: <ImpactUsersIcon />,
+      value: <>10,000<em>+</em></>,
+      label: 'Active customers',
+      text: 'Trusted at scale',
+    },
+    {
+      icon: <BuyerClockIcon />,
+      value: <>6 <em>mo</em></>,
+      label: 'Time to market',
+      text: 'Delivered in 6 months',
+    },
+    {
+      icon: <BuyerChartIcon />,
+      value: <>Market <em>Ready</em></>,
+      label: 'Built for impact',
+      text: 'Driving results from day one',
+    },
+  ]
+
+  return (
+    <section className="thalamus-buyer">
+      <div className="container">
+        <div className="thalamus-buyer__divider">
+          <span>Buyer case</span>
+          <span>Cost and time outcomes</span>
+        </div>
+        <div className="thalamus-buyer__grid">
+          {items.map((item) => (
+            <div className="thalamus-buyer__card" key={item.label}>
+              <span className="thalamus-buyer__icon">{item.icon}</span>
+              <div className="thalamus-buyer__value">{item.value}</div>
+              <div className="thalamus-buyer__label">{item.label}</div>
+              <p>{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -898,6 +971,76 @@ function DecisionsSection({ label, items }: { label: string; items: Array<{ key:
                 <div key={d.key} className="cs-decision">
                   <span className="cs-decision__key">{d.key}</span>
                   <p>{d.value}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+const DecisionDocumentIcon = () => (
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M6 3h8l4 4v14H6z" />
+    <path d="M14 3v5h5" />
+    <path d="M9 12h6M9 16h6" />
+  </svg>
+)
+
+const DecisionShieldIcon = () => (
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 3 19 6v5c0 5-3 8-7 10-4-2-7-5-7-10V6z" />
+    <path d="m8.5 12 2.2 2.2L15.8 9" />
+  </svg>
+)
+
+const DecisionLockIcon = () => (
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="5" y="10" width="14" height="10" rx="1.8" />
+    <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+  </svg>
+)
+
+const DecisionLayersIcon = () => (
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="m12 4 8 4-8 4-8-4z" />
+    <path d="m4 12 8 4 8-4" />
+    <path d="m4 16 8 4 8-4" />
+  </svg>
+)
+
+const DecisionRocketIcon = () => (
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M14 4c3.5-.7 5.7.2 6 0-.2 3.2-1.2 6.2-4 8.8l-5.5 5.5-4.8.9.9-4.8 5.5-5.5C12.7 8 13.3 6 14 4Z" />
+    <path d="M9 15 7 13M15 9l2 2" />
+    <circle cx="15.5" cy="8.5" r="1.5" />
+  </svg>
+)
+
+function ThalamusDecisionsSection() {
+  const items = [
+    { icon: <DecisionDocumentIcon />, title: 'Document pipeline', text: 'Unified ingestion for scans, tables, layouts, and media.' },
+    { icon: <DecisionShieldIcon />, title: 'Source-backed answers', text: 'Answers with citations, confidence, and a full audit trail.' },
+    { icon: <DecisionLockIcon />, title: 'Privacy first', text: 'Access controls and sensitive-data handling built in.' },
+    { icon: <BuyerClockIcon />, title: 'Buy-vs-build framing', text: 'Cost, timeline, and maintenance packaged for faster decisions.' },
+    { icon: <DecisionLayersIcon />, title: 'Product story', text: 'Thalamus became an answer layer, not a search box.' },
+    { icon: <DecisionRocketIcon />, title: 'Launch narrative', text: 'Clear pages that communicate value and drive buyer confidence.' },
+  ]
+
+  return (
+    <section className="thalamus-decisions">
+      <div className="container">
+        <div className="cs-section">
+          <div className="cs-section__label">[ 04 ] Key decisions</div>
+          <div className="cs-section__body">
+            <div className="thalamus-decisions__grid">
+              {items.map((item) => (
+                <div className="thalamus-decisions__card" key={item.title}>
+                  <span className="thalamus-decisions__icon">{item.icon}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
                 </div>
               ))}
             </div>

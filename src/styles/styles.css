@@ -2071,6 +2071,147 @@ summary { touch-action: manipulation; }
 }
 .result__sub { font-size: 13px; color: var(--fg-2); margin-top: 6px; }
 
+.thalamus-buyer {
+  padding: 84px 0 92px;
+}
+.thalamus-buyer .container {
+  max-width: 1376px;
+}
+.thalamus-buyer__divider {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 46px 0;
+  border-top: 1px solid color-mix(in oklab, var(--fg) 18%, transparent);
+  border-bottom: 1px solid color-mix(in oklab, var(--fg) 18%, transparent);
+  font-family: var(--font-mono);
+  font-size: 17px;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--fg) 78%, var(--bg));
+}
+.thalamus-buyer__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 38px;
+  border: 1px solid color-mix(in oklab, var(--fg) 18%, transparent);
+  border-radius: 10px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 11% 26%, color-mix(in oklab, var(--accent) 8%, transparent), transparent 26%),
+    color-mix(in oklab, var(--bg) 92%, var(--fg) 2%);
+}
+.thalamus-buyer__card {
+  min-height: 250px;
+  padding: 32px 28px 28px;
+  border-left: 1px solid color-mix(in oklab, var(--fg) 18%, transparent);
+  background:
+    radial-gradient(circle at 22% 55%, color-mix(in oklab, var(--fg) 5%, transparent), transparent 36%),
+    color-mix(in oklab, var(--bg) 92%, transparent);
+}
+.thalamus-buyer__card:first-child {
+  border-left: 0;
+}
+.thalamus-buyer__icon {
+  width: 50px;
+  height: 50px;
+  display: inline-grid;
+  place-items: center;
+  margin-bottom: 30px;
+  border-radius: 50%;
+  color: var(--accent);
+  background: color-mix(in oklab, var(--fg) 7%, transparent);
+}
+.thalamus-buyer__icon svg {
+  width: 25px;
+  height: 25px;
+}
+.thalamus-buyer__value {
+  min-height: 62px;
+  font-family: var(--font-serif);
+  font-size: clamp(36px, 3.5vw, 50px);
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+  font-weight: 380;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: normal;
+}
+.thalamus-buyer__value em {
+  color: var(--accent);
+  font-style: italic;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+}
+.thalamus-buyer__label {
+  margin-top: 18px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--fg) 76%, var(--bg));
+}
+.thalamus-buyer__card p {
+  margin-top: 18px;
+  font-size: 17px;
+  line-height: 1.25;
+  color: var(--fg);
+}
+@media (max-width: 1100px) {
+  .thalamus-buyer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .thalamus-buyer__card:nth-child(3) {
+    border-left: 0;
+    border-top: 1px solid color-mix(in oklab, var(--fg) 18%, transparent);
+  }
+  .thalamus-buyer__card:nth-child(4) {
+    border-top: 1px solid color-mix(in oklab, var(--fg) 18%, transparent);
+  }
+}
+@media (max-width: 620px) {
+  .thalamus-buyer {
+    padding: 56px 0 64px;
+  }
+  .thalamus-buyer__divider {
+    padding: 28px 0;
+    align-items: flex-start;
+    flex-direction: column;
+    font-size: 13px;
+  }
+  .thalamus-buyer__grid {
+    grid-template-columns: 1fr;
+  }
+  .thalamus-buyer__card,
+  .thalamus-buyer__card:nth-child(3),
+  .thalamus-buyer__card:nth-child(4) {
+    min-height: 260px;
+    padding: 32px 24px;
+    border-left: 0;
+    border-top: 1px solid color-mix(in oklab, var(--fg) 18%, transparent);
+  }
+  .thalamus-buyer__card:first-child {
+    border-top: 0;
+  }
+  .thalamus-buyer__icon {
+    margin-bottom: 28px;
+  }
+  .thalamus-buyer__value {
+    min-height: auto;
+    font-size: 54px;
+  }
+  .thalamus-buyer__label {
+    margin-top: 22px;
+    font-size: 13px;
+  }
+  .thalamus-buyer__card p {
+    margin-top: 18px;
+    font-size: 18px;
+  }
+}
+
 .cs-section {
   display: grid;
   grid-template-columns: 1fr;
@@ -2431,6 +2572,75 @@ summary { touch-action: manipulation; }
   line-height: 1.6;
   color: var(--fg);
   margin: 0;
+}
+
+.thalamus-decisions {
+  border-top: 1px solid var(--line);
+}
+.thalamus-decisions .container {
+  max-width: 1376px;
+}
+.thalamus-decisions .cs-section {
+  padding: 80px 0;
+}
+.thalamus-decisions__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.thalamus-decisions__card {
+  min-height: 170px;
+  padding: 24px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.thalamus-decisions__icon {
+  width: 34px;
+  height: 34px;
+  display: inline-grid;
+  place-items: center;
+  margin-bottom: 14px;
+  border-radius: 8px;
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+.thalamus-decisions__icon svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+}
+.thalamus-decisions__card h3 {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--fg);
+  margin: 4px 0 8px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.thalamus-decisions__card p {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--fg-2);
+  margin: 0;
+}
+@media (max-width: 1100px) {
+  .thalamus-decisions__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 620px) {
+  .thalamus-decisions .cs-section {
+    padding: 64px 0;
+  }
+  .thalamus-decisions__card {
+    padding: 24px 20px;
+    border-radius: 12px;
+  }
+  .thalamus-decisions__grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Build Section */
