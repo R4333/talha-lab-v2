@@ -603,7 +603,7 @@ export function CaseStudyPage({
         <section>
           <div className="container">
             <div className="cs-section">
-              <div className="cs-section__label">{isEnhanced ? '[ 06 ] Screenshots' : (selectedCase.hard ? '[ 06 ] Screenshots' : '[ 03 ] Screenshots')}</div>
+              <SectionHeading label={isEnhanced ? '[ 06 ] Screenshots' : (selectedCase.hard ? '[ 06 ] Screenshots' : '[ 03 ] Screenshots')} />
               <div className="cs-section__body">
                 <div className={`case-shots${selectedCase.id === 'thalamus' ? ' case-shots--scroll' : ''}`}>
                   {selectedCase.screenshots.map((shot) => (
@@ -627,7 +627,7 @@ export function CaseStudyPage({
       <section>
         <div className="container">
           <div className="cs-section">
-            <div className="cs-section__label">{isEnhanced ? '[ 07 ] Value Profile' : (selectedCase.screenshots ? '[ 04 ] Value Profile' : '[ 03 ] Value Profile')}</div>
+            <SectionHeading label={isEnhanced ? '[ 07 ] Value Profile' : (selectedCase.screenshots ? '[ 04 ] Value Profile' : '[ 03 ] Value Profile')} />
             <div className="cs-section__body">
               <div className="impact-chart" aria-label={`${selectedCase.shortName} value profile`}>
                 {selectedCase.impact.map((item) => (
@@ -651,7 +651,7 @@ export function CaseStudyPage({
       <section>
         <div className="container">
           <div className="cs-section">
-            <div className="cs-section__label">{isEnhanced ? '[ 08 ] How it works' : (selectedCase.screenshots ? '[ 05 ] How it works' : '[ 04 ] How it works')}</div>
+            <SectionHeading label={isEnhanced ? '[ 08 ] How it works' : (selectedCase.screenshots ? '[ 05 ] How it works' : '[ 04 ] How it works')} />
             <div className="cs-section__body">
               <div className="arch">
                 <div className="arch__inner">
@@ -676,7 +676,7 @@ export function CaseStudyPage({
       <section>
         <div className="container">
           <div className="cs-section">
-            <div className="cs-section__label">{isEnhanced ? '[ 09 ] Outcome' : (selectedCase.screenshots ? '[ 06 ] Outcome' : '[ 05 ] Outcome')}</div>
+            <SectionHeading label={isEnhanced ? '[ 09 ] Outcome' : (selectedCase.screenshots ? '[ 06 ] Outcome' : '[ 05 ] Outcome')} />
             <div className="cs-section__body">
               {selectedCase.outcome.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
             </div>
@@ -888,6 +888,29 @@ function MetaBlock({ label, title, detail, icon }: { label: string; title: strin
   )
 }
 
+function SectionHeading({ label }: { label: string }) {
+  const match = label.match(/^\[\s*(\d+)\s*\]\s*(.+)$/)
+
+  if (!match) {
+    return <div className="cs-section__label">{label}</div>
+  }
+
+  const [, number, title] = match
+  const formattedTitle = title
+    .split(' ')
+    .map((word) => word ? `${word.charAt(0).toUpperCase()}${word.slice(1)}` : word)
+    .join(' ')
+
+  return (
+    <div className="cs-section__label cs-section-heading">
+      <span className="cs-section-heading__number">[ {number.padStart(2, '0')} ]</span>
+      <span className="cs-section-heading__rule" aria-hidden="true" />
+      <span className="cs-section-heading__title">{formattedTitle}</span>
+      <span className="cs-section-heading__accent" aria-hidden="true" />
+    </div>
+  )
+}
+
 function CaseSection({
   label,
   paragraphs,
@@ -905,7 +928,7 @@ function CaseSection({
     <section style={borderTop ? { borderTop: '1px solid var(--line)' } : undefined}>
       <div className="container">
         <div className="cs-section">
-          <div className="cs-section__label">{label}</div>
+          <SectionHeading label={label} />
           <div className="cs-section__body">
             {paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
             {bullets && (
@@ -929,7 +952,7 @@ function WhyHardSection({ label, items }: { label: string; items: Array<{ title:
     <section className="cs-why-hard">
       <div className="container">
         <div className="cs-section">
-          <div className="cs-section__label">{label}</div>
+          <SectionHeading label={label} />
           <div className="cs-section__body">
             <div className="cs-accordion">
               {items.map((item, i) => {
@@ -964,7 +987,7 @@ function DecisionsSection({ label, items }: { label: string; items: Array<{ key:
     <section className="cs-decisions">
       <div className="container">
         <div className="cs-section">
-          <div className="cs-section__label">{label}</div>
+          <SectionHeading label={label} />
           <div className="cs-section__body">
             <div className="cs-decisions__grid">
               {items.map((d) => (
@@ -1033,7 +1056,7 @@ function ThalamusDecisionsSection() {
     <section className="thalamus-decisions">
       <div className="container">
         <div className="cs-section">
-          <div className="cs-section__label">[ 04 ] Key decisions</div>
+          <SectionHeading label="[ 04 ] Key decisions" />
           <div className="cs-section__body">
             <div className="thalamus-decisions__grid">
               {items.map((item) => (
@@ -1056,7 +1079,7 @@ function BuildSection({ label, items }: { label: string; items: Array<{ week: st
     <section className="cs-build">
       <div className="container">
         <div className="cs-section">
-          <div className="cs-section__label">{label}</div>
+          <SectionHeading label={label} />
           <div className="cs-section__body">
             <div className="cs-build__grid">
               {items.map((b) => (
@@ -1098,7 +1121,7 @@ function StackSection({ label, items }: { label: string; items: Array<{ group: s
     <section className="cs-stack">
       <div className="container">
         <div className="cs-section">
-          <div className="cs-section__label">{label}</div>
+          <SectionHeading label={label} />
           <div className="cs-section__body">
             <div className="cs-stack__grid">
               {items.map((g) => (
