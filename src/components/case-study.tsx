@@ -1126,7 +1126,10 @@ function StackSection({ label, items }: { label: string; items: Array<{ group: s
             <div className="cs-stack__grid">
               {items.map((g) => (
                 <div key={g.group} className="cs-stack__group">
-                  <div className="cs-stack__group-label">{g.group}</div>
+                  <div className="cs-stack__head">
+                    <StackIcon group={g.group} />
+                    <div className="cs-stack__group-label">{g.group}</div>
+                  </div>
                   <ul>
                     {g.items.map((it) => (
                       <li key={it}>
@@ -1142,6 +1145,65 @@ function StackSection({ label, items }: { label: string; items: Array<{ group: s
         </div>
       </div>
     </section>
+  )
+}
+
+function StackIcon({ group }: { group: string }) {
+  const common = {
+    width: 34,
+    height: 34,
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: 1.6,
+    strokeLinecap: 'round' as const,
+    strokeLinejoin: 'round' as const,
+    'aria-hidden': true,
+  }
+
+  if (group === 'Sources') {
+    return (
+      <svg {...common}>
+        <ellipse cx="12" cy="5" rx="7" ry="3" />
+        <path d="M5 5v6c0 1.7 3.1 3 7 3s7-1.3 7-3V5" />
+        <path d="M5 11v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6" />
+      </svg>
+    )
+  }
+
+  if (group === 'Processing') {
+    return (
+      <svg {...common}>
+        <rect x="8" y="8" width="8" height="8" rx="1.5" />
+        <path d="M4 10h2M4 14h2M18 10h2M18 14h2M10 4v2M14 4v2M10 18v2M14 18v2" />
+        <path d="M2 12h2M20 12h2M12 2v2M12 20v2" />
+      </svg>
+    )
+  }
+
+  if (group === 'Answer layer') {
+    return (
+      <svg {...common}>
+        <circle cx="10.5" cy="10.5" r="6" />
+        <path d="m15 15 5 5" />
+      </svg>
+    )
+  }
+
+  if (group === 'Delivery') {
+    return (
+      <svg {...common}>
+        <path d="M5 5h14v11H9l-4 4z" />
+        <path d="M8 9h8M8 12h5" />
+      </svg>
+    )
+  }
+
+  return (
+    <svg {...common}>
+      <path d="M12 3 19 6v5c0 5-3 8-7 10-4-2-7-5-7-10V6z" />
+      <path d="m8.5 12 2.2 2.2L15.8 9" />
+    </svg>
   )
 }
 

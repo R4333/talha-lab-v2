@@ -2811,27 +2811,53 @@ summary { touch-action: manipulation; }
   padding: 80px 0;
   border-top: 1px solid var(--line);
 }
+.cs-stack .container {
+  max-width: 1376px;
+}
 .cs-stack__grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 20px 22px;
+  align-items: stretch;
 }
 .cs-stack__group {
-  padding: 28px 24px;
-  background: var(--bg-2);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  min-height: 280px;
+  grid-column: span 2;
+  min-height: 236px;
+  padding: 30px 34px;
+  border: 1px solid color-mix(in oklab, var(--fg) 14%, transparent);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 82% 16%, color-mix(in oklab, var(--fg) 5%, transparent), transparent 42%),
+    color-mix(in oklab, var(--bg-2) 72%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in oklab, var(--fg) 5%, transparent);
+}
+.cs-stack__group:nth-child(4) {
+  grid-column: 2 / span 2;
+}
+.cs-stack__group:nth-child(5) {
+  grid-column: 4 / span 2;
+}
+.cs-stack__head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-bottom: 20px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid color-mix(in oklab, var(--fg) 10%, transparent);
+}
+.cs-stack__head svg {
+  width: 34px;
+  height: 34px;
+  color: var(--accent);
+  flex: 0 0 auto;
 }
 .cs-stack__group-label {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 13px;
   color: var(--accent);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  margin-bottom: 18px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--line);
+  font-weight: 600;
 }
 .cs-stack__group ul {
   list-style: none;
@@ -2839,22 +2865,23 @@ summary { touch-action: manipulation; }
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 13px;
 }
 .cs-stack__group li {
-  font-size: 13px;
-  color: var(--fg);
+  font-size: 15px;
+  color: color-mix(in oklab, var(--fg) 82%, var(--bg));
   line-height: 1.5;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
 }
 .cs-stack__group li span {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--accent);
   flex-shrink: 0;
+  box-shadow: 0 0 12px color-mix(in oklab, var(--accent) 40%, transparent);
 }
 
 /* Related Case Studies */
@@ -2933,7 +2960,12 @@ summary { touch-action: manipulation; }
 @media (max-width: 1100px) {
   .cs-decisions__grid { grid-template-columns: 1fr; }
   .cs-build__grid { grid-template-columns: repeat(2, 1fr); }
-  .cs-stack__grid { grid-template-columns: repeat(3, 1fr); }
+  .cs-stack__grid { grid-template-columns: repeat(2, 1fr); }
+  .cs-stack__group,
+  .cs-stack__group:nth-child(4),
+  .cs-stack__group:nth-child(5) {
+    grid-column: auto;
+  }
 }
 @media (max-width: 720px) {
   .cs-accordion__trigger {
@@ -2947,7 +2979,7 @@ summary { touch-action: manipulation; }
   }
   .cs-decisions__grid { grid-template-columns: 1fr; }
   .cs-build__grid { grid-template-columns: 1fr; }
-  .cs-stack__grid { grid-template-columns: repeat(2, 1fr); }
+  .cs-stack__grid { grid-template-columns: 1fr; }
   .cs-related__grid { grid-template-columns: 1fr; }
   .cs-quote-block__inner {
     padding: 48px 28px;
