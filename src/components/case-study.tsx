@@ -191,9 +191,10 @@ export const CASE_STUDIES: CaseStudy[] = [
     client: 'Aletheia by Levitate Data',
     clientMeta: 'Voice AI · Video review',
     liveUrl: 'https://levitatedata.com/product#Aletheia',
-    title: <>Voice and video <em>review tools</em> for high-stakes calls.</>,
+    title: <>Review <em>signals</em> inside important calls.</>,
     lede:
-      'Aletheia helps teams understand what happened inside important calls and recordings. It combines voice, video, and transcript signals into a clearer review for compliance, support, and investigation work.',
+      'Aletheia turns voice, video, and transcript signals into a clearer review for high-stakes conversations.',
+    oneLiner: 'Review calls and recordings with the context that transcripts miss: tone, stress, confidence, facial cues, and meaning over time.',
     engagement: 'Product narrative',
     engagementMeta: 'Positioning · product story · use cases',
     role: 'Product strategy',
@@ -201,12 +202,12 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: '2026',
     yearMeta: 'Product positioning',
     resultsLabel: 'Product promise',
-    resultsNote: 'voice and video review',
+    resultsNote: 'review evidence and product clarity',
     results: [
-      { value: <em>3</em>, label: 'Signal types', sub: 'Voice, video, and transcript cues' },
-      { value: <em>Live</em>, label: 'Review mode', sub: 'Works for live or recorded media' },
-      { value: <em>Plug-in</em>, label: 'Easy to connect', sub: 'Built to plug into other products' },
-      { value: <em>Clear</em>, label: 'Output standard', sub: 'Reviewable high-stakes insights' },
+      { value: <em>3</em>, label: 'Signal types', sub: 'Video, voice, and transcript' },
+      { value: <em>Live</em>, label: 'Review modes', sub: 'Live or recorded media' },
+      { value: <em>Plug-in</em>, label: 'Product fit', sub: 'Built for existing workflows' },
+      { value: <em>Clear</em>, label: 'Evidence layer', sub: 'Reviewable conversation context' },
     ],
     impact: [
       { label: 'Video context', value: 88, detail: 'Visible changes and facial cues made reviewable.' },
@@ -215,21 +216,18 @@ export const CASE_STUDIES: CaseStudy[] = [
       { label: 'Review clarity', value: 92, detail: 'A single timeline a reviewer can understand.' },
     ],
     problem: [
-      <>Most conversation tools stop at transcripts and summaries. That leaves out signals that often matter most: hesitation, confidence, stress, tone, and change over time.</>,
-      <>Aletheia is built for the moments where <strong>how something was said changes what it means</strong>, especially when the stakes are legal, operational, financial or reputational.</>,
-      <>Its product story gives buyers a clear category: voice and video review for teams that need deeper context than words alone can provide.</>,
+      <strong className="cs-section__lead">Transcripts alone miss too much context.</strong>,
+      <>High-stakes calls often depend on tone, confidence, stress, timing, and visible cues. Aletheia needed to make those signals understandable without sounding like a technical feature list.</>,
     ],
     approach: [
-      <>The message leads with a simple, memorable premise: understanding how something was said is as important as knowing what was said.</>,
-      <>From there, the platform value unfolds across three signal streams: video, voice, and words, combined into a timeline of tone, confidence, and stress.</>,
-      <>The use-case framing speaks to high-stakes workflows such as depositions, compliance review, customer interactions, and investigations where context and trust matter.</>,
+      <strong className="cs-section__lead">We framed Aletheia as a review layer for important conversations.</strong>,
+      <>The story became simple: combine video, voice, and words into one timeline so reviewers can see what changed, when it changed, and why it matters.</>,
     ],
     bullets: [
-      'A review layer for interpreting voice, video, and conversation.',
-      'Visible cues, vocal stress, and language nuance treated as complementary evidence.',
-      'Raw communication converted into a structured review timeline.',
-      'Clear outputs, emotional timelines, and confidence markers for high-stakes review.',
-      'Built to connect into other products and compliance workflows.',
+      'Voice, video, and transcript signals in one review.',
+      'Tone, stress, and confidence made easier to inspect.',
+      'A clearer story for compliance, support, and investigations.',
+      'Product language that buyers can understand quickly.',
     ],
     heroVisual: {
       src: '/assets/projects/aletheia-curated.webp',
@@ -237,29 +235,29 @@ export const CASE_STUDIES: CaseStudy[] = [
     },
     screenshots: [
       {
-        title: 'Aletheia product section',
+        title: 'Product section',
         src: '/assets/case-studies/aletheia-section.png',
         alt: 'Screenshot of the Aletheia product section on Levitate Data',
-        caption: 'The product section introduces Aletheia as the review layer that reveals emotion, confidence, tone, and stress across communication.',
+        caption: 'A concise product story for reading voice, video, and transcript signals together.',
         width: 1440,
         height: 1200,
       },
       {
-        title: 'Levitate Data product catalog',
+        title: 'Product catalog',
         src: '/assets/case-studies/aletheia-product-page.png',
         alt: 'Screenshot of the Levitate Data product catalog containing Thalamus, Aletheia and Theia',
-        caption: 'The product catalog places Aletheia inside Levitate Data\'s broader suite of AI products.',
+        caption: 'Aletheia sits inside the broader Levitate Data product suite with a clear role.',
         width: 1440,
         height: 4246,
       },
     ],
     architecture: [
-      { title: '[ 01 ] Inputs', name: 'Human signals', items: ['Video', 'Audio', 'Transcript', 'Conversation'] },
+      { title: '[ 01 ] Sources', name: 'Conversation inputs', items: ['Video', 'Audio', 'Transcript', 'Call context'] },
       { title: '[ 02 ] Read', name: 'Signal review', items: ['Facial cues', 'Voice stress', 'Sentiment', 'Tone'] },
-      { title: '[ 03 ] Combine', name: 'Conversation timeline', items: ['Confidence shifts', 'Stress markers', 'Emotion changes', 'Context'], accent: true },
-      { title: '[ 04 ] Deliver', name: 'Review layer', items: ['Product link', 'Dashboards', 'Case review', 'History'] },
+      { title: '[ 03 ] Combine', name: 'Review timeline', items: ['Confidence shifts', 'Stress markers', 'Emotion changes', 'Evidence'], accent: true },
+      { title: '[ 04 ] Deliver', name: 'Product layer', items: ['Product link', 'Dashboards', 'Case review', 'History'] },
     ],
-    architectureNote: <>Aletheia turns unstructured calls and recordings into structured review signals. <strong>The output is designed to be clear enough for high-stakes review, not a black-box score detached from evidence.</strong></>,
+    architectureNote: <>Aletheia turns calls and recordings into structured review signals that stay close to the evidence.</>,
     codeTitle: 'Conversation review output',
     code: <>
       signals = review(video, audio, transcript){'\n'}
@@ -267,12 +265,44 @@ export const CASE_STUDIES: CaseStudy[] = [
       <span className="k">return</span> ConversationReview(confidence=timeline.confidence, stress=timeline.stress, evidence=signals.sources)
     </>,
     outcome: [
-      <>Aletheia stands as a distinct product story with a clear market promise: make important communication easier to review and understand.</>,
-      <>The positioning turns voice, video, and transcript analysis into one cohesive product narrative.</>,
-      <>The live product section reinforces the message with a focused description of Aletheia's role in compliance, customer review, and investigative workflows.</>,
+      <><strong>Clearer product story:</strong> Aletheia now reads as a focused review layer for high-stakes conversations.</>,
+      <><strong>Sharper buyer context:</strong> the page explains why voice, video, and transcript signals matter together.</>,
     ],
-    quote: 'The product went from technical feature list to a clear business promise: understand the signals inside important conversations.',
+    quote: 'Aletheia went from a technical feature set to a clear story for reviewing important conversations.',
     quoteBy: 'Product team, Levitate Data',
+    hard: [
+      { title: 'Signals are easy to overexplain', detail: 'The page had to explain voice, video, and transcript analysis without overwhelming non-technical buyers.' },
+      { title: 'Trust depends on context', detail: 'Reviewers need to understand why a moment matters, not just see a score or label.' },
+      { title: 'Use cases are high stakes', detail: 'Compliance, support, and investigation teams need language that feels careful, useful, and credible.' },
+      { title: 'The product needed a category', detail: 'Aletheia had to read as a review layer, not another call summary tool.' },
+    ],
+    decisions: [
+      { key: 'Signal mix', value: 'Voice, video, and transcript cues were shown as one review system.' },
+      { key: 'Evidence first', value: 'The story stayed close to what reviewers can inspect and understand.' },
+      { key: 'Timeline framing', value: 'Signals were organized around change over time, not isolated scores.' },
+      { key: 'Use-case clarity', value: 'Compliance, support, and investigations gave buyers familiar entry points.' },
+      { key: 'Product fit', value: 'Aletheia was positioned as a layer that can fit into existing workflows.' },
+      { key: 'Plain language', value: 'Technical cues became simple benefits a buyer could scan quickly.' },
+    ],
+    build: [
+      { week: '1–2', title: 'Product audit', detail: 'Reviewed the signal types, product context, and buyer use cases.' },
+      { week: '2–3', title: 'Core narrative', detail: 'Defined the review-layer positioning.' },
+      { week: '3–4', title: 'Signal story', detail: 'Simplified voice, video, and transcript language.' },
+      { week: '4–5', title: 'Use cases', detail: 'Mapped the message to compliance and review workflows.' },
+      { week: '5–6', title: 'Product copy', detail: 'Reduced feature language into concise page sections.' },
+      { week: '6–7', title: 'Launch fit', detail: 'Aligned Aletheia with the Levitate Data product suite.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Video calls', 'Audio files', 'Transcripts', 'Call context'] },
+      { group: 'Processing', items: ['Facial cues', 'Voice stress', 'Sentiment', 'Tone shifts'] },
+      { group: 'Answer layer', items: ['Confidence shifts', 'Stress markers', 'Emotion changes', 'Evidence links'] },
+      { group: 'Delivery', items: ['Product section', 'Review timeline', 'Case dashboard', 'Workflow handoff'] },
+      { group: 'Governance', items: ['Access rules', 'Review notes', 'Audit context', 'Compliance fit'] },
+    ],
+    related: [
+      { id: 'thalamus', tag: 'Document automation', title: 'AI search that understands company documents.', metric: 'Source-backed answers' },
+      { id: 'frcm', tag: 'Contract review', title: 'Contract review automation for construction teams.', metric: 'Clause-level risk' },
+    ],
   },
   {
     id: 'frcm',
@@ -466,7 +496,7 @@ export function CaseStudyPage({
 
   return (
     <>
-      <section className={`cs-hero${selectedCase.id === 'thalamus' ? ' cs-hero--thalamus' : ''}`}>
+      <section className={`cs-hero${isEnhanced ? ' cs-hero--thalamus' : ''}`}>
         <div className="container">
           <div className="cs-hero__breadcrumb">
             <a href="/">Home</a>
@@ -504,7 +534,7 @@ export function CaseStudyPage({
           </div>
 
           <div className="eyebrow mb-24">Case study · {selectedCase.index} / {CASE_STUDIES.length.toString().padStart(2, '0')}</div>
-          <div className="cs-hero__main" style={{ alignItems: selectedCase.id === 'thalamus' ? 'start' : 'center' }}>
+          <div className="cs-hero__main" style={{ alignItems: isEnhanced ? 'start' : 'center' }}>
             <div>
               <h1 className="h-display">
                 {selectedCase.title}
@@ -538,7 +568,7 @@ export function CaseStudyPage({
           {selectedCase.id === 'thalamus' && <ThalamusImpactStrip />}
 
           <div className="cs-hero__meta">
-            {selectedCase.id === 'thalamus' ? (
+            {isEnhanced ? (
               <>
                 <MetaBlock label="Client" title={selectedCase.client} detail={selectedCase.clientMeta} icon={<ClientIcon />} />
                 <MetaBlock label="Engagement" title={selectedCase.engagement} detail={selectedCase.engagementMeta} icon={<EngagementIcon />} />
@@ -559,6 +589,8 @@ export function CaseStudyPage({
 
       {selectedCase.id === 'thalamus' ? (
         <ThalamusBuyerCaseSection />
+      ) : isEnhanced ? (
+        <EnhancedBuyerCaseSection caseStudy={selectedCase} />
       ) : (
         <section className="section">
           <div className="container">
@@ -605,7 +637,7 @@ export function CaseStudyPage({
             <div className="cs-section">
               <SectionHeading label={isEnhanced ? '[ 06 ] Screenshots' : (selectedCase.hard ? '[ 06 ] Screenshots' : '[ 03 ] Screenshots')} />
               <div className="cs-section__body">
-                <div className={`case-shots${selectedCase.id === 'thalamus' ? ' case-shots--scroll' : ''}`}>
+                <div className={`case-shots${isEnhanced ? ' case-shots--scroll' : ''}`}>
                   {selectedCase.screenshots.map((shot) => (
                     <figure className="case-shot" key={shot.src}>
                       <div className="case-shot__frame">
@@ -841,6 +873,31 @@ function ThalamusBuyerCaseSection() {
   )
 }
 
+function EnhancedBuyerCaseSection({ caseStudy }: { caseStudy: CaseStudy }) {
+  const icons = [<ImpactAccuracyIcon />, <ImpactUsersIcon />, <BuyerClockIcon />, <BuyerChartIcon />]
+
+  return (
+    <section className="thalamus-buyer">
+      <div className="container">
+        <div className="thalamus-buyer__divider">
+          <span>{caseStudy.resultsLabel}</span>
+          <span>{caseStudy.resultsNote}</span>
+        </div>
+        <div className="thalamus-buyer__grid">
+          {caseStudy.results.map((item, index) => (
+            <div className="thalamus-buyer__card" key={item.label}>
+              <span className="thalamus-buyer__icon">{icons[index % icons.length]}</span>
+              <div className="thalamus-buyer__value">{item.value}</div>
+              <div className="thalamus-buyer__label">{item.label}</div>
+              <p>{item.sub}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 const ClientIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -984,15 +1041,16 @@ function WhyHardSection({ label, items }: { label: string; items: Array<{ title:
 
 function DecisionsSection({ label, items }: { label: string; items: Array<{ key: string; value: string }> }) {
   return (
-    <section className="cs-decisions">
+    <section className="thalamus-decisions">
       <div className="container">
         <div className="cs-section">
           <SectionHeading label={label} />
           <div className="cs-section__body">
-            <div className="cs-decisions__grid">
-              {items.map((d) => (
-                <div key={d.key} className="cs-decision">
-                  <span className="cs-decision__key">{d.key}</span>
+            <div className="thalamus-decisions__grid">
+              {items.map((d, index) => (
+                <div key={d.key} className="thalamus-decisions__card">
+                  <span className="thalamus-decisions__icon">{decisionIconForIndex(index)}</span>
+                  <h3>{d.key}</h3>
                   <p>{d.value}</p>
                 </div>
               ))}
@@ -1002,6 +1060,19 @@ function DecisionsSection({ label, items }: { label: string; items: Array<{ key:
       </div>
     </section>
   )
+}
+
+function decisionIconForIndex(index: number) {
+  const icons = [
+    <DecisionDocumentIcon />,
+    <DecisionShieldIcon />,
+    <BuyerClockIcon />,
+    <DecisionLayersIcon />,
+    <DecisionLockIcon />,
+    <DecisionRocketIcon />,
+  ]
+
+  return icons[index % icons.length]
 }
 
 const DecisionDocumentIcon = () => (
