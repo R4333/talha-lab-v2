@@ -411,22 +411,23 @@ export const CASE_STUDIES: CaseStudy[] = [
     shortName: 'Retina',
     client: 'Retina',
     clientMeta: 'Retail forecasting · Python automation',
-    title: <>Sales forecast <em>automation</em> that improved buying decisions.</>,
+    title: <>Inventory forecasts that <em>changed</em> buying decisions.</>,
     lede:
-      'Retina was making inventory decisions from spreadsheets, intuition, and stale dashboards. I built a forecasting workflow with weekly recommendations and a Slack planning interface in 10 weeks.',
+      'Retina moved from spreadsheet planning to weekly buying recommendations the team could trust.',
+    oneLiner: 'A forecasting workflow for stock risk, margin pressure, and purchase timing, delivered where the team already worked.',
     engagement: 'Sprint + advisory',
     engagementMeta: '10\u00A0weeks build · async support',
     role: 'AI builder',
     roleMeta: 'Forecasting · Python scripts · product surface',
     year: '2024',
     yearMeta: 'Q4 launch',
-    resultsLabel: 'Results after two buying cycles',
-    resultsNote: 'measured against the old planning baseline',
+    resultsLabel: 'Buyer case',
+    resultsNote: 'inventory and planning outcomes',
     results: [
-      { value: <>-31<em>%</em></>, label: 'Stockouts', sub: 'Across top products' },
-      { value: <>+18<em>%</em></>, label: 'Margin per product', sub: 'After buying cadence shift' },
-      { value: <em>7d</em>, label: 'Planning cadence', sub: 'Down from quarterly buys' },
-      { value: <em>86%</em>, label: 'Forecast accuracy', sub: 'Planning target hit' },
+      { value: <>31<em>%</em></>, label: 'Fewer stockouts', sub: 'Across top products' },
+      { value: <>18<em>%</em></>, label: 'Margin lift', sub: 'Per-product improvement' },
+      { value: <em>7d</em>, label: 'Planning cadence', sub: 'Weekly buying rhythm' },
+      { value: <>86<em>%</em></>, label: 'Forecast trust', sub: 'Planning target hit' },
     ],
     impact: [
       { label: 'Stockout reduction', value: 69, detail: 'Inventory risk moved down across top products.' },
@@ -435,33 +436,30 @@ export const CASE_STUDIES: CaseStudy[] = [
       { label: 'Forecast trust', value: 86, detail: 'Accuracy reached the operating target.' },
     ],
     problem: [
-      <>The founder knew demand patterns better than the dashboards, but the business had outgrown intuition. <strong>Quarterly buying decisions were too slow</strong> for promotion swings and supplier delays.</>,
-      <>Past forecasting attempts failed because they stopped at spreadsheets and notebooks. There was no repeatable workflow and no planning surface the team would actually use.</>,
-      <>The goal was not a fancy model. It was a tool that made weekly inventory decisions better and easier to defend.</>,
+      <strong className="cs-section__lead">The business had outgrown intuition-led buying.</strong>,
+      <>Quarterly planning was too slow for promotions, supplier delays, and changing demand. Retina needed a repeatable way to decide what to buy next.</>,
     ],
     approach: [
-      <>I started by reconstructing historical demand, promotions, stockout periods and supplier lead times into a clean training set.</>,
-      <>I compared simple baselines against stronger forecast models, then focused on clear explanations so buying decisions did not feel like magic.</>,
-      <>The model shipped behind a Slack workflow: category managers could ask for weekly forecasts, risk flags and recommended purchase quantities without opening a dashboard.</>,
+      <strong className="cs-section__lead">We turned forecasting into a weekly planning workflow.</strong>,
+      <>The model combined sales, inventory, promotions, and lead times, then delivered clear risk flags and purchase recommendations inside Slack.</>,
     ],
     bullets: [
-      'Feature pipeline for sales, promotions, stockouts, holidays and supplier lead times.',
-      'Simple forecast comparison with product-level checks.',
-      'Confidence ranges and risk flags attached to every recommendation.',
-      'Slack-native planning interface for weekly buying decisions.',
-      'Scheduled refreshes and alerts for major demand changes.',
+      'Sales, inventory, promotions, and supplier lead times in one forecast.',
+      'Confidence ranges attached to each recommendation.',
+      'Stockout risk surfaced before buying windows closed.',
+      'Slack became the planning surface for weekly decisions.',
     ],
     heroVisual: {
       src: '/assets/projects/retina-curated.webp',
       alt: 'Abstract curated visual for Retina showing inventory forecasts, demand curves, and planning blocks',
     },
     architecture: [
-      { title: '[ 01 ] Data', name: 'Demand history', items: ['Shopify', 'Ads spend', 'Inventory', 'Suppliers'] },
-      { title: '[ 02 ] Prepare', name: 'Forecast table', items: ['Promotions', 'Lead times', 'Seasonality', 'Stockout flags'] },
+      { title: '[ 01 ] Sources', name: 'Demand inputs', items: ['Sales', 'Ads spend', 'Inventory', 'Suppliers'] },
+      { title: '[ 02 ] Prepare', name: 'Planning table', items: ['Promotions', 'Lead times', 'Seasonality', 'Stockout flags'] },
       { title: '[ 03 ] Predict', name: 'Forecast engine', items: ['Model', 'Checks', 'Ranges', 'Alerts'], accent: true },
-      { title: '[ 04 ] Act', name: 'Planning surface', items: ['Slack app', 'Risk flags', 'Buy recs', 'Exports'] },
+      { title: '[ 04 ] Deliver', name: 'Buying surface', items: ['Slack app', 'Risk flags', 'Buy recs', 'Exports'] },
     ],
-    architectureNote: <>The model only mattered once it changed the buying cadence. <strong>Slack became the product surface because that is where the team already made decisions.</strong></>,
+    architectureNote: <>The model only mattered once it changed the buying cadence. Slack became the product surface because that is where the team already made decisions.</>,
     codeTitle: 'Forecast response',
     code: <>
       forecast = predict(next_8_weeks){'\n'}
@@ -469,12 +467,44 @@ export const CASE_STUDIES: CaseStudy[] = [
       return PurchasePlan(units=rec_qty, confidence=interval)
     </>,
     outcome: [
-      <>The team moved from quarterly buy decisions to weekly planning with confidence intervals attached to every recommendation.</>,
-      <>After two buying cycles, top-product stockouts dropped by <strong>31%</strong> and margin per product improved by 18%.</>,
-      <>The founder still had final say, but the model became the default planning baseline instead of a side report.</>,
+      <><strong>Better buying rhythm:</strong> quarterly decisions became weekly planning with confidence ranges attached.</>,
+      <><strong>Measured inventory impact:</strong> top-product stockouts dropped 31% and margin per product improved 18% after two buying cycles.</>,
     ],
-    quote: 'I came in skeptical of AI. Talha told me what was not worth building, then shipped the one tool that changed my buying decisions.',
+    quote: 'Talha told me what was not worth building, then shipped the one tool that changed my buying decisions.',
     quoteBy: 'Priya Krishnan, Founder, Retina',
+    hard: [
+      { title: 'Planning was too slow', detail: 'Quarterly buying could not react quickly enough to promotion swings, supplier delays, and changing demand.' },
+      { title: 'Dashboards were not enough', detail: 'The team needed a repeatable decision workflow, not another report to interpret.' },
+      { title: 'Trust mattered more than model depth', detail: 'Every recommendation needed a confidence range and a reason the buyer could understand.' },
+      { title: 'Adoption had to be simple', detail: 'The workflow had to live where the team already planned, reviewed, and made decisions.' },
+    ],
+    decisions: [
+      { key: 'Weekly cadence', value: 'Forecasting was tied to the rhythm of real buying decisions.' },
+      { key: 'Slack surface', value: 'Recommendations appeared where the team already worked.' },
+      { key: 'Risk flags', value: 'Stockout risk became visible before orders were placed.' },
+      { key: 'Confidence ranges', value: 'Each recommendation showed enough context to support judgment.' },
+      { key: 'Simple model proof', value: 'Baselines and checks kept the forecast explainable.' },
+      { key: 'Decision support', value: 'The founder kept final control while the model became the planning baseline.' },
+    ],
+    build: [
+      { week: '1–2', title: 'Data audit', detail: 'Reviewed sales, inventory, promotions, and supplier lead times.' },
+      { week: '2–4', title: 'Clean pipeline', detail: 'Built the planning table and stockout flags.' },
+      { week: '4–6', title: 'Forecast tests', detail: 'Compared simple baselines against stronger models.' },
+      { week: '6–8', title: 'Buying logic', detail: 'Added confidence ranges, risk flags, and purchase guidance.' },
+      { week: '8–9', title: 'Slack workflow', detail: 'Moved recommendations into the planning channel.' },
+      { week: '10', title: 'Launch + tune', detail: 'Shipped the workflow and adjusted it through the first cycle.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Sales history', 'Inventory levels', 'Promotions', 'Supplier lead times'] },
+      { group: 'Processing', items: ['Demand cleanup', 'Stockout flags', 'Seasonality', 'Product checks'] },
+      { group: 'Answer layer', items: ['Forecast ranges', 'Risk scores', 'Buy quantities', 'Planning notes'] },
+      { group: 'Delivery', items: ['Slack workflow', 'Weekly alerts', 'Exports', 'Review history'] },
+      { group: 'Governance', items: ['Human approval', 'Model checks', 'Data refreshes', 'Decision logs'] },
+    ],
+    related: [
+      { id: 'thalamus', tag: 'Document automation', title: 'AI search that understands company documents.', metric: 'Source-backed answers' },
+      { id: 'aletheia', tag: 'Voice + video AI', title: 'Review signals inside important calls.', metric: '3 signal types' },
+    ],
   },
 ]
 
@@ -493,6 +523,11 @@ export function CaseStudyPage({
   const nextCase = CASE_STUDIES[(CASE_STUDIES.findIndex((caseStudy) => caseStudy.id === selectedCase.id) + 1) % CASE_STUDIES.length]
 
   const isEnhanced = !!selectedCase.hard
+  const hasScreenshots = !!selectedCase.screenshots?.length
+  const valueProfileLabel = isEnhanced ? (hasScreenshots ? '[ 07 ] Value Profile' : '[ 06 ] Value Profile') : (selectedCase.screenshots ? '[ 04 ] Value Profile' : '[ 03 ] Value Profile')
+  const howItWorksLabel = isEnhanced ? (hasScreenshots ? '[ 08 ] How it works' : '[ 07 ] How it works') : (selectedCase.screenshots ? '[ 05 ] How it works' : '[ 04 ] How it works')
+  const outcomeLabel = isEnhanced ? (hasScreenshots ? '[ 09 ] Outcome' : '[ 08 ] Outcome') : (selectedCase.screenshots ? '[ 06 ] Outcome' : '[ 05 ] Outcome')
+  const stackLabel = hasScreenshots ? '[ 10 ] Stack' : '[ 09 ] Stack'
 
   return (
     <>
@@ -659,7 +694,7 @@ export function CaseStudyPage({
       <section>
         <div className="container">
           <div className="cs-section">
-            <SectionHeading label={isEnhanced ? '[ 07 ] Value Profile' : (selectedCase.screenshots ? '[ 04 ] Value Profile' : '[ 03 ] Value Profile')} />
+            <SectionHeading label={valueProfileLabel} />
             <div className="cs-section__body">
               <div className="impact-chart" aria-label={`${selectedCase.shortName} value profile`}>
                 {selectedCase.impact.map((item) => (
@@ -683,7 +718,7 @@ export function CaseStudyPage({
       <section>
         <div className="container">
           <div className="cs-section">
-            <SectionHeading label={isEnhanced ? '[ 08 ] How it works' : (selectedCase.screenshots ? '[ 05 ] How it works' : '[ 04 ] How it works')} />
+            <SectionHeading label={howItWorksLabel} />
             <div className="cs-section__body">
               <div className="arch">
                 <div className="arch__inner">
@@ -708,7 +743,7 @@ export function CaseStudyPage({
       <section>
         <div className="container">
           <div className="cs-section">
-            <SectionHeading label={isEnhanced ? '[ 09 ] Outcome' : (selectedCase.screenshots ? '[ 06 ] Outcome' : '[ 05 ] Outcome')} />
+            <SectionHeading label={outcomeLabel} />
             <div className="cs-section__body">
               {selectedCase.outcome.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
             </div>
@@ -721,7 +756,7 @@ export function CaseStudyPage({
       )}
 
       {isEnhanced && selectedCase.stack && (
-        <StackSection label="[ 10 ] Stack" items={selectedCase.stack} />
+        <StackSection label={stackLabel} items={selectedCase.stack} />
       )}
 
       {isEnhanced && selectedCase.related && (
