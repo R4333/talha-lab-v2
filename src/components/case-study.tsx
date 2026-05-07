@@ -609,6 +609,109 @@ export const CASE_STUDIES: CaseStudy[] = [
       { id: 'retina', tag: 'Automation', title: 'Inventory forecasts that changed buying decisions.', metric: '31% fewer stockouts' },
     ],
   },
+  {
+    id: 'musicfy',
+    categories: ['automation', 'mvp-saas', 'voice-ai'],
+    index: '06',
+    shortName: 'Musicfy',
+    client: 'Musicfy AI',
+    clientMeta: 'Generative audio · Voice cloning',
+    title: <>AI covers in <em>any</em> voice.</>,
+    lede:
+      'Musicfy helps creators generate song covers, voiceovers, and custom voices without a studio workflow.',
+    oneLiner: 'A creator audio product for instant covers, custom voice cloning, and a large voice library built for fast experimentation.',
+    engagement: 'Product narrative',
+    engagementMeta: 'Positioning · creator workflow · audio proof',
+    role: 'Product strategy',
+    roleMeta: 'Generative audio product story',
+    year: '2026',
+    yearMeta: 'Product positioning',
+    resultsLabel: 'Buyer case',
+    resultsNote: 'creator audio outcomes',
+    results: [
+      { value: <>100,000<em>+</em></>, label: 'Voice library', sub: 'A wide set of voices to try' },
+      { value: <em>Minutes</em>, label: 'Cover creation', sub: 'Faster song experiments' },
+      { value: <em>Custom</em>, label: 'Voice cloning', sub: 'Creator-owned voice styles' },
+      { value: <em>Studio</em>, label: 'Workflow feel', sub: 'Audio tools in one place' },
+    ],
+    impact: [
+      { label: 'Voice choice', value: 92, detail: 'A large voice library makes exploration easy.' },
+      { label: 'Creation speed', value: 88, detail: 'Covers move from idea to draft quickly.' },
+      { label: 'Creator control', value: 84, detail: 'Custom cloning supports personal voice styles.' },
+      { label: 'Product clarity', value: 86, detail: 'The workflow reads as simple creator tooling.' },
+    ],
+    problem: [
+      <strong className="cs-section__lead">AI music tools can feel technical before they feel creative.</strong>,
+      <>Musicfy needed to make voice cloning, cover generation, and audio creation feel approachable for creators who want fast results, not a complex production setup.</>,
+    ],
+    approach: [
+      <strong className="cs-section__lead">We framed Musicfy as the fastest way to try a song in a new voice.</strong>,
+      <>The message connected voice selection, custom cloning, and cover generation into one creator workflow: choose a voice, generate a cover, and keep iterating.</>,
+    ],
+    bullets: [
+      'AI song covers generated from a simple creator workflow.',
+      'A large voice library for fast experimentation.',
+      'Custom cloning for personal and branded voice styles.',
+      'Clear product language around creativity, speed, and control.',
+    ],
+    heroVisual: {
+      src: '/assets/projects/musicfy.jpg',
+      alt: 'Screenshot-style visual for Musicfy showing an AI voice and song generation product',
+    },
+    architecture: [
+      { title: '[ 01 ] Sources', name: 'Creator inputs', items: ['Songs', 'Vocals', 'Voice samples', 'Prompts'] },
+      { title: '[ 02 ] Generate', name: 'Audio workflow', items: ['Voice choice', 'Cloning', 'Cover draft', 'Mixing'] },
+      { title: '[ 03 ] Refine', name: 'Creator layer', items: ['Styles', 'Previews', 'Variants', 'Edits'], accent: true },
+      { title: '[ 04 ] Deliver', name: 'Audio output', items: ['Covers', 'Voiceovers', 'Downloads', 'Sharing'] },
+    ],
+    architectureNote: <>Musicfy packages voice generation around the creator outcome: fast covers, flexible voices, and enough control to keep the result usable.</>,
+    codeTitle: 'Voice cover flow',
+    code: <>
+      voice = select_voice(library, style){'\n'}
+      clone = clone_voice(sample){'\n'}
+      cover = generate_cover(song, voice || clone){'\n'}
+      <span className="k">return</span> CreatorAudio(track=cover, variants=preview_set)
+    </>,
+    outcome: [
+      <><strong>Clearer product story:</strong> Musicfy now reads as a focused AI cover and voice creation product for creators.</>,
+      <><strong>Sharper workflow promise:</strong> the page turns library voices, cloning, and cover generation into one easy path.</>,
+    ],
+    quote: 'Musicfy became easier to understand as a creator tool: pick a voice, make a cover, and keep experimenting.',
+    quoteBy: 'Product team',
+    hard: [
+      { title: 'Audio creation feels complex', detail: 'The story had to make covers and cloning feel easy without hiding the power of the tool.' },
+      { title: 'Voice choice can overwhelm', detail: 'A large library needed to feel useful, not noisy.' },
+      { title: 'Cloning needs trust', detail: 'Custom voices had to be framed around creator control and responsible use.' },
+      { title: 'Creators need speed', detail: 'The product had to support quick experiments without a heavy studio workflow.' },
+    ],
+    decisions: [
+      { key: 'Cover-first story', value: 'The main promise became creating AI song covers in minutes.' },
+      { key: 'Voice library proof', value: 'The 100,000+ voice library was used as the clearest exploration signal.' },
+      { key: 'Custom cloning', value: 'Voice cloning was positioned as a creator-control feature.' },
+      { key: 'Simple workflow', value: 'Choose, generate, preview, and refine became the core path.' },
+      { key: 'Creator language', value: 'The copy avoided model-heavy terms and focused on output.' },
+      { key: 'Audio flexibility', value: 'Covers, voiceovers, and variants were kept inside one product story.' },
+    ],
+    build: [
+      { week: '1–2', title: 'Product audit', detail: 'Reviewed voice library, cloning, and cover-generation flows.' },
+      { week: '2–3', title: 'Core narrative', detail: 'Defined the instant-cover positioning.' },
+      { week: '3–4', title: 'Workflow map', detail: 'Connected songs, voices, cloning, and previews.' },
+      { week: '4–5', title: 'Creator proof', detail: 'Simplified the value around speed and voice choice.' },
+      { week: '5–6', title: 'Product copy', detail: 'Reduced technical audio language into clear creator benefits.' },
+      { week: '6–7', title: 'Launch fit', detail: 'Aligned Musicfy with consumer AI creator expectations.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Song uploads', 'Voice samples', 'Prompts', 'Creator assets'] },
+      { group: 'Processing', items: ['Voice matching', 'Cloning', 'Cover generation', 'Audio cleanup'] },
+      { group: 'Answer layer', items: ['Voice choices', 'Cover drafts', 'Preview variants', 'Style options'] },
+      { group: 'Delivery', items: ['Downloads', 'Sharing', 'Voiceovers', 'Creator library'] },
+      { group: 'Governance', items: ['Creator review', 'Rights checks', 'Voice consent', 'Usage history'] },
+    ],
+    related: [
+      { id: 'crayo', tag: 'AI video', title: 'AI video tools for viral short-form content.', metric: 'Shorts workflow' },
+      { id: 'aletheia', tag: 'Voice + video AI', title: 'Review signals inside important calls.', metric: '3 signal types' },
+    ],
+  },
 ]
 
 export function getCaseStudy(caseId: string | undefined) {

@@ -10,6 +10,7 @@ const paths = [
   '/case-studies/frcm',
   '/case-studies/retina',
   '/case-studies/crayo',
+  '/case-studies/musicfy',
   '/case-studies/category/automation',
   '/case-studies/category/chatbot',
   '/case-studies/category/python-scripts',

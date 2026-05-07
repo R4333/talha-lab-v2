@@ -30,6 +30,11 @@ const CASE_SEO = {
     description:
       'AI video product positioning for creators generating short-form videos with automatic voiceovers, dynamic subtitles, and optimized clips.',
   },
+  musicfy: {
+    title: 'Musicfy Case Study - AI Voice Song Generator',
+    description:
+      'Generative audio product positioning for AI song covers, custom voice cloning, and creator voice experimentation.',
+  },
 } as const
 
 export const Route = createFileRoute('/case-studies/$caseId')({
