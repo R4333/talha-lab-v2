@@ -25,6 +25,11 @@ const CASE_SEO = {
     description:
       'How Talha Turab shipped a sales forecast workflow that reduced stockouts by 31% and improved product margin by 18%.',
   },
+  crayo: {
+    title: 'Crayo Case Study - AI Short-Form Video Automation',
+    description:
+      'AI video product positioning for creators generating short-form videos with automatic voiceovers, dynamic subtitles, and optimized clips.',
+  },
 } as const
 
 export const Route = createFileRoute('/case-studies/$caseId')({

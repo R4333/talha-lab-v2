@@ -506,6 +506,109 @@ export const CASE_STUDIES: CaseStudy[] = [
       { id: 'aletheia', tag: 'Voice + video AI', title: 'Review signals inside important calls.', metric: '3 signal types' },
     ],
   },
+  {
+    id: 'crayo',
+    categories: ['automation', 'mvp-saas', 'voice-ai'],
+    index: '05',
+    shortName: 'Crayo',
+    client: 'Crayo',
+    clientMeta: 'AI video · Short-form automation',
+    title: <>AI video tools for <em>viral</em> short-form content.</>,
+    lede:
+      'Crayo turns scripts, voiceovers, subtitles, and gameplay clips into short-form videos fast.',
+    oneLiner: 'An all-in-one AI video workflow for creators who need polished shorts without editing every frame by hand.',
+    engagement: 'Product narrative',
+    engagementMeta: 'Positioning · workflow story · creator proof',
+    role: 'Product strategy',
+    roleMeta: 'AI video product story',
+    year: '2026',
+    yearMeta: 'Product positioning',
+    resultsLabel: 'Buyer case',
+    resultsNote: 'creator workflow outcomes',
+    results: [
+      { value: <em>Seconds</em>, label: 'Video generation', sub: 'Short-form output fast' },
+      { value: <em>Auto</em>, label: 'Voiceovers', sub: 'Narration without manual setup' },
+      { value: <em>Dynamic</em>, label: 'Subtitles', sub: 'Captions built for retention' },
+      { value: <em>Shorts</em>, label: 'Format focus', sub: 'Optimized for viral clips' },
+    ],
+    impact: [
+      { label: 'Creation speed', value: 90, detail: 'Shorts move from idea to draft faster.' },
+      { label: 'Editing effort', value: 84, detail: 'Voiceover and subtitles become automatic.' },
+      { label: 'Format clarity', value: 88, detail: 'The product story stays focused on viral shorts.' },
+      { label: 'Creator confidence', value: 82, detail: 'The workflow is easy to understand and repeat.' },
+    ],
+    problem: [
+      <strong className="cs-section__lead">Short-form video creation has too many manual steps.</strong>,
+      <>Creators need scripts, narration, captions, clips, timing, and export settings to work together. Crayo needed a product story that made the whole workflow feel simple.</>,
+    ],
+    approach: [
+      <strong className="cs-section__lead">We framed Crayo as the fast path from idea to publish-ready short.</strong>,
+      <>The message focused on one clear workflow: generate a short, add AI voiceover, apply dynamic subtitles, and pair it with clips built for attention.</>,
+    ],
+    bullets: [
+      'AI video generation for short-form formats.',
+      'Automatic voiceovers and captions in the same workflow.',
+      'Gameplay clips shaped for creator-friendly output.',
+      'A simple story for fast content production.',
+    ],
+    heroVisual: {
+      src: '/assets/projects/crayo.png',
+      alt: 'Screenshot-style visual for Crayo showing an AI short-form video editing product',
+    },
+    architecture: [
+      { title: '[ 01 ] Sources', name: 'Creator inputs', items: ['Scripts', 'Prompts', 'Clips', 'Gameplay'] },
+      { title: '[ 02 ] Generate', name: 'Video workflow', items: ['Scenes', 'Voiceover', 'Subtitles', 'Timing'] },
+      { title: '[ 03 ] Optimize', name: 'Shorts engine', items: ['Pacing', 'Hooks', 'Captions', 'Formats'], accent: true },
+      { title: '[ 04 ] Deliver', name: 'Creator output', items: ['Drafts', 'Exports', 'Variants', 'Publishing'] },
+    ],
+    architectureNote: <>Crayo packages the editing workflow around the short-form outcome: faster drafts, clearer captions, and clips ready for creator review.</>,
+    codeTitle: 'Short-form generation flow',
+    code: <>
+      short = generate_video(script, clips){'\n'}
+      voiceover = add_voiceover(short, voice){'\n'}
+      captions = sync_subtitles(voiceover){'\n'}
+      <span className="k">return</span> ViralShort(video=short, captions=captions, format="shorts")
+    </>,
+    outcome: [
+      <><strong>Clearer product story:</strong> Crayo now reads as a focused AI video workflow for creators making short-form content.</>,
+      <><strong>Sharper workflow promise:</strong> the page connects voiceovers, subtitles, and clips into one fast creation path.</>,
+    ],
+    quote: 'Crayo became easier to explain as one simple promise: generate short-form videos in seconds.',
+    quoteBy: 'Product team',
+    hard: [
+      { title: 'Creators move quickly', detail: 'The page had to explain speed without making the product feel shallow or generic.' },
+      { title: 'The workflow has many parts', detail: 'Voiceovers, subtitles, clips, and exports needed to read as one system.' },
+      { title: 'Viral formats need clarity', detail: 'The story had to stay focused on short-form output instead of broad video editing.' },
+      { title: 'Automation needed trust', detail: 'Creators still need control over the final video, even when the draft is generated automatically.' },
+    ],
+    decisions: [
+      { key: 'Shorts first', value: 'The product story centered on short-form output, not general video editing.' },
+      { key: 'Workflow framing', value: 'Script, voiceover, captions, and clips became one creation path.' },
+      { key: 'Creator control', value: 'The message kept automation tied to editable drafts.' },
+      { key: 'Speed proof', value: 'Generation time became the core buyer signal.' },
+      { key: 'Caption value', value: 'Dynamic subtitles were framed as a retention tool.' },
+      { key: 'Clip pairing', value: 'Gameplay and visual clips were positioned as part of the creative engine.' },
+    ],
+    build: [
+      { week: '1–2', title: 'Product audit', detail: 'Reviewed the creator workflow and core video features.' },
+      { week: '2–3', title: 'Narrative', detail: 'Defined the fast short-form creation story.' },
+      { week: '3–4', title: 'Workflow map', detail: 'Connected prompts, voiceovers, subtitles, and clips.' },
+      { week: '4–5', title: 'Creator proof', detail: 'Simplified the value around speed and control.' },
+      { week: '5–6', title: 'Page copy', detail: 'Reduced feature language into scan-friendly sections.' },
+      { week: '6–7', title: 'Launch fit', detail: 'Aligned the product story with creator use cases.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Scripts', 'Prompts', 'Gameplay clips', 'Creator assets'] },
+      { group: 'Processing', items: ['Scene generation', 'Voiceover sync', 'Caption timing', 'Clip selection'] },
+      { group: 'Answer layer', items: ['Hook ideas', 'Video drafts', 'Subtitle variants', 'Format choices'] },
+      { group: 'Delivery', items: ['Shorts export', 'Draft review', 'Variant output', 'Publishing handoff'] },
+      { group: 'Governance', items: ['Creator review', 'Brand checks', 'Asset control', 'Edit history'] },
+    ],
+    related: [
+      { id: 'aletheia', tag: 'Voice + video AI', title: 'Review signals inside important calls.', metric: '3 signal types' },
+      { id: 'retina', tag: 'Automation', title: 'Inventory forecasts that changed buying decisions.', metric: '31% fewer stockouts' },
+    ],
+  },
 ]
 
 export function getCaseStudy(caseId: string | undefined) {

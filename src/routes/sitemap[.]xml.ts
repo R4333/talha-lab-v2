@@ -9,6 +9,7 @@ const paths = [
   '/case-studies/aletheia',
   '/case-studies/frcm',
   '/case-studies/retina',
+  '/case-studies/crayo',
   '/case-studies/category/automation',
   '/case-studies/category/chatbot',
   '/case-studies/category/python-scripts',
