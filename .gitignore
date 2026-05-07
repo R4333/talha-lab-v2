@@ -8,4 +8,4 @@ dist
 .tmp
 
 .playwright-cli
-
+.playwright-mcp/
