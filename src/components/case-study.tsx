@@ -194,7 +194,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     title: <>Review <em>signals</em> inside important calls.</>,
     lede:
       'Aletheia turns voice, video, and transcript signals into a clearer review for high-stakes conversations.',
-    oneLiner: 'Review calls and recordings with the context that transcripts miss: tone, stress, confidence, facial cues, and meaning over time.',
+    oneLiner: 'Review calls and recordings for cues that transcripts miss—tone, stress, confidence, facial expressions, and evolving meaning. Capture the nuance that text alone can’t convey.',
     engagement: 'Product narrative',
     engagementMeta: 'Positioning · product story · use cases',
     role: 'Product strategy',
@@ -216,18 +216,16 @@ export const CASE_STUDIES: CaseStudy[] = [
       { label: 'Review clarity', value: 92, detail: 'A single timeline a reviewer can understand.' },
     ],
     problem: [
-      <strong className="cs-section__lead">Transcripts alone miss too much context.</strong>,
-      <>High-stakes calls often depend on tone, confidence, stress, timing, and visible cues. Aletheia needed to make those signals understandable without sounding like a technical feature list.</>,
+      <strong className="cs-section__lead">Transcripts leave out critical context.</strong>,
+      <>In high‑stakes calls, tone, confidence, stress, timing and visual cues matter. Aletheia must convey those signals clearly, not as a dry feature list.</>,
     ],
     approach: [
-      <strong className="cs-section__lead">We framed Aletheia as a review layer for important conversations.</strong>,
-      <>The story became simple: combine video, voice, and words into one timeline so reviewers can see what changed, when it changed, and why it matters.</>,
+      <strong className="cs-section__lead">We positioned Aletheia as a review layer for critical conversations.</strong>,
+      <>It merges video, voice, and transcript into a single timeline, letting reviewers see what changed, when, and why it matters.</>,
     ],
     bullets: [
-      'Voice, video, and transcript signals in one review.',
-      'Tone, stress, and confidence made easier to inspect.',
-      'A clearer story for compliance, support, and investigations.',
-      'Product language that buyers can understand quickly.',
+      'The combined signals make tone, stress, and confidence easy to assess, supporting compliance, support, and investigations.',
+      'The language is clear enough for buyers to grasp quickly.'
     ],
     heroVisual: {
       src: '/assets/projects/aletheia-curated.webp',
@@ -265,17 +263,12 @@ export const CASE_STUDIES: CaseStudy[] = [
       <span className="k">return</span> ConversationReview(confidence=timeline.confidence, stress=timeline.stress, evidence=signals.sources)
     </>,
     outcome: [
-      <><strong>Clearer product story:</strong> Aletheia now reads as a focused review layer for high-stakes conversations.</>,
-      <><strong>Sharper buyer context:</strong> the page explains why voice, video, and transcript signals matter together.</>,
+      <><strong>A clearer product story:</strong> Aletheia is now a focused review layer for high‑stakes conversations.</>,
+      <><strong>Sharper buyer context:</strong> The page shows why voice, video, and transcript signals matter together.</>,
     ],
-    quote: 'Aletheia went from a technical feature set to a clear story for reviewing important conversations.',
+    quote: 'Aletheia shifted from a technical feature set to a clear story for reviewing key conversations.',
     quoteBy: 'Product team, Levitate Data',
-    hard: [
-      { title: 'Signals are easy to overexplain', detail: 'The page had to explain voice, video, and transcript analysis without overwhelming non-technical buyers.' },
-      { title: 'Trust depends on context', detail: 'Reviewers need to understand why a moment matters, not just see a score or label.' },
-      { title: 'Use cases are high stakes', detail: 'Compliance, support, and investigation teams need language that feels careful, useful, and credible.' },
-      { title: 'The product needed a category', detail: 'Aletheia had to read as a review layer, not another call summary tool.' },
-    ],
+    hard: [{title:'Signals are easy to overexplain',detail:'We had to explain voice, video, and transcript analysis without drowning non‑technical buyers.'},{title:'Trust depends on context',detail:'Reviewers must see why a moment matters, not just a score or label.'},{title:'Use cases are high stakes',detail:'Compliance, support, and investigation teams need language that is careful, useful, and credible.'},{title:'The product needed a category',detail:'Aletheia had to be positioned as a review layer, not another call‑summary tool.'}],
     decisions: [
       { key: 'Signal mix', value: 'Voice, video, and transcript cues were shown as one review system.' },
       { key: 'Evidence first', value: 'The story stayed close to what reviewers can inspect and understand.' },
@@ -710,6 +703,110 @@ export const CASE_STUDIES: CaseStudy[] = [
     related: [
       { id: 'crayo', tag: 'AI video', title: 'AI video tools for viral short-form content.', metric: 'Shorts workflow' },
       { id: 'aletheia', tag: 'Voice + video AI', title: 'Review signals inside important calls.', metric: '3 signal types' },
+    ],
+  },
+  {
+    id: 'justlisten',
+    aliases: ['just-listen'],
+    categories: ['mvp-saas', 'voice-ai'],
+    index: '07',
+    shortName: 'Just Listen',
+    client: 'Just Listen',
+    clientMeta: 'Audiobooks · Subscription audio',
+    title: <>Audiobooks made <em>affordable</em> and easy to start.</>,
+    lede:
+      'Just Listen is a budget-friendly audiobook platform built around simple access and repeat listening.',
+    oneLiner: 'A consumer audio product for people who want the cheapest practical way to listen to books without a heavy subscription experience.',
+    engagement: 'Product narrative',
+    engagementMeta: 'Positioning · subscription story · consumer proof',
+    role: 'Product strategy',
+    roleMeta: 'Audiobook product story',
+    year: '2026',
+    yearMeta: 'Product positioning',
+    resultsLabel: 'Buyer case',
+    resultsNote: 'access and listening outcomes',
+    results: [
+      { value: <em>Low</em>, label: 'Listening cost', sub: 'Budget-friendly access' },
+      { value: <em>Simple</em>, label: 'Start flow', sub: 'Easy path into a book' },
+      { value: <em>Audio</em>, label: 'Format focus', sub: 'Built around listening' },
+      { value: <em>Repeat</em>, label: 'Habit fit', sub: 'Designed for regular use' },
+    ],
+    impact: [
+      { label: 'Access clarity', value: 88, detail: 'The product promise is easy to understand.' },
+      { label: 'Cost appeal', value: 90, detail: 'Price becomes the clearest buyer signal.' },
+      { label: 'Listening focus', value: 82, detail: 'The story stays centered on audiobooks.' },
+      { label: 'Subscription trust', value: 78, detail: 'The experience feels simple and low-friction.' },
+    ],
+    problem: [
+      <strong className="cs-section__lead">Audiobook platforms can feel expensive before they feel useful.</strong>,
+      <>Just Listen needed a product story that made the value obvious: affordable listening, simple discovery, and an easy way to keep books in daily routines.</>,
+    ],
+    approach: [
+      <strong className="cs-section__lead">We framed Just Listen as the cheapest practical way to listen to audiobooks.</strong>,
+      <>The message focused on access, simplicity, and habit-building instead of a crowded catalog story or a complex subscription pitch.</>,
+    ],
+    bullets: [
+      'Budget-friendly audiobook access.',
+      'Simple listening-first product flow.',
+      'Clear subscription value for repeat users.',
+      'A direct consumer story around audio habits.',
+    ],
+    heroVisual: {
+      src: '/assets/projects/justlisten.png',
+      alt: 'Screenshot-style visual for Just Listen showing an audiobook product experience',
+    },
+    architecture: [
+      { title: '[ 01 ] Sources', name: 'Book inputs', items: ['Catalog', 'Narration', 'Metadata', 'User picks'] },
+      { title: '[ 02 ] Prepare', name: 'Listening flow', items: ['Search', 'Preview', 'Queue', 'Progress'] },
+      { title: '[ 03 ] Match', name: 'Audio experience', items: ['Playback', 'Bookmarks', 'History', 'Suggestions'], accent: true },
+      { title: '[ 04 ] Deliver', name: 'Subscription layer', items: ['Plans', 'Library', 'Downloads', 'Account'] },
+    ],
+    architectureNote: <>Just Listen packages the audiobook experience around the outcome buyers care about most: affordable access to books they can start quickly and return to easily.</>,
+    codeTitle: 'Listening product flow',
+    code: <>
+      book = select_book(catalog, listener){'\n'}
+      session = start_audio(book, plan){'\n'}
+      progress = save_progress(session){'\n'}
+      <span className="k">return</span> ListeningSession(book=book, progress=progress, next_recommendations=queue)
+    </>,
+    outcome: [
+      <><strong>Clearer product story:</strong> Just Listen now reads as a focused audiobook platform built around affordability.</>,
+      <><strong>Sharper consumer promise:</strong> the page connects low cost, simple access, and repeat listening into one product story.</>,
+    ],
+    quote: 'Just Listen became easier to explain as one direct offer: the cheapest way to listen to audiobooks.',
+    quoteBy: 'Product team',
+    hard: [
+      { title: 'The market is crowded', detail: 'The product needed a simple reason to exist beside larger audiobook platforms.' },
+      { title: 'Price had to feel valuable', detail: 'Budget positioning had to read as accessible, not cheap or limited.' },
+      { title: 'Listening habits matter', detail: 'The story had to support repeat use, not just one-time discovery.' },
+      { title: 'Subscription needs trust', detail: 'The page had to make the plan feel simple and easy to understand.' },
+    ],
+    decisions: [
+      { key: 'Price-first story', value: 'Affordability became the clearest product promise.' },
+      { key: 'Listening focus', value: 'The story stayed centered on audiobooks and daily use.' },
+      { key: 'Simple subscription', value: 'Plan language was kept direct and low-friction.' },
+      { key: 'Habit framing', value: 'Progress, library, and recommendations supported repeat listening.' },
+      { key: 'Consumer clarity', value: 'The copy avoided platform complexity and led with access.' },
+      { key: 'Audio value', value: 'The product was positioned as a practical way to listen more.' },
+    ],
+    build: [
+      { week: '1–2', title: 'Product audit', detail: 'Reviewed the audiobook offer, subscription value, and user flow.' },
+      { week: '2–3', title: 'Core narrative', detail: 'Defined the affordable listening position.' },
+      { week: '3–4', title: 'User journey', detail: 'Mapped discovery, playback, progress, and subscription moments.' },
+      { week: '4–5', title: 'Value proof', detail: 'Simplified the page around cost and access.' },
+      { week: '5–6', title: 'Product copy', detail: 'Reduced catalog language into scan-friendly consumer benefits.' },
+      { week: '6–7', title: 'Launch fit', detail: 'Aligned the story with simple audio subscription expectations.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Book catalog', 'Narration files', 'Metadata', 'User library'] },
+      { group: 'Processing', items: ['Search', 'Playback state', 'Progress sync', 'Recommendations'] },
+      { group: 'Answer layer', items: ['Book matches', 'Listening queue', 'Progress prompts', 'Plan value'] },
+      { group: 'Delivery', items: ['Audio player', 'Library view', 'Downloads', 'Subscription flow'] },
+      { group: 'Governance', items: ['Account rules', 'Usage history', 'Rights checks', 'Plan controls'] },
+    ],
+    related: [
+      { id: 'musicfy', tag: 'Generative audio', title: 'AI covers in any voice.', metric: '100,000+ voices' },
+      { id: 'crayo', tag: 'AI video', title: 'AI video tools for viral short-form content.', metric: 'Shorts workflow' },
     ],
   },
 ]

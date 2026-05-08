@@ -35,6 +35,11 @@ const CASE_SEO = {
     description:
       'Generative audio product positioning for AI song covers, custom voice cloning, and creator voice experimentation.',
   },
+  justlisten: {
+    title: 'Just Listen Case Study - Budget Audiobook Platform',
+    description:
+      'Audiobook product positioning for affordable listening, simple subscription access, and repeat audio habits.',
+  },
 } as const
 
 export const Route = createFileRoute('/case-studies/$caseId')({
