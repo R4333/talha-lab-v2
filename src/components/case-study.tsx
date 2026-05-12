@@ -404,10 +404,10 @@ export const CASE_STUDIES: CaseStudy[] = [
     shortName: 'Retina',
     client: 'Retina',
     clientMeta: 'Retail forecasting · Python automation',
-    title: <>Inventory forecasts that <em>changed</em> buying decisions.</>,
+    title: <>Inventory forecasts that <em>shifted</em> purchasing decisions.</>,
     lede:
       'Retina moved from spreadsheet planning to weekly buying recommendations the team could trust.',
-    oneLiner: 'A forecasting workflow for stock risk, margin pressure, and purchase timing, delivered where the team already worked.',
+    oneLiner: 'A forecasting workflow for stock risk, margin pressure, and purchase timing, delivered within the team’s existing environment.',
     engagement: 'Sprint + advisory',
     engagementMeta: '10\u00A0weeks build · async support',
     role: 'AI builder',
@@ -429,12 +429,12 @@ export const CASE_STUDIES: CaseStudy[] = [
       { label: 'Forecast trust', value: 86, detail: 'Accuracy reached the operating target.' },
     ],
     problem: [
-      <strong className="cs-section__lead">The business had outgrown intuition-led buying.</strong>,
-      <>Quarterly planning was too slow for promotions, supplier delays, and changing demand. Retina needed a repeatable way to decide what to buy next.</>,
+      <strong className="cs-section__lead">The business outgrew intuition‑driven buying.</strong>,
+      <>Quarterly planning can’t keep pace with promotions, supplier delays, or shifting demand. Retina needs a repeatable process to choose the next purchase.</>,
     ],
     approach: [
       <strong className="cs-section__lead">We turned forecasting into a weekly planning workflow.</strong>,
-      <>The model combined sales, inventory, promotions, and lead times, then delivered clear risk flags and purchase recommendations inside Slack.</>,
+      <>The model merges sales, inventory, promotions and lead times, then sends risk flags and purchase recommendations to Slack.</>,
     ],
     bullets: [
       'Sales, inventory, promotions, and supplier lead times in one forecast.',
@@ -452,7 +452,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       { title: '[ 03 ] Predict', name: 'Forecast engine', items: ['Model', 'Checks', 'Ranges', 'Alerts'], accent: true },
       { title: '[ 04 ] Deliver', name: 'Buying surface', items: ['Slack app', 'Risk flags', 'Buy recs', 'Exports'] },
     ],
-    architectureNote: <>The model only mattered once it changed the buying cadence. Slack became the product surface because that is where the team already made decisions.</>,
+    architectureNote: <>The model mattered only after it altered the buying cadence. Slack became the product surface since the team already decides there.</>,
     codeTitle: 'Forecast response',
     code: <>
       forecast = predict(next_8_weeks){'\n'}
@@ -463,13 +463,13 @@ export const CASE_STUDIES: CaseStudy[] = [
       <><strong>Better buying rhythm:</strong> quarterly decisions became weekly planning with confidence ranges attached.</>,
       <><strong>Measured inventory impact:</strong> top-product stockouts dropped 31% and margin per product improved 18% after two buying cycles.</>,
     ],
-    quote: 'Talha told me what was not worth building, then shipped the one tool that changed my buying decisions.',
+    quote: "Talha identified what wasn't worth building and delivered the tool that shifted my purchasing decisions.",
     quoteBy: 'Priya Krishnan, Founder, Retina',
     hard: [
-      { title: 'Planning was too slow', detail: 'Quarterly buying could not react quickly enough to promotion swings, supplier delays, and changing demand.' },
-      { title: 'Dashboards were not enough', detail: 'The team needed a repeatable decision workflow, not another report to interpret.' },
-      { title: 'Trust mattered more than model depth', detail: 'Every recommendation needed a confidence range and a reason the buyer could understand.' },
-      { title: 'Adoption had to be simple', detail: 'The workflow had to live where the team already planned, reviewed, and made decisions.' },
+      { title: 'Planning was too slow', detail: 'Quarterly buying couldn’t keep up with promo swings, supplier delays or demand shifts.' },
+      { title: 'Dashboards were not enough', detail: 'The team needed a repeatable decision workflow, not another report.' },
+      { title: 'Trust mattered more than model depth', detail: 'Each recommendation required a confidence range and a clear reason.' },
+      { title: 'Simple adoption', detail: 'The workflow had to live in the tools where the team already plans and decides.' },
     ],
     decisions: [
       { key: 'Weekly cadence', value: 'Forecasting was tied to the rhythm of real buying decisions.' },
@@ -509,7 +509,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     title: <>AI video tools for <em>viral</em> short-form content.</>,
     lede:
       'Crayo turns scripts, voiceovers, subtitles, and gameplay clips into short-form videos fast.',
-    oneLiner: 'An all-in-one AI video workflow for creators who need polished shorts without editing every frame by hand.',
+    oneLiner: 'A single AI video workflow lets creators produce polished shorts without hand‑editing each frame.',
     engagement: 'Product narrative',
     engagementMeta: 'Positioning · workflow story · creator proof',
     role: 'Product strategy',
@@ -531,18 +531,18 @@ export const CASE_STUDIES: CaseStudy[] = [
       { label: 'Creator confidence', value: 82, detail: 'The workflow is easy to understand and repeat.' },
     ],
     problem: [
-      <strong className="cs-section__lead">Short-form video creation has too many manual steps.</strong>,
-      <>Creators need scripts, narration, captions, clips, timing, and export settings to work together. Crayo needed a product story that made the whole workflow feel simple.</>,
+      <strong className="cs-section__lead">Short‑form video creation involves too many manual steps. </strong>,
+      <>Creators must juggle scripts, narration, captions, clips, timing, and export settings. Crayo needed a product story that streamlined the entire workflow.</>,
     ],
     approach: [
-      <strong className="cs-section__lead">We framed Crayo as the fast path from idea to publish-ready short.</strong>,
-      <>The message focused on one clear workflow: generate a short, add AI voiceover, apply dynamic subtitles, and pair it with clips built for attention.</>,
+      <strong className="cs-section__lead">We positioned Crayo as the quickest route from concept to a publish-ready short.</strong>,
+      <>The pitch highlighted a single workflow: create a short, add AI voiceover, add dynamic subtitles, and match it with attention‑grabbing clips.</>,
     ],
     bullets: [
-      'AI video generation for short-form formats.',
-      'Automatic voiceovers and captions in the same workflow.',
-      'Gameplay clips shaped for creator-friendly output.',
-      'A simple story for fast content production.',
+      'Video generation powered by AI for short-form content.',
+      'Automatic voiceovers and captions built into one workflow.',
+      'Gameplay clips formatted for creator‑friendly output.',
+      'A simple story to speed content production.',
     ],
     heroVisual: {
       src: '/assets/projects/crayo.png',
@@ -554,7 +554,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       { title: '[ 03 ] Optimize', name: 'Shorts engine', items: ['Pacing', 'Hooks', 'Captions', 'Formats'], accent: true },
       { title: '[ 04 ] Deliver', name: 'Creator output', items: ['Drafts', 'Exports', 'Variants', 'Publishing'] },
     ],
-    architectureNote: <>Crayo packages the editing workflow around the short-form outcome: faster drafts, clearer captions, and clips ready for creator review.</>,
+    architectureNote: <>Crayo builds the editing workflow to deliver quick drafts, clear captions, and clips ready for creators.</>,
     codeTitle: 'Short-form generation flow',
     code: <>
       short = generate_video(script, clips){'\n'}
@@ -563,16 +563,16 @@ export const CASE_STUDIES: CaseStudy[] = [
       <span className="k">return</span> ViralShort(video=short, captions=captions, format="shorts")
     </>,
     outcome: [
-      <><strong>Clearer product story:</strong> Crayo now reads as a focused AI video workflow for creators making short-form content.</>,
-      <><strong>Sharper workflow promise:</strong> the page connects voiceovers, subtitles, and clips into one fast creation path.</>,
-    ],
-    quote: 'Crayo became easier to explain as one simple promise: generate short-form videos in seconds.',
+    <><strong>Clearer product story:</strong> Crayo is now a focused AI video workflow for short-form creators.</>,
+    <><strong>Sharper workflow promise:</strong> the page links voiceovers, subtitles, and clips into a fast creation path.</>,
+  ],
+    quote: 'Crayo is now summed up in one promise: create short videos in seconds.',
     quoteBy: 'Product team',
     hard: [
-      { title: 'Creators move quickly', detail: 'The page had to explain speed without making the product feel shallow or generic.' },
-      { title: 'The workflow has many parts', detail: 'Voiceovers, subtitles, clips, and exports needed to read as one system.' },
-      { title: 'Viral formats need clarity', detail: 'The story had to stay focused on short-form output instead of broad video editing.' },
-      { title: 'Automation needed trust', detail: 'Creators still need control over the final video, even when the draft is generated automatically.' },
+      { title: 'Creators work fast', detail: 'The page needed to convey speed without sounding shallow or generic.' },
+      { title: 'The workflow is complex', detail: 'Voiceovers, subtitles, clips, and exports must appear as a single system.' },
+      { title: 'Viral formats require clarity', detail: 'The story must stay focused on short-form output, not broad editing.' },
+      { title: 'Automation must earn trust', detail: 'Creators need control over the final video, even with automatic drafts.' },
     ],
     decisions: [
       { key: 'Shorts first', value: 'The product story centered on short-form output, not general video editing.' },
@@ -612,7 +612,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     title: <>AI covers in <em>any</em> voice.</>,
     lede:
       'Musicfy helps creators generate song covers, voiceovers, and custom voices without a studio workflow.',
-    oneLiner: 'A creator audio product for instant covers, custom voice cloning, and a large voice library built for fast experimentation.',
+    oneLiner: 'A creator audio tool for instant covers, custom voice cloning, and a big voice library, designed for rapid experimentation.',
     engagement: 'Product narrative',
     engagementMeta: 'Positioning · creator workflow · audio proof',
     role: 'Product strategy',
@@ -634,18 +634,18 @@ export const CASE_STUDIES: CaseStudy[] = [
       { label: 'Product clarity', value: 86, detail: 'The workflow reads as simple creator tooling.' },
     ],
     problem: [
-      <strong className="cs-section__lead">AI music tools can feel technical before they feel creative.</strong>,
-      <>Musicfy needed to make voice cloning, cover generation, and audio creation feel approachable for creators who want fast results, not a complex production setup.</>,
+      <strong className="cs-section__lead">AI music tools tend to feel technical before they feel creative.</strong>,
+      <>Musicfy had to make voice cloning, cover generation, and audio creation approachable for creators who need fast results, not a complex setup.</>,
     ],
     approach: [
-      <strong className="cs-section__lead">We framed Musicfy as the fastest way to try a song in a new voice.</strong>,
-      <>The message connected voice selection, custom cloning, and cover generation into one creator workflow: choose a voice, generate a cover, and keep iterating.</>,
+      <strong className="cs-section__lead">Musicfy lets you test a song in a new voice instantly.</strong>,
+      <>It ties voice selection, custom cloning, and cover generation into a single workflow: pick a voice, create a cover, and refine.</>,
     ],
     bullets: [
-      'AI song covers generated from a simple creator workflow.',
-      'A large voice library for fast experimentation.',
-      'Custom cloning for personal and branded voice styles.',
-      'Clear product language around creativity, speed, and control.',
+      'AI song covers created via a simple workflow.',
+      'Extensive voice library for rapid testing.',
+      'Custom cloning for personal or brand voices.',
+      'Product language focused on creativity, speed, control.',
     ],
     heroVisual: {
       src: '/assets/projects/musicfy.jpg',
@@ -666,8 +666,8 @@ export const CASE_STUDIES: CaseStudy[] = [
       <span className="k">return</span> CreatorAudio(track=cover, variants=preview_set)
     </>,
     outcome: [
-      <><strong>Clearer product story:</strong> Musicfy now reads as a focused AI cover and voice creation product for creators.</>,
-      <><strong>Sharper workflow promise:</strong> the page turns library voices, cloning, and cover generation into one easy path.</>,
+      <><strong>Clearer product story:</strong> Musicfy is now positioned as a focused AI cover and voice creation tool for creators.</>,
+      <><strong>Sharper workflow promise:</strong> the page consolidates library voices, cloning, and cover generation into a single easy path.</>,
     ],
     quote: 'Musicfy became easier to understand as a creator tool: pick a voice, make a cover, and keep experimenting.',
     quoteBy: 'Product team',
@@ -716,7 +716,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     title: <>Audiobooks made <em>affordable</em> and easy to start.</>,
     lede:
       'Just Listen is a budget-friendly audiobook platform built around simple access and repeat listening.',
-    oneLiner: 'A consumer audio product for people who want the cheapest practical way to listen to books without a heavy subscription experience.',
+    oneLiner: 'A low‑cost audio product that lets anyone listen to books without a bulky subscription.',
     engagement: 'Product narrative',
     engagementMeta: 'Positioning · subscription story · consumer proof',
     role: 'Product strategy',
@@ -738,18 +738,18 @@ export const CASE_STUDIES: CaseStudy[] = [
       { label: 'Subscription trust', value: 78, detail: 'The experience feels simple and low-friction.' },
     ],
     problem: [
-      <strong className="cs-section__lead">Audiobook platforms can feel expensive before they feel useful.</strong>,
-      <>Just Listen needed a product story that made the value obvious: affordable listening, simple discovery, and an easy way to keep books in daily routines.</>,
+      <strong className="cs-section__lead">Audiobook services often seem pricey before you see their benefit.</strong>,
+      <>Just Listen needed a clear story: affordable listening, easy discovery, and a simple way to fit books into daily routines.</>,
     ],
     approach: [
-      <strong className="cs-section__lead">We framed Just Listen as the cheapest practical way to listen to audiobooks.</strong>,
-      <>The message focused on access, simplicity, and habit-building instead of a crowded catalog story or a complex subscription pitch.</>,
+      <strong className="cs-section__lead">We positioned Just Listen as the most affordable way to enjoy audiobooks.</strong>,
+      <>The message emphasized easy access, simplicity, and habit formation rather than a large catalog or a complicated subscription.</>,
     ],
-    bullets: [
-      'Budget-friendly audiobook access.',
-      'Simple listening-first product flow.',
+    bullets:[
+      'Affordable audiobook access.',
+      'Straightforward listening-first flow.',
       'Clear subscription value for repeat users.',
-      'A direct consumer story around audio habits.',
+      'A direct consumer story about audio habits.',
     ],
     heroVisual: {
       src: '/assets/projects/justlisten.png',
@@ -770,8 +770,8 @@ export const CASE_STUDIES: CaseStudy[] = [
       <span className="k">return</span> ListeningSession(book=book, progress=progress, next_recommendations=queue)
     </>,
     outcome: [
-      <><strong>Clearer product story:</strong> Just Listen now reads as a focused audiobook platform built around affordability.</>,
-      <><strong>Sharper consumer promise:</strong> the page connects low cost, simple access, and repeat listening into one product story.</>,
+      <><strong>Clearer product story:</strong> Just Listen is now a focused, affordable audiobook platform.</>,
+      <><strong>Sharper consumer promise:</strong> The page links low cost, easy access, and repeat listening into a single story.</>,
     ],
     quote: 'Just Listen became easier to explain as one direct offer: the cheapest way to listen to audiobooks.',
     quoteBy: 'Product team',
