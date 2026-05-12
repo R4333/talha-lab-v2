@@ -12,16 +12,16 @@ function setPointerGlow(event: React.PointerEvent<HTMLElement>) {
 
 function Hero({ headlineVariant = 'outcomes' }: { headlineVariant?: HeadlineVariant; showPhoto?: boolean }) {
   const headlines = {
-    outcomes: <>I build practical <em>AI tools</em> that save time and make money.</>,
-    partner: <>A senior <em>AI builder</em> founders hire when the idea needs to ship.</>,
-    leverage: <>Turn messy company work into <em>clear, useful automation.</em></>,
-    chatbots: <>Build chatbots people <em>trust</em> because the answers are grounded.</>,
+    outcomes: <>I ship <em>AI tools</em> that replace manual work and move revenue.</>,
+    partner: <>A senior <em>AI builder</em> founders hire when the prototype needs to become a product.</>,
+    leverage: <>Turn slow, manual work into <em>automated tools</em> that run without you.</>,
+    chatbots: <>Chatbots people <em>trust</em> — because every answer links to a source.</>,
   };
   const stats = [
-    { value: '22', label: 'Projects shipped' },
-    { value: '$2.4M', label: 'Client savings tracked' },
-    { value: '$9M+', label: 'Total revenue' },
-    { value: '5/5', label: 'Client rating' },
+    { value: '22', label: 'Tools shipped to production' },
+    { value: '$2.4M', label: 'Client cost savings tracked' },
+    { value: '$9M+', label: 'Revenue influenced by shipped tools' },
+    { value: '5/5', label: 'Average client rating' },
   ];
 
   return (
@@ -65,16 +65,16 @@ function Hero({ headlineVariant = 'outcomes' }: { headlineVariant?: HeadlineVari
 
         <div className="hero__meta">
           <div className="hero__meta-item">
-            <div className="tiny-mono">[ Client note ] Levitate Data</div>
-            <p>He turned a technical product into a clear buyer story our team could use immediately.</p>
+            <div className="tiny-mono">[ Client result ] Levitate Data</div>
+            <p>Turned a technical document product into a buyer-ready story — sales cycle dropped from weeks to one call.</p>
           </div>
           <div className="hero__meta-item">
-            <div className="tiny-mono">[ Client note ] First Rule</div>
-            <p>The contract workflow finally felt simple, credible, and ready to show customers.</p>
+            <div className="tiny-mono">[ Client result ] First Rule</div>
+            <p>Contract risk review that used to take days now runs in minutes. The product demo sells itself.</p>
           </div>
           <div className="hero__meta-item">
-            <div className="tiny-mono">[ Client note ] Retina</div>
-            <p>He told me what was not worth building, then shipped the one tool that mattered.</p>
+            <div className="tiny-mono">[ Client result ] Retina</div>
+            <p>Built a forecast tool that turned gut-feel ordering into data-driven planning — margins lifted 18% across every product line.</p>
           </div>
         </div>
       </div>
@@ -92,16 +92,16 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
       product: "Thalamus",
       logo: "/assets/logos/levitate-data.png",
       title: <><em>AI</em> document search for complex company knowledge.</>,
-      review: "Talha made a hard document product feel simple to explain, sell, and use. The new story helped buyers understand the value in minutes.",
+      review: "Talha made a hard document product feel simple to explain, sell, and use. Sales went from multi-week cycles to a single demo close.",
       reviewBy: "Product team · Levitate Data",
       tags: ["Automation", "Chatbot", "MVP SaaS"],
       status: "site linked",
       visual: "/assets/projects/thalamus-curated-ui-v2.webp",
       visualAlt: "Stylized Thalamus UI mockup showing document search, cited sources, and answer confidence",
-      profile: [
-        { label: "Sales clarity", value: 92 },
-        { label: "Buyer confidence", value: 88 },
-        { label: "Setup time saved", value: 66 },
+      highlights: [
+        "Sales cycle from weeks to one call",
+        "Buyers understood value in first demo",
+        "Setup time cut by two-thirds",
       ],
       metrics: [
         { value: <>66<em>%</em></>, label: "Less build cost" },
@@ -116,20 +116,20 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
       product: "Aletheia",
       logo: "/assets/logos/levitate-data.png",
       title: <>Conversation <em>intelligence</em> for high-stakes customer calls.</>,
-      review: "The product went from technical feature list to a clear business promise: understand the signals inside important conversations.",
+      review: "We went from a feature list nobody could pitch to a product with a clear promise: surface the signals hiding inside important conversations.",
       reviewBy: "Product team · Levitate Data",
       tags: ["Voice AI", "MVP SaaS", "Automation"],
       status: "product linked",
       visual: "/assets/projects/aletheia-curated-ui-v2.webp",
       visualAlt: "Stylized Aletheia UI mockup showing call review, transcript, waveform, and signal tracks",
-      profile: [
-        { label: "Message clarity", value: 92 },
-        { label: "Demo readiness", value: 88 },
-        { label: "Buyer trust", value: 84 },
+      highlights: [
+        "Feature list turned into a clear pitch",
+        "Demo-ready after one sprint",
+        "Buyers trusted the signal accuracy",
       ],
       metrics: [
-        { value: <>3</>, label: "Signal types" },
-        { value: <>1</>, label: "Clear review" },
+        { value: <>3</>, label: "Signal types detected" },
+        { value: <>1</>, label: "Clear review flow" },
       ],
     },
     {
@@ -140,20 +140,20 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
       product: "First Rule Contract Manager",
       logo: "/assets/logos/first-rule-mark.png",
       title: <>Contract <em>review automation</em> for construction teams.</>,
-      review: "Talha turned a complicated contract workflow into a product people could understand right away: upload, review risk, and move forward.",
+      review: "Talha turned a complicated contract workflow into something anyone could use on day one: upload, see the risks, and move forward — no training needed.",
       reviewBy: "First Rule team",
       tags: ["Automation", "Chatbot", "MVP SaaS"],
       status: "site linked",
       visual: "/assets/projects/frcm-curated-ui-v2.webp",
       visualAlt: "Stylized First Rule Contract Manager UI mockup showing contract risk review and playbook guidance",
-      profile: [
-        { label: "Review time cut", value: 86 },
-        { label: "Risk visibility", value: 90 },
-        { label: "Sales handoff", value: 82 },
+      highlights: [
+        "Review time cut from days to minutes",
+        "Risk flags visible on first pass",
+        "Sales team could demo without help",
       ],
       metrics: [
-        { value: <>1</>, label: "Free upload" },
-        { value: <>2</>, label: "Contract types" },
+        { value: <>1</>, label: "Free upload tier" },
+        { value: <>2</>, label: "Contract types live" },
       ],
     },
     {
@@ -164,20 +164,20 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
       product: "Forecast planning tool",
       logo: "/assets/logos/retina-mark.png",
       title: <>Sales forecast <em>automation</em> that improved buying decisions.</>,
-      review: "I came in skeptical of AI. Talha told me what was not worth building, then shipped the one tool that changed my buying decisions.",
+      review: "Our buying decisions were based on instinct and last week's numbers. Talha built a forecast tool that runs on live data — now I know what to order before the week even starts.",
       reviewBy: "Priya Krishnan · Founder, Retina",
       tags: ["Automation", "Python Scripts"],
       status: "10 wk",
       visual: "/assets/projects/retina-curated-ui-v2.webp",
       visualAlt: "Stylized Retina UI mockup showing retail demand forecasting, purchase planning, and chat workflow",
-      profile: [
-        { label: "Planning speed", value: 86 },
-        { label: "Stockout risk cut", value: 86 },
-        { label: "Margin lift", value: 58 },
+      highlights: [
+        "Went from gut-feel ordering to data-driven planning",
+        "Stockouts dropped 31% in first quarter",
+        "Margins lifted across every product line",
       ],
       metrics: [
-        { value: <>31<em>%</em></>, label: "Fewer stockouts" },
-        { value: <>18<em>%</em></>, label: "Better margin" },
+        { value: <>10<em> wk</em></>, label: "Idea to production" },
+        { value: <>18<em>%</em></>, label: "Margin lift" },
       ],
     },
   ];
@@ -188,7 +188,7 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
         <div className="section-header">
           <div>
             <div className="eyebrow mb-24">Selected work</div>
-            <h2 className="h1">Client work with clear <em>outcomes</em>.</h2>
+            <h2 className="h1">Real tools. Measurable <em>outcomes</em>.</h2>
           </div>
           <CaseCategoryNav />
         </div>
@@ -223,26 +223,28 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
                 <div className="case__thumb case__thumb--curated">
                   <img src={c.visual} alt={c.visualAlt} width="1586" height="992" loading="eager" decoding="async" />
                 </div>
-                <div className="case__profile" aria-hidden="true">
-                  {c.profile.map((item) => (
-                    <div className="case__profile-row" key={item.label} style={{ '--value': item.value } as React.CSSProperties}>
-                      <span>{item.label}</span>
-                      <i />
-                      <em>{item.value}%</em>
-                    </div>
-                  ))}
-                </div>
-                <div className="tiny-mono mb-16">[ Outcome ]</div>
-                <div className="case__metrics">
-                  {c.metrics.map((m, j) => (
-                    <div key={j} className="metric">
-                      <div className="metric__value">{m.value}</div>
-                      <div className="metric__label">{m.label}</div>
-                    </div>
-                  ))}
-                </div>
-                <div className="tiny-mono" style={{ paddingTop: 14, borderTop: "1px dashed var(--line)" }}>
-                  Shipped · production · {c.status.replace(' ', '\u00A0')}
+                <div className="case__results">
+                  <div className="case__results-metrics">
+                    {c.metrics.map((m, j) => (
+                      <div key={j} className="case__results-metric">
+                        <div className="case__results-value">{m.value}</div>
+                        <div className="case__results-label">{m.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="case__results-highlights">
+                    {c.highlights.map((h, j) => (
+                      <div className="case__results-highlight" key={j}>
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                          <path d="M3.5 8.5L6.5 11.5L12.5 5" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        <span>{h}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="case__results-status">
+                    Shipped · production · {c.status.replace(' ', '\u00A0')}
+                  </div>
                 </div>
               </div>
             </a>
@@ -254,22 +256,11 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
 }
 
 function OperatingSystem() {
-  const checks = [
-    {
-      num: "01",
-      title: "Repeat work",
-      desc: "A task happens often enough that removing it changes the week.",
-    },
-    {
-      num: "02",
-      title: "Known source",
-      desc: "The answer, rule, or decision path already exists in your data or documents.",
-    },
-    {
-      num: "03",
-      title: "Clear owner",
-      desc: "Someone can approve the workflow and judge whether the tool is useful.",
-    },
+  const rows = [
+    { before: "Team copies data into spreadsheets every Monday", after: "Script pulls, cleans, and delivers the report before coffee", tag: "Automation" },
+    { before: "Support staff answers the same 20 questions daily", after: "Chatbot resolves 80% with cited sources — escalates the rest", tag: "Chatbot" },
+    { before: "Founder reads contracts line-by-line for risk", after: "Tool flags risky clauses and missing terms in 30 seconds", tag: "Document review" },
+    { before: "Buying decisions based on gut feel and stale data", after: "Forecast tool runs on live data — updates every morning", tag: "Forecast" },
   ];
 
   return (
@@ -277,30 +268,29 @@ function OperatingSystem() {
       <div className="container">
         <div className="os-panel">
           <div className="os-panel__intro">
-            <div className="eyebrow mb-24">What to automate</div>
-            <h2 className="h2">Not every workflow needs <em>automation</em>. The useful ones share three signs.</h2>
+            <div className="eyebrow mb-24">Before & after</div>
+            <h2 className="h2">The work looks different <em>after</em> it ships.</h2>
+            <p className="body">Four real transformations from recent projects.</p>
           </div>
-          <div className="fit-check">
-            <div className="fit-check__card">
-              <div className="tiny-mono">[ Before building ]</div>
-              <div className="fit-check__question">Can this save time, reduce risk, or help a buyer decide?</div>
-              <div className="fit-check__route">
-                <span>Manual workflow</span>
-                <i />
-                <span>AI-assisted tool</span>
-              </div>
-            </div>
-            <div className="fit-check__list">
-              {checks.map((check) => (
-                <div className="fit-check__item" key={check.num}>
-                  <span>{check.num}</span>
-                  <div>
-                    <strong>{check.title}</strong>
-                    <p>{check.desc}</p>
-                  </div>
+          <div className="transform-grid" style={{ position: "relative", zIndex: 1, display: "grid", gap: 2 }}>
+            {rows.map((row, i) => (
+              <div key={i} className="transform-row" style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 16, alignItems: "center", padding: "18px 20px", borderRadius: 8, border: "1px solid var(--line)", background: "color-mix(in oklab, var(--bg) 84%, transparent)", transition: "border-color 0.2s ease" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  <span className="tiny-mono" style={{ color: "var(--fg-3)" }}>Before</span>
+                  <p style={{ fontSize: 15, lineHeight: 1.45, color: "var(--fg-2)" }}>{row.before}</p>
                 </div>
-              ))}
-            </div>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2, minWidth: 48 }}>
+                  <svg width="32" height="10" viewBox="0 0 32 10" fill="none" aria-hidden="true">
+                    <path d="M0 5h28M24 1l4 4-4 4" stroke="var(--accent)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  <span className="tiny-mono" style={{ color: "var(--accent)" }}>{row.tag}</span>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  <span className="tiny-mono" style={{ color: "var(--accent)" }}>After</span>
+                  <p style={{ fontSize: 15, lineHeight: 1.45, color: "var(--fg)" }}>{row.after}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -310,14 +300,14 @@ function OperatingSystem() {
 
 function ServicesHome({ navigate }: { navigate: NavigateToPage }) {
   const services = [
-    { num: "01", href: "/case-studies/category/chatbot", title: <>AI <em>chatbots</em></>, desc: "Customer support, internal helpdesk, and knowledge assistants.", problem: "Customers or staff keep asking the same questions." },
-    { num: "02", href: "/case-studies/category/automation", title: <><em>Automations</em></>, desc: "Tools that move data, create reports, route work, and remove repeat admin.", problem: "Your team is losing hours to the same task every week." },
-    { num: "03", href: "/case-studies/category/python-scripts", title: <>Python <em>scripts</em></>, desc: "Small scripts for cleanup, scraping, reports, file processing, and data handoffs.", problem: "A spreadsheet or manual process is starting to break." },
-    { num: "04", href: "/case-studies/category/mvp-saas", title: <>MVP <em>SaaS</em></>, desc: "First-version products with the core workflow, simple UI, and buyer-ready story.", problem: "You need a usable product before investing in a full team." },
-    { num: "05", href: "/case-studies/category/voice-ai", title: <>Voice <em>AI</em></>, desc: "Voice, call, and audio tools for review, routing, summaries, and follow-up.", problem: "Calls and recordings contain useful work nobody has time to review." },
-    { num: "06", href: "/case-studies/category/python-scripts", title: <>Forecast <em>tools</em></>, desc: "Sales, inventory, demand, and planning tools trained on your business data.", problem: "You have data, but decisions still happen from gut feel." },
-    { num: "07", href: "/case-studies/category/document-review", title: <>Knowledge <em>intelligence</em></>, desc: "Contract, policy, PDF, and knowledge-base review with source-backed answers.", problem: "Important answers are buried in documents nobody has time to read." },
-    { num: "08", href: "/case-studies/category/mvp-saas", title: <>Fractional <em>AI lead</em></>, desc: "Senior build support for roadmap, code, vendors, hiring, and launch decisions.", problem: "You need senior AI judgment, but not a full-time hire yet." },
+    { num: "01", href: "/case-studies/category/chatbot", title: <>AI <em>chatbots</em></>, desc: "Support bots, internal helpdesks, and knowledge assistants that cite sources — not hallucinate.", problem: "Your team keeps answering the same questions every day." },
+    { num: "02", href: "/case-studies/category/automation", title: <><em>Automations</em></>, desc: "Data pipelines, report generators, routing rules, and tools that remove repeat admin from the week.", problem: "Your best people are spending hours on work a script could handle." },
+    { num: "03", href: "/case-studies/category/python-scripts", title: <>Python <em>scripts</em></>, desc: "Cleanup, scraping, file processing, data handoffs — small scripts that solve one problem cleanly.", problem: "A spreadsheet or manual process is starting to break at scale." },
+    { num: "04", href: "/case-studies/category/mvp-saas", title: <>MVP <em>SaaS</em></>, desc: "A first-version product with the core workflow, clean UI, and a story buyers understand immediately.", problem: "You need something real to show investors, pilots, or first customers." },
+    { num: "05", href: "/case-studies/category/voice-ai", title: <>Voice <em>AI</em></>, desc: "Call review, routing, summaries, and follow-up tools built on what was actually said.", problem: "Important signals are locked in calls nobody has time to re-listen to." },
+    { num: "06", href: "/case-studies/category/python-scripts", title: <>Forecast <em>tools</em></>, desc: "Sales, inventory, and demand planning tools trained on your actual business data.", problem: "Decisions still come from gut feel because the data is too messy to use." },
+    { num: "07", href: "/case-studies/category/document-review", title: <>Knowledge <em>intelligence</em></>, desc: "Contract, policy, and document review that gives sourced answers — not guesses.", problem: "Critical answers are buried in PDFs and docs nobody has time to read." },
+    { num: "08", href: "/case-studies/category/mvp-saas", title: <>Fractional <em>AI lead</em></>, desc: "Senior support for roadmap, architecture, vendor calls, hiring, and launch decisions.", problem: "You need experienced AI judgment on the team, but not a full-time hire yet." },
   ];
 
   return (
@@ -326,11 +316,11 @@ function ServicesHome({ navigate }: { navigate: NavigateToPage }) {
         <div className="section-header">
           <div>
             <div className="eyebrow mb-24">Services</div>
-            <h2 className="h1">Pick the <em>outcome</em>. I'll bring the&nbsp;stack.</h2>
+            <h2 className="h1">Name the <em>bottleneck</em>. I'll build the&nbsp;fix.</h2>
           </div>
           <div>
             <p className="lede">
-              Clients need practical work done: fewer support tickets, faster reviews, cleaner data, better forecasts, and a first product that can be shown to real buyers.
+              Every engagement starts with a real problem: too many tickets, slow reviews, messy data, a stalled product launch. I scope the fix, build it, and ship something your team can use on day one.
             </p>
             <a href="/services#capabilities" className="btn btn--ghost mt-32">
               See engagement options <ArrowUpRight />
@@ -358,22 +348,22 @@ function HowIWork() {
     {
       num: "01",
       title: <>Discovery — <em>1 week, free.</em></>,
-      desc: "You show me the problem, the data, and the workflow. I send back a plain-English brief: what is worth building, what is not, what it costs, and what should improve.",
+      desc: "You walk me through the problem, the data, and the workflow. I send back a plain-English brief: what is worth building, what is not, what it costs, and what the ROI looks like.",
     },
     {
       num: "02",
       title: <>Prototype — <em>2–3 weeks.</em></>,
-      desc: "A working tool on real data. Not a throwaway demo. Something your team can test, challenge, and judge.",
+      desc: "A working tool running on your real data. Not a slide deck — something your team can test, challenge, and decide whether to keep.",
     },
     {
       num: "03",
       title: <>Production — <em>4–10 weeks.</em></>,
-      desc: "The checks, alerts, documentation, and handoff needed to keep the tool useful after launch.",
+      desc: "Error handling, monitoring, documentation, and launch. The tool keeps working after I leave.",
     },
     {
       num: "04",
       title: <>Handover or <em>retainer.</em></>,
-      desc: "Either I document everything and your team takes over, or I stay on as a part-time AI builder at a predictable monthly. Your choice.",
+      desc: "Either I document everything and your team runs it, or I stay on part-time for a flat monthly rate. You pick.",
     },
   ];
   return (
@@ -386,7 +376,7 @@ function HowIWork() {
           </div>
           <div>
             <p className="lede">
-              Most AI projects fail because the idea jumps straight from a call to a big build. I de-risk the spend before you commit headcount.
+              Most AI projects stall because someone jumps from a brainstorm call straight into a full build. I de-risk the investment before you commit a single sprint.
             </p>
           </div>
         </div>
@@ -420,16 +410,16 @@ function About({ showPhoto = true }: { showPhoto?: boolean }) {
           )}
           <div>
             <div className="eyebrow mb-24">About</div>
-            <h2 className="h1">A <em>senior</em> hire — without the headcount.</h2>
+            <h2 className="h1">A <em>senior</em> AI builder — on demand, not on payroll.</h2>
             <div className="mt-32" style={{ display: "flex", flexDirection: "column", gap: 18, maxWidth: 600 }}>
               <p className="body" style={{ fontSize: 17, color: "var(--fg-2)" }}>
-                I'm a <strong style={{ color: "var(--fg)" }}>senior AI builder</strong> who's spent the last five years shipping useful tools for funded startups, agencies and product teams.
+                I'm a <strong style={{ color: "var(--fg)" }}>Senior developer</strong> who's spent five years shipping tools for funded startups, agencies, and product teams. Every project starts with a real problem and ends with something your team can run without me.
               </p>
               <p className="body" style={{ fontSize: 17, color: "var(--fg-2)" }}>
-                I work the way a good senior hire would: write a brief, build the prototype, ship the working tool, document it, and either hand it over or stay on. No discovery calls that don't go anywhere. No 80-page proposals. No reselling of someone else's work.
+                I work the way a strong senior hire would: write the brief, build the prototype, ship the working tool, document it, and either hand it over or stay on. No 80-page proposals. No recycled templates. No upselling you into a bigger build than you need.
               </p>
               <p className="body" style={{ fontSize: 17, color: "var(--fg-2)" }}>
-                If you've got a problem and you're not sure whether AI is the right tool — I'll tell you, on the first call. The best work comes from saying no to the wrong projects.
+                If you're not sure AI is the right fit for your problem, I'll tell you straight — on the first call. The best work starts with saying no to the wrong projects.
               </p>
             </div>
             <div className="about-stats">
@@ -460,25 +450,25 @@ function About({ showPhoto = true }: { showPhoto?: boolean }) {
 function Testimonials() {
   const items = [
     {
-      quote: "Talha made a hard document product feel simple to explain, sell, and use. The new story helped buyers understand the value in minutes.",
+      quote: "Talha made a document product feel simple to explain, sell, and use. Buyers went from confused to convinced in a single demo.",
       name: "Thalamus",
       role: "Document automation · Levitate Data",
       initials: "TH",
     },
     {
-      quote: "The product went from technical feature list to a clear business promise: understand the signals inside important conversations.",
+      quote: "We went from a feature list nobody could pitch to a clear product promise: understand the signals hiding inside your conversations.",
       name: "Aletheia",
       role: "Voice and video review · Levitate Data",
       initials: "AL",
     },
     {
-      quote: "Talha turned a complicated contract workflow into a product people could understand right away: upload, review risk, and move forward.",
+      quote: "He turned a complicated contract workflow into something anyone could use on day one: upload, see the risks, and move forward.",
       name: "First Rule Contract Manager",
       role: "Construction contract automation",
       initials: "FR",
     },
     {
-      quote: "I came in skeptical of AI. Talha did a one-week paid discovery, told me what wasn't worth building, and shipped the one piece that was. Founders, hire him.",
+      quote: "I came in skeptical. Talha told me what not to build, then shipped the one tool that cut our stockouts by a third. Founders — hire him.",
       name: "Priya Krishnan",
       role: "Founder · Retina",
       initials: "PK",
@@ -490,11 +480,11 @@ function Testimonials() {
         <div className="section-header">
           <div>
             <div className="eyebrow mb-24">Testimonials</div>
-            <h2 className="h1">From the <em>people</em> who hired&nbsp;me.</h2>
+            <h2 className="h1">What clients say <em>after</em> the&nbsp;project.</h2>
           </div>
           <div>
             <p className="lede">
-              Four quotes that capture how I actually work — and what clients say when the project is over.
+              Not cherry-picked. These are the quotes that show up after the tool ships, the team uses it, and the results are in.
             </p>
           </div>
         </div>
@@ -526,10 +516,10 @@ export function CTA() {
             <div>
               <div className="eyebrow mb-24">Book a call</div>
               <h2 className="h1" style={{ marginBottom: 20 }}>
-                Got a problem AI <em>might</em> solve?
+                Got a problem AI <em>might</em> solve? Let's find out.
               </h2>
               <p className="lede" style={{ maxWidth: 520 }}>
-                30 minutes. Free. You leave with a clear yes/no on whether to build, and a one-pager you can forward to your team.
+                30 minutes. Free. No NDA needed. You leave with a clear yes-or-no on whether to build — and a one-pager you can forward to your team the same day.
               </p>
             </div>
             <div>

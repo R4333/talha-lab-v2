@@ -44,7 +44,7 @@ export function ServicesPage({ navigate }: { navigate: NavigateToPage }) {
         "Build plan notes",
         "Hiring and vendor support",
       ],
-      best: "Founders who need a senior AI builder on call.",
+      best: "Founders who need a Senior developer on call.",
     },
   ];
 
