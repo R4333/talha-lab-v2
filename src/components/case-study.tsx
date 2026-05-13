@@ -308,6 +308,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     title: <>Contract <em>review automation</em> for construction teams.</>,
     lede:
       'First Rule Contract Manager helps construction teams spot contract risk before it becomes project cost. Teams upload a contract, review plain-language risks tied to the source text, and turn the review into a kickoff-ready handoff.',
+    oneLiner: 'A construction contract review product that connects clause risk, playbook standards, plain-language coaching, and project handoffs in one workflow.',
     engagement: 'Product narrative',
     engagementMeta: 'Positioning · product story · proof',
     role: 'Product strategy',
@@ -396,6 +397,39 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     quote: 'Talha turned a complicated contract workflow into a product people could understand right away: upload, review risk, and move forward.',
     quoteBy: 'First Rule team',
+    hard: [
+      { title: 'Construction risk is buried in clauses', detail: 'Payment, delay, lien, indemnity, notice, and flow-down language can shift project risk before a team reaches kickoff.' },
+      { title: 'Legal tools feel too generic', detail: 'The product needed to speak to executives, precon, PMs, risk teams, and field leaders instead of sounding like broad document software.' },
+      { title: 'Standards need to be repeatable', detail: 'Preferred language, fallback language, and escalation paths had to feel like an operating system for contract review.' },
+      { title: 'The output has to leave legal review', detail: 'A useful review must become clear project guidance that managers can carry into kickoff, training, and jobsite decisions.' },
+    ],
+    decisions: [
+      { key: 'Construction-first framing', value: 'The story centered on project risk, flow-down checks, and jobsite consequences rather than generic AI review.' },
+      { key: 'Clause-level risk', value: 'Risk categories, source links, and plain-language rationale made each finding easy to inspect.' },
+      { key: 'Playbook engine', value: 'Preferred language, fallback language, and escalation guidance became the standards layer behind the product.' },
+      { key: 'Marten coaching', value: 'The contract coach gave teams a conversational way to ask questions while staying anchored to contract text.' },
+      { key: 'Kickoff handoff', value: 'Review output was shaped for PMs and field leadership, not only legal or executive readers.' },
+      { key: 'Trust signals', value: 'The free upload, guarantee, and private deployment option made adoption feel lower risk.' },
+    ],
+    build: [
+      { week: '1-2', title: 'Market + workflow audit', detail: 'Reviewed construction contract risks, buyer roles, and the review path from upload to project handoff.' },
+      { week: '2-3', title: 'Core narrative', detail: 'Defined the construction-first promise around risk visibility before kickoff.' },
+      { week: '3-4', title: 'Product flow', detail: 'Mapped upload, clause detection, rationale, playbook guidance, Marten Q&A, and summary output.' },
+      { week: '4-5', title: 'Playbook story', detail: 'Turned company standards into buyer-friendly language for preferred and fallback positions.' },
+      { week: '5-6', title: 'Page system', detail: 'Shaped the homepage, Contract Manager page, and playbook page around separate buyer questions.' },
+      { week: '6-7', title: 'Launch refinement', detail: 'Tightened proof points, guarantee language, deployment positioning, and screenshot-ready page sections.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Prime contracts', 'Subcontracts', 'Exhibits', 'Riders'] },
+      { group: 'Processing', items: ['Clause detection', 'Risk categories', 'Flow-down checks', 'Source matching'] },
+      { group: 'Answer layer', items: ['Plain rationale', 'Preferred language', 'Fallback positions', 'Marten Q&A'] },
+      { group: 'Delivery', items: ['Review dashboard', 'Risk summary', 'PM handoff', 'Training notes'] },
+      { group: 'Governance', items: ['Company standards', 'Escalation paths', 'Private deployment', 'Audit context'] },
+    ],
+    related: [
+      { id: 'thalamus', tag: 'Document automation', title: 'AI search that understands company documents.', metric: 'Source-backed answers' },
+      { id: 'aletheia', tag: 'Voice + video AI', title: 'Review signals inside important calls.', metric: '3 signal types' },
+    ],
   },
   {
     id: 'retina',
