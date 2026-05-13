@@ -188,7 +188,7 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
         <div className="section-header">
           <div>
             <div className="eyebrow mb-24">Selected work</div>
-            <h2 className="h1">Real tools. Measurable <em>outcomes</em>.</h2>
+            <h2 className="h1">Client work with clear <em>outcomes</em>.</h2>
           </div>
           <CaseCategoryNav />
         </div>

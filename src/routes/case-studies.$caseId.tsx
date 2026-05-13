@@ -25,6 +25,21 @@ const CASE_SEO = {
     description:
       'How Talha Turab shipped a sales forecast workflow that reduced stockouts by 31% and improved product margin by 18%.',
   },
+  crayo: {
+    title: 'Crayo Case Study - AI Short-Form Video Automation',
+    description:
+      'AI video product positioning for creators generating short-form videos with automatic voiceovers, dynamic subtitles, and optimized clips.',
+  },
+  musicfy: {
+    title: 'Musicfy Case Study - AI Voice Song Generator',
+    description:
+      'Generative audio product positioning for AI song covers, custom voice cloning, and creator voice experimentation.',
+  },
+  justlisten: {
+    title: 'Just Listen Case Study - Budget Audiobook Platform',
+    description:
+      'Audiobook product positioning for affordable listening, simple subscription access, and repeat audio habits.',
+  },
 } as const
 
 export const Route = createFileRoute('/case-studies/$caseId')({

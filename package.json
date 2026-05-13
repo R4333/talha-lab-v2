@@ -6,7 +6,8 @@
     "dev": "vite dev",
     "build": "vite build",
     "start": "node .output/server/index.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "share:thalamus": "bash scripts/share-thalamus.sh"
   },
   "dependencies": {
     "@tanstack/react-router": "latest",

@@ -1,3 +1,4 @@
+import React from 'react'
 import { CTA } from './home'
 import { Arrow, Footer, type NavigateToPage } from './shared'
 import { CaseCategoryNav, type CaseCategoryId } from './case-categories'
@@ -13,6 +14,7 @@ type CaseStudy = {
   liveUrl?: string
   title: React.ReactNode
   lede: string
+  oneLiner?: string
   engagement: string
   engagementMeta: string
   role: string
@@ -35,6 +37,12 @@ type CaseStudy = {
   outcome: React.ReactNode[]
   quote: string
   quoteBy: string
+  // Enhanced Remix-style sections (optional)
+  hard?: Array<{ title: string; detail: string }>
+  decisions?: Array<{ key: string; value: string }>
+  build?: Array<{ week: string; title: string; detail: string }>
+  stack?: Array<{ group: string; items: string[] }>
+  related?: Array<{ id: string; tag: string; title: string; metric: string }>
 }
 
 export const CASE_STUDIES: CaseStudy[] = [
@@ -46,9 +54,10 @@ export const CASE_STUDIES: CaseStudy[] = [
     client: 'Thalamus by Levitate Data',
     clientMeta: 'Document automation · Knowledge search',
     liveUrl: 'https://thalamus.levitatedata.com/',
-    title: <>Document search <em>automation</em> for complex company knowledge.</>,
+    title: <>AI search that <em>understands</em> your company documents.</>,
     lede:
-      'Thalamus helps teams ask questions across messy documents, scans, images, videos, and internal knowledge. The product gives clear answers with source links, so users can trust what they see.',
+      'Thalamus turns messy company knowledge into source-backed answers teams can trust.',
+    oneLiner: 'Upload any rough or unstructured data, from PDFs and tables to books, images, videos, and more, and get your queries answered without the risk of inaccurate responses.',
     engagement: 'Product launch narrative',
     engagementMeta: 'Positioning · product story · buyer proof',
     role: 'Product strategy',
@@ -58,33 +67,33 @@ export const CASE_STUDIES: CaseStudy[] = [
     resultsLabel: 'Buyer case',
     resultsNote: 'cost and launch-speed proof',
     results: [
-      { value: <>66<em>%</em></>, label: 'Less build cost', sub: 'Compared with building the tool from scratch' },
-      { value: <>$485<em>K</em></>, label: 'Average savings', sub: 'Compared with a custom offshore build' },
-      { value: <>6<em>{'\u00A0'}mo</em></>, label: 'Faster to production', sub: 'Documented build-vs-buy gap' },
-      { value: <em>Day{'\u00A0'}1</em>, label: 'Ready to use', sub: 'Built for real customer work' },
+      { value: <>66<em>%</em></>, label: 'Less build cost', sub: 'Versus a custom build' },
+      { value: <>$485<em>K</em></>, label: 'Average savings', sub: 'Estimated build savings' },
+      { value: <>6<em>{'\u00A0'}mo</em></>, label: 'Faster launch', sub: 'Build-vs-buy gap' },
+      { value: <em>Day{'\u00A0'}1</em>, label: 'Ready to use', sub: 'Built for customer work' },
     ],
     impact: [
-      { label: 'Build cost saved', value: 66, detail: 'A clearer reason to buy instead of building from scratch.' },
-      { label: 'Launch speed', value: 84, detail: 'Avoids months of setup work before a customer can use it.' },
-      { label: 'Answer trust', value: 92, detail: 'Answers stay tied to the original source material.' },
-      { label: 'Content coverage', value: 88, detail: 'Documents, scans, tables, images, and video.' },
+      { label: 'Build cost saved', value: 66, detail: 'A stronger case to buy.' },
+      { label: 'Launch speed', value: 84, detail: 'Less setup before use.' },
+      { label: 'Answer trust', value: 92, detail: 'Answers stay source-linked.' },
+      { label: 'Content coverage', value: 88, detail: 'Docs, scans, tables, images, video.' },
     ],
     problem: [
-      <>Document-heavy AI products often fail because the answer is hard to verify. Real customer data includes scanned PDFs, tables, notes, long policies, video, and files that change often.</>,
-      <>Thalamus is built for teams where <strong>a wrong answer creates real risk</strong>: SaaS companies, regulated operators, and builders whose users need accurate answers with proof.</>,
-      <>The buying question is simple: spend months building a custom document system, or use a product that already handles the hard parts.</>,
+      <strong className="cs-section__lead">Most question-and-answer systems fail when producing accurate answers.</strong>,
+      <>Company data is stored in various messy format such as PDF's, scans, images, tables and media.</>,
+      <>Thalamus provides one clear path for uploading this data and getting your questions answered with proper citations.</>,
     ],
     approach: [
-      <>The product story centers on Thalamus as <strong>the document answer layer</strong> between messy company knowledge and answers users can trust.</>,
-      <>The value is framed around things buyers can understand quickly: upload the material, ask a question, get a source-backed answer, and keep control of sensitive data.</>,
-      <>The commercial story makes the build-or-buy decision concrete with cost, timeline, and maintenance comparisons that are easy to approve.</>,
+      <strong className="cs-section__lead">We showed Thalamus as the place where teams can ask questions from company knowledge.</strong>,
+      <>The message became simple: add your files, ask a question, see the source, and control who can access what.</>,
+      <>The buyer case focused on faster answers, easier trust, and less work to maintain.</>,
     ],
     bullets: [
-      'A document answer product for teams that need reliable answers, not a simple search box.',
-      'Support for documents, scans, images, video, tables, and complex layouts.',
-      'Source links and confidence cues so users can verify important answers.',
-      'Business controls around privacy, access, audit trails, and sensitive customer data.',
-      'A clear buy-vs-build case around cost, speed, reliability, and maintenance.',
+      'Reliable answers, not basic search.',
+      'Support for messy formats and layouts.',
+      'Source links for quick verification.',
+      'Privacy, access, and audit controls.',
+      'Clear buy-vs-build proof.',
     ],
     heroVisual: {
       src: '/assets/projects/thalamus-curated-ui-v2.webp',
@@ -92,26 +101,26 @@ export const CASE_STUDIES: CaseStudy[] = [
     },
     screenshots: [
       {
-        title: 'Homepage positioning',
+        title: 'Homepage',
         src: '/assets/case-studies/thalamus-home.png',
         alt: 'Screenshot of the Thalamus homepage showing document search positioning',
-        caption: 'The homepage positions Thalamus as a clearer way to answer questions from complex company documents, with proof, privacy, and a clear cost/time advantage.',
+        caption: 'A concise homepage story for source-backed document answers.',
         width: 1440,
         height: 6036,
       },
       {
-        title: 'Product walkthrough',
+        title: 'Product page',
         src: '/assets/case-studies/thalamus-product.png',
         alt: 'Screenshot of the Thalamus product page showing document and media support',
-        caption: 'The product page turns the platform into a clear buyer journey: add knowledge, ask questions, verify sources, and control access.',
+        caption: 'A product journey from upload to verified answer.',
         width: 1440,
         height: 3799,
       },
       {
-        title: 'Build-vs-buy analysis',
+        title: 'Why Thalamus',
         src: '/assets/case-studies/thalamus-why.png',
         alt: 'Screenshot of the Thalamus build versus buy page showing cost analysis',
-        caption: 'The Why Thalamus page gives executives the commercial proof: lower build cost, faster launch, and less long-term maintenance.',
+        caption: 'A shorter buy-vs-build case for faster approval.',
         width: 1440,
         height: 4981,
       },
@@ -122,7 +131,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       { title: '[ 03 ] Answer', name: 'Source-backed search', items: ['Questions', 'Gaps', 'Best sources', 'Citations'], accent: true },
       { title: '[ 04 ] Deliver', name: 'Customer tool', items: ['Chat', 'Workflows', 'Reports', 'History'] },
     ],
-    architectureNote: <>Thalamus owns the hard document-answering layer underneath the customer application. <strong>Teams keep their product workflow while Thalamus handles content cleanup, source links, and reliability.</strong></>,
+    architectureNote: <>Thalamus handles the document-answering layer: cleanup, source links, and reliability.</>,
     codeTitle: 'Source-backed answer',
     code: <>
       <span className="k">type</span> DocumentAnswer = {'{'}{'\n'}
@@ -134,12 +143,44 @@ export const CASE_STUDIES: CaseStudy[] = [
       {'}'}
     </>,
     outcome: [
-      <>Thalamus presents a premium document-answer product for teams working with proprietary knowledge, where accuracy and source links matter.</>,
-      <>The narrative connects the technical product to a buyer's real decision: reduce wrong-answer risk, move faster, avoid maintenance drag, and keep control of sensitive data.</>,
-      <>The live product experience backs the promise with a homepage, product walkthrough, and buy-vs-build analysis that make the platform easy to understand and justify.</>,
+      <><strong>Clearer product story:</strong> Thalamus now reads as a focused document-answer product for teams that need proof.</>,
+      <><strong>Sharper buyer case:</strong> move faster, reduce risk, and avoid maintenance drag.</>,
     ],
-    quote: 'Talha made a hard document product feel simple to explain, sell, and use. The new story helped buyers understand the value in minutes.',
+    quote: 'Talha made a hard document product simple to explain, sell, and use.',
     quoteBy: 'Product team, Levitate Data',
+    hard: [
+      { title: 'Information is scattered', detail: 'Important company knowledge is spread across PDFs, scans, tables, videos, and files that keep changing.' },
+      { title: 'Answers must be trusted', detail: 'People need to see where an answer came from before they rely on it for important decisions.' },
+      { title: 'Company knowledge changes often', detail: 'Policies, contracts, and product details get updated regularly, so answers need to stay up to date.' },
+      { title: 'Starting from scratch is difficult', detail: 'The page had to clearly show the cost, time, and effort saved by using Thalamus instead of building everything from zero.' },
+    ],
+    decisions: [
+      { key: 'Document pipeline', value: 'Multi-format ingestion for scans, tables, layouts, and media.' },
+      { key: 'Source-backed answers', value: 'Answers carry citations, confidence, and an audit trail.' },
+      { key: 'Privacy first', value: 'Access controls and sensitive-data handling became part of the pitch.' },
+      { key: 'Buy-vs-build framing', value: 'Cost, timeline, and maintenance were packaged for faster approval.' },
+      { key: 'Product story', value: 'Thalamus became an answer layer, not a search box.' },
+      { key: 'Launch narrative', value: 'Homepage, product page, and why page each served a clear buyer need.' },
+    ],
+    build: [
+      { week: '1–2', title: 'Discovery + audit', detail: 'Reviewed materials, competitors, and buyer concerns.' },
+      { week: '2–3', title: 'Core narrative', detail: 'Defined the answer-layer positioning.' },
+      { week: '3–5', title: 'Product pages', detail: 'Shaped the homepage, walkthrough, and why page.' },
+      { week: '5–6', title: 'Buyer proof', detail: 'Simplified the cost and savings case.' },
+      { week: '6–7', title: 'Launch assets', detail: 'Prepared sales copy and demo messaging.' },
+      { week: '7–8', title: 'Go live', detail: 'Launched and refined the messaging.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Company systems', 'File uploads', 'Tool links', 'Rich media'] },
+      { group: 'Processing', items: ['PDF parsing', 'OCR + scans', 'Table extraction', 'Images + video'] },
+      { group: 'Answer layer', items: ['Source search', 'Citation links', 'Confidence scores', 'Knowledge gaps'] },
+      { group: 'Delivery', items: ['Chat interface', 'Workflows', 'Reports', 'History'] },
+      { group: 'Governance', items: ['Access controls', 'Audit trails', 'Privacy rules', 'Compliance'] },
+    ],
+    related: [
+      { id: 'frcm', tag: 'Document automation', title: 'Contract review automation for construction teams.', metric: 'Clause-level risk' },
+      { id: 'aletheia', tag: 'Voice + video AI', title: 'Review tools for high-stakes calls and recordings.', metric: '3 signal types' },
+    ],
   },
   {
     id: 'aletheia',
@@ -150,9 +191,10 @@ export const CASE_STUDIES: CaseStudy[] = [
     client: 'Aletheia by Levitate Data',
     clientMeta: 'Voice AI · Video review',
     liveUrl: 'https://levitatedata.com/product#Aletheia',
-    title: <>Voice and video <em>review tools</em> for high-stakes calls.</>,
+    title: <>Review <em>signals</em> inside important calls.</>,
     lede:
-      'Aletheia helps teams understand what happened inside important calls and recordings. It combines voice, video, and transcript signals into a clearer review for compliance, support, and investigation work.',
+      'Aletheia turns voice, video, and transcript signals into a clearer review for high-stakes conversations.',
+    oneLiner: 'Review calls and recordings for cues that transcripts miss—tone, stress, confidence, facial expressions, and evolving meaning. Capture the nuance that text alone can’t convey.',
     engagement: 'Product narrative',
     engagementMeta: 'Positioning · product story · use cases',
     role: 'Product strategy',
@@ -160,12 +202,12 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: '2026',
     yearMeta: 'Product positioning',
     resultsLabel: 'Product promise',
-    resultsNote: 'voice and video review',
+    resultsNote: 'review evidence and product clarity',
     results: [
-      { value: <em>3</em>, label: 'Signal types', sub: 'Voice, video, and transcript cues' },
-      { value: <em>Live</em>, label: 'Review mode', sub: 'Works for live or recorded media' },
-      { value: <em>Plug-in</em>, label: 'Easy to connect', sub: 'Built to plug into other products' },
-      { value: <em>Clear</em>, label: 'Output standard', sub: 'Reviewable high-stakes insights' },
+      { value: <em>3</em>, label: 'Signal types', sub: 'Video, voice, and transcript' },
+      { value: <em>Live</em>, label: 'Review modes', sub: 'Live or recorded media' },
+      { value: <em>Plug-in</em>, label: 'Product fit', sub: 'Built for existing workflows' },
+      { value: <em>Clear</em>, label: 'Evidence layer', sub: 'Reviewable conversation context' },
     ],
     impact: [
       { label: 'Video context', value: 88, detail: 'Visible changes and facial cues made reviewable.' },
@@ -174,21 +216,16 @@ export const CASE_STUDIES: CaseStudy[] = [
       { label: 'Review clarity', value: 92, detail: 'A single timeline a reviewer can understand.' },
     ],
     problem: [
-      <>Most conversation tools stop at transcripts and summaries. That leaves out signals that often matter most: hesitation, confidence, stress, tone, and change over time.</>,
-      <>Aletheia is built for the moments where <strong>how something was said changes what it means</strong>, especially when the stakes are legal, operational, financial or reputational.</>,
-      <>Its product story gives buyers a clear category: voice and video review for teams that need deeper context than words alone can provide.</>,
+      <strong className="cs-section__lead">Transcripts leave out critical context.</strong>,
+      <>In high‑stakes calls, tone, confidence, stress, timing and visual cues matter. Aletheia must convey those signals clearly, not as a dry feature list.</>,
     ],
     approach: [
-      <>The message leads with a simple, memorable premise: understanding how something was said is as important as knowing what was said.</>,
-      <>From there, the platform value unfolds across three signal streams: video, voice, and words, combined into a timeline of tone, confidence, and stress.</>,
-      <>The use-case framing speaks to high-stakes workflows such as depositions, compliance review, customer interactions, and investigations where context and trust matter.</>,
+      <strong className="cs-section__lead">We positioned Aletheia as a review layer for critical conversations.</strong>,
+      <>It merges video, voice, and transcript into a single timeline, letting reviewers see what changed, when, and why it matters.</>,
     ],
     bullets: [
-      'A review layer for interpreting voice, video, and conversation.',
-      'Visible cues, vocal stress, and language nuance treated as complementary evidence.',
-      'Raw communication converted into a structured review timeline.',
-      'Clear outputs, emotional timelines, and confidence markers for high-stakes review.',
-      'Built to connect into other products and compliance workflows.',
+      'The combined signals make tone, stress, and confidence easy to assess, supporting compliance, support, and investigations.',
+      'The language is clear enough for buyers to grasp quickly.'
     ],
     heroVisual: {
       src: '/assets/projects/aletheia-curated-ui-v2.webp',
@@ -196,29 +233,29 @@ export const CASE_STUDIES: CaseStudy[] = [
     },
     screenshots: [
       {
-        title: 'Aletheia product section',
+        title: 'Product section',
         src: '/assets/case-studies/aletheia-section.png',
         alt: 'Screenshot of the Aletheia product section on Levitate Data',
-        caption: 'The product section introduces Aletheia as the review layer that reveals emotion, confidence, tone, and stress across communication.',
+        caption: 'A concise product story for reading voice, video, and transcript signals together.',
         width: 1440,
         height: 1200,
       },
       {
-        title: 'Levitate Data product catalog',
+        title: 'Product catalog',
         src: '/assets/case-studies/aletheia-product-page.png',
         alt: 'Screenshot of the Levitate Data product catalog containing Thalamus, Aletheia and Theia',
-        caption: 'The product catalog places Aletheia inside Levitate Data\'s broader suite of AI products.',
+        caption: 'Aletheia sits inside the broader Levitate Data product suite with a clear role.',
         width: 1440,
         height: 4246,
       },
     ],
     architecture: [
-      { title: '[ 01 ] Inputs', name: 'Human signals', items: ['Video', 'Audio', 'Transcript', 'Conversation'] },
+      { title: '[ 01 ] Sources', name: 'Conversation inputs', items: ['Video', 'Audio', 'Transcript', 'Call context'] },
       { title: '[ 02 ] Read', name: 'Signal review', items: ['Facial cues', 'Voice stress', 'Sentiment', 'Tone'] },
-      { title: '[ 03 ] Combine', name: 'Conversation timeline', items: ['Confidence shifts', 'Stress markers', 'Emotion changes', 'Context'], accent: true },
-      { title: '[ 04 ] Deliver', name: 'Review layer', items: ['Product link', 'Dashboards', 'Case review', 'History'] },
+      { title: '[ 03 ] Combine', name: 'Review timeline', items: ['Confidence shifts', 'Stress markers', 'Emotion changes', 'Evidence'], accent: true },
+      { title: '[ 04 ] Deliver', name: 'Product layer', items: ['Product link', 'Dashboards', 'Case review', 'History'] },
     ],
-    architectureNote: <>Aletheia turns unstructured calls and recordings into structured review signals. <strong>The output is designed to be clear enough for high-stakes review, not a black-box score detached from evidence.</strong></>,
+    architectureNote: <>Aletheia turns calls and recordings into structured review signals that stay close to the evidence.</>,
     codeTitle: 'Conversation review output',
     code: <>
       signals = review(video, audio, transcript){'\n'}
@@ -226,12 +263,39 @@ export const CASE_STUDIES: CaseStudy[] = [
       <span className="k">return</span> ConversationReview(confidence=timeline.confidence, stress=timeline.stress, evidence=signals.sources)
     </>,
     outcome: [
-      <>Aletheia stands as a distinct product story with a clear market promise: make important communication easier to review and understand.</>,
-      <>The positioning turns voice, video, and transcript analysis into one cohesive product narrative.</>,
-      <>The live product section reinforces the message with a focused description of Aletheia's role in compliance, customer review, and investigative workflows.</>,
+      <><strong>A clearer product story:</strong> Aletheia is now a focused review layer for high‑stakes conversations.</>,
+      <><strong>Sharper buyer context:</strong> The page shows why voice, video, and transcript signals matter together.</>,
     ],
-    quote: 'The product went from technical feature list to a clear business promise: understand the signals inside important conversations.',
+    quote: 'Aletheia shifted from a technical feature set to a clear story for reviewing key conversations.',
     quoteBy: 'Product team, Levitate Data',
+    hard: [{title:'Signals are easy to overexplain',detail:'We had to explain voice, video, and transcript analysis without drowning non‑technical buyers.'},{title:'Trust depends on context',detail:'Reviewers must see why a moment matters, not just a score or label.'},{title:'Use cases are high stakes',detail:'Compliance, support, and investigation teams need language that is careful, useful, and credible.'},{title:'The product needed a category',detail:'Aletheia had to be positioned as a review layer, not another call‑summary tool.'}],
+    decisions: [
+      { key: 'Signal mix', value: 'Voice, video, and transcript cues were shown as one review system.' },
+      { key: 'Evidence first', value: 'The story stayed close to what reviewers can inspect and understand.' },
+      { key: 'Timeline framing', value: 'Signals were organized around change over time, not isolated scores.' },
+      { key: 'Use-case clarity', value: 'Compliance, support, and investigations gave buyers familiar entry points.' },
+      { key: 'Product fit', value: 'Aletheia was positioned as a layer that can fit into existing workflows.' },
+      { key: 'Plain language', value: 'Technical cues became simple benefits a buyer could scan quickly.' },
+    ],
+    build: [
+      { week: '1–2', title: 'Product audit', detail: 'Reviewed the signal types, product context, and buyer use cases.' },
+      { week: '2–3', title: 'Core narrative', detail: 'Defined the review-layer positioning.' },
+      { week: '3–4', title: 'Signal story', detail: 'Simplified voice, video, and transcript language.' },
+      { week: '4–5', title: 'Use cases', detail: 'Mapped the message to compliance and review workflows.' },
+      { week: '5–6', title: 'Product copy', detail: 'Reduced feature language into concise page sections.' },
+      { week: '6–7', title: 'Launch fit', detail: 'Aligned Aletheia with the Levitate Data product suite.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Video calls', 'Audio files', 'Transcripts', 'Call context'] },
+      { group: 'Processing', items: ['Facial cues', 'Voice stress', 'Sentiment', 'Tone shifts'] },
+      { group: 'Answer layer', items: ['Confidence shifts', 'Stress markers', 'Emotion changes', 'Evidence links'] },
+      { group: 'Delivery', items: ['Product section', 'Review timeline', 'Case dashboard', 'Workflow handoff'] },
+      { group: 'Governance', items: ['Access rules', 'Review notes', 'Audit context', 'Compliance fit'] },
+    ],
+    related: [
+      { id: 'thalamus', tag: 'Document automation', title: 'AI search that understands company documents.', metric: 'Source-backed answers' },
+      { id: 'frcm', tag: 'Contract review', title: 'Contract review automation for construction teams.', metric: 'Clause-level risk' },
+    ],
   },
   {
     id: 'frcm',
@@ -244,6 +308,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     title: <>Contract <em>review automation</em> for construction teams.</>,
     lede:
       'First Rule Contract Manager helps construction teams spot contract risk before it becomes project cost. Teams upload a contract, review plain-language risks tied to the source text, and turn the review into a kickoff-ready handoff.',
+    oneLiner: 'A construction contract review product that connects clause risk, playbook standards, plain-language coaching, and project handoffs in one workflow.',
     engagement: 'Product narrative',
     engagementMeta: 'Positioning · product story · proof',
     role: 'Product strategy',
@@ -332,6 +397,39 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     quote: 'Talha turned a complicated contract workflow into a product people could understand right away: upload, review risk, and move forward.',
     quoteBy: 'First Rule team',
+    hard: [
+      { title: 'Construction risk is buried in clauses', detail: 'Payment, delay, lien, indemnity, notice, and flow-down language can shift project risk before a team reaches kickoff.' },
+      { title: 'Legal tools feel too generic', detail: 'The product needed to speak to executives, precon, PMs, risk teams, and field leaders instead of sounding like broad document software.' },
+      { title: 'Standards need to be repeatable', detail: 'Preferred language, fallback language, and escalation paths had to feel like an operating system for contract review.' },
+      { title: 'The output has to leave legal review', detail: 'A useful review must become clear project guidance that managers can carry into kickoff, training, and jobsite decisions.' },
+    ],
+    decisions: [
+      { key: 'Construction-first framing', value: 'The story centered on project risk, flow-down checks, and jobsite consequences rather than generic AI review.' },
+      { key: 'Clause-level risk', value: 'Risk categories, source links, and plain-language rationale made each finding easy to inspect.' },
+      { key: 'Playbook engine', value: 'Preferred language, fallback language, and escalation guidance became the standards layer behind the product.' },
+      { key: 'Marten coaching', value: 'The contract coach gave teams a conversational way to ask questions while staying anchored to contract text.' },
+      { key: 'Kickoff handoff', value: 'Review output was shaped for PMs and field leadership, not only legal or executive readers.' },
+      { key: 'Trust signals', value: 'The free upload, guarantee, and private deployment option made adoption feel lower risk.' },
+    ],
+    build: [
+      { week: '1-2', title: 'Market + workflow audit', detail: 'Reviewed construction contract risks, buyer roles, and the review path from upload to project handoff.' },
+      { week: '2-3', title: 'Core narrative', detail: 'Defined the construction-first promise around risk visibility before kickoff.' },
+      { week: '3-4', title: 'Product flow', detail: 'Mapped upload, clause detection, rationale, playbook guidance, Marten Q&A, and summary output.' },
+      { week: '4-5', title: 'Playbook story', detail: 'Turned company standards into buyer-friendly language for preferred and fallback positions.' },
+      { week: '5-6', title: 'Page system', detail: 'Shaped the homepage, Contract Manager page, and playbook page around separate buyer questions.' },
+      { week: '6-7', title: 'Launch refinement', detail: 'Tightened proof points, guarantee language, deployment positioning, and screenshot-ready page sections.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Prime contracts', 'Subcontracts', 'Exhibits', 'Riders'] },
+      { group: 'Processing', items: ['Clause detection', 'Risk categories', 'Flow-down checks', 'Source matching'] },
+      { group: 'Answer layer', items: ['Plain rationale', 'Preferred language', 'Fallback positions', 'Marten Q&A'] },
+      { group: 'Delivery', items: ['Review dashboard', 'Risk summary', 'PM handoff', 'Training notes'] },
+      { group: 'Governance', items: ['Company standards', 'Escalation paths', 'Private deployment', 'Audit context'] },
+    ],
+    related: [
+      { id: 'thalamus', tag: 'Document automation', title: 'AI search that understands company documents.', metric: 'Source-backed answers' },
+      { id: 'aletheia', tag: 'Voice + video AI', title: 'Review signals inside important calls.', metric: '3 signal types' },
+    ],
   },
   {
     id: 'retina',
@@ -340,22 +438,23 @@ export const CASE_STUDIES: CaseStudy[] = [
     shortName: 'Retina',
     client: 'Retina',
     clientMeta: 'Retail forecasting · Python automation',
-    title: <>Sales forecast <em>automation</em> that improved buying decisions.</>,
+    title: <>Inventory forecasts that <em>shifted</em> purchasing decisions.</>,
     lede:
-      'Retina was making inventory decisions from spreadsheets, intuition, and stale dashboards. I built a forecasting workflow with weekly recommendations and a Slack planning interface in 10 weeks.',
+      'Retina moved from spreadsheet planning to weekly buying recommendations the team could trust.',
+    oneLiner: 'A forecasting workflow for stock risk, margin pressure, and purchase timing, delivered within the team’s existing environment.',
     engagement: 'Sprint + advisory',
     engagementMeta: '10\u00A0weeks build · async support',
     role: 'AI builder',
     roleMeta: 'Forecasting · Python scripts · product surface',
     year: '2024',
     yearMeta: 'Q4 launch',
-    resultsLabel: 'Results after two buying cycles',
-    resultsNote: 'measured against the old planning baseline',
+    resultsLabel: 'Buyer case',
+    resultsNote: 'inventory and planning outcomes',
     results: [
-      { value: <>-31<em>%</em></>, label: 'Stockouts', sub: 'Across top products' },
-      { value: <>+18<em>%</em></>, label: 'Margin per product', sub: 'After buying cadence shift' },
-      { value: <em>7d</em>, label: 'Planning cadence', sub: 'Down from quarterly buys' },
-      { value: <em>86%</em>, label: 'Forecast accuracy', sub: 'Planning target hit' },
+      { value: <>31<em>%</em></>, label: 'Fewer stockouts', sub: 'Across top products' },
+      { value: <>18<em>%</em></>, label: 'Margin lift', sub: 'Per-product improvement' },
+      { value: <em>7d</em>, label: 'Planning cadence', sub: 'Weekly buying rhythm' },
+      { value: <>86<em>%</em></>, label: 'Forecast trust', sub: 'Planning target hit' },
     ],
     impact: [
       { label: 'Stockout reduction', value: 69, detail: 'Inventory risk moved down across top products.' },
@@ -364,33 +463,30 @@ export const CASE_STUDIES: CaseStudy[] = [
       { label: 'Forecast trust', value: 86, detail: 'Accuracy reached the operating target.' },
     ],
     problem: [
-      <>The founder knew demand patterns better than the dashboards, but the business had outgrown intuition. <strong>Quarterly buying decisions were too slow</strong> for promotion swings and supplier delays.</>,
-      <>Past forecasting attempts failed because they stopped at spreadsheets and notebooks. There was no repeatable workflow and no planning surface the team would actually use.</>,
-      <>The goal was not a fancy model. It was a tool that made weekly inventory decisions better and easier to defend.</>,
+      <strong className="cs-section__lead">The business outgrew intuition‑driven buying.</strong>,
+      <>Quarterly planning can’t keep pace with promotions, supplier delays, or shifting demand. Retina needs a repeatable process to choose the next purchase.</>,
     ],
     approach: [
-      <>I started by reconstructing historical demand, promotions, stockout periods and supplier lead times into a clean training set.</>,
-      <>I compared simple baselines against stronger forecast models, then focused on clear explanations so buying decisions did not feel like magic.</>,
-      <>The model shipped behind a Slack workflow: category managers could ask for weekly forecasts, risk flags and recommended purchase quantities without opening a dashboard.</>,
+      <strong className="cs-section__lead">We turned forecasting into a weekly planning workflow.</strong>,
+      <>The model merges sales, inventory, promotions and lead times, then sends risk flags and purchase recommendations to Slack.</>,
     ],
     bullets: [
-      'Feature pipeline for sales, promotions, stockouts, holidays and supplier lead times.',
-      'Simple forecast comparison with product-level checks.',
-      'Confidence ranges and risk flags attached to every recommendation.',
-      'Slack-native planning interface for weekly buying decisions.',
-      'Scheduled refreshes and alerts for major demand changes.',
+      'Sales, inventory, promotions, and supplier lead times in one forecast.',
+      'Confidence ranges attached to each recommendation.',
+      'Stockout risk surfaced before buying windows closed.',
+      'Slack became the planning surface for weekly decisions.',
     ],
     heroVisual: {
       src: '/assets/projects/retina-curated-ui-v2.webp',
       alt: 'Stylized Retina UI mockup showing retail demand forecasting, purchase planning, and chat workflow',
     },
     architecture: [
-      { title: '[ 01 ] Data', name: 'Demand history', items: ['Shopify', 'Ads spend', 'Inventory', 'Suppliers'] },
-      { title: '[ 02 ] Prepare', name: 'Forecast table', items: ['Promotions', 'Lead times', 'Seasonality', 'Stockout flags'] },
+      { title: '[ 01 ] Sources', name: 'Demand inputs', items: ['Sales', 'Ads spend', 'Inventory', 'Suppliers'] },
+      { title: '[ 02 ] Prepare', name: 'Planning table', items: ['Promotions', 'Lead times', 'Seasonality', 'Stockout flags'] },
       { title: '[ 03 ] Predict', name: 'Forecast engine', items: ['Model', 'Checks', 'Ranges', 'Alerts'], accent: true },
-      { title: '[ 04 ] Act', name: 'Planning surface', items: ['Slack app', 'Risk flags', 'Buy recs', 'Exports'] },
+      { title: '[ 04 ] Deliver', name: 'Buying surface', items: ['Slack app', 'Risk flags', 'Buy recs', 'Exports'] },
     ],
-    architectureNote: <>The model only mattered once it changed the buying cadence. <strong>Slack became the product surface because that is where the team already made decisions.</strong></>,
+    architectureNote: <>The model mattered only after it altered the buying cadence. Slack became the product surface since the team already decides there.</>,
     codeTitle: 'Forecast response',
     code: <>
       forecast = predict(next_8_weeks){'\n'}
@@ -398,12 +494,354 @@ export const CASE_STUDIES: CaseStudy[] = [
       return PurchasePlan(units=rec_qty, confidence=interval)
     </>,
     outcome: [
-      <>The team moved from quarterly buy decisions to weekly planning with confidence intervals attached to every recommendation.</>,
-      <>After two buying cycles, top-product stockouts dropped by <strong>31%</strong> and margin per product improved by 18%.</>,
-      <>The founder still had final say, but the model became the default planning baseline instead of a side report.</>,
+      <><strong>Better buying rhythm:</strong> quarterly decisions became weekly planning with confidence ranges attached.</>,
+      <><strong>Measured inventory impact:</strong> top-product stockouts dropped 31% and margin per product improved 18% after two buying cycles.</>,
     ],
-    quote: 'I came in skeptical of AI. Talha told me what was not worth building, then shipped the one tool that changed my buying decisions.',
+    quote: "Talha identified what wasn't worth building and delivered the tool that shifted my purchasing decisions.",
     quoteBy: 'Priya Krishnan, Founder, Retina',
+    hard: [
+      { title: 'Planning was too slow', detail: 'Quarterly buying couldn’t keep up with promo swings, supplier delays or demand shifts.' },
+      { title: 'Dashboards were not enough', detail: 'The team needed a repeatable decision workflow, not another report.' },
+      { title: 'Trust mattered more than model depth', detail: 'Each recommendation required a confidence range and a clear reason.' },
+      { title: 'Simple adoption', detail: 'The workflow had to live in the tools where the team already plans and decides.' },
+    ],
+    decisions: [
+      { key: 'Weekly cadence', value: 'Forecasting was tied to the rhythm of real buying decisions.' },
+      { key: 'Slack surface', value: 'Recommendations appeared where the team already worked.' },
+      { key: 'Risk flags', value: 'Stockout risk became visible before orders were placed.' },
+      { key: 'Confidence ranges', value: 'Each recommendation showed enough context to support judgment.' },
+      { key: 'Simple model proof', value: 'Baselines and checks kept the forecast explainable.' },
+      { key: 'Decision support', value: 'The founder kept final control while the model became the planning baseline.' },
+    ],
+    build: [
+      { week: '1–2', title: 'Data audit', detail: 'Reviewed sales, inventory, promotions, and supplier lead times.' },
+      { week: '2–4', title: 'Clean pipeline', detail: 'Built the planning table and stockout flags.' },
+      { week: '4–6', title: 'Forecast tests', detail: 'Compared simple baselines against stronger models.' },
+      { week: '6–8', title: 'Buying logic', detail: 'Added confidence ranges, risk flags, and purchase guidance.' },
+      { week: '8–9', title: 'Slack workflow', detail: 'Moved recommendations into the planning channel.' },
+      { week: '10', title: 'Launch + tune', detail: 'Shipped the workflow and adjusted it through the first cycle.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Sales history', 'Inventory levels', 'Promotions', 'Supplier lead times'] },
+      { group: 'Processing', items: ['Demand cleanup', 'Stockout flags', 'Seasonality', 'Product checks'] },
+      { group: 'Answer layer', items: ['Forecast ranges', 'Risk scores', 'Buy quantities', 'Planning notes'] },
+      { group: 'Delivery', items: ['Slack workflow', 'Weekly alerts', 'Exports', 'Review history'] },
+      { group: 'Governance', items: ['Human approval', 'Model checks', 'Data refreshes', 'Decision logs'] },
+    ],
+    related: [
+      { id: 'thalamus', tag: 'Document automation', title: 'AI search that understands company documents.', metric: 'Source-backed answers' },
+      { id: 'aletheia', tag: 'Voice + video AI', title: 'Review signals inside important calls.', metric: '3 signal types' },
+    ],
+  },
+  {
+    id: 'crayo',
+    categories: ['automation', 'mvp-saas', 'voice-ai'],
+    index: '05',
+    shortName: 'Crayo',
+    client: 'Crayo',
+    clientMeta: 'AI video · Short-form automation',
+    title: <>AI video tools for <em>viral</em> short-form content.</>,
+    lede:
+      'Crayo turns scripts, voiceovers, subtitles, and gameplay clips into short-form videos fast.',
+    oneLiner: 'A single AI video workflow lets creators produce polished shorts without hand‑editing each frame.',
+    engagement: 'Product narrative',
+    engagementMeta: 'Positioning · workflow story · creator proof',
+    role: 'Product strategy',
+    roleMeta: 'AI video product story',
+    year: '2026',
+    yearMeta: 'Product positioning',
+    resultsLabel: 'Buyer case',
+    resultsNote: 'creator workflow outcomes',
+    results: [
+      { value: <em>Seconds</em>, label: 'Video generation', sub: 'Short-form output fast' },
+      { value: <em>Auto</em>, label: 'Voiceovers', sub: 'Narration without manual setup' },
+      { value: <em>Dynamic</em>, label: 'Subtitles', sub: 'Captions built for retention' },
+      { value: <em>Shorts</em>, label: 'Format focus', sub: 'Optimized for viral clips' },
+    ],
+    impact: [
+      { label: 'Creation speed', value: 90, detail: 'Shorts move from idea to draft faster.' },
+      { label: 'Editing effort', value: 84, detail: 'Voiceover and subtitles become automatic.' },
+      { label: 'Format clarity', value: 88, detail: 'The product story stays focused on viral shorts.' },
+      { label: 'Creator confidence', value: 82, detail: 'The workflow is easy to understand and repeat.' },
+    ],
+    problem: [
+      <strong className="cs-section__lead">Short‑form video creation involves too many manual steps. </strong>,
+      <>Creators must juggle scripts, narration, captions, clips, timing, and export settings. Crayo needed a product story that streamlined the entire workflow.</>,
+    ],
+    approach: [
+      <strong className="cs-section__lead">We positioned Crayo as the quickest route from concept to a publish-ready short.</strong>,
+      <>The pitch highlighted a single workflow: create a short, add AI voiceover, add dynamic subtitles, and match it with attention‑grabbing clips.</>,
+    ],
+    bullets: [
+      'Video generation powered by AI for short-form content.',
+      'Automatic voiceovers and captions built into one workflow.',
+      'Gameplay clips formatted for creator‑friendly output.',
+      'A simple story to speed content production.',
+    ],
+    heroVisual: {
+      src: '/assets/projects/crayo.png',
+      alt: 'Screenshot-style visual for Crayo showing an AI short-form video editing product',
+    },
+    architecture: [
+      { title: '[ 01 ] Sources', name: 'Creator inputs', items: ['Scripts', 'Prompts', 'Clips', 'Gameplay'] },
+      { title: '[ 02 ] Generate', name: 'Video workflow', items: ['Scenes', 'Voiceover', 'Subtitles', 'Timing'] },
+      { title: '[ 03 ] Optimize', name: 'Shorts engine', items: ['Pacing', 'Hooks', 'Captions', 'Formats'], accent: true },
+      { title: '[ 04 ] Deliver', name: 'Creator output', items: ['Drafts', 'Exports', 'Variants', 'Publishing'] },
+    ],
+    architectureNote: <>Crayo builds the editing workflow to deliver quick drafts, clear captions, and clips ready for creators.</>,
+    codeTitle: 'Short-form generation flow',
+    code: <>
+      short = generate_video(script, clips){'\n'}
+      voiceover = add_voiceover(short, voice){'\n'}
+      captions = sync_subtitles(voiceover){'\n'}
+      <span className="k">return</span> ViralShort(video=short, captions=captions, format="shorts")
+    </>,
+    outcome: [
+    <><strong>Clearer product story:</strong> Crayo is now a focused AI video workflow for short-form creators.</>,
+    <><strong>Sharper workflow promise:</strong> the page links voiceovers, subtitles, and clips into a fast creation path.</>,
+  ],
+    quote: 'Crayo is now summed up in one promise: create short videos in seconds.',
+    quoteBy: 'Product team',
+    hard: [
+      { title: 'Creators work fast', detail: 'The page needed to convey speed without sounding shallow or generic.' },
+      { title: 'The workflow is complex', detail: 'Voiceovers, subtitles, clips, and exports must appear as a single system.' },
+      { title: 'Viral formats require clarity', detail: 'The story must stay focused on short-form output, not broad editing.' },
+      { title: 'Automation must earn trust', detail: 'Creators need control over the final video, even with automatic drafts.' },
+    ],
+    decisions: [
+      { key: 'Shorts first', value: 'The product story centered on short-form output, not general video editing.' },
+      { key: 'Workflow framing', value: 'Script, voiceover, captions, and clips became one creation path.' },
+      { key: 'Creator control', value: 'The message kept automation tied to editable drafts.' },
+      { key: 'Speed proof', value: 'Generation time became the core buyer signal.' },
+      { key: 'Caption value', value: 'Dynamic subtitles were framed as a retention tool.' },
+      { key: 'Clip pairing', value: 'Gameplay and visual clips were positioned as part of the creative engine.' },
+    ],
+    build: [
+      { week: '1–2', title: 'Product audit', detail: 'Reviewed the creator workflow and core video features.' },
+      { week: '2–3', title: 'Narrative', detail: 'Defined the fast short-form creation story.' },
+      { week: '3–4', title: 'Workflow map', detail: 'Connected prompts, voiceovers, subtitles, and clips.' },
+      { week: '4–5', title: 'Creator proof', detail: 'Simplified the value around speed and control.' },
+      { week: '5–6', title: 'Page copy', detail: 'Reduced feature language into scan-friendly sections.' },
+      { week: '6–7', title: 'Launch fit', detail: 'Aligned the product story with creator use cases.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Scripts', 'Prompts', 'Gameplay clips', 'Creator assets'] },
+      { group: 'Processing', items: ['Scene generation', 'Voiceover sync', 'Caption timing', 'Clip selection'] },
+      { group: 'Answer layer', items: ['Hook ideas', 'Video drafts', 'Subtitle variants', 'Format choices'] },
+      { group: 'Delivery', items: ['Shorts export', 'Draft review', 'Variant output', 'Publishing handoff'] },
+      { group: 'Governance', items: ['Creator review', 'Brand checks', 'Asset control', 'Edit history'] },
+    ],
+    related: [
+      { id: 'aletheia', tag: 'Voice + video AI', title: 'Review signals inside important calls.', metric: '3 signal types' },
+      { id: 'retina', tag: 'Automation', title: 'Inventory forecasts that changed buying decisions.', metric: '31% fewer stockouts' },
+    ],
+  },
+  {
+    id: 'musicfy',
+    categories: ['automation', 'mvp-saas', 'voice-ai'],
+    index: '06',
+    shortName: 'Musicfy',
+    client: 'Musicfy AI',
+    clientMeta: 'Generative audio · Voice cloning',
+    title: <>AI covers in <em>any</em> voice.</>,
+    lede:
+      'Musicfy helps creators generate song covers, voiceovers, and custom voices without a studio workflow.',
+    oneLiner: 'A creator audio tool for instant covers, custom voice cloning, and a big voice library, designed for rapid experimentation.',
+    engagement: 'Product narrative',
+    engagementMeta: 'Positioning · creator workflow · audio proof',
+    role: 'Product strategy',
+    roleMeta: 'Generative audio product story',
+    year: '2026',
+    yearMeta: 'Product positioning',
+    resultsLabel: 'Buyer case',
+    resultsNote: 'creator audio outcomes',
+    results: [
+      { value: <>100,000<em>+</em></>, label: 'Voice library', sub: 'A wide set of voices to try' },
+      { value: <em>Minutes</em>, label: 'Cover creation', sub: 'Faster song experiments' },
+      { value: <em>Custom</em>, label: 'Voice cloning', sub: 'Creator-owned voice styles' },
+      { value: <em>Studio</em>, label: 'Workflow feel', sub: 'Audio tools in one place' },
+    ],
+    impact: [
+      { label: 'Voice choice', value: 92, detail: 'A large voice library makes exploration easy.' },
+      { label: 'Creation speed', value: 88, detail: 'Covers move from idea to draft quickly.' },
+      { label: 'Creator control', value: 84, detail: 'Custom cloning supports personal voice styles.' },
+      { label: 'Product clarity', value: 86, detail: 'The workflow reads as simple creator tooling.' },
+    ],
+    problem: [
+      <strong className="cs-section__lead">AI music tools tend to feel technical before they feel creative.</strong>,
+      <>Musicfy had to make voice cloning, cover generation, and audio creation approachable for creators who need fast results, not a complex setup.</>,
+    ],
+    approach: [
+      <strong className="cs-section__lead">Musicfy lets you test a song in a new voice instantly.</strong>,
+      <>It ties voice selection, custom cloning, and cover generation into a single workflow: pick a voice, create a cover, and refine.</>,
+    ],
+    bullets: [
+      'AI song covers created via a simple workflow.',
+      'Extensive voice library for rapid testing.',
+      'Custom cloning for personal or brand voices.',
+      'Product language focused on creativity, speed, control.',
+    ],
+    heroVisual: {
+      src: '/assets/projects/musicfy.jpg',
+      alt: 'Screenshot-style visual for Musicfy showing an AI voice and song generation product',
+    },
+    architecture: [
+      { title: '[ 01 ] Sources', name: 'Creator inputs', items: ['Songs', 'Vocals', 'Voice samples', 'Prompts'] },
+      { title: '[ 02 ] Generate', name: 'Audio workflow', items: ['Voice choice', 'Cloning', 'Cover draft', 'Mixing'] },
+      { title: '[ 03 ] Refine', name: 'Creator layer', items: ['Styles', 'Previews', 'Variants', 'Edits'], accent: true },
+      { title: '[ 04 ] Deliver', name: 'Audio output', items: ['Covers', 'Voiceovers', 'Downloads', 'Sharing'] },
+    ],
+    architectureNote: <>Musicfy packages voice generation around the creator outcome: fast covers, flexible voices, and enough control to keep the result usable.</>,
+    codeTitle: 'Voice cover flow',
+    code: <>
+      voice = select_voice(library, style){'\n'}
+      clone = clone_voice(sample){'\n'}
+      cover = generate_cover(song, voice || clone){'\n'}
+      <span className="k">return</span> CreatorAudio(track=cover, variants=preview_set)
+    </>,
+    outcome: [
+      <><strong>Clearer product story:</strong> Musicfy is now positioned as a focused AI cover and voice creation tool for creators.</>,
+      <><strong>Sharper workflow promise:</strong> the page consolidates library voices, cloning, and cover generation into a single easy path.</>,
+    ],
+    quote: 'Musicfy became easier to understand as a creator tool: pick a voice, make a cover, and keep experimenting.',
+    quoteBy: 'Product team',
+    hard: [
+      { title: 'Audio creation feels complex', detail: 'The story had to make covers and cloning feel easy without hiding the power of the tool.' },
+      { title: 'Voice choice can overwhelm', detail: 'A large library needed to feel useful, not noisy.' },
+      { title: 'Cloning needs trust', detail: 'Custom voices had to be framed around creator control and responsible use.' },
+      { title: 'Creators need speed', detail: 'The product had to support quick experiments without a heavy studio workflow.' },
+    ],
+    decisions: [
+      { key: 'Cover-first story', value: 'The main promise became creating AI song covers in minutes.' },
+      { key: 'Voice library proof', value: 'The 100,000+ voice library was used as the clearest exploration signal.' },
+      { key: 'Custom cloning', value: 'Voice cloning was positioned as a creator-control feature.' },
+      { key: 'Simple workflow', value: 'Choose, generate, preview, and refine became the core path.' },
+      { key: 'Creator language', value: 'The copy avoided model-heavy terms and focused on output.' },
+      { key: 'Audio flexibility', value: 'Covers, voiceovers, and variants were kept inside one product story.' },
+    ],
+    build: [
+      { week: '1–2', title: 'Product audit', detail: 'Reviewed voice library, cloning, and cover-generation flows.' },
+      { week: '2–3', title: 'Core narrative', detail: 'Defined the instant-cover positioning.' },
+      { week: '3–4', title: 'Workflow map', detail: 'Connected songs, voices, cloning, and previews.' },
+      { week: '4–5', title: 'Creator proof', detail: 'Simplified the value around speed and voice choice.' },
+      { week: '5–6', title: 'Product copy', detail: 'Reduced technical audio language into clear creator benefits.' },
+      { week: '6–7', title: 'Launch fit', detail: 'Aligned Musicfy with consumer AI creator expectations.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Song uploads', 'Voice samples', 'Prompts', 'Creator assets'] },
+      { group: 'Processing', items: ['Voice matching', 'Cloning', 'Cover generation', 'Audio cleanup'] },
+      { group: 'Answer layer', items: ['Voice choices', 'Cover drafts', 'Preview variants', 'Style options'] },
+      { group: 'Delivery', items: ['Downloads', 'Sharing', 'Voiceovers', 'Creator library'] },
+      { group: 'Governance', items: ['Creator review', 'Rights checks', 'Voice consent', 'Usage history'] },
+    ],
+    related: [
+      { id: 'crayo', tag: 'AI video', title: 'AI video tools for viral short-form content.', metric: 'Shorts workflow' },
+      { id: 'aletheia', tag: 'Voice + video AI', title: 'Review signals inside important calls.', metric: '3 signal types' },
+    ],
+  },
+  {
+    id: 'justlisten',
+    aliases: ['just-listen'],
+    categories: ['mvp-saas', 'voice-ai'],
+    index: '07',
+    shortName: 'Just Listen',
+    client: 'Just Listen',
+    clientMeta: 'Audiobooks · Subscription audio',
+    title: <>Audiobooks made <em>affordable</em> and easy to start.</>,
+    lede:
+      'Just Listen is a budget-friendly audiobook platform built around simple access and repeat listening.',
+    oneLiner: 'A low‑cost audio product that lets anyone listen to books without a bulky subscription.',
+    engagement: 'Product narrative',
+    engagementMeta: 'Positioning · subscription story · consumer proof',
+    role: 'Product strategy',
+    roleMeta: 'Audiobook product story',
+    year: '2026',
+    yearMeta: 'Product positioning',
+    resultsLabel: 'Buyer case',
+    resultsNote: 'access and listening outcomes',
+    results: [
+      { value: <em>Low</em>, label: 'Listening cost', sub: 'Budget-friendly access' },
+      { value: <em>Simple</em>, label: 'Start flow', sub: 'Easy path into a book' },
+      { value: <em>Audio</em>, label: 'Format focus', sub: 'Built around listening' },
+      { value: <em>Repeat</em>, label: 'Habit fit', sub: 'Designed for regular use' },
+    ],
+    impact: [
+      { label: 'Access clarity', value: 88, detail: 'The product promise is easy to understand.' },
+      { label: 'Cost appeal', value: 90, detail: 'Price becomes the clearest buyer signal.' },
+      { label: 'Listening focus', value: 82, detail: 'The story stays centered on audiobooks.' },
+      { label: 'Subscription trust', value: 78, detail: 'The experience feels simple and low-friction.' },
+    ],
+    problem: [
+      <strong className="cs-section__lead">Audiobook services often seem pricey before you see their benefit.</strong>,
+      <>Just Listen needed a clear story: affordable listening, easy discovery, and a simple way to fit books into daily routines.</>,
+    ],
+    approach: [
+      <strong className="cs-section__lead">We positioned Just Listen as the most affordable way to enjoy audiobooks.</strong>,
+      <>The message emphasized easy access, simplicity, and habit formation rather than a large catalog or a complicated subscription.</>,
+    ],
+    bullets:[
+      'Affordable audiobook access.',
+      'Straightforward listening-first flow.',
+      'Clear subscription value for repeat users.',
+      'A direct consumer story about audio habits.',
+    ],
+    heroVisual: {
+      src: '/assets/projects/justlisten.png',
+      alt: 'Screenshot-style visual for Just Listen showing an audiobook product experience',
+    },
+    architecture: [
+      { title: '[ 01 ] Sources', name: 'Book inputs', items: ['Catalog', 'Narration', 'Metadata', 'User picks'] },
+      { title: '[ 02 ] Prepare', name: 'Listening flow', items: ['Search', 'Preview', 'Queue', 'Progress'] },
+      { title: '[ 03 ] Match', name: 'Audio experience', items: ['Playback', 'Bookmarks', 'History', 'Suggestions'], accent: true },
+      { title: '[ 04 ] Deliver', name: 'Subscription layer', items: ['Plans', 'Library', 'Downloads', 'Account'] },
+    ],
+    architectureNote: <>Just Listen packages the audiobook experience around the outcome buyers care about most: affordable access to books they can start quickly and return to easily.</>,
+    codeTitle: 'Listening product flow',
+    code: <>
+      book = select_book(catalog, listener){'\n'}
+      session = start_audio(book, plan){'\n'}
+      progress = save_progress(session){'\n'}
+      <span className="k">return</span> ListeningSession(book=book, progress=progress, next_recommendations=queue)
+    </>,
+    outcome: [
+      <><strong>Clearer product story:</strong> Just Listen is now a focused, affordable audiobook platform.</>,
+      <><strong>Sharper consumer promise:</strong> The page links low cost, easy access, and repeat listening into a single story.</>,
+    ],
+    quote: 'Just Listen became easier to explain as one direct offer: the cheapest way to listen to audiobooks.',
+    quoteBy: 'Product team',
+    hard: [
+      { title: 'The market is crowded', detail: 'The product needed a simple reason to exist beside larger audiobook platforms.' },
+      { title: 'Price had to feel valuable', detail: 'Budget positioning had to read as accessible, not cheap or limited.' },
+      { title: 'Listening habits matter', detail: 'The story had to support repeat use, not just one-time discovery.' },
+      { title: 'Subscription needs trust', detail: 'The page had to make the plan feel simple and easy to understand.' },
+    ],
+    decisions: [
+      { key: 'Price-first story', value: 'Affordability became the clearest product promise.' },
+      { key: 'Listening focus', value: 'The story stayed centered on audiobooks and daily use.' },
+      { key: 'Simple subscription', value: 'Plan language was kept direct and low-friction.' },
+      { key: 'Habit framing', value: 'Progress, library, and recommendations supported repeat listening.' },
+      { key: 'Consumer clarity', value: 'The copy avoided platform complexity and led with access.' },
+      { key: 'Audio value', value: 'The product was positioned as a practical way to listen more.' },
+    ],
+    build: [
+      { week: '1–2', title: 'Product audit', detail: 'Reviewed the audiobook offer, subscription value, and user flow.' },
+      { week: '2–3', title: 'Core narrative', detail: 'Defined the affordable listening position.' },
+      { week: '3–4', title: 'User journey', detail: 'Mapped discovery, playback, progress, and subscription moments.' },
+      { week: '4–5', title: 'Value proof', detail: 'Simplified the page around cost and access.' },
+      { week: '5–6', title: 'Product copy', detail: 'Reduced catalog language into scan-friendly consumer benefits.' },
+      { week: '6–7', title: 'Launch fit', detail: 'Aligned the story with simple audio subscription expectations.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Book catalog', 'Narration files', 'Metadata', 'User library'] },
+      { group: 'Processing', items: ['Search', 'Playback state', 'Progress sync', 'Recommendations'] },
+      { group: 'Answer layer', items: ['Book matches', 'Listening queue', 'Progress prompts', 'Plan value'] },
+      { group: 'Delivery', items: ['Audio player', 'Library view', 'Downloads', 'Subscription flow'] },
+      { group: 'Governance', items: ['Account rules', 'Usage history', 'Rights checks', 'Plan controls'] },
+    ],
+    related: [
+      { id: 'musicfy', tag: 'Generative audio', title: 'AI covers in any voice.', metric: '100,000+ voices' },
+      { id: 'crayo', tag: 'AI video', title: 'AI video tools for viral short-form content.', metric: 'Shorts workflow' },
+    ],
   },
 ]
 
@@ -421,9 +859,16 @@ export function CaseStudyPage({
   const selectedCase = getCaseStudy(selectedId)
   const nextCase = CASE_STUDIES[(CASE_STUDIES.findIndex((caseStudy) => caseStudy.id === selectedCase.id) + 1) % CASE_STUDIES.length]
 
+  const isEnhanced = !!selectedCase.hard
+  const hasScreenshots = !!selectedCase.screenshots?.length
+  const valueProfileLabel = isEnhanced ? (hasScreenshots ? '[ 07 ] Value Profile' : '[ 06 ] Value Profile') : (selectedCase.screenshots ? '[ 04 ] Value Profile' : '[ 03 ] Value Profile')
+  const howItWorksLabel = isEnhanced ? (hasScreenshots ? '[ 08 ] How it works' : '[ 07 ] How it works') : (selectedCase.screenshots ? '[ 05 ] How it works' : '[ 04 ] How it works')
+  const outcomeLabel = isEnhanced ? (hasScreenshots ? '[ 09 ] Outcome' : '[ 08 ] Outcome') : (selectedCase.screenshots ? '[ 06 ] Outcome' : '[ 05 ] Outcome')
+  const stackLabel = hasScreenshots ? '[ 10 ] Stack' : '[ 09 ] Stack'
+
   return (
     <>
-      <section className="cs-hero">
+      <section className={`cs-hero${isEnhanced ? ' cs-hero--thalamus' : ''}`}>
         <div className="container">
           <div className="cs-hero__breadcrumb">
             <a href="/">Home</a>
@@ -461,12 +906,17 @@ export function CaseStudyPage({
           </div>
 
           <div className="eyebrow mb-24">Case study · {selectedCase.index} / {CASE_STUDIES.length.toString().padStart(2, '0')}</div>
-          <div className="cs-hero__main">
+          <div className="cs-hero__main" style={{ alignItems: isEnhanced ? 'start' : 'center' }}>
             <div>
               <h1 className="h-display">
                 {selectedCase.title}
               </h1>
-              <p className="lede cs-hero__lede mt-32">{selectedCase.lede}</p>
+              {selectedCase.oneLiner && (
+                <p className="cs-hero__one-liner">{selectedCase.oneLiner}</p>
+              )}
+              {!selectedCase.oneLiner && (
+                <p className="lede cs-hero__lede mt-32">{selectedCase.lede}</p>
+              )}
               {selectedCase.liveUrl && (
                 <div className="cs-hero__actions">
                   <a className="btn btn--accent" href={selectedCase.liveUrl} target="_blank" rel="noreferrer">
@@ -476,8 +926,8 @@ export function CaseStudyPage({
               )}
               <div className="cs-review-card">
                 <div className="tiny-mono">[ Client review ]</div>
-                <p>"{selectedCase.quote}"</p>
-                <span>- {selectedCase.quoteBy}</span>
+                <p>{selectedCase.quote}</p>
+                <span>&mdash; {selectedCase.quoteBy}</span>
               </div>
             </div>
             {selectedCase.heroVisual && (
@@ -487,43 +937,79 @@ export function CaseStudyPage({
             )}
           </div>
 
+          {selectedCase.id === 'thalamus' && <ThalamusImpactStrip />}
+
           <div className="cs-hero__meta">
-            <MetaBlock label="[ Client ]" title={selectedCase.client} detail={selectedCase.clientMeta} />
-            <MetaBlock label="[ Engagement ]" title={selectedCase.engagement} detail={selectedCase.engagementMeta} />
-            <MetaBlock label="[ Role ]" title={selectedCase.role} detail={selectedCase.roleMeta} />
-            <MetaBlock label="[ Year ]" title={selectedCase.year} detail={selectedCase.yearMeta} />
+            {isEnhanced ? (
+              <>
+                <MetaBlock label="Client" title={selectedCase.client} detail={selectedCase.clientMeta} icon={<ClientIcon />} />
+                <MetaBlock label="Engagement" title={selectedCase.engagement} detail={selectedCase.engagementMeta} icon={<EngagementIcon />} />
+                <MetaBlock label="Role" title={selectedCase.role} detail={selectedCase.roleMeta} icon={<RoleIcon />} />
+                <MetaBlock label="Year" title={selectedCase.year} detail={selectedCase.yearMeta} icon={<YearIcon />} />
+              </>
+            ) : (
+              <>
+                <MetaBlock label="[ Client ]" title={selectedCase.client} detail={selectedCase.clientMeta} />
+                <MetaBlock label="[ Engagement ]" title={selectedCase.engagement} detail={selectedCase.engagementMeta} />
+                <MetaBlock label="[ Role ]" title={selectedCase.role} detail={selectedCase.roleMeta} />
+                <MetaBlock label="[ Year ]" title={selectedCase.year} detail={selectedCase.yearMeta} />
+              </>
+            )}
           </div>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
-          <div className="divider-mono mb-32">
-            <span>{selectedCase.resultsLabel}</span>
-            <span>{selectedCase.resultsNote}</span>
+      {selectedCase.id === 'thalamus' ? (
+        <ThalamusBuyerCaseSection />
+      ) : isEnhanced ? (
+        <EnhancedBuyerCaseSection caseStudy={selectedCase} />
+      ) : (
+        <section className="section">
+          <div className="container">
+            <div className="divider-mono mb-32">
+              <span>{selectedCase.resultsLabel}</span>
+              <span>{selectedCase.resultsNote}</span>
+            </div>
+            <div className="results">
+              {selectedCase.results.map((result) => (
+                <div className="result" key={result.label}>
+                  <div className="result__value">{result.value}</div>
+                  <div className="result__label">{result.label}</div>
+                  <div className="result__sub">{result.sub}</div>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="results">
-            {selectedCase.results.map((result) => (
-              <div className="result" key={result.label}>
-                <div className="result__value">{result.value}</div>
-                <div className="result__label">{result.label}</div>
-                <div className="result__sub">{result.sub}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <CaseSection label="[ 01 ] The Problem" paragraphs={selectedCase.problem} borderTop />
-      <CaseSection label="[ 02 ] Approach" paragraphs={selectedCase.approach} bullets={selectedCase.bullets} />
+
+      {isEnhanced && selectedCase.hard && (
+        <WhyHardSection label="[ 02 ] Why this was hard" items={selectedCase.hard} />
+      )}
+
+      <CaseSection label={isEnhanced ? '[ 03 ] Approach' : '[ 02 ] Approach'} paragraphs={selectedCase.approach} bullets={selectedCase.bullets} bulletsLabel={selectedCase.id === 'thalamus' ? 'Key points' : undefined} />
+
+      {isEnhanced && selectedCase.decisions && (
+        selectedCase.id === 'thalamus' ? (
+          <ThalamusDecisionsSection />
+        ) : (
+          <DecisionsSection label="[ 04 ] Key decisions" items={selectedCase.decisions} />
+        )
+      )}
+
+      {isEnhanced && selectedCase.build && (
+        <BuildSection label="[ 05 ] How we shipped" items={selectedCase.build} />
+      )}
 
       {selectedCase.screenshots && (
         <section>
           <div className="container">
             <div className="cs-section">
-              <div className="cs-section__label">[ 03 ] Screenshots</div>
+              <SectionHeading label={isEnhanced ? '[ 06 ] Screenshots' : (selectedCase.hard ? '[ 06 ] Screenshots' : '[ 03 ] Screenshots')} />
               <div className="cs-section__body">
-                <div className="case-shots">
+                <div className={`case-shots${isEnhanced ? ' case-shots--scroll' : ''}`}>
                   {selectedCase.screenshots.map((shot) => (
                     <figure className="case-shot" key={shot.src}>
                       <div className="case-shot__frame">
@@ -545,7 +1031,7 @@ export function CaseStudyPage({
       <section>
         <div className="container">
           <div className="cs-section">
-            <div className="cs-section__label">{selectedCase.screenshots ? '[ 04 ] Value Profile' : '[ 03 ] Value Profile'}</div>
+            <SectionHeading label={valueProfileLabel} />
             <div className="cs-section__body">
               <div className="impact-chart" aria-label={`${selectedCase.shortName} value profile`}>
                 {selectedCase.impact.map((item) => (
@@ -569,7 +1055,7 @@ export function CaseStudyPage({
       <section>
         <div className="container">
           <div className="cs-section">
-            <div className="cs-section__label">{selectedCase.screenshots ? '[ 05 ] How it works' : '[ 04 ] How it works'}</div>
+            <SectionHeading label={howItWorksLabel} />
             <div className="cs-section__body">
               <div className="arch">
                 <div className="arch__inner">
@@ -594,7 +1080,7 @@ export function CaseStudyPage({
       <section>
         <div className="container">
           <div className="cs-section">
-            <div className="cs-section__label">{selectedCase.screenshots ? '[ 06 ] Outcome' : '[ 05 ] Outcome'}</div>
+            <SectionHeading label={outcomeLabel} />
             <div className="cs-section__body">
               {selectedCase.outcome.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
             </div>
@@ -602,19 +1088,33 @@ export function CaseStudyPage({
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
-          <div className="divider-mono">
-            <span>More work</span>
-            <span>{nextCase.index} / {CASE_STUDIES.length.toString().padStart(2, '0')} next</span>
+      {isEnhanced && (
+        <QuoteBlockSection quote={selectedCase.quote} by={selectedCase.quoteBy} />
+      )}
+
+      {isEnhanced && selectedCase.stack && (
+        <StackSection label={stackLabel} items={selectedCase.stack} />
+      )}
+
+      {isEnhanced && selectedCase.related && (
+        <RelatedSection items={selectedCase.related} />
+      )}
+
+      {!isEnhanced && (
+        <section className="section">
+          <div className="container">
+            <div className="divider-mono">
+              <span>More work</span>
+              <span>{nextCase.index} / {CASE_STUDIES.length.toString().padStart(2, '0')} next</span>
+            </div>
+            <a href={`/case-studies/${nextCase.id}`} className="case case--button">
+              <div className="case__index"><strong>CS / {nextCase.index}</strong><div style={{ marginTop: 12 }}>{nextCase.clientMeta}</div></div>
+              <h3 className="case__title">{nextCase.title}</h3>
+              <div className="case__cta">Next case <Arrow /></div>
+            </a>
           </div>
-          <a href={`/case-studies/${nextCase.id}`} className="case case--button">
-            <div className="case__index"><strong>CS / {nextCase.index}</strong><div style={{ marginTop: 12 }}>{nextCase.clientMeta}</div></div>
-            <h3 className="case__title">{nextCase.title}</h3>
-            <div className="case__cta">Next case <Arrow /></div>
-          </a>
-        </div>
-      </section>
+        </section>
+      )}
 
       <CTA />
       <Footer navigate={navigate} />
@@ -622,12 +1122,220 @@ export function CaseStudyPage({
   )
 }
 
-function MetaBlock({ label, title, detail }: { label: string; title: string; detail: string }) {
+const ImpactDocsIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M6 3h8l4 4v14H6z" />
+    <path d="M14 3v5h5" />
+    <path d="M9 12h6M9 16h6" />
+  </svg>
+)
+
+const ImpactAccuracyIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="8" />
+    <circle cx="12" cy="12" r="3" />
+    <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+  </svg>
+)
+
+const ImpactUsersIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M16 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 17.5V19" />
+    <circle cx="10" cy="8" r="3.5" />
+    <path d="M20 19v-1.2a3 3 0 0 0-2.2-2.9" />
+    <path d="M16.5 5.4a3.2 3.2 0 0 1 0 5.2" />
+  </svg>
+)
+
+const ImpactGrowthIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 17 9 12l4 4 7-8" />
+    <path d="M14 8h6v6" />
+  </svg>
+)
+
+const BuyerClockIcon = () => (
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="8" />
+    <path d="M12 7v5l4 2" />
+  </svg>
+)
+
+const BuyerChartIcon = () => (
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 19V9M10 19v-5M16 19v-8" />
+    <path d="m4 14 5-5 4 4 7-8" />
+    <path d="M15 5h5v5" />
+  </svg>
+)
+
+function ThalamusImpactStrip() {
+  const items = [
+    { icon: <ImpactDocsIcon />, value: '1M+', label: 'docs indexed' },
+    { icon: <ImpactAccuracyIcon />, value: '95%', label: 'answer accuracy' },
+    { icon: <ImpactUsersIcon />, value: '10,000+', label: 'users' },
+    { icon: <ImpactGrowthIcon />, value: 'Series B', label: 'momentum' },
+  ]
+
+  return (
+    <div className="thalamus-impact">
+      <div className="thalamus-impact__label">[ Impact ]</div>
+      <div className="thalamus-impact__grid">
+        {items.map((item) => (
+          <div className="thalamus-impact__item" key={item.value}>
+            <span className="thalamus-impact__icon">{item.icon}</span>
+            <div>
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function ThalamusBuyerCaseSection() {
+  const items = [
+    {
+      icon: <ImpactAccuracyIcon />,
+      value: <>99<em>%</em></>,
+      label: 'Accuracy',
+      text: 'Performance you can trust',
+    },
+    {
+      icon: <ImpactUsersIcon />,
+      value: <>10,000<em>+</em></>,
+      label: 'Active customers',
+      text: 'Trusted at scale',
+    },
+    {
+      icon: <BuyerClockIcon />,
+      value: <>6 <em>mo</em></>,
+      label: 'Time to market',
+      text: 'Delivered in 6 months',
+    },
+    {
+      icon: <BuyerChartIcon />,
+      value: <>Market <em>Ready</em></>,
+      label: 'Built for impact',
+      text: 'Driving results from day one',
+    },
+  ]
+
+  return (
+    <section className="thalamus-buyer">
+      <div className="container">
+        <div className="thalamus-buyer__divider">
+          <span>Buyer case</span>
+          <span>Cost and time outcomes</span>
+        </div>
+        <div className="thalamus-buyer__grid">
+          {items.map((item) => (
+            <div className="thalamus-buyer__card" key={item.label}>
+              <span className="thalamus-buyer__icon">{item.icon}</span>
+              <div className="thalamus-buyer__value">{item.value}</div>
+              <div className="thalamus-buyer__label">{item.label}</div>
+              <p>{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function EnhancedBuyerCaseSection({ caseStudy }: { caseStudy: CaseStudy }) {
+  const icons = [<ImpactAccuracyIcon />, <ImpactUsersIcon />, <BuyerClockIcon />, <BuyerChartIcon />]
+
+  return (
+    <section className="thalamus-buyer">
+      <div className="container">
+        <div className="thalamus-buyer__divider">
+          <span>{caseStudy.resultsLabel}</span>
+          <span>{caseStudy.resultsNote}</span>
+        </div>
+        <div className="thalamus-buyer__grid">
+          {caseStudy.results.map((item, index) => (
+            <div className="thalamus-buyer__card" key={item.label}>
+              <span className="thalamus-buyer__icon">{icons[index % icons.length]}</span>
+              <div className="thalamus-buyer__value">{item.value}</div>
+              <div className="thalamus-buyer__label">{item.label}</div>
+              <p>{item.sub}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+const ClientIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+    <circle cx="12" cy="7" r="4" />
+  </svg>
+);
+
+const EngagementIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10" />
+    <circle cx="12" cy="12" r="6" />
+    <circle cx="12" cy="12" r="2" />
+  </svg>
+);
+
+const RoleIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+    <polyline points="14 2 14 8 20 8" />
+    <line x1="16" y1="13" x2="8" y2="13" />
+    <line x1="16" y1="17" x2="8" y2="17" />
+    <line x1="10" y1="9" x2="8" y2="9" />
+  </svg>
+);
+
+const YearIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+    <line x1="16" y1="2" x2="16" y2="6" />
+    <line x1="8" y1="2" x2="8" y2="6" />
+    <line x1="3" y1="10" x2="21" y2="10" />
+  </svg>
+);
+
+function MetaBlock({ label, title, detail, icon }: { label: string; title: string; detail: string; icon?: React.ReactNode }) {
   return (
     <div>
-      <div className="tiny-mono mb-8">{label}</div>
+      <div className="tiny-mono mb-8" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        {icon && <span style={{ color: 'var(--accent)', display: 'inline-flex' }}>{icon}</span>}
+        {label}
+      </div>
       <p style={{ fontSize: 16, color: 'var(--fg)' }} translate="no">{title}</p>
       <p className="small">{detail}</p>
+    </div>
+  )
+}
+
+function SectionHeading({ label }: { label: string }) {
+  const match = label.match(/^\[\s*(\d+)\s*\]\s*(.+)$/)
+
+  if (!match) {
+    return <div className="cs-section__label">{label}</div>
+  }
+
+  const [, number, title] = match
+  const formattedTitle = title
+    .split(' ')
+    .map((word) => word ? `${word.charAt(0).toUpperCase()}${word.slice(1)}` : word)
+    .join(' ')
+
+  return (
+    <div className="cs-section__label cs-section-heading">
+      <span className="cs-section-heading__number">[ {number.padStart(2, '0')} ]</span>
+      <span className="cs-section-heading__rule" aria-hidden="true" />
+      <span className="cs-section-heading__title">{formattedTitle}</span>
+      <span className="cs-section-heading__accent" aria-hidden="true" />
     </div>
   )
 }
@@ -636,26 +1344,333 @@ function CaseSection({
   label,
   paragraphs,
   bullets,
+  bulletsLabel,
   borderTop,
 }: {
   label: string
   paragraphs: React.ReactNode[]
   bullets?: string[]
+  bulletsLabel?: string
   borderTop?: boolean
 }) {
   return (
     <section style={borderTop ? { borderTop: '1px solid var(--line)' } : undefined}>
       <div className="container">
         <div className="cs-section">
-          <div className="cs-section__label">{label}</div>
+          <SectionHeading label={label} />
           <div className="cs-section__body">
             {paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
             {bullets && (
-              <ul className="cs-list">
-                {bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
-              </ul>
+              <>
+                {bulletsLabel && <div className="cs-bullets-label">{bulletsLabel}</div>}
+                <ul className="cs-list">
+                  {bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
+                </ul>
+              </>
             )}
           </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function WhyHardSection({ label, items }: { label: string; items: Array<{ title: string; detail: string }> }) {
+  const [open, setOpen] = React.useState(0)
+  return (
+    <section className="cs-why-hard">
+      <div className="container">
+        <div className="cs-section">
+          <SectionHeading label={label} />
+          <div className="cs-section__body">
+            <div className="cs-accordion">
+              {items.map((item, i) => {
+                const isOpen = open === i
+                return (
+                  <div key={item.title} className="cs-accordion__item">
+                    <button
+                      className="cs-accordion__trigger"
+                      onClick={() => setOpen(isOpen ? -1 : i)}
+                      aria-expanded={isOpen}
+                    >
+                      <span className="cs-accordion__num">0{i + 1}</span>
+                      <span className="cs-accordion__title">{item.title}</span>
+                      <span className={`cs-accordion__icon${isOpen ? ' is-open' : ''}`}>{isOpen ? '–' : '+'}</span>
+                    </button>
+                    <div className={`cs-accordion__panel${isOpen ? ' is-open' : ''}`}>
+                      <p>{item.detail}</p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function DecisionsSection({ label, items }: { label: string; items: Array<{ key: string; value: string }> }) {
+  return (
+    <section className="thalamus-decisions">
+      <div className="container">
+        <div className="cs-section">
+          <SectionHeading label={label} />
+          <div className="cs-section__body">
+            <div className="thalamus-decisions__grid">
+              {items.map((d, index) => (
+                <div key={d.key} className="thalamus-decisions__card">
+                  <span className="thalamus-decisions__icon">{decisionIconForIndex(index)}</span>
+                  <h3>{d.key}</h3>
+                  <p>{d.value}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function decisionIconForIndex(index: number) {
+  const icons = [
+    <DecisionDocumentIcon />,
+    <DecisionShieldIcon />,
+    <BuyerClockIcon />,
+    <DecisionLayersIcon />,
+    <DecisionLockIcon />,
+    <DecisionRocketIcon />,
+  ]
+
+  return icons[index % icons.length]
+}
+
+const DecisionDocumentIcon = () => (
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M6 3h8l4 4v14H6z" />
+    <path d="M14 3v5h5" />
+    <path d="M9 12h6M9 16h6" />
+  </svg>
+)
+
+const DecisionShieldIcon = () => (
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 3 19 6v5c0 5-3 8-7 10-4-2-7-5-7-10V6z" />
+    <path d="m8.5 12 2.2 2.2L15.8 9" />
+  </svg>
+)
+
+const DecisionLockIcon = () => (
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="5" y="10" width="14" height="10" rx="1.8" />
+    <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+  </svg>
+)
+
+const DecisionLayersIcon = () => (
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="m12 4 8 4-8 4-8-4z" />
+    <path d="m4 12 8 4 8-4" />
+    <path d="m4 16 8 4 8-4" />
+  </svg>
+)
+
+const DecisionRocketIcon = () => (
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M14 4c3.5-.7 5.7.2 6 0-.2 3.2-1.2 6.2-4 8.8l-5.5 5.5-4.8.9.9-4.8 5.5-5.5C12.7 8 13.3 6 14 4Z" />
+    <path d="M9 15 7 13M15 9l2 2" />
+    <circle cx="15.5" cy="8.5" r="1.5" />
+  </svg>
+)
+
+function ThalamusDecisionsSection() {
+  const items = [
+    { icon: <DecisionDocumentIcon />, title: 'Document pipeline', text: 'Unified ingestion for scans, tables, layouts, and media.' },
+    { icon: <DecisionShieldIcon />, title: 'Source-backed answers', text: 'Answers with citations, confidence, and a full audit trail.' },
+    { icon: <DecisionLockIcon />, title: 'Privacy first', text: 'Access controls and sensitive-data handling built in.' },
+    { icon: <BuyerClockIcon />, title: 'Buy-vs-build framing', text: 'Cost, timeline, and maintenance packaged for faster decisions.' },
+    { icon: <DecisionLayersIcon />, title: 'Product story', text: 'Thalamus became an answer layer, not a search box.' },
+    { icon: <DecisionRocketIcon />, title: 'Launch narrative', text: 'Clear pages that communicate value and drive buyer confidence.' },
+  ]
+
+  return (
+    <section className="thalamus-decisions">
+      <div className="container">
+        <div className="cs-section">
+          <SectionHeading label="[ 04 ] Key decisions" />
+          <div className="cs-section__body">
+            <div className="thalamus-decisions__grid">
+              {items.map((item) => (
+                <div className="thalamus-decisions__card" key={item.title}>
+                  <span className="thalamus-decisions__icon">{item.icon}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function BuildSection({ label, items }: { label: string; items: Array<{ week: string; title: string; detail: string }> }) {
+  return (
+    <section className="cs-build">
+      <div className="container">
+        <div className="cs-section">
+          <SectionHeading label={label} />
+          <div className="cs-section__body">
+            <div className="cs-build__grid">
+              {items.map((b) => (
+                <div key={b.title} className="cs-build__card">
+                  <span className="cs-build__week">Week {b.week}</span>
+                  <h4 className="cs-build__title">{b.title}</h4>
+                  <p>{b.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function QuoteBlockSection({ quote, by }: { quote: string; by: string }) {
+  return (
+    <section className="cs-quote-block">
+      <div className="container">
+        <div className="cs-quote-block__inner">
+          <span className="cs-quote-block__mark">"</span>
+          <p className="cs-quote-block__text">{quote}</p>
+          <div className="cs-quote-block__by">
+            <span className="cs-quote-block__avatar">{by.charAt(0)}</span>
+            <div>
+              <span className="cs-quote-block__name">{by}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function StackSection({ label, items }: { label: string; items: Array<{ group: string; items: string[] }> }) {
+  return (
+    <section className="cs-stack">
+      <div className="container">
+        <div className="cs-section">
+          <SectionHeading label={label} />
+          <div className="cs-section__body">
+            <div className="cs-stack__grid">
+              {items.map((g) => (
+                <div key={g.group} className="cs-stack__group">
+                  <div className="cs-stack__head">
+                    <StackIcon group={g.group} />
+                    <div className="cs-stack__group-label">{g.group}</div>
+                  </div>
+                  <ul>
+                    {g.items.map((it) => (
+                      <li key={it}>
+                        <span />
+                        {it}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function StackIcon({ group }: { group: string }) {
+  const common = {
+    width: 34,
+    height: 34,
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: 1.6,
+    strokeLinecap: 'round' as const,
+    strokeLinejoin: 'round' as const,
+    'aria-hidden': true,
+  }
+
+  if (group === 'Sources') {
+    return (
+      <svg {...common}>
+        <ellipse cx="12" cy="5" rx="7" ry="3" />
+        <path d="M5 5v6c0 1.7 3.1 3 7 3s7-1.3 7-3V5" />
+        <path d="M5 11v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6" />
+      </svg>
+    )
+  }
+
+  if (group === 'Processing') {
+    return (
+      <svg {...common}>
+        <rect x="8" y="8" width="8" height="8" rx="1.5" />
+        <path d="M4 10h2M4 14h2M18 10h2M18 14h2M10 4v2M14 4v2M10 18v2M14 18v2" />
+        <path d="M2 12h2M20 12h2M12 2v2M12 20v2" />
+      </svg>
+    )
+  }
+
+  if (group === 'Answer layer') {
+    return (
+      <svg {...common}>
+        <circle cx="10.5" cy="10.5" r="6" />
+        <path d="m15 15 5 5" />
+      </svg>
+    )
+  }
+
+  if (group === 'Delivery') {
+    return (
+      <svg {...common}>
+        <path d="M5 5h14v11H9l-4 4z" />
+        <path d="M8 9h8M8 12h5" />
+      </svg>
+    )
+  }
+
+  return (
+    <svg {...common}>
+      <path d="M12 3 19 6v5c0 5-3 8-7 10-4-2-7-5-7-10V6z" />
+      <path d="m8.5 12 2.2 2.2L15.8 9" />
+    </svg>
+  )
+}
+
+function RelatedSection({ items }: { items: Array<{ id: string; tag: string; title: string; metric: string }> }) {
+  return (
+    <section className="cs-related">
+      <div className="container">
+        <div className="cs-related__header">
+          <h2>Related case studies</h2>
+        </div>
+        <div className="cs-related__grid">
+          {items.map((r) => {
+            const cs = getCaseStudy(r.id)
+            return (
+              <a href={`/case-studies/${r.id}`} className="cs-related__card" key={r.id}>
+                <span className="cs-related__tag">{r.tag}</span>
+                <h3>{r.title}</h3>
+                <div className="cs-related__footer">
+                  <span>{r.metric}</span>
+                  <Arrow size={12} />
+                </div>
+              </a>
+            )
+          })}
         </div>
       </div>
     </section>
