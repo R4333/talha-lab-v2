@@ -66,7 +66,7 @@ function Hero({ headlineVariant = 'outcomes' }: { headlineVariant?: HeadlineVari
         <div className="hero__meta">
           <div className="hero__meta-item">
             <div className="tiny-mono">[ Client result ] Levitate Data</div>
-            <p>Turned a technical document product into a buyer-ready story — sales cycle dropped from weeks to one call.</p>
+            <p>Turned a technical document product into a buyer-ready story. Sales cycle dropped from weeks to one call.</p>
           </div>
           <div className="hero__meta-item">
             <div className="tiny-mono">[ Client result ] First Rule</div>
@@ -74,7 +74,7 @@ function Hero({ headlineVariant = 'outcomes' }: { headlineVariant?: HeadlineVari
           </div>
           <div className="hero__meta-item">
             <div className="tiny-mono">[ Client result ] Retina</div>
-            <p>Built a forecast tool that turned gut-feel ordering into data-driven planning — margins lifted 18% across every product line.</p>
+            <p>Built a forecast tool that turned gut-feel ordering into data-driven planning. Margins lifted 18% across every product line.</p>
           </div>
         </div>
       </div>
@@ -185,7 +185,7 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
   return (
     <section className="section" id="work">
       <div className="container">
-        <div className="section-header">
+        <div className="section-header section-header--work">
           <div>
             <div className="eyebrow mb-24">Selected work</div>
             <h2 className="h1">Client work with clear <em>outcomes</em>.</h2>
@@ -256,40 +256,50 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
 }
 
 function OperatingSystem() {
-  const rows = [
-    { before: "Team copies data into spreadsheets every Monday", after: "Script pulls, cleans, and delivers the report before coffee", tag: "Automation" },
-    { before: "Support staff answers the same 20 questions daily", after: "Chatbot resolves 80% with cited sources — escalates the rest", tag: "Chatbot" },
-    { before: "Founder reads contracts line-by-line for risk", after: "Tool flags risky clauses and missing terms in 30 seconds", tag: "Document review" },
-    { before: "Buying decisions based on gut feel and stale data", after: "Forecast tool runs on live data — updates every morning", tag: "Forecast" },
+  const outcomes = [
+    {
+      num: "01",
+      label: "Workflow",
+      title: "Daily work gets lighter",
+      body: "Reports, routing, reviews, and follow-ups move into one repeatable workflow.",
+      proof: "Less copying. Fewer handoffs.",
+    },
+    {
+      num: "02",
+      label: "Trust",
+      title: "Decisions get clearer",
+      body: "The tool shows sources, status, and next actions so the team can use the output.",
+      proof: "Less guessing. Faster reviews.",
+    },
+    {
+      num: "03",
+      label: "Handoff",
+      title: "Handoff gets calmer",
+      body: "Docs, alerts, and simple checks make the build easier to run after launch.",
+      proof: "Less dependency. More ownership.",
+    },
   ];
 
   return (
     <section className="section section--tight">
       <div className="container">
-        <div className="os-panel">
+        <div className="os-panel os-panel--calm">
           <div className="os-panel__intro">
-            <div className="eyebrow mb-24">Before & after</div>
-            <h2 className="h2">The work looks different <em>after</em> it ships.</h2>
-            <p className="body">Four real transformations from recent projects.</p>
+            <div className="eyebrow mb-24">After launch</div>
+            <h2 className="h2">Less manual work. More useful <em>momentum</em>.</h2>
+            <p className="body">The point is not another AI demo. It is a working tool your team can trust, use, and hand off without extra noise.</p>
           </div>
-          <div className="transform-grid" style={{ position: "relative", zIndex: 1, display: "grid", gap: 2 }}>
-            {rows.map((row, i) => (
-              <div key={i} className="transform-row" style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 16, alignItems: "center", padding: "18px 20px", borderRadius: 8, border: "1px solid var(--line)", background: "color-mix(in oklab, var(--bg) 84%, transparent)", transition: "border-color 0.2s ease" }}>
-                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                  <span className="tiny-mono" style={{ color: "var(--fg-3)" }}>Before</span>
-                  <p style={{ fontSize: 15, lineHeight: 1.45, color: "var(--fg-2)" }}>{row.before}</p>
+          <div className="outcome-grid">
+            {outcomes.map((outcome) => (
+              <article key={outcome.num} className="outcome-card">
+                <div className="outcome-card__top">
+                  <span>{outcome.num}</span>
+                  <small>{outcome.label}</small>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2, minWidth: 48 }}>
-                  <svg width="32" height="10" viewBox="0 0 32 10" fill="none" aria-hidden="true">
-                    <path d="M0 5h28M24 1l4 4-4 4" stroke="var(--accent)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  <span className="tiny-mono" style={{ color: "var(--accent)" }}>{row.tag}</span>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                  <span className="tiny-mono" style={{ color: "var(--accent)" }}>After</span>
-                  <p style={{ fontSize: 15, lineHeight: 1.45, color: "var(--fg)" }}>{row.after}</p>
-                </div>
-              </div>
+                <h3>{outcome.title}</h3>
+                <p>{outcome.body}</p>
+                <div className="outcome-card__proof">{outcome.proof}</div>
+              </article>
             ))}
           </div>
         </div>
