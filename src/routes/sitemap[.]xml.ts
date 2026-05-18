@@ -12,11 +12,22 @@ const paths = [
   '/case-studies/crayo',
   '/case-studies/musicfy',
   '/case-studies/justlisten',
+  '/case-studies/study-potion',
+  '/case-studies/gomoon',
+  '/case-studies/revana',
+  '/case-studies/trailblazer-marketing',
+  '/case-studies/coversaiq',
+  '/case-studies/ai-voice-system',
+  '/case-studies/agentic-resume-screener',
+  '/case-studies/document-retrieval-ocr',
+  '/case-studies/credit-scoring',
+  '/case-studies/content-safety-recommendations',
   '/case-studies/category/automation',
   '/case-studies/category/chatbot',
   '/case-studies/category/python-scripts',
   '/case-studies/category/mvp-saas',
   '/case-studies/category/voice-ai',
+  '/case-studies/category/document-review',
 ]
 
 export const Route = createFileRoute('/sitemap.xml')({

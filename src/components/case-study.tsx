@@ -45,6 +45,24 @@ type CaseStudy = {
   related?: Array<{ id: string; tag: string; title: string; metric: string }>
 }
 
+type EnhancedCaseStudyInput = Omit<
+  CaseStudy,
+  'engagement' | 'engagementMeta' | 'role' | 'year' | 'yearMeta' | 'resultsLabel' | 'resultsNote'
+> & Partial<Pick<CaseStudy, 'engagement' | 'engagementMeta' | 'role' | 'year' | 'yearMeta' | 'resultsLabel' | 'resultsNote'>>
+
+function enhancedCaseStudy(input: EnhancedCaseStudyInput): CaseStudy {
+  return {
+    engagement: 'Product narrative',
+    engagementMeta: 'Positioning · workflow story · product proof',
+    role: 'AI builder',
+    year: '2026',
+    yearMeta: 'Project positioning',
+    resultsLabel: 'Buyer case',
+    resultsNote: 'workflow outcomes',
+    ...input,
+  }
+}
+
 export const CASE_STUDIES: CaseStudy[] = [
   {
     id: 'thalamus',
@@ -843,6 +861,978 @@ export const CASE_STUDIES: CaseStudy[] = [
       { id: 'crayo', tag: 'AI video', title: 'AI video tools for viral short-form content.', metric: 'Shorts workflow' },
     ],
   },
+  enhancedCaseStudy({
+    id: 'study-potion',
+    aliases: ['studypotion', 'study-potion-ai'],
+    categories: ['automation', 'mvp-saas'],
+    index: '08',
+    shortName: 'Study Potion',
+    client: 'Study Potion AI',
+    clientMeta: 'Education AI · Study automation',
+    title: <>AI study materials that turn notes into <em>practice</em>.</>,
+    lede: 'Study Potion AI generates personalized flashcards, notes, and quizzes from learning material.',
+    oneLiner: 'A learning assistant that helps students turn source material into notes, flashcards, and quizzes without rebuilding the study plan by hand.',
+    roleMeta: 'Education AI product story',
+    resultsNote: 'learning material outcomes',
+    results: [
+      { value: <em>Auto</em>, label: 'Flashcards', sub: 'Generated from notes and topics' },
+      { value: <em>Quiz</em>, label: 'Practice mode', sub: 'Questions matched to the material' },
+      { value: <em>Notes</em>, label: 'Study summaries', sub: 'Readable learning guides' },
+      { value: <em>Personal</em>, label: 'Study path', sub: 'Materials shaped around the learner' },
+    ],
+    impact: [
+      { label: 'Study speed', value: 88, detail: 'Source material turns into practice faster.' },
+      { label: 'Practice quality', value: 84, detail: 'Quizzes and flashcards reinforce the same material.' },
+      { label: 'Learner control', value: 78, detail: 'Students can review, retry, and refine.' },
+      { label: 'Product clarity', value: 86, detail: 'The story reads as a simple study loop.' },
+    ],
+    problem: [
+      <strong className="cs-section__lead">Students lose time turning material into something they can actually practice.</strong>,
+      <>Notes, slides, and readings rarely arrive in the format learners need. Study Potion needed a product story that made generation feel useful, not gimmicky.</>,
+      <>The buyer promise had to connect speed with retention: get material in, produce usable practice, and keep the learner moving.</>,
+    ],
+    approach: [
+      <strong className="cs-section__lead">We framed Study Potion as a study loop: upload, generate, practice, and improve.</strong>,
+      <>The case study focuses on the workflow behind the promise: personalized notes, flashcards, and quizzes created from the same learning context.</>,
+      <>That made the product easier to understand for students, parents, and education teams evaluating AI study support.</>,
+    ],
+    bullets: [
+      'Personalized flashcards, notes, and quizzes from learning material.',
+      'A repeatable study loop instead of one-off AI answers.',
+      'Practice tools designed to reveal gaps and reinforce recall.',
+      'Simple education positioning around speed, confidence, and review.',
+    ],
+    heroVisual: {
+      src: '/assets/projects/study-potion.png',
+      alt: 'Study Potion AI homepage visual showing instant flashcards, quizzes, and study material',
+    },
+    architecture: [
+      { title: '[ 01 ] Sources', name: 'Learning inputs', items: ['Notes', 'Slides', 'Readings', 'Topics'] },
+      { title: '[ 02 ] Generate', name: 'Study material', items: ['Summaries', 'Flashcards', 'Quiz questions', 'Explanations'] },
+      { title: '[ 03 ] Personalize', name: 'Practice loop', items: ['Weak areas', 'Retries', 'Review sets', 'Progress'], accent: true },
+      { title: '[ 04 ] Deliver', name: 'Student surface', items: ['Study hub', 'Practice mode', 'Saved sets', 'Sharing'] },
+    ],
+    architectureNote: <>Study Potion works when generated material stays tied to practice. The product is strongest when notes, flashcards, and quizzes reinforce the same source context.</>,
+    codeTitle: 'Study generation flow',
+    code: <>
+      material = ingest_learning_sources(notes, topics){'\n'}
+      cards = generate_flashcards(material){'\n'}
+      quiz = build_quiz(material, weak_areas){'\n'}
+      <span className="k">return</span> StudySet(notes=summary, flashcards=cards, quiz=quiz)
+    </>,
+    outcome: [
+      <><strong>Clearer student promise:</strong> Study Potion now reads as a practical way to convert source material into active practice.</>,
+      <><strong>Sharper workflow story:</strong> flashcards, notes, and quizzes are presented as one learning system.</>,
+    ],
+    quote: 'Study Potion became easier to explain as a simple loop: upload material, generate practice, and keep studying.',
+    quoteBy: 'Product team',
+    hard: [
+      { title: 'Learning material is inconsistent', detail: 'Students bring notes, slides, readings, and topics in very different levels of quality.' },
+      { title: 'Generated content must be useful', detail: 'The output has to become reviewable practice, not just a wall of AI text.' },
+      { title: 'Personalization needs restraint', detail: 'Study support has to feel tailored without hiding what the student still needs to learn.' },
+      { title: 'Education buyers scan carefully', detail: 'The product story had to avoid hype and focus on practical study outcomes.' },
+    ],
+    decisions: [
+      { key: 'Study-loop framing', value: 'The workflow became upload, generate, practice, and improve.' },
+      { key: 'Practice-first output', value: 'Flashcards and quizzes were treated as the product proof, not secondary features.' },
+      { key: 'Source context', value: 'Materials stayed linked to the notes and topics that produced them.' },
+      { key: 'Learner control', value: 'Retry, review, and saved sets made AI generation feel usable.' },
+      { key: 'Plain education language', value: 'The story focused on studying faster instead of model mechanics.' },
+    ],
+    build: [
+      { week: '1-2', title: 'Product audit', detail: 'Reviewed the study assistant offer and core learning flows.' },
+      { week: '2-3', title: 'Narrative', detail: 'Defined the study-loop positioning around generated practice.' },
+      { week: '3-4', title: 'Workflow map', detail: 'Mapped notes, flashcards, quizzes, retries, and progress.' },
+      { week: '4-5', title: 'Education proof', detail: 'Simplified the value around speed, recall, and confidence.' },
+      { week: '5-6', title: 'Launch copy', detail: 'Reduced feature language into scan-friendly student benefits.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Notes', 'Slides', 'Readings', 'Topics'] },
+      { group: 'Processing', items: ['Content cleanup', 'Chunking', 'Question generation', 'Difficulty shaping'] },
+      { group: 'Answer layer', items: ['Summaries', 'Flashcards', 'Quizzes', 'Weak-area prompts'] },
+      { group: 'Delivery', items: ['Study dashboard', 'Practice mode', 'Saved sets', 'Sharing'] },
+      { group: 'Governance', items: ['Student review', 'Source context', 'Edit history', 'Accuracy checks'] },
+    ],
+    related: [
+      { id: 'justlisten', tag: 'Audio learning', title: 'Audiobooks made affordable and easy to start.', metric: 'Listening access' },
+      { id: 'document-retrieval-ocr', tag: 'Document AI', title: 'Document retrieval and OCR automation.', metric: 'Hybrid search' },
+    ],
+  }),
+  enhancedCaseStudy({
+    id: 'gomoon',
+    aliases: ['go-moon', 'gomoon-ai'],
+    categories: ['automation', 'python-scripts', 'mvp-saas'],
+    index: '09',
+    shortName: 'GoMoon.ai',
+    client: 'GoMoon.ai',
+    clientMeta: 'Trading analytics · Economic calendar',
+    title: <>Market-moving events made easier to <em>track</em>.</>,
+    lede: 'GoMoon.ai is an AI-powered economic calendar for traders tracking event impact across markets.',
+    oneLiner: 'A trader-facing calendar that connects economic events, historical context, and AI summaries so market-moving moments are easier to monitor.',
+    roleMeta: 'Trading analytics product story',
+    resultsNote: 'event tracking outcomes',
+    results: [
+      { value: <em>Events</em>, label: 'Calendar coverage', sub: 'Market-moving releases in one view' },
+      { value: <em>AI</em>, label: 'Event insight', sub: 'Context around expected impact' },
+      { value: <em>Alerts</em>, label: 'Trader workflow', sub: 'Timing before and after releases' },
+      { value: <em>Markets</em>, label: 'Cross-asset view', sub: 'Signals organized for scanning' },
+    ],
+    impact: [
+      { label: 'Event visibility', value: 88, detail: 'Key releases become easier to monitor.' },
+      { label: 'Context speed', value: 82, detail: 'Traders get a faster read on why an event matters.' },
+      { label: 'Workflow fit', value: 80, detail: 'Calendar and alerts match an active trading routine.' },
+      { label: 'Signal clarity', value: 84, detail: 'Impact analysis stays attached to the event.' },
+    ],
+    problem: [
+      <strong className="cs-section__lead">Economic calendars list events, but they rarely explain what traders should watch.</strong>,
+      <>GoMoon.ai needed to move beyond a static schedule and show how AI can help traders prepare for market-moving releases.</>,
+      <>The challenge was to make the product feel useful without implying financial advice or replacing trader judgment.</>,
+    ],
+    approach: [
+      <strong className="cs-section__lead">We positioned GoMoon.ai as context around the calendar, not a prediction engine.</strong>,
+      <>The workflow connects event timing, historical moves, summaries, and alerting into one scan-friendly product story.</>,
+      <>That keeps the value practical: traders know what is coming, what changed, and where to look next.</>,
+    ],
+    bullets: [
+      'Economic calendar organized around market-moving releases.',
+      'AI summaries that explain event context and likely areas of attention.',
+      'Historical impact and timing cues for faster preparation.',
+      'Trader-friendly language that supports decisions without overpromising.',
+    ],
+    heroVisual: {
+      src: '/assets/projects/gomoon.png',
+      alt: 'GoMoon.ai abstract product visual from the source projects page',
+    },
+    architecture: [
+      { title: '[ 01 ] Sources', name: 'Market inputs', items: ['Economic events', 'Release times', 'Historical moves', 'Asset context'] },
+      { title: '[ 02 ] Prepare', name: 'Calendar pipeline', items: ['Normalization', 'Time zones', 'Event grouping', 'Impact history'] },
+      { title: '[ 03 ] Explain', name: 'AI context', items: ['Summaries', 'Watchpoints', 'Comparisons', 'Alerts'], accent: true },
+      { title: '[ 04 ] Deliver', name: 'Trader surface', items: ['Calendar', 'Event page', 'Notifications', 'Saved lists'] },
+    ],
+    architectureNote: <>GoMoon.ai is strongest when event timing and context stay together. The product gives traders a structured way to prepare while keeping final judgment with the user.</>,
+    codeTitle: 'Economic event context',
+    code: <>
+      events = sync_economic_calendar(region, assets){'\n'}
+      context = summarize_event_impact(events, history){'\n'}
+      alerts = schedule_release_windows(events, watchlist){'\n'}
+      <span className="k">return</span> MarketEventBrief(events=events, context=context, alerts=alerts)
+    </>,
+    outcome: [
+      <><strong>Clearer product category:</strong> GoMoon.ai became an AI calendar and event-context layer for traders.</>,
+      <><strong>Practical trader promise:</strong> the story centers on preparation, scanning, and alerting instead of prediction claims.</>,
+    ],
+    quote: 'GoMoon.ai is easier to understand as a market calendar with context, timing, and AI summaries in one place.',
+    quoteBy: 'Product team',
+    hard: [
+      { title: 'Financial products need careful language', detail: 'The case had to communicate usefulness without presenting the tool as financial advice.' },
+      { title: 'Events move quickly', detail: 'Traders need concise context before and after a release, not long research notes.' },
+      { title: 'Calendars can feel generic', detail: 'The product needed a sharper reason to exist beside familiar market calendars.' },
+      { title: 'Signals must stay inspectable', detail: 'Summaries and alerts needed to remain attached to the underlying event and history.' },
+    ],
+    decisions: [
+      { key: 'Calendar-first story', value: 'The product was framed around market-moving events and timing.' },
+      { key: 'Context over prediction', value: 'AI summaries explained what to watch without replacing judgment.' },
+      { key: 'Watchlist workflow', value: 'Saved assets and alerts connected the calendar to trader routines.' },
+      { key: 'Historical grounding', value: 'Past event behavior made summaries more useful and inspectable.' },
+      { key: 'Scan-friendly UI promise', value: 'The story emphasized quick reads and clear next steps.' },
+    ],
+    build: [
+      { week: '1-2', title: 'Market workflow audit', detail: 'Reviewed economic calendar habits and event-research needs.' },
+      { week: '2-3', title: 'Positioning', detail: 'Defined the calendar-plus-context product story.' },
+      { week: '3-4', title: 'Data flow', detail: 'Mapped releases, historical moves, watchlists, and alerts.' },
+      { week: '4-5', title: 'Risk language', detail: 'Kept the promise useful without advice-oriented claims.' },
+      { week: '5-6', title: 'Launch copy', detail: 'Turned the workflow into concise trader-facing messaging.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Economic releases', 'Market history', 'Asset watchlists', 'News context'] },
+      { group: 'Processing', items: ['Event normalization', 'Time-zone handling', 'History matching', 'Impact grouping'] },
+      { group: 'Answer layer', items: ['Event summaries', 'Watchpoints', 'Comparisons', 'Alert windows'] },
+      { group: 'Delivery', items: ['Calendar view', 'Event brief', 'Notifications', 'Saved lists'] },
+      { group: 'Governance', items: ['No-advice framing', 'Source links', 'User control', 'Audit history'] },
+    ],
+    related: [
+      { id: 'credit-scoring', tag: 'Risk modeling', title: 'Credit scoring model with explainability.', metric: '95% accuracy' },
+      { id: 'retina', tag: 'Forecasting', title: 'Inventory forecasts that shifted purchasing decisions.', metric: '31% fewer stockouts' },
+    ],
+  }),
+  enhancedCaseStudy({
+    id: 'revana',
+    categories: ['automation', 'chatbot', 'mvp-saas'],
+    index: '10',
+    shortName: 'Revana',
+    client: 'Revana',
+    clientMeta: 'AI support staff · Sales automation',
+    title: <>AI support staff for revenue and <em>customer questions</em>.</>,
+    lede: 'Revana handles support questions and sales touchpoints so teams can respond faster and close more revenue.',
+    oneLiner: 'An AI support-staff product that turns customer questions, qualification, and follow-up into a repeatable revenue workflow.',
+    roleMeta: 'Support automation product story',
+    resultsNote: 'support and sales outcomes',
+    results: [
+      { value: <em>AI</em>, label: 'Support staff', sub: 'Handles common customer questions' },
+      { value: <em>Sales</em>, label: 'Touchpoints', sub: 'Follow-up moments stay covered' },
+      { value: <em>24/7</em>, label: 'Response coverage', sub: 'Always-on front line' },
+      { value: <em>Human</em>, label: 'Escalation', sub: 'Complex issues route to the team' },
+    ],
+    impact: [
+      { label: 'Response speed', value: 88, detail: 'Common questions get covered faster.' },
+      { label: 'Revenue coverage', value: 84, detail: 'Sales touchpoints stay active between human replies.' },
+      { label: 'Team focus', value: 78, detail: 'Staff spend less time on repeated questions.' },
+      { label: 'Trust', value: 80, detail: 'Escalation keeps sensitive conversations controlled.' },
+    ],
+    problem: [
+      <strong className="cs-section__lead">Support and sales teams miss revenue when repeated questions block the queue.</strong>,
+      <>Revana needed a story that made AI support feel like leverage for the team, not a risky replacement for customer care.</>,
+      <>The product had to connect fast answers, qualification, follow-up, and escalation into one revenue workflow.</>,
+    ],
+    approach: [
+      <strong className="cs-section__lead">We framed Revana as AI staff for the front line of customer conversations.</strong>,
+      <>The message emphasizes reliable coverage for common questions, sales handoffs, and follow-ups while keeping humans in the loop for edge cases.</>,
+      <>That gives buyers a practical adoption path: start with repeated questions, then expand into revenue touchpoints.</>,
+    ],
+    bullets: [
+      'AI support staff for common customer and prospect questions.',
+      'Sales touchpoints and follow-up prompts built into the workflow.',
+      'Escalation rules for sensitive or high-value conversations.',
+      'Positioning focused on revenue coverage, not generic chatbot novelty.',
+    ],
+    heroVisual: {
+      src: '/assets/projects/revana.png',
+      alt: 'Revana source visual with brand mark',
+    },
+    architecture: [
+      { title: '[ 01 ] Sources', name: 'Customer inputs', items: ['Support inbox', 'Site chat', 'CRM notes', 'Knowledge base'] },
+      { title: '[ 02 ] Understand', name: 'Conversation routing', items: ['Intent', 'Account context', 'Lead stage', 'Priority'] },
+      { title: '[ 03 ] Act', name: 'AI support staff', items: ['Answers', 'Qualification', 'Follow-up', 'Escalation'], accent: true },
+      { title: '[ 04 ] Deliver', name: 'Revenue workflow', items: ['CRM updates', 'Team alerts', 'Handoffs', 'Reports'] },
+    ],
+    architectureNote: <>Revana turns repeated conversations into a governed workflow: answer what is safe, qualify what matters, and route the rest to the team.</>,
+    codeTitle: 'Support staff handoff',
+    code: <>
+      message = classify_customer_question(inbox_event){'\n'}
+      answer = draft_answer(message, knowledge_base){'\n'}
+      next_step = route_or_follow_up(message, account_stage){'\n'}
+      <span className="k">return</span> SupportAction(answer=answer, next_step=next_step, owner=team)
+    </>,
+    outcome: [
+      <><strong>Clearer revenue framing:</strong> Revana is positioned as support coverage that can also protect sales momentum.</>,
+      <><strong>Lower adoption friction:</strong> the story starts with repeated questions and expands to qualification and follow-up.</>,
+    ],
+    quote: 'Revana became a clearer offer: AI support staff that answers, qualifies, and hands off when a human should step in.',
+    quoteBy: 'Product team',
+    hard: [
+      { title: 'Support is high trust', detail: 'Customers expect accurate answers and clear escalation when the conversation gets complex.' },
+      { title: 'Revenue links are easy to overclaim', detail: 'The message needed to connect support speed to sales coverage without exaggeration.' },
+      { title: 'Teams fear loss of control', detail: 'The product story had to keep humans visible in the workflow.' },
+      { title: 'Knowledge changes often', detail: 'Answers only stay useful when tied to current support and sales material.' },
+    ],
+    decisions: [
+      { key: 'Staff framing', value: 'The product was described as AI support staff instead of a generic bot.' },
+      { key: 'Escalation rules', value: 'Human handoff made adoption feel controlled.' },
+      { key: 'Revenue touchpoints', value: 'Qualification and follow-up connected support to sales outcomes.' },
+      { key: 'Knowledge grounding', value: 'Answers were tied to current product and support material.' },
+      { key: 'Start narrow', value: 'Repeated questions became the first adoption wedge.' },
+    ],
+    build: [
+      { week: '1-2', title: 'Conversation audit', detail: 'Mapped repeated support questions and revenue handoff moments.' },
+      { week: '2-3', title: 'Core narrative', detail: 'Defined the AI support-staff positioning.' },
+      { week: '3-4', title: 'Workflow design', detail: 'Connected answers, qualification, escalation, and CRM updates.' },
+      { week: '4-5', title: 'Trust proof', detail: 'Clarified handoff rules and human control.' },
+      { week: '5-6', title: 'Launch story', detail: 'Packaged the product around revenue coverage and faster response.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Support inbox', 'Website chat', 'Knowledge base', 'CRM records'] },
+      { group: 'Processing', items: ['Intent detection', 'Account lookup', 'Priority scoring', 'Policy checks'] },
+      { group: 'Answer layer', items: ['Grounded answers', 'Lead qualification', 'Follow-up prompts', 'Escalation paths'] },
+      { group: 'Delivery', items: ['Chat response', 'CRM update', 'Team alert', 'Support report'] },
+      { group: 'Governance', items: ['Human review', 'Source control', 'Escalation rules', 'Conversation logs'] },
+    ],
+    related: [
+      { id: 'coversaiq', tag: 'Call center AI', title: 'LLM and transcription coaching for agents.', metric: 'SLA tracking' },
+      { id: 'ai-voice-system', tag: 'Voice AI', title: 'Realtime AI voice system under two seconds.', metric: '7s to <2s' },
+    ],
+  }),
+  enhancedCaseStudy({
+    id: 'trailblazer-marketing',
+    aliases: ['trailblazer'],
+    categories: ['automation', 'python-scripts', 'mvp-saas'],
+    index: '11',
+    shortName: 'Trailblazer',
+    client: 'Trailblazer Marketing',
+    clientMeta: 'SEO · Content growth',
+    title: <>SEO content operations built for <em>profitable</em> growth.</>,
+    lede: 'Trailblazer Marketing gives growth-stage teams SEO-led content support at a fraction of in-house cost.',
+    oneLiner: 'A growth system that turns SEO strategy, content briefs, publishing cadence, and reporting into a repeatable acquisition workflow.',
+    roleMeta: 'Growth automation product story',
+    resultsNote: 'SEO growth outcomes',
+    results: [
+      { value: <em>SEO</em>, label: 'Acquisition channel', sub: 'Organic traffic with commercial intent' },
+      { value: <em>Briefs</em>, label: 'Content system', sub: 'Repeatable research and writing inputs' },
+      { value: <em>Fractional</em>, label: 'Team model', sub: 'In-house impact without full headcount' },
+      { value: <em>Reports</em>, label: 'Growth visibility', sub: 'Performance tracked against pipeline' },
+    ],
+    impact: [
+      { label: 'Search clarity', value: 86, detail: 'Keywords and pages map to business outcomes.' },
+      { label: 'Content cadence', value: 82, detail: 'Briefs and workflows keep publishing moving.' },
+      { label: 'Cost leverage', value: 88, detail: 'The offer compares favorably to hiring in-house.' },
+      { label: 'Reporting trust', value: 78, detail: 'Organic activity connects to pipeline signals.' },
+    ],
+    problem: [
+      <strong className="cs-section__lead">Growth-stage teams need SEO output, but hiring a full content team is expensive.</strong>,
+      <>Trailblazer needed to make the offer feel operational: strategy, briefs, production, and reporting working together.</>,
+      <>The product story had to stay tied to profitable traffic instead of broad content marketing claims.</>,
+    ],
+    approach: [
+      <strong className="cs-section__lead">We positioned Trailblazer as an outsourced SEO operating system for growth teams.</strong>,
+      <>The story links keyword research, content briefs, publishing, and reporting into one service workflow buyers can picture.</>,
+      <>That creates a clear tradeoff: get the operating leverage of an in-house SEO team without the hiring burden.</>,
+    ],
+    bullets: [
+      'SEO-led content system for growth-stage companies.',
+      'Research, briefs, production, and reporting in one repeatable workflow.',
+      'Positioning around profitable search traffic instead of vanity volume.',
+      'Clear fractional-team alternative to full in-house hiring.',
+    ],
+    heroVisual: {
+      src: '/assets/projects/trailblazer.png',
+      alt: 'Trailblazer Marketing source visual showing profitable SEO positioning',
+    },
+    architecture: [
+      { title: '[ 01 ] Sources', name: 'Growth inputs', items: ['Search data', 'ICP', 'Competitors', 'Pipeline goals'] },
+      { title: '[ 02 ] Plan', name: 'SEO strategy', items: ['Keyword clusters', 'Page map', 'Briefs', 'Priorities'] },
+      { title: '[ 03 ] Produce', name: 'Content workflow', items: ['Drafts', 'Review', 'Publishing', 'Updates'], accent: true },
+      { title: '[ 04 ] Measure', name: 'Growth reporting', items: ['Rankings', 'Traffic', 'Leads', 'Revenue signal'] },
+    ],
+    architectureNote: <>Trailblazer is strongest when SEO work becomes a cadence. The system connects research, content production, and reporting back to profitable search demand.</>,
+    codeTitle: 'SEO operating loop',
+    code: <>
+      opportunities = research_keywords(icp, competitors){'\n'}
+      briefs = build_content_briefs(opportunities, funnel_stage){'\n'}
+      report = measure_search_pipeline(published_pages){'\n'}
+      <span className="k">return</span> GrowthPlan(briefs=briefs, cadence=publishing_calendar, report=report)
+    </>,
+    outcome: [
+      <><strong>Clearer offer:</strong> Trailblazer is framed as SEO team leverage, not loose content help.</>,
+      <><strong>Sharper buyer case:</strong> the value is tied to profitable search traffic, cadence, and cost control.</>,
+    ],
+    quote: 'Trailblazer became easier to sell as an SEO operating system with in-house impact at fractional cost.',
+    quoteBy: 'Product team',
+    hard: [
+      { title: 'SEO work can look vague', detail: 'The offer needed concrete workflow language around research, briefs, publishing, and reporting.' },
+      { title: 'Traffic is not enough', detail: 'The story had to focus on profitable search demand rather than vanity growth.' },
+      { title: 'Hiring comparison matters', detail: 'Buyers needed to understand why fractional execution beats waiting on a full team.' },
+      { title: 'Content operations need cadence', detail: 'The product had to show how the work repeats every month.' },
+    ],
+    decisions: [
+      { key: 'Operating-system frame', value: 'SEO became a repeatable growth system instead of a service menu.' },
+      { key: 'Profitable traffic', value: 'The promise focused on commercial search intent.' },
+      { key: 'Brief pipeline', value: 'Research and briefs made the production workflow tangible.' },
+      { key: 'Fractional team model', value: 'The hiring alternative became a clear buyer comparison.' },
+      { key: 'Reporting loop', value: 'Rankings and traffic were connected back to leads and revenue signals.' },
+    ],
+    build: [
+      { week: '1-2', title: 'Offer audit', detail: 'Reviewed the SEO service model, buyer objections, and proof points.' },
+      { week: '2-3', title: 'Positioning', detail: 'Defined the fractional SEO operating-system narrative.' },
+      { week: '3-4', title: 'Workflow map', detail: 'Connected research, briefs, production, publishing, and reporting.' },
+      { week: '4-5', title: 'Value proof', detail: 'Clarified the in-house cost comparison.' },
+      { week: '5-6', title: 'Launch copy', detail: 'Reduced growth language into a concise buyer story.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Search data', 'Competitors', 'ICP notes', 'Pipeline goals'] },
+      { group: 'Processing', items: ['Keyword clustering', 'SERP analysis', 'Brief generation', 'Priority scoring'] },
+      { group: 'Answer layer', items: ['Content briefs', 'Page map', 'Publishing plan', 'Refresh queue'] },
+      { group: 'Delivery', items: ['Editorial workflow', 'Reports', 'Client dashboard', 'Monthly review'] },
+      { group: 'Governance', items: ['Brand review', 'Quality checks', 'Source tracking', 'Performance history'] },
+    ],
+    related: [
+      { id: 'revana', tag: 'Revenue automation', title: 'AI support staff for customer questions.', metric: '24/7 coverage' },
+      { id: 'content-safety-recommendations', tag: 'Recommendations', title: 'Content safety and recommendation systems.', metric: '50% engagement lift' },
+    ],
+  }),
+  enhancedCaseStudy({
+    id: 'coversaiq',
+    aliases: ['conversaiq', 'conversa-iq', 'coversa-iq'],
+    categories: ['automation', 'voice-ai', 'chatbot', 'mvp-saas'],
+    index: '12',
+    shortName: 'CoversaIQ',
+    client: 'CoversaIQ',
+    clientMeta: 'Call center AI · Agent coaching',
+    title: <>Conversation intelligence for sales and support <em>agents</em>.</>,
+    lede: 'CoversaIQ combines LLM workflows and automated transcription to coach call center and sales agents.',
+    oneLiner: 'A call intelligence platform for summarization, agent assist, SLA tracking, and coaching across sales and support conversations.',
+    roleMeta: 'Speech analytics product story',
+    resultsNote: 'agent coaching outcomes',
+    results: [
+      { value: <em>LLM</em>, label: 'Agent assist', sub: 'Guidance during and after calls' },
+      { value: <em>Speech</em>, label: 'Transcription layer', sub: 'Calls become searchable records' },
+      { value: <em>SLA</em>, label: 'Service tracking', sub: 'Follow-up and resolution visibility' },
+      { value: <em>Coach</em>, label: 'Team improvement', sub: 'Patterns surfaced for managers' },
+    ],
+    impact: [
+      { label: 'Handle-time clarity', value: 84, detail: 'Summaries and next steps reduce review drag.' },
+      { label: 'Conversion support', value: 80, detail: 'Agents get guidance across sales conversations.' },
+      { label: 'SLA visibility', value: 86, detail: 'Service commitments become easier to track.' },
+      { label: 'Manager insight', value: 82, detail: 'Coaching patterns surface from call records.' },
+    ],
+    problem: [
+      <strong className="cs-section__lead">Call center managers need more than transcripts after the fact.</strong>,
+      <>CoversaIQ had to explain how transcription, LLM summaries, agent assist, and SLA tracking work together without sounding like separate features.</>,
+      <>The buyer story needed to connect call quality, conversion, follow-up, and coaching into one operational loop.</>,
+    ],
+    approach: [
+      <strong className="cs-section__lead">We positioned CoversaIQ as the conversation layer between live calls and team improvement.</strong>,
+      <>The workflow starts with call capture, extracts summaries and risks, assists agents, and gives managers coaching signals.</>,
+      <>That made the product concrete for teams trying to cut handle time while improving conversion and service quality.</>,
+    ],
+    bullets: [
+      'Automated transcription for support and sales calls.',
+      'LLM summaries, agent assist, and next-step extraction.',
+      'SLA tracking and handoff visibility for managers.',
+      'Coaching signals that turn call history into team improvement.',
+    ],
+    heroVisual: {
+      src: '/assets/projects/coversaiq.png',
+      alt: 'CoversaIQ source visual showing call analytics on a laptop dashboard',
+    },
+    architecture: [
+      { title: '[ 01 ] Sources', name: 'Call inputs', items: ['Audio', 'Transcript', 'CRM context', 'SLA rules'] },
+      { title: '[ 02 ] Parse', name: 'Speech layer', items: ['Transcription', 'Speaker turns', 'Intent', 'Entities'] },
+      { title: '[ 03 ] Assist', name: 'LLM coaching', items: ['Summaries', 'Agent assist', 'Risks', 'Next steps'], accent: true },
+      { title: '[ 04 ] Deliver', name: 'Manager view', items: ['SLA tracking', 'Coaching', 'Reports', 'CRM sync'] },
+    ],
+    architectureNote: <>CoversaIQ joins transcription and LLM reasoning to the management workflow. The product is valuable when every call becomes a record, a summary, and a coaching signal.</>,
+    codeTitle: 'Call coaching output',
+    code: <>
+      transcript = transcribe_call(audio, speakers){'\n'}
+      summary = summarize_call(transcript, crm_context){'\n'}
+      coaching = detect_agent_coaching_signals(transcript, sla_rules){'\n'}
+      <span className="k">return</span> CallReview(summary=summary, coaching=coaching, next_steps=actions)
+    </>,
+    outcome: [
+      <><strong>Clearer platform story:</strong> CoversaIQ now reads as a call intelligence layer for sales and support teams.</>,
+      <><strong>Sharper operational promise:</strong> transcription, agent assist, SLA tracking, and coaching connect to one workflow.</>,
+    ],
+    quote: 'CoversaIQ became easier to explain as the system that turns every call into coaching, follow-up, and management visibility.',
+    quoteBy: 'Product team',
+    hard: [
+      { title: 'Call workflows are fragmented', detail: 'Audio, transcripts, CRM notes, and manager reviews often live in separate tools.' },
+      { title: 'Agent assist must be trusted', detail: 'Guidance needs to be timely, relevant, and reviewable.' },
+      { title: 'Managers need patterns', detail: 'The product had to show team-level coaching value, not only call summaries.' },
+      { title: 'SLA tracking has consequences', detail: 'Follow-up and service commitments need reliable handoffs.' },
+    ],
+    decisions: [
+      { key: 'Call intelligence frame', value: 'The product was positioned as an operational layer for calls.' },
+      { key: 'Speech foundation', value: 'Transcription made every downstream summary and signal inspectable.' },
+      { key: 'Manager visibility', value: 'SLA tracking and coaching became part of the same story.' },
+      { key: 'Agent assist', value: 'Real-time and post-call guidance were tied to next actions.' },
+      { key: 'CRM context', value: 'Customer history made summaries more useful for follow-up.' },
+    ],
+    build: [
+      { week: '1-2', title: 'Workflow audit', detail: 'Mapped sales and support call review paths.' },
+      { week: '2-3', title: 'Narrative', detail: 'Defined the call intelligence positioning.' },
+      { week: '3-4', title: 'Signal map', detail: 'Connected transcription, summaries, SLA rules, and coaching outputs.' },
+      { week: '4-5', title: 'Manager story', detail: 'Clarified how call records become team improvement signals.' },
+      { week: '5-6', title: 'Launch copy', detail: 'Turned the platform into concise buyer language.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Call audio', 'Transcripts', 'CRM context', 'SLA rules'] },
+      { group: 'Processing', items: ['Speech-to-text', 'Speaker diarization', 'Intent extraction', 'Entity detection'] },
+      { group: 'Answer layer', items: ['Summaries', 'Agent assist', 'Coaching signals', 'Next steps'] },
+      { group: 'Delivery', items: ['Manager dashboard', 'CRM sync', 'SLA alerts', 'Reports'] },
+      { group: 'Governance', items: ['Review history', 'Call consent', 'Access control', 'Quality checks'] },
+    ],
+    related: [
+      { id: 'ai-voice-system', tag: 'Voice AI', title: 'Realtime AI voice system under two seconds.', metric: '7s to <2s' },
+      { id: 'aletheia', tag: 'Voice review', title: 'Review signals inside important calls.', metric: '3 signal types' },
+    ],
+  }),
+  enhancedCaseStudy({
+    id: 'ai-voice-system',
+    aliases: ['voice-system', 'chatify'],
+    categories: ['automation', 'voice-ai', 'chatbot'],
+    index: '13',
+    shortName: 'AI Voice System',
+    client: 'AI Voice System',
+    clientMeta: 'Realtime voice · Twilio automation',
+    title: <>Realtime AI voice calls with latency under <em>two seconds</em>.</>,
+    lede: 'A Twilio WebSocket voice stack with custom VAD and NER pipelines reduced conversational latency from 7 seconds to under 2 seconds.',
+    oneLiner: 'A low-latency voice system that combines streaming telephony, turn detection, entity extraction, and observability for production conversations.',
+    engagementMeta: 'Voice architecture · latency tuning · observability',
+    roleMeta: 'Realtime voice engineering',
+    resultsNote: 'latency and reliability outcomes',
+    results: [
+      { value: <>7<em>s</em> to {'<'}2<em>s</em></>, label: 'Latency reduced', sub: 'Conversation delay cut sharply' },
+      { value: <em>Twilio</em>, label: 'Voice transport', sub: 'WebSocket streaming stack' },
+      { value: <em>VAD</em>, label: 'Turn detection', sub: 'Custom speech boundary logic' },
+      { value: <em>NER</em>, label: 'Extraction', sub: 'Entities captured during calls' },
+    ],
+    impact: [
+      { label: 'Latency', value: 90, detail: 'Response time moved from awkward to usable.' },
+      { label: 'Call reliability', value: 84, detail: 'Streaming, turn-taking, and retries were hardened.' },
+      { label: 'Operational visibility', value: 82, detail: 'Observability made call issues easier to debug.' },
+      { label: 'Cost control', value: 78, detail: 'Infrastructure was tuned for lower runtime waste.' },
+    ],
+    problem: [
+      <strong className="cs-section__lead">Voice AI fails quickly when the conversation feels slow.</strong>,
+      <>The system started with too much latency for natural back-and-forth. Users had to wait, interruptions were hard to handle, and operations had limited visibility into call quality.</>,
+      <>The build needed to improve speed without losing extraction, routing, or production observability.</>,
+    ],
+    approach: [
+      <strong className="cs-section__lead">We treated latency as the product experience, not a backend metric.</strong>,
+      <>The stack was shaped around streaming audio, tighter VAD, faster response orchestration, and NER that could run without blocking the conversation.</>,
+      <>Instrumentation made every call easier to inspect: where time was spent, what failed, and which moments needed fallback behavior.</>,
+    ],
+    bullets: [
+      'Twilio WebSocket voice stack for realtime conversations.',
+      'Custom voice activity detection for cleaner turn-taking.',
+      'NER pipeline for capturing useful entities during calls.',
+      'Latency reduced from 7 seconds to under 2 seconds with observability in place.',
+    ],
+    heroVisual: {
+      src: '/assets/projects/ai-voice-system.png',
+      alt: 'AI Voice System source visual showing a chat and call interface',
+    },
+    architecture: [
+      { title: '[ 01 ] Stream', name: 'Voice transport', items: ['Twilio', 'WebSockets', 'Audio chunks', 'Call state'] },
+      { title: '[ 02 ] Detect', name: 'Turn handling', items: ['VAD', 'Interruptions', 'Silence windows', 'Retries'] },
+      { title: '[ 03 ] Respond', name: 'AI voice loop', items: ['ASR', 'LLM', 'NER', 'TTS'], accent: true },
+      { title: '[ 04 ] Operate', name: 'Production layer', items: ['Metrics', 'Logs', 'Fallbacks', 'Cost controls'] },
+    ],
+    architectureNote: <>The voice stack only works when streaming, turn detection, model calls, and observability are designed as one loop. Every extra delay is part of the user experience.</>,
+    codeTitle: 'Realtime voice loop',
+    code: <>
+      audio = stream_twilio_websocket(call){'\n'}
+      turn = detect_speech_boundary(audio, vad_config){'\n'}
+      response = generate_voice_reply(turn.transcript, entities=extract_entities(turn)){'\n'}
+      <span className="k">return</span> VoiceFrame(audio=response.tts, latency_ms=response.elapsed)
+    </>,
+    outcome: [
+      <><strong>Usable conversation speed:</strong> latency dropped from 7 seconds to under 2 seconds.</>,
+      <><strong>Production control:</strong> custom VAD, NER, metrics, and fallbacks made the system easier to operate under real call conditions.</>,
+    ],
+    quote: 'The voice system moved from a slow demo to a production-ready conversation loop.',
+    quoteBy: 'Product team',
+    hard: [
+      { title: 'Latency compounds everywhere', detail: 'Transport, speech detection, model calls, and synthesis each add delay unless the loop is designed tightly.' },
+      { title: 'Turn-taking is fragile', detail: 'Bad VAD creates interruptions, awkward silences, or repeated responses.' },
+      { title: 'Extraction cannot block speech', detail: 'NER had to capture useful information without slowing the reply path.' },
+      { title: 'Voice needs observability', detail: 'Debugging calls requires timestamps, traces, and failure modes across the stack.' },
+    ],
+    decisions: [
+      { key: 'Latency-first architecture', value: 'Every step was measured against the live conversation experience.' },
+      { key: 'Custom VAD', value: 'Turn boundaries were tuned for the call flow instead of generic defaults.' },
+      { key: 'Parallel extraction', value: 'NER ran alongside the voice loop where possible.' },
+      { key: 'Streaming transport', value: 'WebSocket audio reduced wait time and improved responsiveness.' },
+      { key: 'Observability', value: 'Per-call metrics made failures and cost easier to control.' },
+    ],
+    build: [
+      { week: '1-2', title: 'Latency audit', detail: 'Measured delay across transport, ASR, LLM, TTS, and handoff points.' },
+      { week: '2-3', title: 'Streaming loop', detail: 'Reworked Twilio WebSocket handling and call state.' },
+      { week: '3-4', title: 'Turn detection', detail: 'Tuned VAD and interruption behavior.' },
+      { week: '4-5', title: 'Extraction path', detail: 'Added entity extraction without blocking the response loop.' },
+      { week: '5-6', title: 'Observability', detail: 'Instrumented latency, failures, and cost signals.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Phone calls', 'Twilio streams', 'Caller context', 'Knowledge rules'] },
+      { group: 'Processing', items: ['WebSockets', 'VAD', 'ASR', 'NER'] },
+      { group: 'Answer layer', items: ['LLM response', 'Tool calls', 'Fallbacks', 'TTS output'] },
+      { group: 'Delivery', items: ['Live call audio', 'Call notes', 'Alerts', 'Logs'] },
+      { group: 'Governance', items: ['Latency traces', 'Cost controls', 'Escalation rules', 'Call history'] },
+    ],
+    related: [
+      { id: 'coversaiq', tag: 'Call center AI', title: 'Conversation intelligence for support agents.', metric: 'SLA tracking' },
+      { id: 'aletheia', tag: 'Voice review', title: 'Review signals inside important calls.', metric: '3 signal types' },
+    ],
+  }),
+  enhancedCaseStudy({
+    id: 'agentic-resume-screener',
+    aliases: ['resume-screener'],
+    categories: ['automation', 'document-review', 'python-scripts'],
+    index: '14',
+    shortName: 'Resume Screener',
+    client: 'Agentic Resume Screener',
+    clientMeta: 'Recruiting agents · OCR workflow',
+    title: <>Agentic resume screening for faster recruiting <em>shortlists</em>.</>,
+    lede: 'A LangChain and LangGraph workflow with OCR ingestion automates resume analysis, scoring, and recommendations for recruiting teams.',
+    oneLiner: 'A recruiting workflow that reads resumes, extracts candidate evidence, scores fit, and recommends next actions while keeping reviewers in control.',
+    roleMeta: 'Agentic workflow engineering',
+    resultsNote: 'recruiting workflow outcomes',
+    results: [
+      { value: <em>Agents</em>, label: 'Workflow graph', sub: 'Screening steps coordinated by role' },
+      { value: <em>OCR</em>, label: 'Resume intake', sub: 'PDF and scan-friendly ingestion' },
+      { value: <em>Score</em>, label: 'Candidate fit', sub: 'Structured review output' },
+      { value: <em>Review</em>, label: 'Human control', sub: 'Recommendations stay inspectable' },
+    ],
+    impact: [
+      { label: 'Screening speed', value: 86, detail: 'Recruiters get structured review faster.' },
+      { label: 'Evidence quality', value: 82, detail: 'Scores stay tied to extracted resume details.' },
+      { label: 'Workflow consistency', value: 84, detail: 'Each candidate runs through the same review path.' },
+      { label: 'Reviewer trust', value: 78, detail: 'Recommendations remain auditable and editable.' },
+    ],
+    problem: [
+      <strong className="cs-section__lead">Resume review is repetitive, but hiring decisions cannot be a black box.</strong>,
+      <>The screener needed to automate intake, extraction, scoring, and recommendations while preserving evidence for human recruiters.</>,
+      <>The risk was building a faster process that felt less trustworthy or harder to audit.</>,
+    ],
+    approach: [
+      <strong className="cs-section__lead">We modeled screening as an agent workflow with explicit review steps.</strong>,
+      <>OCR handles messy documents, extraction captures candidate facts, scoring compares the role requirements, and recommendations stay attached to evidence.</>,
+      <>The product story makes the workflow useful without pretending it should make final hiring decisions.</>,
+    ],
+    bullets: [
+      'LangChain and LangGraph workflow for repeatable candidate review.',
+      'OCR ingestion for PDFs, scans, and resume variants.',
+      'Structured scoring tied to extracted evidence.',
+      'Human-reviewable recommendations for recruiting teams.',
+    ],
+    heroVisual: {
+      src: '/assets/projects/agentic-resume-screener.png',
+      alt: 'Agentic Resume Screener source visual showing a laptop with an application interface',
+    },
+    architecture: [
+      { title: '[ 01 ] Intake', name: 'Resume sources', items: ['PDFs', 'Scans', 'Job criteria', 'Recruiter notes'] },
+      { title: '[ 02 ] Extract', name: 'OCR + parsing', items: ['Text', 'Experience', 'Skills', 'Education'] },
+      { title: '[ 03 ] Evaluate', name: 'Agent workflow', items: ['Fit scoring', 'Evidence', 'Risks', 'Recommendations'], accent: true },
+      { title: '[ 04 ] Review', name: 'Recruiter handoff', items: ['Shortlist', 'Notes', 'Questions', 'Decision log'] },
+    ],
+    architectureNote: <>The resume screener is useful because every recommendation can be inspected. OCR and agents speed the workflow, while recruiters keep the final decision.</>,
+    codeTitle: 'Resume screening graph',
+    code: <>
+      resume = ocr_resume(file){'\n'}
+      evidence = extract_candidate_facts(resume, job_description){'\n'}
+      score = evaluate_fit(evidence, rubric){'\n'}
+      <span className="k">return</span> CandidateReview(score=score, evidence=evidence, recommendation=next_step)
+    </>,
+    outcome: [
+      <><strong>Faster screening loop:</strong> resumes become structured candidate reviews with evidence and recommendations.</>,
+      <><strong>Better recruiter control:</strong> the workflow supports shortlisting without hiding how scores were produced.</>,
+    ],
+    quote: 'The resume screener became a practical recruiting agent: faster intake, clear evidence, and human review at the end.',
+    quoteBy: 'Product team',
+    hard: [
+      { title: 'Documents are messy', detail: 'Resumes arrive as PDFs, scans, tables, and inconsistent layouts.' },
+      { title: 'Hiring needs accountability', detail: 'Scores and recommendations must be backed by evidence.' },
+      { title: 'Role criteria vary', detail: 'The workflow has to adapt to different requirements and rubrics.' },
+      { title: 'Automation needs boundaries', detail: 'The product should assist recruiters, not remove their judgment.' },
+    ],
+    decisions: [
+      { key: 'Agent workflow', value: 'Screening became a graph of explicit review steps.' },
+      { key: 'OCR-first intake', value: 'Messy resumes were normalized before scoring.' },
+      { key: 'Evidence-backed scores', value: 'Recommendations stayed attached to candidate facts.' },
+      { key: 'Recruiter handoff', value: 'Shortlists and notes were shaped for human review.' },
+      { key: 'Decision log', value: 'Review history made the process easier to audit.' },
+    ],
+    build: [
+      { week: '1-2', title: 'Recruiting audit', detail: 'Mapped resume sources, job criteria, and review decisions.' },
+      { week: '2-3', title: 'OCR pipeline', detail: 'Normalized PDF and scan ingestion.' },
+      { week: '3-4', title: 'Agent graph', detail: 'Designed extraction, scoring, risk, and recommendation steps.' },
+      { week: '4-5', title: 'Reviewer output', detail: 'Built the shortlist and evidence handoff story.' },
+      { week: '5-6', title: 'QA loop', detail: 'Checked recommendation quality against recruiter expectations.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Resume PDFs', 'Scans', 'Job descriptions', 'Recruiter notes'] },
+      { group: 'Processing', items: ['OCR', 'Parsing', 'Entity extraction', 'Rubric matching'] },
+      { group: 'Answer layer', items: ['Fit score', 'Evidence summary', 'Risk flags', 'Recommendations'] },
+      { group: 'Delivery', items: ['Shortlist', 'Review notes', 'Interview prompts', 'Decision log'] },
+      { group: 'Governance', items: ['Human approval', 'Bias review', 'Audit trail', 'Data retention'] },
+    ],
+    related: [
+      { id: 'document-retrieval-ocr', tag: 'Document AI', title: 'Document retrieval and OCR automation.', metric: 'Hybrid search' },
+      { id: 'thalamus', tag: 'Knowledge search', title: 'AI search that understands company documents.', metric: 'Source-backed answers' },
+    ],
+  }),
+  enhancedCaseStudy({
+    id: 'document-retrieval-ocr',
+    aliases: ['document-retrieval', 'ocr-automation'],
+    categories: ['automation', 'chatbot', 'document-review', 'python-scripts'],
+    index: '15',
+    shortName: 'Document OCR',
+    client: 'Document Retrieval & OCR Automation',
+    clientMeta: 'Hybrid search · OCR pipelines',
+    title: <>Document retrieval and OCR automation for grounded <em>answers</em>.</>,
+    lede: 'A hybrid search workflow with Docling, LlamaParser, and OCR accelerates indexing and grounded responses for operations teams.',
+    oneLiner: 'A document automation pipeline that turns messy files into searchable chunks, OCR text, hybrid retrieval, and source-backed answers.',
+    roleMeta: 'Document AI pipeline engineering',
+    resultsNote: 'document indexing outcomes',
+    results: [
+      { value: <em>Hybrid</em>, label: 'Search layer', sub: 'Keyword and vector retrieval together' },
+      { value: <em>OCR</em>, label: 'File coverage', sub: 'Scans and images become readable' },
+      { value: <em>Docling</em>, label: 'Parsing', sub: 'Documents cleaned for indexing' },
+      { value: <em>Grounded</em>, label: 'Answers', sub: 'Responses tied to source material' },
+    ],
+    impact: [
+      { label: 'Document coverage', value: 88, detail: 'Scans, PDFs, and files become searchable.' },
+      { label: 'Retrieval quality', value: 84, detail: 'Hybrid search catches more relevant context.' },
+      { label: 'Ops speed', value: 82, detail: 'Teams spend less time finding buried details.' },
+      { label: 'Answer trust', value: 86, detail: 'Responses remain attached to sources.' },
+    ],
+    problem: [
+      <strong className="cs-section__lead">Operations teams cannot use AI reliably until documents are readable and retrievable.</strong>,
+      <>Many files contain scans, tables, odd layouts, and partial text extraction. A simple vector database was not enough.</>,
+      <>The product needed a pipeline that prepared documents properly before retrieval and answer generation.</>,
+    ],
+    approach: [
+      <strong className="cs-section__lead">We treated parsing, OCR, and retrieval as one system.</strong>,
+      <>Docling and LlamaParser prepare files, OCR fills the text gaps, hybrid search improves recall, and generated answers stay grounded in source chunks.</>,
+      <>That made the workflow suitable for operations teams that need fast answers without losing evidence.</>,
+    ],
+    bullets: [
+      'Docling, LlamaParser, and OCR for messy document ingestion.',
+      'Hybrid retrieval that combines keyword and semantic search.',
+      'Chunking and metadata designed for grounded responses.',
+      'Operational workflow for indexing, querying, and reviewing sources.',
+    ],
+    heroVisual: {
+      src: '/assets/projects/document-retrieval-ocr.png',
+      alt: 'Document Retrieval and OCR Automation source visual showing a code editor interface',
+    },
+    architecture: [
+      { title: '[ 01 ] Sources', name: 'Document inputs', items: ['PDFs', 'Scans', 'Images', 'Knowledge folders'] },
+      { title: '[ 02 ] Parse', name: 'OCR pipeline', items: ['Docling', 'LlamaParser', 'OCR', 'Metadata'] },
+      { title: '[ 03 ] Retrieve', name: 'Hybrid search', items: ['Vector search', 'Keyword search', 'Reranking', 'Citations'], accent: true },
+      { title: '[ 04 ] Deliver', name: 'Ops answers', items: ['Question answering', 'Source links', 'Exports', 'Review'] },
+    ],
+    architectureNote: <>The pipeline makes retrieval possible by improving the document layer first. Better parsing and OCR create better chunks, and better chunks create more trustworthy answers.</>,
+    codeTitle: 'Hybrid document search',
+    code: <>
+      parsed = parse_documents(files, tools=[docling, llama_parser, ocr]){'\n'}
+      index = build_hybrid_index(parsed, metadata){'\n'}
+      sources = retrieve(query, index, reranker){'\n'}
+      <span className="k">return</span> GroundedAnswer(answer=generate(query, sources), citations=sources)
+    </>,
+    outcome: [
+      <><strong>Broader file coverage:</strong> scans, PDFs, and awkward layouts become searchable inputs.</>,
+      <><strong>More reliable answers:</strong> hybrid retrieval and citations give operations teams a clearer path from question to source.</>,
+    ],
+    quote: 'The document pipeline became reliable because OCR, parsing, retrieval, and citations were designed together.',
+    quoteBy: 'Product team',
+    hard: [
+      { title: 'Files are inconsistent', detail: 'Scans, images, tables, and PDFs all require different cleanup paths.' },
+      { title: 'Vector search alone misses context', detail: 'Keyword matches, metadata, and reranking improve practical retrieval.' },
+      { title: 'Answers need evidence', detail: 'Operations teams need to inspect source chunks before trusting a response.' },
+      { title: 'Indexing has to be repeatable', detail: 'New documents must move through the same parse and validation flow.' },
+    ],
+    decisions: [
+      { key: 'Parse before retrieval', value: 'Document cleanup was treated as the foundation of answer quality.' },
+      { key: 'OCR coverage', value: 'Scans and image-heavy files were included in the ingestion path.' },
+      { key: 'Hybrid search', value: 'Keyword and semantic retrieval worked together for better recall.' },
+      { key: 'Source-backed answers', value: 'Citations and metadata stayed visible in the output.' },
+      { key: 'Ops workflow', value: 'Indexing, querying, and review were designed as repeatable operations.' },
+    ],
+    build: [
+      { week: '1-2', title: 'Document audit', detail: 'Reviewed file types, layouts, and extraction failures.' },
+      { week: '2-3', title: 'Parsing pipeline', detail: 'Connected Docling, LlamaParser, OCR, and metadata cleanup.' },
+      { week: '3-4', title: 'Index design', detail: 'Built hybrid retrieval with chunking and source references.' },
+      { week: '4-5', title: 'Answer layer', detail: 'Added grounded responses, citations, and review flow.' },
+      { week: '5-6', title: 'Ops hardening', detail: 'Prepared re-indexing, failure handling, and validation checks.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['PDFs', 'Scans', 'Images', 'Knowledge folders'] },
+      { group: 'Processing', items: ['Docling', 'LlamaParser', 'OCR', 'Chunking'] },
+      { group: 'Answer layer', items: ['Hybrid search', 'Reranking', 'Grounded answers', 'Citations'] },
+      { group: 'Delivery', items: ['Search UI', 'Answer view', 'Exports', 'Review queue'] },
+      { group: 'Governance', items: ['Source links', 'Re-indexing', 'Access rules', 'Audit logs'] },
+    ],
+    related: [
+      { id: 'thalamus', tag: 'Knowledge search', title: 'AI search that understands company documents.', metric: 'Source-backed answers' },
+      { id: 'agentic-resume-screener', tag: 'Recruiting agents', title: 'Agentic resume screening workflow.', metric: 'OCR intake' },
+    ],
+  }),
+  enhancedCaseStudy({
+    id: 'credit-scoring',
+    aliases: ['credit-scoring-model'],
+    categories: ['automation', 'python-scripts'],
+    index: '16',
+    shortName: 'Credit Scoring',
+    client: 'Credit Scoring Model',
+    clientMeta: 'Risk modeling · Explainable ML',
+    title: <>Credit scoring with explainability for lending <em>risk</em>.</>,
+    lede: 'A production-grade credit scoring model using XGBoost and CatBoost reached 95% accuracy on delinquency prediction with explainability reporting.',
+    oneLiner: 'A risk model workflow that combines feature engineering, boosted-tree modeling, validation, and explainability reports for credit decisions.',
+    engagementMeta: 'Modeling · validation · reporting',
+    roleMeta: 'Machine learning engineering',
+    resultsNote: 'risk modeling outcomes',
+    results: [
+      { value: <>95<em>%</em></>, label: 'Prediction accuracy', sub: 'Delinquency modeling target' },
+      { value: <em>XGBoost</em>, label: 'Model family', sub: 'Gradient boosted tree baseline' },
+      { value: <em>CatBoost</em>, label: 'Model comparison', sub: 'Categorical feature handling' },
+      { value: <em>Explain</em>, label: 'Risk reports', sub: 'Drivers surfaced for review' },
+    ],
+    impact: [
+      { label: 'Risk signal', value: 90, detail: 'Delinquency prediction reached the target level.' },
+      { label: 'Explainability', value: 84, detail: 'Feature drivers were packaged for review.' },
+      { label: 'Model discipline', value: 82, detail: 'Baselines and validation guarded against overfit.' },
+      { label: 'Decision support', value: 78, detail: 'Outputs supported human credit review.' },
+    ],
+    problem: [
+      <strong className="cs-section__lead">Credit scoring needs accuracy, but accuracy alone is not enough.</strong>,
+      <>A usable model has to explain risk drivers, pass validation, and fit into a human review process.</>,
+      <>The build needed to balance predictive performance with practical reporting for lending teams.</>,
+    ],
+    approach: [
+      <strong className="cs-section__lead">We framed the model as decision support with explainability built in.</strong>,
+      <>The workflow covers feature engineering, XGBoost and CatBoost comparison, validation, and reports that make risk drivers reviewable.</>,
+      <>That keeps the system useful for credit operations while preserving human oversight.</>,
+    ],
+    bullets: [
+      'XGBoost and CatBoost modeling for delinquency prediction.',
+      'Feature engineering and validation for production-grade scoring.',
+      'Explainability reports that surface risk drivers.',
+      'Decision-support framing for human credit review.',
+    ],
+    heroVisual: {
+      src: '/assets/projects/credit-scoring-model.jpg',
+      alt: 'Credit scoring model source visual showing financial analytics and code',
+    },
+    architecture: [
+      { title: '[ 01 ] Sources', name: 'Credit data', items: ['Applications', 'Payment history', 'Customer profile', 'Outcomes'] },
+      { title: '[ 02 ] Prepare', name: 'Model table', items: ['Features', 'Cleaning', 'Splits', 'Validation'] },
+      { title: '[ 03 ] Predict', name: 'Risk model', items: ['XGBoost', 'CatBoost', 'Calibration', 'Explainability'], accent: true },
+      { title: '[ 04 ] Deliver', name: 'Credit review', items: ['Risk score', 'Drivers', 'Reports', 'Monitoring'] },
+    ],
+    architectureNote: <>The credit model is useful because prediction and explanation are packaged together. Risk scores support review only when teams can see the drivers and validation context.</>,
+    codeTitle: 'Credit risk scoring',
+    code: <>
+      features = build_credit_features(applications, payment_history){'\n'}
+      model = train_boosted_model(features, target=delinquency){'\n'}
+      explanation = explain_score(model, applicant_features){'\n'}
+      <span className="k">return</span> CreditDecisionSupport(score=model.score, drivers=explanation)
+    </>,
+    outcome: [
+      <><strong>Stronger risk model:</strong> boosted-tree models reached 95% accuracy on delinquency prediction.</>,
+      <><strong>Operationally useful output:</strong> explainability reporting made model scores easier to review and monitor.</>,
+    ],
+    quote: 'The credit model became more than a score: it included validation, drivers, and a reviewable risk report.',
+    quoteBy: 'Product team',
+    hard: [
+      { title: 'Credit decisions are high stakes', detail: 'The model has to support review, not hide behind a single score.' },
+      { title: 'Data quality matters', detail: 'Applications, payment history, and outcomes need careful cleaning and splitting.' },
+      { title: 'Accuracy can mislead', detail: 'Validation, calibration, and class balance matter as much as headline performance.' },
+      { title: 'Teams need explanations', detail: 'Risk drivers make scores easier to audit and act on.' },
+    ],
+    decisions: [
+      { key: 'Boosted-tree baseline', value: 'XGBoost and CatBoost gave strong tabular performance.' },
+      { key: 'Validation discipline', value: 'Splits and checks protected the model from overfit.' },
+      { key: 'Explainability reports', value: 'Feature drivers were included with the score.' },
+      { key: 'Human review', value: 'The output was framed as decision support, not automatic approval.' },
+      { key: 'Monitoring path', value: 'Reports made drift and performance easier to inspect later.' },
+    ],
+    build: [
+      { week: '1-2', title: 'Data audit', detail: 'Reviewed application, repayment, and delinquency data.' },
+      { week: '2-3', title: 'Feature table', detail: 'Built features, splits, and validation targets.' },
+      { week: '3-4', title: 'Model comparison', detail: 'Compared XGBoost, CatBoost, and simpler baselines.' },
+      { week: '4-5', title: 'Explainability', detail: 'Added score drivers and reporting output.' },
+      { week: '5-6', title: 'Review package', detail: 'Prepared model summary, caveats, and monitoring notes.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Applications', 'Payment history', 'Customer profiles', 'Delinquency outcomes'] },
+      { group: 'Processing', items: ['Feature engineering', 'Train/test splits', 'Validation', 'Calibration'] },
+      { group: 'Answer layer', items: ['Risk score', 'Feature drivers', 'Confidence bands', 'Decision notes'] },
+      { group: 'Delivery', items: ['Model report', 'Review table', 'Monitoring dashboard', 'Exports'] },
+      { group: 'Governance', items: ['Human review', 'Bias checks', 'Audit history', 'Drift monitoring'] },
+    ],
+    related: [
+      { id: 'gomoon', tag: 'Market analytics', title: 'Market-moving events made easier to track.', metric: 'Event context' },
+      { id: 'retina', tag: 'Forecasting', title: 'Inventory forecasts that shifted purchasing decisions.', metric: '31% fewer stockouts' },
+    ],
+  }),
+  enhancedCaseStudy({
+    id: 'content-safety-recommendations',
+    aliases: ['content-safety', 'recommendations'],
+    categories: ['automation', 'python-scripts', 'mvp-saas'],
+    index: '17',
+    shortName: 'Content Safety',
+    client: 'Content Safety & Recommendations',
+    clientMeta: 'Vision AI · Recommendations',
+    title: <>Content safety and recommendation systems for short-form <em>video</em>.</>,
+    lede: 'Transformer vision and YOLO workflows powered moderation plus a recommendation engine that boosted engagement by 50%.',
+    oneLiner: 'A content intelligence workflow for short-form video: detect unsafe material, classify visual signals, and rank recommendations for better engagement.',
+    engagementMeta: 'Vision modeling · recommendation systems · moderation',
+    roleMeta: 'Computer vision and ML engineering',
+    resultsNote: 'safety and engagement outcomes',
+    results: [
+      { value: <>50<em>%</em></>, label: 'Engagement lift', sub: 'Recommendation engine impact' },
+      { value: <em>YOLO</em>, label: 'Object detection', sub: 'Fast visual signal extraction' },
+      { value: <em>Vision</em>, label: 'Transformer workflow', sub: 'Content understanding layer' },
+      { value: <em>Safety</em>, label: 'Moderation', sub: 'Risk detection before distribution' },
+    ],
+    impact: [
+      { label: 'Engagement', value: 90, detail: 'Recommendation changes lifted interaction.' },
+      { label: 'Safety coverage', value: 84, detail: 'Vision workflows flagged risky content.' },
+      { label: 'Ranking quality', value: 82, detail: 'Video signals improved recommendation relevance.' },
+      { label: 'Operational control', value: 78, detail: 'Moderation and ranking stayed reviewable.' },
+    ],
+    problem: [
+      <strong className="cs-section__lead">Short-form platforms need growth and safety to work together.</strong>,
+      <>Recommendations can increase engagement, but unsafe or low-quality content can damage the product quickly.</>,
+      <>The system needed to combine moderation signals, visual understanding, and ranking logic without treating them as separate tracks.</>,
+    ],
+    approach: [
+      <strong className="cs-section__lead">We connected vision safety signals to the recommendation workflow.</strong>,
+      <>Transformer vision and YOLO models identify content attributes and risk signals, then ranking logic uses those signals to improve feed quality.</>,
+      <>The result is a system that can both protect distribution and improve engagement.</>,
+    ],
+    bullets: [
+      'Transformer vision workflows for short-form video understanding.',
+      'YOLO object detection for fast visual signal extraction.',
+      'Moderation pipeline for content safety and review.',
+      'Recommendation engine improvements that lifted engagement by 50%.',
+    ],
+    heroVisual: {
+      src: '/assets/projects/content-safety-recommendations.png',
+      alt: 'Content Safety and Recommendations source visual showing computer vision emotion detection',
+    },
+    architecture: [
+      { title: '[ 01 ] Sources', name: 'Video inputs', items: ['Shorts', 'Frames', 'Captions', 'User signals'] },
+      { title: '[ 02 ] Detect', name: 'Vision models', items: ['YOLO', 'Transformers', 'Labels', 'Safety flags'] },
+      { title: '[ 03 ] Rank', name: 'Recommendation layer', items: ['Signals', 'Scoring', 'Feed ranking', 'Feedback'], accent: true },
+      { title: '[ 04 ] Operate', name: 'Moderation workflow', items: ['Review queue', 'Rules', 'Reports', 'Monitoring'] },
+    ],
+    architectureNote: <>The system improves the feed by using content understanding in two places: safety review and recommendation ranking. Better labels create better controls and better ranking signals.</>,
+    codeTitle: 'Safety-aware ranking',
+    code: <>
+      labels = detect_video_signals(frames, models=[yolo, vision_transformer]){'\n'}
+      safety = score_content_risk(labels, policy_rules){'\n'}
+      ranking = rank_feed(video, user_context, safety, engagement_signals){'\n'}
+      <span className="k">return</span> FeedDecision(rank=ranking, safety=safety, reasons=labels)
+    </>,
+    outcome: [
+      <><strong>Higher engagement:</strong> recommendation improvements boosted engagement by 50%.</>,
+      <><strong>Better safety controls:</strong> visual signals and moderation workflows gave the platform more control over short-form distribution.</>,
+    ],
+    quote: 'The recommendation system improved because safety, visual understanding, and ranking were treated as one content intelligence workflow.',
+    quoteBy: 'Product team',
+    hard: [
+      { title: 'Growth and safety can conflict', detail: 'A ranking system must optimize engagement without ignoring content risk.' },
+      { title: 'Video signals are noisy', detail: 'Short-form content changes quickly and requires frame-level understanding.' },
+      { title: 'Moderation needs reviewability', detail: 'Safety flags must be explainable enough for human review.' },
+      { title: 'Engagement needs feedback loops', detail: 'Ranking quality depends on user behavior, labels, and ongoing monitoring.' },
+    ],
+    decisions: [
+      { key: 'Vision-first signals', value: 'YOLO and transformer outputs became the shared signal layer.' },
+      { key: 'Safety-aware ranking', value: 'Moderation signals were incorporated into feed decisions.' },
+      { key: 'Human review path', value: 'Risk flags moved into a reviewable moderation queue.' },
+      { key: 'Engagement feedback', value: 'Ranking was tuned against user interaction data.' },
+      { key: 'Operational monitoring', value: 'Reports made safety and recommendation drift easier to inspect.' },
+    ],
+    build: [
+      { week: '1-2', title: 'Content audit', detail: 'Reviewed video types, labels, safety risks, and engagement signals.' },
+      { week: '2-3', title: 'Vision pipeline', detail: 'Prepared YOLO and transformer workflows for video signals.' },
+      { week: '3-4', title: 'Safety scoring', detail: 'Mapped labels to moderation rules and review paths.' },
+      { week: '4-5', title: 'Ranking logic', detail: 'Integrated safety and engagement signals into recommendations.' },
+      { week: '5-6', title: 'Measurement', detail: 'Tracked engagement lift, moderation quality, and monitoring needs.' },
+    ],
+    stack: [
+      { group: 'Sources', items: ['Video frames', 'Captions', 'User events', 'Policy rules'] },
+      { group: 'Processing', items: ['YOLO detection', 'Vision transformers', 'Label cleanup', 'Risk scoring'] },
+      { group: 'Answer layer', items: ['Safety flags', 'Ranking scores', 'Reason codes', 'Feedback signals'] },
+      { group: 'Delivery', items: ['Recommendation feed', 'Moderation queue', 'Reports', 'Monitoring'] },
+      { group: 'Governance', items: ['Human review', 'Policy updates', 'Audit logs', 'Drift checks'] },
+    ],
+    related: [
+      { id: 'crayo', tag: 'AI video', title: 'AI video tools for viral short-form content.', metric: 'Shorts workflow' },
+      { id: 'trailblazer-marketing', tag: 'Growth systems', title: 'SEO content operations for profitable growth.', metric: 'SEO cadence' },
+    ],
+  }),
 ]
 
 export function getCaseStudy(caseId: string | undefined) {

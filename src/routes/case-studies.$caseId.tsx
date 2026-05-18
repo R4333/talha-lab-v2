@@ -40,6 +40,56 @@ const CASE_SEO = {
     description:
       'Audiobook product positioning for affordable listening, simple subscription access, and repeat audio habits.',
   },
+  'study-potion': {
+    title: 'Study Potion AI Case Study - AI Study Assistant',
+    description:
+      'AI study assistant positioning for personalized flashcards, notes, quizzes, and faster student practice workflows.',
+  },
+  gomoon: {
+    title: 'GoMoon.ai Case Study - AI Economic Calendar',
+    description:
+      'AI-powered economic calendar positioning for traders tracking market-moving events, historical context, and alerts.',
+  },
+  revana: {
+    title: 'Revana Case Study - AI Support Staff',
+    description:
+      'AI support and sales automation product story for customer questions, qualification, follow-up, and human escalation.',
+  },
+  'trailblazer-marketing': {
+    title: 'Trailblazer Marketing Case Study - SEO Growth System',
+    description:
+      'SEO-led content marketing system for profitable search traffic, content briefs, publishing cadence, and growth reporting.',
+  },
+  coversaiq: {
+    title: 'CoversaIQ Case Study - Call Center AI Platform',
+    description:
+      'LLM and transcription platform for call summaries, agent assist, SLA tracking, and sales or support coaching.',
+  },
+  'ai-voice-system': {
+    title: 'AI Voice System Case Study - Realtime Voice AI',
+    description:
+      'Twilio WebSocket voice stack with custom VAD and NER pipelines that reduced conversational latency from 7 seconds to under 2 seconds.',
+  },
+  'agentic-resume-screener': {
+    title: 'Agentic Resume Screener Case Study - Recruiting AI Workflow',
+    description:
+      'LangChain and LangGraph resume screening workflow with OCR ingestion, candidate scoring, evidence, and recruiter recommendations.',
+  },
+  'document-retrieval-ocr': {
+    title: 'Document Retrieval OCR Case Study - Hybrid Search Automation',
+    description:
+      'Docling, LlamaParser, OCR, and hybrid search pipeline for document indexing and grounded operational answers.',
+  },
+  'credit-scoring': {
+    title: 'Credit Scoring Model Case Study - Explainable Risk ML',
+    description:
+      'XGBoost and CatBoost credit scoring workflow with explainability reporting and 95% delinquency prediction accuracy.',
+  },
+  'content-safety-recommendations': {
+    title: 'Content Safety Recommendations Case Study - Vision AI and Ranking',
+    description:
+      'Transformer vision, YOLO moderation, and recommendation engine workflow that improved short-form video engagement by 50%.',
+  },
 } as const
 
 export const Route = createFileRoute('/case-studies/$caseId')({
