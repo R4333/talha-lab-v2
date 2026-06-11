@@ -242,8 +242,8 @@ export function CaseCategoryMenu({
     <details className="category-menu">
       <summary className="category-menu__summary">
         <span>{label}</span>
-        <strong>{activeCategory ? activeCategory.name : `${CASE_CATEGORIES.length} project lanes`}</strong>
-        <small>{activeCategory ? activeCategory.summary : 'Pick a workflow category to filter the project library.'}</small>
+        <strong>{activeCategory ? activeCategory.name : 'Choose a business problem'}</strong>
+        <small>{activeCategory ? activeCategory.summary : 'Start with the kind of workflow you want to improve, then see the closest work.'}</small>
       </summary>
       <div className="category-menu__options" aria-label="Case study categories">
         {CASE_CATEGORIES.map((category) => (

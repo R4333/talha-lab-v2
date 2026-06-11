@@ -506,11 +506,11 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
             <h2 className="h1">Highlighted projects with clear <em>outcomes</em>.</h2>
           </div>
           <div className="work-directory-card">
-            <span className="tiny-mono">Project showcase</span>
-            <strong>Full project library by workflow</strong>
-            <p>Browse the full project library with category icons, generated previews, and detail pages.</p>
+            <span className="tiny-mono">More proof</span>
+            <strong>Find the work closest to your problem</strong>
+            <p>See how different teams used AI to shorten reviews, route work, clean up data, and make decisions faster.</p>
             <a href="/projects" className="btn btn--ghost">
-              Open Projects <ArrowUpRight />
+              View project work <ArrowUpRight />
             </a>
           </div>
         </div>
@@ -578,7 +578,7 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
             View all projects <Arrow />
           </a>
           <a href="/projects#categories" className="btn btn--ghost btn--lg">
-            Browse categories <ArrowUpRight />
+            Find related work <ArrowUpRight />
           </a>
         </div>
       </div>

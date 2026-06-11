@@ -1980,7 +1980,7 @@ function visualCaseStudy(input: VisualCaseInput, index: number): CaseStudy {
     </>,
     outcome: [
       <><strong>Clearer product surface:</strong> {input.shortName} now communicates the workflow through the actual review states, handoffs, and outcomes buyers care about.</>,
-      <><strong>Better buyer scan:</strong> category, visual proof, and outcome metadata work together across cards, filters, and detail pages.</>,
+      <><strong>Faster buyer clarity:</strong> the problem, workflow, proof points, and next action are easy to understand without a technical walkthrough.</>,
     ],
     quote: `${input.shortName} made the workflow easier to explain: the inputs, AI review, human handoff, and business action are all visible in one place.`,
     quoteBy: 'Product team',
@@ -1990,7 +1990,7 @@ function visualCaseStudy(input: VisualCaseInput, index: number): CaseStudy {
       { week: '1', title: 'Workflow audit', detail: 'Mapped source inputs, users, review points, and the final business action.' },
       { week: '2', title: 'AI task design', detail: 'Defined classification, extraction, drafting, prediction, or detection responsibilities.' },
       { week: '3', title: 'Human review path', detail: 'Added approval, exception, and escalation points where judgment matters.' },
-      { week: '4', title: 'Product narrative', detail: 'Created a reusable visual story that works across project cards and case-study heroes.' },
+      { week: '4', title: 'Product narrative', detail: 'Turned the workflow into a clear buyer story for sales conversations, reviews, and handoff.' },
     ],
     stack: [
       { group: 'Sources', items: input.architecture[0].items },
@@ -3270,8 +3270,8 @@ export function CaseStudyPage({
                 ))}
               </div>
             </details>
-            <div className="case-picker__label case-picker__label--categories">Browse by category</div>
-            <CaseCategoryMenu label="Category directory" />
+            <div className="case-picker__label case-picker__label--categories">Find related work</div>
+            <CaseCategoryMenu label="Choose a workflow" />
           </div>
 
           {selectedCase.id === 'thalamus' && <ThalamusImpactStrip />}

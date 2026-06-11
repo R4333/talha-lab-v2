@@ -12,7 +12,7 @@ export const Route = createFileRoute('/case-studies/category/$categoryId')({
     const path = `/case-studies/category/${category.id}`
     const pageSeo = seo({
       title: `${category.name} Projects - Talha Turab`,
-      description: `${category.name} project examples from Talha Turab: ${category.summary}`,
+      description: `${category.name} work by Talha Turab: ${category.summary}`,
       path,
       type: 'article',
     })
@@ -59,7 +59,7 @@ function CaseCategoryRoute() {
             <p className="lede mt-32">{category.summary}</p>
             <p className="body mt-16" style={{ maxWidth: 680 }}>{category.proof}</p>
             <div className="mt-48">
-              <CaseCategoryMenu activeId={category.id} label="Change category" />
+              <CaseCategoryMenu activeId={category.id} label="Find related work" />
             </div>
           </div>
         </section>
@@ -68,7 +68,7 @@ function CaseCategoryRoute() {
           <div className="container">
             <div className="divider-mono">
               <span>{category.name}</span>
-              <span>{cases.length} examples</span>
+              <span>{cases.length} projects</span>
             </div>
             <div className="cases">
               {cases.map((caseStudy) => (

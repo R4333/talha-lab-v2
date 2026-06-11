@@ -9,9 +9,9 @@ import { SITE_URL, jsonLd, seo } from '../utils/seo'
 export const Route = createFileRoute('/projects')({
   head: () => {
     const pageSeo = seo({
-      title: 'Projects - AI Automation Showcase by Talha Turab',
+      title: 'Projects - AI Automation Work by Talha Turab',
       description:
-        'Browse AI automation, document AI, voice AI, computer vision, MLOps, and data workflow projects by Talha Turab.',
+        'See AI automation work organized around business problems: reviews, handoffs, decisions, revenue workflows, document systems, and operations.',
       path: '/projects',
     })
 
@@ -22,7 +22,7 @@ export const Route = createFileRoute('/projects')({
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
           name: 'Projects',
-          description: 'AI automation and applied AI project showcase by Talha Turab.',
+          description: 'Applied AI work by Talha Turab, organized around the business problems each workflow solves.',
           url: `${SITE_URL}/projects`,
         }),
       ],
@@ -47,7 +47,7 @@ function ProjectsRoute() {
             </div>
             <div className="projects-hero__layout">
               <div>
-                <div className="eyebrow mb-24">Project showcase</div>
+                <div className="eyebrow mb-24">Project work</div>
                 <h1 className="h-display">
                   Applied AI projects, sorted by <em>workflow</em>.
                 </h1>
@@ -59,7 +59,7 @@ function ProjectsRoute() {
                     View all projects <Arrow />
                   </a>
                   <a href="#categories" className="btn btn--ghost btn--lg">
-                    Browse categories <ArrowUpRight />
+                    Find your workflow <ArrowUpRight />
                   </a>
                 </div>
               </div>
@@ -71,15 +71,15 @@ function ProjectsRoute() {
           <div className="container">
             <div className="section-header">
               <div>
-                <div className="eyebrow mb-24">Browse by category</div>
+                <div className="eyebrow mb-24">Choose your problem</div>
                 <h2 className="h1">Find the closest <em>workflow</em>.</h2>
               </div>
               <p className="lede">
-                Start with the workflow that feels closest to your team. Each path leads to relevant project proof, outcomes, and examples of how the work ships.
+                Start with the workflow that feels closest to your team. Each path leads to relevant proof, outcomes, and a clearer sense of how the work ships.
               </p>
             </div>
             <div className="projects-category-menu-wrap">
-              <CaseCategoryMenu label="Browse categories" />
+              <CaseCategoryMenu label="Find related work" />
             </div>
           </div>
         </section>
@@ -88,7 +88,7 @@ function ProjectsRoute() {
           <div className="container">
             <div className="divider-mono">
               <span>All projects</span>
-              <span>{CASE_STUDIES.length} examples</span>
+              <span>{CASE_STUDIES.length} projects</span>
             </div>
             <div className="cases projects-showcase__list">
               {CASE_STUDIES.map((caseStudy) => (
