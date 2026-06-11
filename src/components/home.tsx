@@ -1,5 +1,6 @@
 import { Arrow, ArrowUpRight, ClientLogos, Footer, type NavigateToPage } from './shared'
-import { CaseCategoryNav } from './case-categories'
+import { ProjectIcon, type ProjectIconName } from './case-study-visuals'
+import { SERVICE_CAPABILITIES } from './service-capabilities'
 import { contactHref } from '../utils/seo'
 
 type HeadlineVariant = 'outcomes' | 'partner' | 'leverage' | 'chatbots'
@@ -8,6 +9,19 @@ function setPointerGlow(event: React.PointerEvent<HTMLElement>) {
   const rect = event.currentTarget.getBoundingClientRect()
   event.currentTarget.style.setProperty('--cursor-x', `${event.clientX - rect.left}px`)
   event.currentTarget.style.setProperty('--cursor-y', `${event.clientY - rect.top}px`)
+}
+
+function caseIconForTags(tags: string[]): ProjectIconName {
+  const label = tags.join(' ').toLowerCase()
+
+  if (label.includes('voice') || label.includes('audio') || label.includes('call')) return 'PhoneCall'
+  if (label.includes('video') || label.includes('shorts')) return 'Clapperboard'
+  if (label.includes('document') || label.includes('ocr') || label.includes('contract')) return 'FileSearch'
+  if (label.includes('forecast') || label.includes('scoring') || label.includes('recommend')) return 'TrendingUp'
+  if (label.includes('chatbot') || label.includes('support')) return 'MessageCircle'
+  if (label.includes('python') || label.includes('data')) return 'TableProperties'
+
+  return 'Workflow'
 }
 
 function Hero({ headlineVariant = 'outcomes' }: { headlineVariant?: HeadlineVariant; showPhoto?: boolean }) {
@@ -97,7 +111,7 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
       tags: ["Automation", "Chatbot", "MVP SaaS"],
       status: "site linked",
       visual: "/assets/projects/thalamus-curated-ui-v2.webp",
-      visualAlt: "Stylized Thalamus UI mockup showing document search, cited sources, and answer confidence",
+      visualAlt: "Stylized Thalamus interface showing document search, cited sources, and answer confidence",
       highlights: [
         "Sales cycle from weeks to one call",
         "Buyers understood value in first demo",
@@ -121,7 +135,7 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
       tags: ["Voice AI", "MVP SaaS", "Automation"],
       status: "product linked",
       visual: "/assets/projects/aletheia-curated-ui-v2.webp",
-      visualAlt: "Stylized Aletheia UI mockup showing call review, transcript, waveform, and signal tracks",
+      visualAlt: "Stylized Aletheia interface showing call review, transcript, waveform, and signal tracks",
       highlights: [
         "Feature list turned into a clear pitch",
         "Demo-ready after one sprint",
@@ -145,7 +159,7 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
       tags: ["Automation", "Chatbot", "MVP SaaS"],
       status: "site linked",
       visual: "/assets/projects/frcm-curated-ui-v2.webp",
-      visualAlt: "Stylized First Rule Contract Manager UI mockup showing contract risk review and playbook guidance",
+      visualAlt: "Stylized First Rule Contract Manager interface showing contract risk review and playbook guidance",
       highlights: [
         "Review time cut from days to minutes",
         "Risk flags visible on first pass",
@@ -169,7 +183,7 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
       tags: ["Automation", "Python Scripts"],
       status: "10 wk",
       visual: "/assets/projects/retina-curated-ui-v2.webp",
-      visualAlt: "Stylized Retina UI mockup showing retail demand forecasting, purchase planning, and chat workflow",
+      visualAlt: "Stylized Retina interface showing retail demand forecasting, purchase planning, and chat workflow",
       highlights: [
         "Went from gut-feel ordering to data-driven planning",
         "Stockouts dropped 31% in first quarter",
@@ -481,26 +495,38 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
     },
   ];
 
+  const highlightedCases = cases.slice(0, 4)
+
   return (
     <section className="section" id="work">
       <div className="container">
         <div className="section-header section-header--work">
           <div>
             <div className="eyebrow mb-24">Project work</div>
-            <h2 className="h1">Projects with clear <em>outcomes</em>.</h2>
+            <h2 className="h1">Highlighted projects with clear <em>outcomes</em>.</h2>
           </div>
-          <CaseCategoryNav />
+          <div className="work-directory-card">
+            <span className="tiny-mono">Project showcase</span>
+            <strong>Full project library by workflow</strong>
+            <p>Browse the full project library with category icons, generated previews, and detail pages.</p>
+            <a href="/projects" className="btn btn--ghost">
+              Open Projects <ArrowUpRight />
+            </a>
+          </div>
         </div>
 
         <div className="cases">
-          {cases.map((c, i) => (
+          {highlightedCases.map((c) => (
             <a key={c.id} className="case" href={`/case-studies/${c.id}`}>
               <div className="case__copy">
                 <div className="case__index">
                   <strong>Case Study / {c.idx}</strong>
                   <div className="case__brand-row">
                     {c.logo && <img src={c.logo} alt="" loading="lazy" width="96" height="96" />}
-                    <span className="case__project" translate="no">{c.company}</span>
+                    <span className="case__project case__project--with-icon" translate="no">
+                      <ProjectIcon name={caseIconForTags(c.tags)} size={15} />
+                      {c.company}
+                    </span>
                     <span className="case__divider" aria-hidden="true" />
                     <span className="case__meta-label">Product</span>
                     <span className="case__product-pill" translate="no">{c.product}</span>
@@ -518,10 +544,8 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
                   <div className="case__cta mt-24">Read case study <Arrow /></div>
                 </div>
               </div>
-              <div className="case__visual">
-                <div className="case__thumb case__thumb--curated">
-                  <img src={c.visual} alt={c.visualAlt} width="1586" height="992" loading="eager" decoding="async" />
-                </div>
+              <div className="case__visual case__visual--with-results">
+                <img className="case__visual-image" src={c.visual} alt={c.visualAlt} width="1586" height="992" loading="eager" decoding="async" />
                 <div className="case__results">
                   <div className="case__results-metrics">
                     {c.metrics.map((m, j) => (
@@ -548,6 +572,14 @@ function CaseStudiesHome({ navigate }: { navigate: NavigateToPage }) {
               </div>
             </a>
           ))}
+        </div>
+        <div className="work-showcase-actions">
+          <a href="/projects" className="btn btn--accent btn--lg">
+            View all projects <Arrow />
+          </a>
+          <a href="/projects#categories" className="btn btn--ghost btn--lg">
+            Browse categories <ArrowUpRight />
+          </a>
         </div>
       </div>
     </section>
@@ -608,17 +640,6 @@ function OperatingSystem() {
 }
 
 function ServicesHome({ navigate }: { navigate: NavigateToPage }) {
-  const services = [
-    { num: "01", href: "/case-studies/category/chatbot", title: <>AI <em>chatbots</em></>, desc: "Support bots, internal helpdesks, and knowledge assistants that cite sources — not hallucinate.", problem: "Your team keeps answering the same questions every day." },
-    { num: "02", href: "/case-studies/category/automation", title: <><em>Automations</em></>, desc: "Data pipelines, report generators, routing rules, and tools that remove repeat admin from the week.", problem: "Your best people are spending hours on work a script could handle." },
-    { num: "03", href: "/case-studies/category/python-scripts", title: <>Python <em>scripts</em></>, desc: "Cleanup, scraping, file processing, data handoffs — small scripts that solve one problem cleanly.", problem: "A spreadsheet or manual process is starting to break at scale." },
-    { num: "04", href: "/case-studies/category/mvp-saas", title: <>MVP <em>SaaS</em></>, desc: "A first-version product with the core workflow, clean UI, and a story buyers understand immediately.", problem: "You need something real to show investors, pilots, or first customers." },
-    { num: "05", href: "/case-studies/category/voice-ai", title: <>Voice <em>AI</em></>, desc: "Call review, routing, summaries, and follow-up tools built on what was actually said.", problem: "Important signals are locked in calls nobody has time to re-listen to." },
-    { num: "06", href: "/case-studies/category/python-scripts", title: <>Forecast <em>tools</em></>, desc: "Sales, inventory, and demand planning tools trained on your actual business data.", problem: "Decisions still come from gut feel because the data is too messy to use." },
-    { num: "07", href: "/case-studies/category/document-review", title: <>Knowledge <em>intelligence</em></>, desc: "Contract, policy, and document review that gives sourced answers — not guesses.", problem: "Critical answers are buried in PDFs and docs nobody has time to read." },
-    { num: "08", href: "/case-studies/category/mvp-saas", title: <>Fractional <em>AI lead</em></>, desc: "Senior support for roadmap, architecture, vendor calls, hiring, and launch decisions.", problem: "You need experienced AI judgment on the team, but not a full-time hire yet." },
-  ];
-
   return (
     <section className="section" style={{ paddingTop: "calc(var(--section-y) * 0.4)" }}>
       <div className="container">
@@ -637,10 +658,13 @@ function ServicesHome({ navigate }: { navigate: NavigateToPage }) {
           </div>
         </div>
 
-        <div className="services-grid">
-          {services.map((s, i) => (
-            <a key={i} className="service" href={s.href}>
-              <div className="service__num">CAP / {s.num}</div>
+        <div className="services-grid services-grid--capabilities">
+          {SERVICE_CAPABILITIES.map((s) => (
+            <a key={s.id} className="service" href={s.href}>
+              <div className="service__topline">
+                <div className="service__num">CAP / {s.num}</div>
+                <ProjectIcon name={s.icon} size={24} className="service__icon" />
+              </div>
               <h3 className="service__title">{s.title}</h3>
               <p className="service__desc">{s.desc}</p>
               <div className="service__problem"><strong>For when:</strong> {s.problem}</div>

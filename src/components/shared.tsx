@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router'
 
 import { contactHref } from '../utils/seo'
 
-export type SitePage = 'home' | 'services' | 'case'
+export type SitePage = 'home' | 'projects' | 'services' | 'case'
 
 export type NavigateToPage = (page: SitePage) => void
 
@@ -56,8 +56,8 @@ export function Nav({ page, navigate }: { page: SitePage; navigate: NavigateToPa
       </Link>
       <div className="nav__links">
         <Link className="nav__link" data-active={page === "home"} to="/">Work</Link>
+        <Link className="nav__link" data-active={page === "projects" || page === "case"} to="/projects">Projects</Link>
         <Link className="nav__link" data-active={page === "services"} to="/services">Services</Link>
-        <Link className="nav__link" data-active={page === "case"} to="/case-studies/$caseId" params={{ caseId: 'thalamus' }}>Case Studies</Link>
         <a className="nav__link" href="/#about">About</a>
         <a className="btn btn--accent nav__cta" href={contactHref()}>
           Book a call <Arrow />
@@ -70,8 +70,8 @@ export function Nav({ page, navigate }: { page: SitePage; navigate: NavigateToPa
         </summary>
         <div className="nav__mobile-panel">
           <Link className="nav__link" data-active={page === "home"} to="/">Work</Link>
+          <Link className="nav__link" data-active={page === "projects" || page === "case"} to="/projects">Projects</Link>
           <Link className="nav__link" data-active={page === "services"} to="/services">Services</Link>
-          <Link className="nav__link" data-active={page === "case"} to="/case-studies/$caseId" params={{ caseId: 'thalamus' }}>Case Studies</Link>
           <a className="nav__link" href="/#about">About</a>
           <a className="btn btn--accent nav__cta" href={contactHref()}>
             Book a call <Arrow />
@@ -136,8 +136,8 @@ export function Footer({ navigate }: { navigate: NavigateToPage }) {
           <div className="footer__col">
             <h5>Pages</h5>
             <Link to="/">Home</Link>
+            <Link to="/projects">Projects</Link>
             <Link to="/services">Services</Link>
-            <Link to="/case-studies/$caseId" params={{ caseId: 'thalamus' }}>Case Studies</Link>
             <a href="/#about">About</a>
           </div>
           <div className="footer__col">

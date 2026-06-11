@@ -1,5 +1,7 @@
 import { CTA } from './home'
 import { Footer, type NavigateToPage } from './shared'
+import { SERVICE_CAPABILITIES } from './service-capabilities'
+import { ProjectIcon } from './case-study-visuals'
 
 export function ServicesPage({ navigate }: { navigate: NavigateToPage }) {
   const tiers = [
@@ -20,7 +22,7 @@ export function ServicesPage({ navigate }: { navigate: NavigateToPage }) {
     {
       id: "embedded",
       name: "Embedded",
-      price: "from $14k / month",
+      price: "$14k for 3 months",
       tag: "Part-time · 3 month min",
       desc: "I work as your part-time AI builder for bigger product pushes. Useful when one sprint is not enough.",
       includes: [
@@ -46,17 +48,6 @@ export function ServicesPage({ navigate }: { navigate: NavigateToPage }) {
       ],
       best: "Founders who need a Senior developer on call.",
     },
-  ];
-
-  const services = [
-    { id: "ai-chatbots", href: "/case-studies/category/chatbot", num: "01", title: "AI chatbots", desc: "Customer support, internal helpdesk, and knowledge assistants.", problem: "Customers or staff keep asking the same questions." },
-    { id: "automations", href: "/case-studies/category/automation", num: "02", title: "Automations", desc: "Tools that move data, create reports, route work, and remove repeat admin.", problem: "Your team repeats the same manual task every week." },
-    { id: "python-scripts", href: "/case-studies/category/python-scripts", num: "03", title: "Python scripts", desc: "Small scripts for cleanup, scraping, reports, file processing, and data handoffs.", problem: "A spreadsheet or manual process is starting to break." },
-    { id: "mvp-saas", href: "/case-studies/category/mvp-saas", num: "04", title: "MVP SaaS", desc: "First-version products with the core workflow, simple UI, and buyer-ready story.", problem: "You need a usable product before investing in a full team." },
-    { id: "voice-ai", href: "/case-studies/category/voice-ai", num: "05", title: "Voice AI", desc: "Voice, call, and audio tools for review, routing, summaries, and follow-up.", problem: "Calls and recordings contain useful work nobody has time to review." },
-    { id: "forecast-tools", href: "/case-studies/category/python-scripts", num: "06", title: "Forecast tools", desc: "Sales, inventory, demand, and planning tools trained on your business data.", problem: "You have data, but decisions still happen from gut feel." },
-    { id: "document-review", href: "/case-studies/category/document-review", num: "07", title: "Knowledge intelligence", desc: "Contract, policy, PDF, and knowledge-base review with source-backed answers.", problem: "Important answers are buried in documents nobody has time to read." },
-    { id: "fractional-ai-lead", href: "/case-studies/category/mvp-saas", num: "08", title: "Fractional AI lead", desc: "Senior build support for roadmap, code, vendors, hiring, and launch decisions.", problem: "You need senior AI judgment, but not a full-time hire yet." },
   ];
 
   return (
@@ -121,16 +112,19 @@ export function ServicesPage({ navigate }: { navigate: NavigateToPage }) {
               <h2 className="h1">Everything I&nbsp;build.</h2>
             </div>
             <div>
-              <p className="lede">Most clients need one focused piece first. The discovery call narrows it down.</p>
+              <p className="lede">Most clients need one focused piece first. Pick the lane closest to the workflow, then the discovery call narrows it down.</p>
             </div>
           </div>
-          <div className="services-grid">
-            {services.map((s, i) => (
+          <div className="services-grid services-grid--capabilities">
+            {SERVICE_CAPABILITIES.map((s) => (
               <a key={s.id} id={`cap-${s.num}`} className="service" href={s.href}>
-                <div className="service__num">CAP / {s.num}</div>
+                <div className="service__topline">
+                  <div className="service__num">CAP / {s.num}</div>
+                  <ProjectIcon name={s.icon} size={24} className="service__icon" />
+                </div>
                 <h3 className="service__title">{s.title}</h3>
                 <p className="service__desc">{s.desc}</p>
-                <div className="service__problem"><strong>For when:</strong>{s.problem}</div>
+                <div className="service__problem"><strong>For when:</strong> {s.problem}</div>
               </a>
             ))}
           </div>

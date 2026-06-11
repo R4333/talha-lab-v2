@@ -1,9 +1,17 @@
 import React from 'react'
 import { CTA } from './home'
 import { Arrow, Footer, type NavigateToPage } from './shared'
-import { CaseCategoryNav, type CaseCategoryId } from './case-categories'
+import { CaseCategoryMenu, getCaseCategory, type CaseCategoryId } from './case-categories'
+import {
+  ProjectIcon,
+  ProjectVisual,
+  getVisualComponentName,
+  type ProjectIconName,
+  type ProjectVisualComponentName,
+  type ProjectVisualKey,
+} from './case-study-visuals'
 
-type CaseStudy = {
+export type CaseStudy = {
   id: string
   aliases?: string[]
   categories: CaseCategoryId[]
@@ -12,6 +20,7 @@ type CaseStudy = {
   client: string
   clientMeta: string
   liveUrl?: string
+  label?: string
   title: React.ReactNode
   lede: string
   oneLiner?: string
@@ -28,6 +37,18 @@ type CaseStudy = {
   problem: React.ReactNode[]
   approach: React.ReactNode[]
   bullets: string[]
+  visualType?: 'dashboard-mockup' | 'document-ai-mockup' | 'voice-ai-mockup' | 'computer-vision-mockup' | 'mobile-app-mockup' | 'mlops-mockup' | 'data-automation-mockup' | 'growth-automation-mockup' | 'generative-media-mockup' | 'knowledge-search-mockup'
+  cardVisual?: ProjectVisualKey
+  previewVisual?: ProjectVisualKey
+  coverVisual?: ProjectVisualKey
+  cardPreviewImage?: string
+  coverImage?: string
+  icon?: ProjectIconName
+  alt?: string
+  visualComponent?: ProjectVisualComponentName
+  ogImage?: string
+  seoTitle?: string
+  seoDescription?: string
   heroVisual?: { src: string; alt: string }
   screenshots?: Array<{ title: string; src: string; alt: string; caption: string; width: number; height: number }>
   architecture: Array<{ title: string; name: string; items: string[]; accent?: boolean }>
@@ -63,7 +84,7 @@ function enhancedCaseStudy(input: EnhancedCaseStudyInput): CaseStudy {
   }
 }
 
-export const CASE_STUDIES: CaseStudy[] = [
+const BASE_CASE_STUDIES: CaseStudy[] = [
   {
     id: 'thalamus',
     categories: ['automation', 'chatbot', 'mvp-saas', 'document-review'],
@@ -115,7 +136,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     heroVisual: {
       src: '/assets/projects/thalamus-curated-ui-v2.webp',
-      alt: 'Stylized Thalamus UI mockup showing document search, cited sources, and answer confidence',
+      alt: 'Stylized Thalamus interface showing document search, cited sources, and answer confidence',
     },
     screenshots: [
       {
@@ -247,7 +268,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     heroVisual: {
       src: '/assets/projects/aletheia-curated-ui-v2.webp',
-      alt: 'Stylized Aletheia UI mockup showing call review, transcript, waveform, and signal tracks',
+      alt: 'Stylized Aletheia interface showing call review, transcript, waveform, and signal tracks',
     },
     screenshots: [
       {
@@ -366,7 +387,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     heroVisual: {
       src: '/assets/projects/frcm-curated-ui-v2.webp',
-      alt: 'Stylized First Rule Contract Manager UI mockup showing contract risk review and playbook guidance',
+      alt: 'Stylized First Rule Contract Manager interface showing contract risk review and playbook guidance',
     },
     screenshots: [
       {
@@ -496,7 +517,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     heroVisual: {
       src: '/assets/projects/retina-curated-ui-v2.webp',
-      alt: 'Stylized Retina UI mockup showing retail demand forecasting, purchase planning, and chat workflow',
+      alt: 'Stylized Retina interface showing retail demand forecasting, purchase planning, and chat workflow',
     },
     architecture: [
       { title: '[ 01 ] Sources', name: 'Demand inputs', items: ['Sales', 'Ads spend', 'Inventory', 'Suppliers'] },
@@ -1835,8 +1856,1327 @@ export const CASE_STUDIES: CaseStudy[] = [
   }),
 ]
 
+type VisualCaseInput = {
+  id: string
+  aliases?: string[]
+  shortName: string
+  label: string
+  clientMeta: string
+  title: React.ReactNode
+  lede: string
+  oneLiner: string
+  categories: CaseCategoryId[]
+  visual: ProjectVisualKey
+  icon: ProjectIconName
+  alt: string
+  results: Array<{ value: React.ReactNode; label: string; sub: string }>
+  impact: Array<{ label: string; value: number; detail: string }>
+  problemLead: string
+  problemDetail: string
+  approachLead: string
+  approachDetail: string
+  bullets: string[]
+  architecture: Array<{ name: string; items: string[] }>
+  architectureNote: string
+  hard: Array<{ title: string; detail: string }>
+  decisions: Array<{ key: string; value: string }>
+  related?: Array<{ id: string; tag: string; title: string; metric: string }>
+}
+
+const visualTypeByComponent: Record<ProjectVisualComponentName, NonNullable<CaseStudy['visualType']>> = {
+  DashboardMockup: 'dashboard-mockup',
+  DocumentAIMockup: 'document-ai-mockup',
+  VoiceAIMockup: 'voice-ai-mockup',
+  ComputerVisionMockup: 'computer-vision-mockup',
+  MobileAppMockup: 'mobile-app-mockup',
+  MLOpsMockup: 'mlops-mockup',
+  DataAutomationMockup: 'data-automation-mockup',
+  GrowthAutomationMockup: 'growth-automation-mockup',
+  GenerativeMediaMockup: 'generative-media-mockup',
+  KnowledgeSearchMockup: 'knowledge-search-mockup',
+}
+
+const generatedCoverImages: Partial<Record<ProjectVisualKey, string>> = {
+  'ai-inbox-triage': '/assets/projects/generated/ai-inbox-triage-cover.png',
+  'invoice-po-automation': '/assets/projects/generated/invoice-po-automation-cover.png',
+  'meeting-crm-agent': '/assets/projects/generated/meeting-crm-agent-cover.png',
+  'internal-knowledge-assistant': '/assets/projects/generated/internal-knowledge-assistant-cover.png',
+  'healthcare-rcm-assistant': '/assets/projects/generated/healthcare-rcm-assistant-cover.png',
+  'voice-appointment-setter': '/assets/projects/generated/voice-appointment-setter-cover.png',
+  'ai-quality-guardrails': '/assets/projects/generated/ai-quality-guardrails-cover.png',
+  'spreadsheet-dashboard-automation': '/assets/projects/generated/spreadsheet-dashboard-automation-cover.png',
+  'contract-change-monitor': '/assets/projects/generated/contract-change-monitor-cover.png',
+  'ad-creative-generator': '/assets/projects/generated/ad-creative-generator-cover.png',
+  'churn-risk-predictor': '/assets/projects/generated/churn-risk-predictor-cover.png',
+  'recruiting-outreach-agent': '/assets/projects/generated/recruiting-outreach-agent-cover.png',
+  'retail-shelf-intelligence': '/assets/projects/generated/retail-shelf-intelligence-cover.png',
+  'corefit-pose-coach': '/assets/projects/generated/corefit-pose-coach-cover.png',
+  'defectlens-quality-inspection': '/assets/projects/generated/defectlens-quality-inspection-cover.png',
+  'modelops-command-center': '/assets/projects/generated/modelops-command-center-cover.png',
+  'privacyscan-redaction': '/assets/projects/generated/privacyscan-redaction-cover.png',
+  'autolabel-data-studio': '/assets/projects/generated/autolabel-data-studio-cover.png',
+  'fleetcam-safety-intelligence': '/assets/projects/generated/fleetcam-safety-intelligence-cover.png',
+  'fieldvision-knowledge-search': '/assets/projects/generated/fieldvision-knowledge-search-cover.png',
+  'receipt-scanner': '/assets/projects/generated/receipt-scanner-cover.png',
+  'evalforge-quality-bench': '/assets/projects/generated/evalforge-quality-bench-cover.png',
+}
+
+function visualCaseStudy(input: VisualCaseInput, index: number): CaseStudy {
+  const componentName = getVisualComponentName(input.visual)
+  const generatedCoverImage = generatedCoverImages[input.visual]
+
+  return enhancedCaseStudy({
+    id: input.id,
+    aliases: input.aliases,
+    categories: input.categories,
+    index: index.toString().padStart(2, '0'),
+    shortName: input.shortName,
+    client: input.shortName,
+    clientMeta: input.clientMeta,
+    label: input.label,
+    title: input.title,
+    lede: input.lede,
+    oneLiner: input.oneLiner,
+    roleMeta: `${input.label} workflow`,
+    resultsNote: `${input.label.toLowerCase()} outcomes`,
+    visualType: visualTypeByComponent[componentName],
+    cardVisual: input.visual,
+    previewVisual: input.visual,
+    coverVisual: input.visual,
+    cardPreviewImage: generatedCoverImage,
+    coverImage: generatedCoverImage,
+    heroVisual: generatedCoverImage ? { src: generatedCoverImage, alt: input.alt } : undefined,
+    icon: input.icon,
+    alt: input.alt,
+    visualComponent: componentName,
+    seoTitle: `${input.shortName} Case Study - ${input.label}`,
+    seoDescription: input.lede,
+    results: input.results,
+    impact: input.impact,
+    problem: [
+      <strong className="cs-section__lead">{input.problemLead}</strong>,
+      <>{input.problemDetail}</>,
+      <>The workflow needed a visual and operational story that buyers can scan quickly: what comes in, what the AI does, what a human reviews, and where the result lands.</>,
+    ],
+    approach: [
+      <strong className="cs-section__lead">{input.approachLead}</strong>,
+      <>{input.approachDetail}</>,
+      <>The project is framed around the business workflow itself: the source inputs, AI review, approval points, and final handoff are all visible in one story.</>,
+    ],
+    bullets: input.bullets,
+    architecture: [
+      { title: '[ 01 ] Sources', name: input.architecture[0].name, items: input.architecture[0].items },
+      { title: '[ 02 ] Prepare', name: input.architecture[1].name, items: input.architecture[1].items },
+      { title: '[ 03 ] Decide', name: input.architecture[2].name, items: input.architecture[2].items, accent: true },
+      { title: '[ 04 ] Deliver', name: input.architecture[3].name, items: input.architecture[3].items },
+    ],
+    architectureNote: <>{input.architectureNote}</>,
+    codeTitle: `${input.label} output`,
+    code: <>
+      input = collect_workflow_context(source_events){'\n'}
+      review = run_ai_checks(input, policy=human_review){'\n'}
+      handoff = route_next_action(review, owner=team){'\n'}
+      <span className="k">return</span> WorkflowResult(status=handoff.status, evidence=review.sources)
+    </>,
+    outcome: [
+      <><strong>Clearer product surface:</strong> {input.shortName} now communicates the workflow through the actual review states, handoffs, and outcomes buyers care about.</>,
+      <><strong>Better buyer scan:</strong> category, visual proof, and outcome metadata work together across cards, filters, and detail pages.</>,
+    ],
+    quote: `${input.shortName} made the workflow easier to explain: the inputs, AI review, human handoff, and business action are all visible in one place.`,
+    quoteBy: 'Product team',
+    hard: input.hard,
+    decisions: input.decisions,
+    build: [
+      { week: '1', title: 'Workflow audit', detail: 'Mapped source inputs, users, review points, and the final business action.' },
+      { week: '2', title: 'AI task design', detail: 'Defined classification, extraction, drafting, prediction, or detection responsibilities.' },
+      { week: '3', title: 'Human review path', detail: 'Added approval, exception, and escalation points where judgment matters.' },
+      { week: '4', title: 'Product narrative', detail: 'Created a reusable visual story that works across project cards and case-study heroes.' },
+    ],
+    stack: [
+      { group: 'Sources', items: input.architecture[0].items },
+      { group: 'Processing', items: input.architecture[1].items },
+      { group: 'Answer layer', items: input.architecture[2].items },
+      { group: 'Delivery', items: input.architecture[3].items },
+      { group: 'Governance', items: ['Human review', 'Audit trail', 'Quality checks', 'Fallback rules'] },
+    ],
+    related: input.related ?? [
+      { id: 'thalamus', tag: 'Knowledge search', title: 'AI search that understands company documents.', metric: 'Source-backed answers' },
+      { id: 'retina', tag: 'Forecasting', title: 'Inventory forecasts that shifted purchasing decisions.', metric: '31% fewer stockouts' },
+    ],
+  })
+}
+
+const NEW_PROJECT_CASE_STUDIES: CaseStudy[] = [
+  visualCaseStudy({
+    id: 'ai-inbox-triage',
+    shortName: 'AI Inbox Triage',
+    label: 'AI Workflow Agent',
+    clientMeta: 'Inbox automation · CRM routing',
+    title: <>AI inbox triage and reply assistant for <em>priority work</em>.</>,
+    lede: 'An inbox agent that prioritizes customer emails, drafts replies, creates tasks, and syncs routing status back to the CRM.',
+    oneLiner: 'A workflow assistant for teams whose revenue, support, and operational work still starts in a crowded shared inbox.',
+    categories: ['automation', 'ai-agents-workflow-automation', 'growth-revenue-automation'],
+    visual: 'ai-inbox-triage',
+    icon: 'Workflow',
+    alt: 'AI inbox dashboard showing prioritized emails, drafted replies, and task routing.',
+    results: [
+      { value: <em>P1</em>, label: 'Priority routing', sub: 'Urgent emails move first' },
+      { value: <em>Draft</em>, label: 'Reply assist', sub: 'Human-reviewable responses' },
+      { value: <em>Task</em>, label: 'Action creation', sub: 'Follow-up work is assigned' },
+      { value: <em>CRM</em>, label: 'Status sync', sub: 'Customer context stays current' },
+    ],
+    impact: [
+      { label: 'Response speed', value: 88, detail: 'Priority messages surface before the queue buries them.' },
+      { label: 'Routing quality', value: 82, detail: 'Tasks and owners are selected from message context.' },
+      { label: 'Draft usefulness', value: 80, detail: 'Replies are ready for human review.' },
+      { label: 'CRM hygiene', value: 84, detail: 'Follow-up state syncs into customer records.' },
+    ],
+    problemLead: 'Shared inboxes mix urgent revenue work with routine operational noise.',
+    problemDetail: 'Teams need to identify priority messages, prepare a useful reply, and make sure the next action is tracked without manually copying context between tools.',
+    approachLead: 'We modeled the inbox as a routing system, not a pile of messages.',
+    approachDetail: 'The assistant classifies each email, drafts the next response, creates the task when needed, and shows CRM sync status so a human can approve the action.',
+    bullets: ['Email list with priority labels.', 'Draft reply panel with editable output.', 'Create-task action and owner assignment.', 'CRM sync indicator for closed-loop handoff.'],
+    architecture: [
+      { name: 'Message sources', items: ['Shared inbox', 'CRM records', 'Support history', 'SLA rules'] },
+      { name: 'Triage layer', items: ['Intent', 'Priority', 'Customer context', 'Owner lookup'] },
+      { name: 'Action agent', items: ['Reply draft', 'Task creation', 'Routing status', 'Escalation'] },
+      { name: 'Team handoff', items: ['CRM sync', 'Inbox label', 'Owner alert', 'Review queue'] },
+    ],
+    architectureNote: 'AI Inbox Triage works when every recommendation stays attached to the original email, customer record, and next action.',
+    hard: [
+      { title: 'Priority is contextual', detail: 'A message can be urgent because of the customer, revenue stage, or SLA, not only its wording.' },
+      { title: 'Replies need review', detail: 'Drafts must be fast to approve and easy to edit before sending.' },
+      { title: 'Routing needs closure', detail: 'The team needs proof that a task and CRM status were actually created.' },
+      { title: 'Inbox work is messy', detail: 'Threads, attachments, and partial context require careful fallback behavior.' },
+    ],
+    decisions: [
+      { key: 'Priority badges', value: 'The card visual makes urgency visible before the user reads the full message.' },
+      { key: 'Draft panel', value: 'Generated replies are shown as editable work, not automatic sends.' },
+      { key: 'Task handoff', value: 'Create-task state is part of the visual proof.' },
+      { key: 'CRM status', value: 'Sync indicators reduce ambiguity after routing.' },
+    ],
+    related: [
+      { id: 'revana', tag: 'Revenue automation', title: 'AI support staff for customer questions.', metric: '24/7 coverage' },
+      { id: 'ai-voice-system', tag: 'Voice AI', title: 'Realtime AI voice system under two seconds.', metric: '7s to <2s' },
+    ],
+  }, 18),
+  visualCaseStudy({
+    id: 'invoice-po-automation',
+    aliases: ['invoice-purchase-order-automation'],
+    shortName: 'Invoice PO Automation',
+    label: 'Document AI System',
+    clientMeta: 'Finance extraction · Human review',
+    title: <>Invoice and purchase order automation for <em>finance review</em>.</>,
+    lede: 'A document AI workflow that extracts invoice and purchase order fields, validates totals, and routes exceptions for finance approval.',
+    oneLiner: 'A finance intake system that turns vendor documents into structured fields with validation checks and review queues.',
+    categories: ['automation', 'document-review', 'document-ai-knowledge-search', 'data-automation-labeling'],
+    visual: 'invoice-po-automation',
+    icon: 'FileSearch',
+    alt: 'Document AI interface extracting invoice and purchase order fields for finance review.',
+    results: [
+      { value: <em>Fields</em>, label: 'Extraction', sub: 'Vendor, dates, tax, and totals' },
+      { value: <em>Match</em>, label: 'PO validation', sub: 'Three-way checks before export' },
+      { value: <em>Queue</em>, label: 'Review path', sub: 'Exceptions go to finance' },
+      { value: <em>ERP</em>, label: 'Export', sub: 'Clean records leave the workflow' },
+    ],
+    impact: [
+      { label: 'Field accuracy', value: 86, detail: 'Key fields become structured and reviewable.' },
+      { label: 'Exception control', value: 84, detail: 'Mismatches go to a human queue.' },
+      { label: 'Processing speed', value: 82, detail: 'Routine invoices move faster.' },
+      { label: 'Audit clarity', value: 88, detail: 'Validation checks stay visible.' },
+    ],
+    problemLead: 'Finance teams lose time checking invoice fields and purchase order matches by hand.',
+    problemDetail: 'The system needs to extract structured data, verify math, detect mismatches, and keep finance in control when confidence drops.',
+    approachLead: 'We split document extraction from finance approval.',
+    approachDetail: 'The finance workspace shows the invoice preview beside extracted fields, validation states, and a human review queue for exceptions.',
+    bullets: ['Invoice preview beside structured fields.', 'Vendor, date, subtotal, tax, and total extraction.', 'Validation checks for PO match and totals.', 'Human review queue for exceptions.'],
+    architecture: [
+      { name: 'Document intake', items: ['Invoices', 'POs', 'Vendor master', 'ERP records'] },
+      { name: 'Extraction', items: ['OCR', 'Field parsing', 'Line items', 'Totals'] },
+      { name: 'Validation', items: ['PO match', 'Tax check', 'Duplicate check', 'Confidence'] },
+      { name: 'Finance review', items: ['Exception queue', 'Approval', 'ERP export', 'Audit log'] },
+    ],
+    architectureNote: 'Invoice automation is useful when extraction, validation, and approval are visible in one review surface.',
+    hard: [
+      { title: 'Documents vary by vendor', detail: 'Layouts, fields, and line-item formats change constantly.' },
+      { title: 'Totals must reconcile', detail: 'Subtotal, tax, and total mismatches need explicit validation states.' },
+      { title: 'PO matching needs context', detail: 'A valid invoice still needs vendor, purchase order, and receiving context.' },
+      { title: 'Exceptions need ownership', detail: 'Human review must be clear when confidence or matching fails.' },
+    ],
+    decisions: [
+      { key: 'Side-by-side review', value: 'Preview and extracted fields stay together for faster checking.' },
+      { key: 'Validation badges', value: 'Pass, warning, and review states are visible at field level.' },
+      { key: 'Human queue', value: 'Exceptions become a managed workflow instead of a hidden failure.' },
+      { key: 'Audit trail', value: 'Every extracted field can be traced to the source document.' },
+    ],
+  }, 19),
+  visualCaseStudy({
+    id: 'meeting-crm-agent',
+    aliases: ['meeting-to-crm-revenue-agent'],
+    shortName: 'Meeting CRM Agent',
+    label: 'Revenue Agent',
+    clientMeta: 'Sales calls · CRM updates',
+    title: <>Meeting-to-CRM revenue agent for <em>sales follow-up</em>.</>,
+    lede: 'A meeting intelligence agent that turns sales calls into summaries, objections, next steps, follow-up drafts, and CRM stage updates.',
+    oneLiner: 'A revenue workflow for teams whose deal context disappears after calls because notes, objections, and follow-ups are not captured consistently.',
+    categories: ['automation', 'voice-ai', 'voice-ai-conversation-intelligence', 'growth-revenue-automation'],
+    visual: 'meeting-crm-agent',
+    icon: 'PhoneCall',
+    alt: 'AI meeting intelligence dashboard turning sales calls into CRM updates and follow-up actions.',
+    results: [
+      { value: <em>Notes</em>, label: 'Meeting summary', sub: 'Structured after each call' },
+      { value: <em>Stage</em>, label: 'CRM update', sub: 'Deal state stays current' },
+      { value: <em>Email</em>, label: 'Follow-up draft', sub: 'Rep reviews before sending' },
+      { value: <em>Risk</em>, label: 'Objections', sub: 'Blockers are captured' },
+    ],
+    impact: [
+      { label: 'Follow-up speed', value: 86, detail: 'Drafts are ready while the call is fresh.' },
+      { label: 'CRM completeness', value: 84, detail: 'Deal stage and next steps are recorded.' },
+      { label: 'Objection visibility', value: 82, detail: 'Risks surface for manager review.' },
+      { label: 'Rep focus', value: 78, detail: 'Less manual note cleanup after calls.' },
+    ],
+    problemLead: 'Sales teams lose deal context when call notes and CRM updates are delayed.',
+    problemDetail: 'Revenue leaders need summaries, objections, next steps, and follow-up drafts that connect directly to deal records.',
+    approachLead: 'We designed the call transcript as the source for CRM action.',
+    approachDetail: 'The dashboard shows the transcript, detected sales signals, next steps, and a follow-up draft before anything is committed to the CRM.',
+    bullets: ['Meeting summary with source context.', 'Objections detected from the call.', 'Next steps and follow-up email draft.', 'CRM deal stage update for sales review.'],
+    architecture: [
+      { name: 'Call sources', items: ['Transcript', 'Recording', 'CRM deal', 'Rep notes'] },
+      { name: 'Signal extraction', items: ['Summary', 'Objections', 'Next steps', 'Stakeholders'] },
+      { name: 'Revenue agent', items: ['Email draft', 'Deal stage', 'Task update', 'Risk flags'] },
+      { name: 'Sales handoff', items: ['CRM sync', 'Manager view', 'Rep approval', 'Follow-up log'] },
+    ],
+    architectureNote: 'The meeting agent only earns trust when every CRM update can be traced back to the call context that produced it.',
+    hard: [
+      { title: 'Sales language is nuanced', detail: 'Objections, buying intent, and next steps are often implied rather than stated cleanly.' },
+      { title: 'CRM writes need caution', detail: 'Automatic updates should be reviewed before they change pipeline state.' },
+      { title: 'Follow-up quality matters', detail: 'Email drafts must reflect the actual conversation, not generic templates.' },
+      { title: 'Managers need patterns', detail: 'Signals should roll up into coaching and pipeline visibility.' },
+    ],
+    decisions: [
+      { key: 'Transcript anchoring', value: 'Signals stay connected to the call evidence.' },
+      { key: 'Review before sync', value: 'CRM updates are proposed for approval instead of written silently.' },
+      { key: 'Objection panel', value: 'Risks are surfaced separately from the summary.' },
+      { key: 'Follow-up draft', value: 'The output is immediately useful to the account owner.' },
+    ],
+  }, 20),
+  visualCaseStudy({
+    id: 'internal-knowledge-assistant',
+    shortName: 'Knowledge Assistant',
+    label: 'Knowledge Chat',
+    clientMeta: 'Internal documents · Cited answers',
+    title: <>Internal knowledge assistant with <em>source citations</em>.</>,
+    lede: 'A chat interface that answers internal questions from company documents, snippets, filters, and cited source cards.',
+    oneLiner: 'A source-backed assistant for teams that need answers from policies, runbooks, product notes, and internal documentation.',
+    categories: ['chatbot', 'document-review', 'ai-assistants-knowledge-chat', 'document-ai-knowledge-search'],
+    visual: 'internal-knowledge-assistant',
+    icon: 'MessageCircle',
+    alt: 'Internal knowledge assistant answering a question with cited company documents.',
+    results: [
+      { value: <em>Chat</em>, label: 'Answer surface', sub: 'Questions answered in context' },
+      { value: <em>Cite</em>, label: 'Source cards', sub: 'Evidence remains visible' },
+      { value: <em>Filter</em>, label: 'Search scope', sub: 'Teams narrow by source' },
+      { value: <em>Trust</em>, label: 'Reviewability', sub: 'Snippets support the answer' },
+    ],
+    impact: [
+      { label: 'Answer speed', value: 86, detail: 'Teams find internal guidance faster.' },
+      { label: 'Source trust', value: 90, detail: 'Citations make answers inspectable.' },
+      { label: 'Search control', value: 80, detail: 'Filters keep answers in the right knowledge area.' },
+      { label: 'Support load', value: 76, detail: 'Repeated internal questions require fewer handoffs.' },
+    ],
+    problemLead: 'Company answers are scattered across docs, runbooks, and policy pages.',
+    problemDetail: 'Employees need quick answers, but they also need to know which document supported the response.',
+    approachLead: 'We made citations the center of the assistant experience.',
+    approachDetail: 'The assistant interface pairs the chat answer with source cards, document snippets, and filters so users can verify before acting.',
+    bullets: ['Chat answer written from internal documents.', 'Source cards and document snippets.', 'Search filters for teams, date, and collection.', 'Fallback when the assistant cannot find evidence.'],
+    architecture: [
+      { name: 'Knowledge sources', items: ['Docs', 'Runbooks', 'Policies', 'Tickets'] },
+      { name: 'Retrieval prep', items: ['Chunking', 'Permissions', 'Metadata', 'Filters'] },
+      { name: 'Assistant answer', items: ['Grounded response', 'Source cards', 'Snippets', 'Gaps'] },
+      { name: 'Team delivery', items: ['Chat UI', 'Saved answers', 'Escalation', 'Feedback'] },
+    ],
+    architectureNote: 'Knowledge assistants should answer only when they can show the user where the answer came from.',
+    hard: [
+      { title: 'Knowledge gets stale', detail: 'Answers need source dates, versions, and confidence around outdated material.' },
+      { title: 'Permissions matter', detail: 'The assistant must respect document access rules.' },
+      { title: 'Answers need evidence', detail: 'Employees should see snippets before relying on a response.' },
+      { title: 'Gaps are useful', detail: 'The system should say when no reliable source exists.' },
+    ],
+    decisions: [
+      { key: 'Citation-first UI', value: 'Source cards are placed beside the answer.' },
+      { key: 'Filter controls', value: 'Users can scope searches to relevant collections.' },
+      { key: 'Snippet preview', value: 'Evidence is visible without opening every document.' },
+      { key: 'Feedback loop', value: 'Users can flag weak answers for content updates.' },
+    ],
+  }, 21),
+  visualCaseStudy({
+    id: 'healthcare-rcm-assistant',
+    shortName: 'Healthcare RCM Assistant',
+    label: 'Healthcare AI',
+    clientMeta: 'Claim review · Appeal support',
+    title: <>Healthcare RCM assistant for <em>claim denial review</em>.</>,
+    lede: 'A revenue cycle AI assistant that reviews claim denial details, payer rules, documentation gaps, and appeal support notes.',
+    oneLiner: 'A claim review workspace for teams that need faster denial triage while keeping appeal decisions under human review.',
+    categories: ['automation', 'document-review', 'risk-compliance-ai-evaluation', 'health-fitness-ai'],
+    visual: 'healthcare-rcm-assistant',
+    icon: 'ShieldCheck',
+    alt: 'Healthcare revenue cycle AI assistant reviewing claim denial details and appeal opportunities.',
+    results: [
+      { value: <em>Denial</em>, label: 'Category', sub: 'Reason codes organized' },
+      { value: <em>Rule</em>, label: 'Payer policy', sub: 'Relevant guidance summarized' },
+      { value: <em>Gap</em>, label: 'Documentation', sub: 'Missing evidence surfaced' },
+      { value: <em>Appeal</em>, label: 'Draft support', sub: 'Reviewer edits before use' },
+    ],
+    impact: [
+      { label: 'Triage speed', value: 82, detail: 'Denials are grouped into action paths.' },
+      { label: 'Policy clarity', value: 84, detail: 'Payer rule summaries stay visible.' },
+      { label: 'Appeal support', value: 78, detail: 'Draft notes shorten reviewer prep.' },
+      { label: 'Review control', value: 88, detail: 'Human approval remains central.' },
+    ],
+    problemLead: 'Claim denials require policy context, documentation review, and careful appeal judgment.',
+    problemDetail: 'RCM teams need a way to see denial reasons, payer rules, missing evidence, and possible appeal notes without losing review control.',
+    approachLead: 'We designed the assistant around denial evidence and human review.',
+    approachDetail: 'The visual shows a claim timeline, denial category, payer rule summary, documentation gaps, and appeal support notes in one workspace.',
+    bullets: ['Claim timeline with denial category.', 'Payer rule summary and documentation gaps.', 'Appeal support notes for reviewer editing.', 'Human review queue for sensitive actions.'],
+    architecture: [
+      { name: 'Claim sources', items: ['Denial letter', 'Claim history', 'Payer rules', 'Clinical docs'] },
+      { name: 'Review prep', items: ['Reason codes', 'Timeline', 'Eligibility', 'Evidence gaps'] },
+      { name: 'RCM assistant', items: ['Rule summary', 'Appeal notes', 'Risk flags', 'Next action'] },
+      { name: 'Appeal workflow', items: ['Reviewer queue', 'Draft packet', 'Owner assignment', 'Audit log'] },
+    ],
+    architectureNote: 'Healthcare RCM workflows need AI to organize evidence, not make unsupported appeal decisions.',
+    hard: [
+      { title: 'Healthcare context is sensitive', detail: 'Claims involve regulated data and high-stakes financial outcomes.' },
+      { title: 'Payer rules vary', detail: 'The assistant must summarize the right rule for the denial context.' },
+      { title: 'Documentation gaps are specific', detail: 'A useful review identifies what evidence is missing and why it matters.' },
+      { title: 'Human approval is required', detail: 'Appeal drafts must remain editable support notes.' },
+    ],
+    decisions: [
+      { key: 'Timeline view', value: 'Claim history and denial events are shown before recommendations.' },
+      { key: 'Rule summary', value: 'Payer guidance is visible beside the appeal opportunity.' },
+      { key: 'Gap list', value: 'Documentation issues are separated from general notes.' },
+      { key: 'Review queue', value: 'Sensitive actions are routed to a human owner.' },
+    ],
+  }, 22),
+  visualCaseStudy({
+    id: 'voice-appointment-setter',
+    aliases: ['ai-voice-appointment-setter'],
+    shortName: 'Voice Appointment Setter',
+    label: 'Voice AI Agent',
+    clientMeta: 'Lead qualification · Calendar booking',
+    title: <>AI voice appointment setter for <em>qualified calls</em>.</>,
+    lede: 'A voice AI dashboard that captures live transcripts, qualifies callers, selects calendar slots, and confirms booked appointments.',
+    oneLiner: 'A call automation workflow for teams that need to qualify inbound leads and book appointments without missing context.',
+    categories: ['voice-ai', 'automation', 'voice-ai-conversation-intelligence', 'growth-revenue-automation'],
+    visual: 'voice-appointment-setter',
+    icon: 'Mic',
+    alt: 'Voice AI appointment setter qualifying a caller and booking a meeting.',
+    results: [
+      { value: <em>Live</em>, label: 'Transcript', sub: 'Caller context captured' },
+      { value: <em>Fit</em>, label: 'Qualification', sub: 'Checklist completed' },
+      { value: <em>Slot</em>, label: 'Calendar', sub: 'Availability selected' },
+      { value: <em>Book</em>, label: 'Confirmation', sub: 'Appointment logged' },
+    ],
+    impact: [
+      { label: 'Booking speed', value: 84, detail: 'Qualified callers get to an open slot faster.' },
+      { label: 'Lead quality', value: 80, detail: 'Qualification answers are structured.' },
+      { label: 'Call visibility', value: 82, detail: 'Transcript and checklist are reviewable.' },
+      { label: 'Scheduling control', value: 86, detail: 'Calendar rules stay explicit.' },
+    ],
+    problemLead: 'Inbound calls often require the same qualification and scheduling steps.',
+    problemDetail: 'The team needs a live voice workflow that can ask questions, capture answers, check availability, and confirm the booking without hiding what happened.',
+    approachLead: 'We connected live call state to lead qualification and scheduling.',
+    approachDetail: 'The dashboard shows waveform, transcript, checklist, slot selector, and appointment confirmation in one reviewable surface.',
+    bullets: ['Live call waveform and transcript.', 'Qualification checklist with lead-fit state.', 'Calendar slot selector.', 'Appointment confirmation and CRM handoff.'],
+    architecture: [
+      { name: 'Call sources', items: ['Inbound call', 'Lead source', 'Calendar rules', 'CRM context'] },
+      { name: 'Conversation prep', items: ['ASR', 'Intent', 'Qualification', 'Availability'] },
+      { name: 'Voice agent', items: ['Question flow', 'Slot selection', 'Confirmation', 'Fallback'] },
+      { name: 'Booking handoff', items: ['Calendar event', 'CRM note', 'SMS confirm', 'Team alert'] },
+    ],
+    architectureNote: 'Appointment setting works when the voice agent can qualify, book, and show the evidence behind the booking.',
+    hard: [
+      { title: 'Calls are live', detail: 'The system needs low-latency turn handling and clear fallback.' },
+      { title: 'Qualification varies', detail: 'Different lead sources require different question paths.' },
+      { title: 'Calendar rules matter', detail: 'Availability, buffers, and owner routing must be respected.' },
+      { title: 'Confirmation needs certainty', detail: 'Booked slots must sync reliably to the calendar and CRM.' },
+    ],
+    decisions: [
+      { key: 'Live status', value: 'Waveform and transcript show the call is in progress.' },
+      { key: 'Checklist', value: 'Qualification criteria are visible and auditable.' },
+      { key: 'Calendar panel', value: 'Slot choice appears as a real scheduling decision.' },
+      { key: 'Confirmation state', value: 'The workflow ends with a visible booking result.' },
+    ],
+  }, 23),
+  visualCaseStudy({
+    id: 'ai-quality-guardrails',
+    shortName: 'AI Quality Guardrails',
+    label: 'AI Evaluation Dashboard',
+    clientMeta: 'Prompt QA · Safety checks',
+    title: <>AI quality and guardrails dashboard for <em>reliable releases</em>.</>,
+    lede: 'An AI evaluation dashboard with test cases, pass or fail scores, regression alerts, prompt comparison, and safety checks.',
+    oneLiner: 'A quality system for teams shipping prompts, agents, or model workflows that need measurable release confidence.',
+    categories: ['mlops-ai-infrastructure', 'risk-compliance-ai-evaluation'],
+    visual: 'ai-quality-guardrails',
+    icon: 'ShieldCheck',
+    alt: 'AI quality dashboard showing model evaluation scores, regression checks, and guardrail results.',
+    results: [
+      { value: <em>Eval</em>, label: 'Test cases', sub: 'Expected behavior captured' },
+      { value: <em>Pass</em>, label: 'Guardrails', sub: 'Safety checks tracked' },
+      { value: <em>Diff</em>, label: 'Prompt compare', sub: 'Version changes visible' },
+      { value: <em>Alert</em>, label: 'Regression', sub: 'Failures block release' },
+    ],
+    impact: [
+      { label: 'Release confidence', value: 86, detail: 'Teams can see pass rates before deploy.' },
+      { label: 'Safety visibility', value: 88, detail: 'Risk checks are explicit.' },
+      { label: 'Regression control', value: 84, detail: 'Failed cases stop quiet degradation.' },
+      { label: 'Prompt governance', value: 80, detail: 'Version comparisons are reviewable.' },
+    ],
+    problemLead: 'AI systems change quickly, and teams need to know when quality moves backward.',
+    problemDetail: 'Prompt updates, model changes, and agent tool behavior need test suites, safety checks, and regression alerts before release.',
+    approachLead: 'We made evaluation a dashboard with release decisions.',
+    approachDetail: 'The visual shows scorecards, prompt version comparison, failed test cases, and risk flags so teams can decide what is ready to ship.',
+    bullets: ['Evaluation scorecards for quality and safety.', 'Prompt version comparison.', 'Failed test cases and regression alerts.', 'Risk flags for guardrail review.'],
+    architecture: [
+      { name: 'Test sources', items: ['Golden cases', 'Prompt versions', 'Model outputs', 'Policy rules'] },
+      { name: 'Evaluation run', items: ['Assertions', 'Rubrics', 'Safety checks', 'Regression diff'] },
+      { name: 'Quality decision', items: ['Pass rate', 'Failed cases', 'Risk flags', 'Release gate'] },
+      { name: 'Ops handoff', items: ['Deploy note', 'Owner review', 'Incident log', 'Version history'] },
+    ],
+    architectureNote: 'AI guardrails become useful when quality checks influence release decisions instead of living in a separate report.',
+    hard: [
+      { title: 'Quality is multi-dimensional', detail: 'Accuracy, tone, safety, tool use, and latency can all regress separately.' },
+      { title: 'Prompts are code-like', detail: 'Prompt changes need comparison, review, and version history.' },
+      { title: 'Safety checks need examples', detail: 'Guardrails should be tied to concrete failures and expected outputs.' },
+      { title: 'Release gates need clarity', detail: 'Teams need to know whether a version is ready, risky, or blocked.' },
+    ],
+    decisions: [
+      { key: 'Scorecards', value: 'Quality and risk are summarized without hiding test detail.' },
+      { key: 'Failed-case table', value: 'Regressions stay visible and actionable.' },
+      { key: 'Prompt diff', value: 'Version changes can be reviewed like software changes.' },
+      { key: 'Release state', value: 'The dashboard recommends ship, hold, or investigate.' },
+    ],
+  }, 24),
+  visualCaseStudy({
+    id: 'spreadsheet-dashboard-automation',
+    shortName: 'Spreadsheet Dashboard',
+    label: 'Data Automation',
+    clientMeta: 'Spreadsheet cleanup · KPI dashboard',
+    title: <>Spreadsheet-to-dashboard automation for <em>business KPIs</em>.</>,
+    lede: 'An automation workflow that turns messy spreadsheet imports into cleaned tables, KPI cards, and business charts.',
+    oneLiner: 'A data automation system for teams that rely on spreadsheets but need cleaner dashboards for operating decisions.',
+    categories: ['python-scripts', 'automation', 'data-automation-labeling', 'forecasting-decision-intelligence'],
+    visual: 'spreadsheet-dashboard-automation',
+    icon: 'TableProperties',
+    alt: 'Automation workflow turning spreadsheet data into clean business dashboards.',
+    results: [
+      { value: <em>Import</em>, label: 'Spreadsheet intake', sub: 'Messy files normalized' },
+      { value: <em>Clean</em>, label: 'Data table', sub: 'Rules fix common errors' },
+      { value: <em>KPI</em>, label: 'Cards', sub: 'Core metrics are visible' },
+      { value: <em>Chart</em>, label: 'Dashboard', sub: 'Trends update automatically' },
+    ],
+    impact: [
+      { label: 'Reporting speed', value: 86, detail: 'Manual spreadsheet cleanup drops.' },
+      { label: 'Data quality', value: 82, detail: 'Missing and invalid values are flagged.' },
+      { label: 'Decision clarity', value: 84, detail: 'KPIs replace raw file scanning.' },
+      { label: 'Repeatability', value: 88, detail: 'The import flow can run every cycle.' },
+    ],
+    problemLead: 'Spreadsheets carry important business data, but they are rarely dashboard-ready.',
+    problemDetail: 'Teams need to import messy files, clean common issues, calculate KPIs, and publish charts without rebuilding the report every week.',
+    approachLead: 'We made the transformation from raw sheet to KPI dashboard visible.',
+    approachDetail: 'The automation workspace shows import state, cleaned table rows, metric cards, and charts so the workflow feels concrete.',
+    bullets: ['Spreadsheet import with validation state.', 'Cleaned data table and missing-value checks.', 'KPI cards for business metrics.', 'Revenue or operations chart output.'],
+    architecture: [
+      { name: 'Data sources', items: ['CSV files', 'Google Sheets', 'Exports', 'Manual notes'] },
+      { name: 'Cleanup rules', items: ['Column mapping', 'Deduping', 'Validation', 'Normalization'] },
+      { name: 'Metric layer', items: ['KPI formulas', 'Trend checks', 'Anomaly flags', 'Segments'] },
+      { name: 'Dashboard delivery', items: ['Charts', 'Scheduled refresh', 'Exports', 'Alerts'] },
+    ],
+    architectureNote: 'Spreadsheet automation works when the team can trust the cleanup rules before they trust the dashboard.',
+    hard: [
+      { title: 'Files change shape', detail: 'Column names, formats, and missing values vary between exports.' },
+      { title: 'Business logic matters', detail: 'KPIs depend on definitions that need to stay explicit.' },
+      { title: 'Errors must surface', detail: 'Bad rows should be reviewed instead of silently removed.' },
+      { title: 'Reports need cadence', detail: 'The workflow has to repeat without manual rebuilding.' },
+    ],
+    decisions: [
+      { key: 'Import preview', value: 'Raw rows are visible before transformation.' },
+      { key: 'Validation state', value: 'Missing or suspect data gets flagged clearly.' },
+      { key: 'KPI cards', value: 'Decision metrics are separated from raw tables.' },
+      { key: 'Refresh path', value: 'The dashboard is designed as a repeatable workflow.' },
+    ],
+  }, 25),
+  visualCaseStudy({
+    id: 'contract-change-monitor',
+    aliases: ['policy-contract-change-monitor'],
+    shortName: 'Contract Change Monitor',
+    label: 'Risk Review Tool',
+    clientMeta: 'Document comparison · Policy risk',
+    title: <>Policy and contract change monitor for <em>review risk</em>.</>,
+    lede: 'A document comparison interface that highlights changed clauses, summarizes risk, and assigns reviewers.',
+    oneLiner: 'A risk workflow for teams that need to know what changed across contracts, policies, and vendor terms before approval.',
+    categories: ['document-review', 'document-ai-knowledge-search', 'risk-compliance-ai-evaluation'],
+    visual: 'contract-change-monitor',
+    icon: 'FileSearch',
+    alt: 'AI contract comparison tool highlighting policy changes and review risks.',
+    results: [
+      { value: <em>Diff</em>, label: 'Comparison', sub: 'Old and new clauses aligned' },
+      { value: <em>Risk</em>, label: 'Summary', sub: 'Material changes surfaced' },
+      { value: <em>Owner</em>, label: 'Assignment', sub: 'Reviewer selected' },
+      { value: <em>Log</em>, label: 'Audit', sub: 'Decisions stay tracked' },
+    ],
+    impact: [
+      { label: 'Change visibility', value: 88, detail: 'Clause edits are easy to inspect.' },
+      { label: 'Risk triage', value: 84, detail: 'Material changes rise above noise.' },
+      { label: 'Reviewer speed', value: 80, detail: 'Assignments are made from risk type.' },
+      { label: 'Governance', value: 86, detail: 'Decisions remain traceable.' },
+    ],
+    problemLead: 'Policy and contract updates can hide material risk inside small wording changes.',
+    problemDetail: 'Reviewers need old and new language, highlighted clauses, risk notes, and owner assignment in one place.',
+    approachLead: 'We treated document comparison as a risk routing workflow.',
+    approachDetail: 'The interface pairs old and new columns with highlighted clauses, a risk summary, and reviewer assignment state.',
+    bullets: ['Old vs new document columns.', 'Highlighted clauses with change type.', 'Risk summary and materiality notes.', 'Reviewer assignment and status tracking.'],
+    architecture: [
+      { name: 'Document versions', items: ['Old contract', 'New contract', 'Policy library', 'Reviewer rules'] },
+      { name: 'Comparison prep', items: ['Clause matching', 'Change detection', 'Risk taxonomy', 'Metadata'] },
+      { name: 'Risk monitor', items: ['Change summary', 'Risk notes', 'Materiality', 'Owner recommendation'] },
+      { name: 'Review workflow', items: ['Assignment', 'Approval notes', 'Export', 'Audit trail'] },
+    ],
+    architectureNote: 'Contract change monitoring is useful when differences, risk notes, and reviewer ownership appear in one workflow.',
+    hard: [
+      { title: 'Text diffs can be noisy', detail: 'Formatting changes should not distract from material language edits.' },
+      { title: 'Risk depends on policy', detail: 'A clause change matters only in relation to company standards.' },
+      { title: 'Ownership must be clear', detail: 'Legal, finance, or operations may need different review paths.' },
+      { title: 'Approvals need history', detail: 'Review notes must remain attached to the exact changed language.' },
+    ],
+    decisions: [
+      { key: 'Two-column diff', value: 'Old and new text can be compared without context switching.' },
+      { key: 'Risk summary', value: 'Material changes get plain-language notes.' },
+      { key: 'Reviewer assignment', value: 'Risk type drives who should inspect the change.' },
+      { key: 'Audit notes', value: 'Approvals stay connected to the clause version.' },
+    ],
+  }, 26),
+  visualCaseStudy({
+    id: 'ad-creative-generator',
+    aliases: ['ad-creative-variant-generator'],
+    shortName: 'Ad Creative Generator',
+    label: 'Generative Media Tool',
+    clientMeta: 'Creative testing · Ad variants',
+    title: <>Ad creative variant generator for <em>testing hooks</em>.</>,
+    lede: 'A creative workflow that turns product briefs into hooks, scripts, captions, and campaign angle variants.',
+    oneLiner: 'A generative media workspace for marketers who need more tested creative options without losing editorial review.',
+    categories: ['automation', 'generative-media-creator-tools', 'growth-revenue-automation'],
+    visual: 'ad-creative-generator',
+    icon: 'Clapperboard',
+    alt: 'AI creative workflow generating ad hooks, captions, scripts, and campaign variants.',
+    results: [
+      { value: <em>Hook</em>, label: 'Variations', sub: 'Angles for testing' },
+      { value: <em>Script</em>, label: 'Short-form drafts', sub: 'Creator-ready outlines' },
+      { value: <em>Caption</em>, label: 'Copy variants', sub: 'Channel-specific language' },
+      { value: <em>Review</em>, label: 'Editorial control', sub: 'Human approval stays central' },
+    ],
+    impact: [
+      { label: 'Creative throughput', value: 88, detail: 'More variants are ready for review.' },
+      { label: 'Angle clarity', value: 82, detail: 'Campaign concepts are labeled.' },
+      { label: 'Review speed', value: 80, detail: 'Editors compare options faster.' },
+      { label: 'Testing discipline', value: 78, detail: 'Hooks and scripts map to campaign goals.' },
+    ],
+    problemLead: 'Creative testing requires many variants, but teams still need quality control.',
+    problemDetail: 'Marketers need hooks, scripts, captions, and campaign angles that start from the product brief and remain easy to review.',
+    approachLead: 'We made creative generation look like an editorial workflow.',
+    approachDetail: 'The visual shows the product brief, hook variations, script cards, caption drafts, and campaign angle labels.',
+    bullets: ['Product brief as the source of truth.', 'Hook variations and script cards.', 'Caption drafts for channel use.', 'Campaign angle labels for testing.'],
+    architecture: [
+      { name: 'Creative inputs', items: ['Product brief', 'Audience', 'Offer', 'Brand notes'] },
+      { name: 'Idea generation', items: ['Hooks', 'Angles', 'Scripts', 'Captions'] },
+      { name: 'Variant scoring', items: ['Fit checks', 'Tone review', 'Testing tags', 'Risk flags'] },
+      { name: 'Campaign handoff', items: ['Approved variants', 'Exports', 'Brief links', 'Performance notes'] },
+    ],
+    architectureNote: 'Ad generation needs a reviewable path from product brief to campaign-ready variants.',
+    hard: [
+      { title: 'Creative output can get generic', detail: 'Variants need to stay tied to a concrete offer and audience.' },
+      { title: 'Brand voice matters', detail: 'Generated copy needs tone checks before it reaches production.' },
+      { title: 'Testing needs structure', detail: 'Hooks should map to campaign angles and hypotheses.' },
+      { title: 'Review should be fast', detail: 'Editors need enough variation without comparing noise.' },
+    ],
+    decisions: [
+      { key: 'Brief panel', value: 'The product brief stays visible as the source.' },
+      { key: 'Variant cards', value: 'Hooks and scripts are comparable at a glance.' },
+      { key: 'Angle labels', value: 'Each creative concept has a testable role.' },
+      { key: 'Approval state', value: 'Human review is part of the workflow.' },
+    ],
+  }, 27),
+  visualCaseStudy({
+    id: 'churn-risk-predictor',
+    shortName: 'Churn Risk Predictor',
+    label: 'Decision Intelligence',
+    clientMeta: 'Customer health · Retention signals',
+    title: <>Churn risk predictor for <em>customer retention</em>.</>,
+    lede: 'A customer health dashboard that predicts churn risk from usage trends, support signals, and account-level drivers.',
+    oneLiner: 'A retention workflow for teams that need to spot at-risk accounts early and assign the right intervention.',
+    categories: ['python-scripts', 'forecasting-decision-intelligence', 'growth-revenue-automation'],
+    visual: 'churn-risk-predictor',
+    icon: 'TrendingUp',
+    alt: 'Customer churn prediction dashboard showing account risk scores and retention signals.',
+    results: [
+      { value: <em>Risk</em>, label: 'Account score', sub: 'Churn probability by customer' },
+      { value: <em>Usage</em>, label: 'Trend', sub: 'Product activity change' },
+      { value: <em>Driver</em>, label: 'Explanation', sub: 'Why the score moved' },
+      { value: <em>Action</em>, label: 'Intervention', sub: 'CS follow-up suggested' },
+    ],
+    impact: [
+      { label: 'Risk visibility', value: 88, detail: 'At-risk accounts rise before renewal.' },
+      { label: 'Driver clarity', value: 84, detail: 'Teams see why the score changed.' },
+      { label: 'CS focus', value: 82, detail: 'Interventions are prioritized.' },
+      { label: 'Forecast trust', value: 78, detail: 'Scores stay explainable.' },
+    ],
+    problemLead: 'Customer success teams often learn about churn after usage has already dropped.',
+    problemDetail: 'They need risk scores, usage trends, churn drivers, and recommended interventions before renewal risk becomes irreversible.',
+    approachLead: 'We framed churn prediction as a customer health workflow.',
+    approachDetail: 'The dashboard shows account lists, risk scores, usage trends, churn drivers, and a suggested intervention.',
+    bullets: ['Account list with risk scores.', 'Usage trend and health indicators.', 'Churn drivers tied to the score.', 'Suggested intervention for customer success.'],
+    architecture: [
+      { name: 'Customer signals', items: ['Usage events', 'Support tickets', 'Billing history', 'CRM notes'] },
+      { name: 'Feature prep', items: ['Trend windows', 'Engagement drops', 'Ticket volume', 'Renewal stage'] },
+      { name: 'Risk model', items: ['Churn score', 'Drivers', 'Confidence', 'Segments'] },
+      { name: 'CS workflow', items: ['Intervention', 'Owner task', 'Health dashboard', 'Renewal report'] },
+    ],
+    architectureNote: 'Churn prediction matters when a score is paired with a clear driver and a next action.',
+    hard: [
+      { title: 'Risk is not one signal', detail: 'Usage, support, billing, and relationship context all matter.' },
+      { title: 'Scores need explanation', detail: 'Customer success teams need to know what changed.' },
+      { title: 'Interventions must be practical', detail: 'A warning is only useful if it maps to an action.' },
+      { title: 'Renewal timing matters', detail: 'Risk windows need to align with account cycles.' },
+    ],
+    decisions: [
+      { key: 'Account list', value: 'Risk is shown where CS teams already prioritize work.' },
+      { key: 'Driver panel', value: 'The score includes explainable reasons.' },
+      { key: 'Trend chart', value: 'Usage change is visible over time.' },
+      { key: 'Suggested action', value: 'Each risk state points to a next intervention.' },
+    ],
+  }, 28),
+  visualCaseStudy({
+    id: 'recruiting-outreach-agent',
+    shortName: 'Recruiting Outreach Agent',
+    label: 'Recruiting AI Agent',
+    clientMeta: 'Candidate matching · Outreach drafts',
+    title: <>Recruiting outreach agent for <em>candidate pipelines</em>.</>,
+    lede: 'A hiring pipeline dashboard with candidate cards, resume match scores, outreach drafts, and interview scheduling.',
+    oneLiner: 'A recruiting workflow for teams that need faster shortlists and more personalized candidate outreach.',
+    categories: ['automation', 'document-review', 'growth-revenue-automation', 'ai-agents-workflow-automation'],
+    visual: 'recruiting-outreach-agent',
+    icon: 'UserSearch',
+    alt: 'AI recruiting workflow screening candidates and drafting personalized outreach.',
+    results: [
+      { value: <em>Match</em>, label: 'Candidate score', sub: 'Resume fit is structured' },
+      { value: <em>Email</em>, label: 'Outreach draft', sub: 'Personalized message ready' },
+      { value: <em>Slot</em>, label: 'Scheduling', sub: 'Interview times suggested' },
+      { value: <em>Review</em>, label: 'Recruiter control', sub: 'Human approves next step' },
+    ],
+    impact: [
+      { label: 'Shortlist speed', value: 86, detail: 'Relevant candidates rise faster.' },
+      { label: 'Message quality', value: 80, detail: 'Outreach references candidate evidence.' },
+      { label: 'Scheduling flow', value: 78, detail: 'Interview holds are easier to propose.' },
+      { label: 'Review trust', value: 84, detail: 'Scores stay attached to resume signals.' },
+    ],
+    problemLead: 'Recruiters need fast screening, but outreach still has to feel personal.',
+    problemDetail: 'The workflow must rank candidates, explain fit, draft outreach, and help schedule without making hiring decisions opaque.',
+    approachLead: 'We designed recruiting automation as reviewer-controlled pipeline support.',
+    approachDetail: 'The recruiting workspace shows candidate shortlist cards, match scores, an outreach draft, and a scheduling panel.',
+    bullets: ['Candidate shortlist with match scores.', 'Resume evidence tied to each score.', 'Personalized email draft.', 'Calendar scheduling panel.'],
+    architecture: [
+      { name: 'Hiring inputs', items: ['Resumes', 'Job criteria', 'Recruiter notes', 'Calendar'] },
+      { name: 'Screening prep', items: ['Parsing', 'Skill matching', 'Experience mapping', 'Availability'] },
+      { name: 'Outreach agent', items: ['Match score', 'Evidence', 'Email draft', 'Interview suggestion'] },
+      { name: 'Recruiter handoff', items: ['Shortlist', 'Approve email', 'Schedule hold', 'ATS note'] },
+    ],
+    architectureNote: 'Recruiting agents should accelerate screening and outreach while preserving recruiter judgment.',
+    hard: [
+      { title: 'Hiring is high stakes', detail: 'Scores need evidence and human review.' },
+      { title: 'Personalization matters', detail: 'Outreach should reference real candidate context.' },
+      { title: 'Criteria vary by role', detail: 'Rubrics and fit signals need role-specific configuration.' },
+      { title: 'Scheduling is operational', detail: 'Calendar steps need to work with recruiter availability.' },
+    ],
+    decisions: [
+      { key: 'Candidate cards', value: 'Fit signals and evidence are scan-friendly.' },
+      { key: 'Outreach draft', value: 'Recruiters start from a personalized message.' },
+      { key: 'Calendar panel', value: 'Scheduling is included in the workflow.' },
+      { key: 'Human approval', value: 'The agent recommends actions instead of deciding alone.' },
+    ],
+    related: [
+      { id: 'agentic-resume-screener', tag: 'Recruiting agents', title: 'Agentic resume screening workflow.', metric: 'OCR intake' },
+      { id: 'ai-inbox-triage', tag: 'Workflow agents', title: 'AI inbox triage and reply assistant.', metric: 'CRM synced' },
+    ],
+  }, 29),
+  visualCaseStudy({
+    id: 'retail-shelf-intelligence',
+    shortName: 'Retail Shelf Intelligence',
+    label: 'Computer Vision',
+    clientMeta: 'Shelf monitoring · Restock alerts',
+    title: <>Retail shelf intelligence for <em>restock visibility</em>.</>,
+    lede: 'A computer vision dashboard that detects empty shelf spaces, misplaced products, and store-level restock alerts.',
+    oneLiner: 'A shelf monitoring workflow for retail teams that need visual inventory signals before customers find empty facings.',
+    categories: ['computer-vision', 'edge-ai', 'data-automation-labeling'],
+    visual: 'retail-shelf-intelligence',
+    icon: 'ScanEye',
+    alt: 'Computer vision dashboard detecting empty retail shelves and misplaced products.',
+    results: [
+      { value: <em>Detect</em>, label: 'Empty spaces', sub: 'Out-of-stock facings flagged' },
+      { value: <em>SKU</em>, label: 'Misplacement', sub: 'Wrong product detected' },
+      { value: <em>Alert</em>, label: 'Store action', sub: 'Restock task created' },
+      { value: <em>Review</em>, label: 'Human check', sub: 'Low-confidence frames routed' },
+    ],
+    impact: [
+      { label: 'Shelf visibility', value: 88, detail: 'Empty facings become visible quickly.' },
+      { label: 'Restock action', value: 84, detail: 'Alerts point to aisle and bay.' },
+      { label: 'Review efficiency', value: 78, detail: 'Only uncertain detections need a human.' },
+      { label: 'Store consistency', value: 80, detail: 'Product placement issues are tracked.' },
+    ],
+    problemLead: 'Retail teams cannot manually inspect every shelf often enough.',
+    problemDetail: 'Stores need a camera-based workflow that detects empty spaces, misplaced products, and restock opportunities with reviewable evidence.',
+    approachLead: 'We made visual detection actionable at the shelf level.',
+    approachDetail: 'The dashboard shows a shelf camera frame, bounding boxes, out-of-stock labels, and a store alert panel.',
+    bullets: ['Shelf camera frame with bounding boxes.', 'Out-of-stock and misplaced-product labels.', 'Store alert panel with aisle context.', 'Review queue for uncertain frames.'],
+    architecture: [
+      { name: 'Visual inputs', items: ['Shelf cameras', 'Planograms', 'SKU data', 'Store map'] },
+      { name: 'Detection prep', items: ['Frame sampling', 'Object detection', 'Shelf zones', 'Confidence'] },
+      { name: 'Shelf intelligence', items: ['Empty facings', 'Misplaced SKU', 'Restock priority', 'Review flags'] },
+      { name: 'Store action', items: ['Task alert', 'Aisle note', 'Manager view', 'History'] },
+    ],
+    architectureNote: 'Retail vision systems work when detections convert into clear store tasks.',
+    hard: [
+      { title: 'Shelves are visually noisy', detail: 'Lighting, packaging, and partial occlusion make detection harder.' },
+      { title: 'Store layouts vary', detail: 'Aisle and bay context must be configurable.' },
+      { title: 'False alerts create fatigue', detail: 'Confidence and review thresholds matter.' },
+      { title: 'Tasks need location', detail: 'A restock alert is useful only when staff know where to go.' },
+    ],
+    decisions: [
+      { key: 'Camera frame', value: 'The visual centers on the actual inspection evidence.' },
+      { key: 'Bounding boxes', value: 'Detected issues are localized on the shelf.' },
+      { key: 'Alert panel', value: 'Vision output becomes a store action.' },
+      { key: 'Review path', value: 'Low-confidence detections are routed for checking.' },
+    ],
+  }, 30),
+  visualCaseStudy({
+    id: 'corefit-pose-coach',
+    shortName: 'CoreFit Pose Coach',
+    label: 'On-Device Fitness AI',
+    clientMeta: 'Core ML · Pose tracking',
+    title: <>CoreFit on-device pose coach for <em>form feedback</em>.</>,
+    lede: 'A mobile fitness app experience showing on-device pose landmarks, rep count, form score, and feedback cues.',
+    oneLiner: 'A Core ML fitness workflow for users who want live exercise guidance without sending camera frames to the cloud.',
+    categories: ['core-ml-on-device-ai', 'health-fitness-ai', 'edge-ai'],
+    visual: 'corefit-pose-coach',
+    icon: 'Smartphone',
+    alt: 'Core ML fitness app showing on-device pose tracking and exercise form feedback.',
+    results: [
+      { value: <em>Pose</em>, label: 'Landmarks', sub: 'Skeleton overlay on-device' },
+      { value: <em>Rep</em>, label: 'Counter', sub: 'Exercise progress tracked' },
+      { value: <em>Form</em>, label: 'Score', sub: 'Feedback shown live' },
+      { value: <em>Local</em>, label: 'Privacy', sub: 'Camera processing stays on device' },
+    ],
+    impact: [
+      { label: 'Feedback speed', value: 86, detail: 'Form cues appear during movement.' },
+      { label: 'Privacy', value: 90, detail: 'Frames stay on the device.' },
+      { label: 'Exercise clarity', value: 82, detail: 'Rep count and form score are visible.' },
+      { label: 'User trust', value: 80, detail: 'Feedback is simple and explainable.' },
+    ],
+    problemLead: 'Fitness feedback needs to be immediate, private, and easy to understand.',
+    problemDetail: 'A mobile pose coach must show tracking, rep count, and form cues without overwhelming users during exercise.',
+    approachLead: 'We designed the mobile surface around live form feedback.',
+    approachDetail: 'The mobile interface shows pose skeleton overlay, rep count, form score, and local-processing status.',
+    bullets: ['iPhone frame with pose skeleton overlay.', 'Rep counter and form score.', 'Specific feedback cues for posture.', 'On-device processing badge.'],
+    architecture: [
+      { name: 'Device inputs', items: ['Camera frame', 'Exercise mode', 'User settings', 'Local model'] },
+      { name: 'Pose prep', items: ['Landmarks', 'Joint angles', 'Rep phase', 'Confidence'] },
+      { name: 'Fitness coach', items: ['Form score', 'Rep count', 'Cue selection', 'Safety state'] },
+      { name: 'Mobile feedback', items: ['Overlay', 'Voice cue', 'Progress', 'Workout log'] },
+    ],
+    architectureNote: 'On-device pose coaching needs tight visual feedback with privacy and latency built into the product surface.',
+    hard: [
+      { title: 'Movement is continuous', detail: 'Feedback must update without distracting the user.' },
+      { title: 'Pose confidence varies', detail: 'Lighting, angle, and occlusion affect landmark quality.' },
+      { title: 'Privacy matters', detail: 'Camera data should stay local for trust.' },
+      { title: 'Cues must be simple', detail: 'Users cannot read complex explanations mid-rep.' },
+    ],
+    decisions: [
+      { key: 'Phone frame', value: 'The visual makes the on-device experience explicit.' },
+      { key: 'Skeleton overlay', value: 'Pose tracking is visible without using real user imagery.' },
+      { key: 'Score and reps', value: 'Progress and quality are shown together.' },
+      { key: 'Local badge', value: 'Privacy is part of the interface, not only the copy.' },
+    ],
+  }, 31),
+  visualCaseStudy({
+    id: 'defectlens-quality-inspection',
+    shortName: 'DefectLens QA',
+    label: 'Manufacturing Vision AI',
+    clientMeta: 'Defect detection · Human review',
+    title: <>DefectLens quality inspection for <em>assembly-line review</em>.</>,
+    lede: 'A manufacturing QA interface that detects scratches, dents, missing parts, and anomaly confidence from product images.',
+    oneLiner: 'A computer vision workflow for factories that need faster inspection while routing uncertain defects to human review.',
+    categories: ['computer-vision', 'manufacturing-ai', 'risk-compliance-ai-evaluation'],
+    visual: 'defectlens-quality-inspection',
+    icon: 'ScanSearch',
+    alt: 'Computer vision quality inspection tool detecting product defects from assembly-line images.',
+    results: [
+      { value: <em>Detect</em>, label: 'Defects', sub: 'Scratches and dents localized' },
+      { value: <em>Conf</em>, label: 'Confidence', sub: 'Model certainty shown' },
+      { value: <em>Queue</em>, label: 'Human review', sub: 'Uncertain cases escalated' },
+      { value: <em>QA</em>, label: 'Audit', sub: 'Inspection history retained' },
+    ],
+    impact: [
+      { label: 'Inspection speed', value: 86, detail: 'Obvious defects are flagged quickly.' },
+      { label: 'Defect visibility', value: 88, detail: 'Issues are located on the product image.' },
+      { label: 'Review efficiency', value: 82, detail: 'Human reviewers focus on uncertain cases.' },
+      { label: 'QA traceability', value: 84, detail: 'Decisions can be audited later.' },
+    ],
+    problemLead: 'Manufacturing QA needs fast visual inspection without losing human accountability.',
+    problemDetail: 'The system must detect surface defects, missing parts, and anomaly confidence while keeping review paths clear.',
+    approachLead: 'We made the product image the center of the QA workflow.',
+    approachDetail: 'The interface shows inspection area, bounding boxes, confidence scores, and a human review button.',
+    bullets: ['Product image inspection area.', 'Defect bounding boxes and labels.', 'Confidence score for each anomaly.', 'Human review button for uncertain cases.'],
+    architecture: [
+      { name: 'Line inputs', items: ['Camera frames', 'Product SKU', 'QA rules', 'Shift context'] },
+      { name: 'Vision prep', items: ['Detection', 'Segmentation', 'Anomaly score', 'Thresholds'] },
+      { name: 'QA decision', items: ['Defect type', 'Confidence', 'Severity', 'Review route'] },
+      { name: 'Manufacturing handoff', items: ['Reject bin', 'Reviewer queue', 'Audit log', 'Trend report'] },
+    ],
+    architectureNote: 'Manufacturing vision is useful when each defect is localized, scored, and routed to the right inspection path.',
+    hard: [
+      { title: 'Defects are subtle', detail: 'Scratches, dents, and missing parts can be small or partially hidden.' },
+      { title: 'False rejects cost money', detail: 'Thresholds need to balance quality and yield.' },
+      { title: 'Line context matters', detail: 'SKU, shift, and camera angle affect inspection logic.' },
+      { title: 'Review needs evidence', detail: 'Humans need visual proof before accepting a defect decision.' },
+    ],
+    decisions: [
+      { key: 'Inspection frame', value: 'The product image remains the evidence surface.' },
+      { key: 'Confidence labels', value: 'Model certainty is visible beside detections.' },
+      { key: 'Review button', value: 'Human escalation is a first-class action.' },
+      { key: 'QA history', value: 'Inspection decisions can be traced by SKU and shift.' },
+    ],
+  }, 32),
+  visualCaseStudy({
+    id: 'modelops-command-center',
+    shortName: 'ModelOps Command',
+    label: 'MLOps System',
+    clientMeta: 'Model monitoring · Retraining alerts',
+    title: <>ModelOps command center for <em>production AI</em>.</>,
+    lede: 'A production monitoring dashboard for tracking model drift, latency, prediction quality, and retraining signals across deployed ML workflows.',
+    oneLiner: 'An MLOps dashboard for teams that need to know when deployed models are drifting, slowing down, or ready for retraining.',
+    categories: ['mlops-ai-infrastructure', 'risk-compliance-ai-evaluation', 'forecasting-decision-intelligence'],
+    visual: 'modelops-command-center',
+    icon: 'ServerCog',
+    alt: 'MLOps dashboard tracking model drift, latency, prediction quality, and retraining signals.',
+    results: [
+      { value: <em>Drift</em>, label: 'Monitoring', sub: 'Data shift visible' },
+      { value: <em>P95</em>, label: 'Latency', sub: 'Performance tracked' },
+      { value: <em>Quality</em>, label: 'Prediction health', sub: 'Confidence changes surfaced' },
+      { value: <em>Retrain</em>, label: 'Recommendation', sub: 'Next action suggested' },
+    ],
+    impact: [
+      { label: 'Drift visibility', value: 88, detail: 'Distribution changes are easier to catch.' },
+      { label: 'Latency control', value: 82, detail: 'Slowdowns surface before users complain.' },
+      { label: 'Quality tracking', value: 84, detail: 'Confidence and prediction health are monitored.' },
+      { label: 'Ops response', value: 86, detail: 'Retraining recommendations become actionable.' },
+    ],
+    problemLead: 'Models degrade in production when teams cannot see drift, latency, and quality together.',
+    problemDetail: 'Operators need version context, live metrics, alerts, and retraining guidance in one command center.',
+    approachLead: 'We designed ModelOps around operational decisions.',
+    approachDetail: 'The dashboard combines drift and latency charts, model version selector, confidence health, and retraining recommendations.',
+    bullets: ['Drift and latency charts.', 'Model version selector.', 'Confidence and prediction-quality tracking.', 'Retraining recommendation with owner.'],
+    architecture: [
+      { name: 'Production signals', items: ['Predictions', 'Features', 'Latency logs', 'Ground truth'] },
+      { name: 'Monitoring prep', items: ['Drift checks', 'Quality metrics', 'Version context', 'Thresholds'] },
+      { name: 'Ops decision', items: ['Alerts', 'Retrain trigger', 'Rollback risk', 'Owner'] },
+      { name: 'MLOps handoff', items: ['Dashboard', 'Incident note', 'Retrain job', 'Release log'] },
+    ],
+    architectureNote: 'Model monitoring is useful when metrics lead to a clear production action.',
+    hard: [
+      { title: 'Drift has many forms', detail: 'Input distribution, label quality, and output confidence can move independently.' },
+      { title: 'Latency affects product trust', detail: 'Model quality is not enough when response times degrade.' },
+      { title: 'Retraining needs evidence', detail: 'Teams need to know why a retrain is recommended.' },
+      { title: 'Versions matter', detail: 'Alerts must connect to deployed model and prompt versions.' },
+    ],
+    decisions: [
+      { key: 'Metric grouping', value: 'Drift, latency, and quality are visible together.' },
+      { key: 'Version selector', value: 'Operators can compare deployed models.' },
+      { key: 'Retrain state', value: 'The dashboard recommends the next action.' },
+      { key: 'Alert history', value: 'Operational decisions remain traceable.' },
+    ],
+  }, 33),
+  visualCaseStudy({
+    id: 'privacyscan-redaction',
+    shortName: 'PrivacyScan',
+    label: 'On-Device Privacy AI',
+    clientMeta: 'Core ML · Local redaction',
+    title: <>PrivacyScan on-device redaction for <em>sensitive fields</em>.</>,
+    lede: 'An iOS privacy scanner that detects sensitive fields, applies redaction toggles, and processes documents locally.',
+    oneLiner: 'A Core ML privacy workflow for users who need to find and redact PII without uploading documents to cloud services.',
+    categories: ['core-ml-on-device-ai', 'risk-compliance-ai-evaluation', 'edge-ai'],
+    visual: 'privacyscan-redaction',
+    icon: 'ShieldCheck',
+    alt: 'Core ML privacy app detecting and redacting sensitive information on-device.',
+    results: [
+      { value: <em>PII</em>, label: 'Detection', sub: 'Sensitive fields highlighted' },
+      { value: <em>Local</em>, label: 'Processing', sub: 'No cloud upload required' },
+      { value: <em>Toggle</em>, label: 'Redaction', sub: 'User controls each field' },
+      { value: <em>Export</em>, label: 'Safe copy', sub: 'Redacted document created' },
+    ],
+    impact: [
+      { label: 'Privacy trust', value: 90, detail: 'Sensitive documents stay local.' },
+      { label: 'Review clarity', value: 84, detail: 'PII fields are highlighted before redaction.' },
+      { label: 'User control', value: 82, detail: 'Each redaction can be toggled.' },
+      { label: 'Export confidence', value: 80, detail: 'The final copy is visibly sanitized.' },
+    ],
+    problemLead: 'Sensitive documents need AI help, but uploading them can create privacy risk.',
+    problemDetail: 'Users need local detection, clear field highlights, and redaction controls before exporting a safe version.',
+    approachLead: 'We made local processing visible in the mobile UI.',
+    approachDetail: 'The privacy scanner shows document preview, highlighted PII, redaction toggles, and an on-device processing badge.',
+    bullets: ['Document preview with highlighted PII.', 'Redaction toggles for each field.', 'Local processing badge.', 'Export button for safe copies.'],
+    architecture: [
+      { name: 'Device inputs', items: ['Document scan', 'Text regions', 'User settings', 'Local model'] },
+      { name: 'Privacy prep', items: ['OCR', 'PII detection', 'Field grouping', 'Confidence'] },
+      { name: 'Redaction decision', items: ['Sensitive fields', 'Toggle state', 'Preview', 'Warnings'] },
+      { name: 'Safe output', items: ['Redacted PDF', 'Local save', 'Share sheet', 'Audit note'] },
+    ],
+    architectureNote: 'On-device privacy tools need to show users what is detected and what leaves the device.',
+    hard: [
+      { title: 'PII detection must be careful', detail: 'False negatives can expose sensitive data.' },
+      { title: 'Users need control', detail: 'Automatic redaction should still be editable.' },
+      { title: 'Local models are constrained', detail: 'Performance and accuracy must fit mobile hardware.' },
+      { title: 'Export must be clear', detail: 'Users need confidence that the shared copy is redacted.' },
+    ],
+    decisions: [
+      { key: 'Phone preview', value: 'The redaction experience is shown as a real mobile workflow.' },
+      { key: 'PII highlights', value: 'Detected sensitive fields are visible before export.' },
+      { key: 'Toggle controls', value: 'Users can decide what to redact.' },
+      { key: 'Local badge', value: 'On-device processing is surfaced as a trust signal.' },
+    ],
+  }, 34),
+  visualCaseStudy({
+    id: 'autolabel-data-studio',
+    shortName: 'AutoLabel Studio',
+    label: 'Data Labeling Workflow',
+    clientMeta: 'AI pre-labels · Human review',
+    title: <>AutoLabel data studio for <em>reviewable datasets</em>.</>,
+    lede: 'A dataset labeling interface with AI pre-labels, confidence scores, approve or edit actions, and a human review queue.',
+    oneLiner: 'A data operations workflow for teams building labeled datasets faster while keeping uncertain samples under human review.',
+    categories: ['data-automation-labeling', 'computer-vision', 'ai-agents-workflow-automation'],
+    visual: 'autolabel-data-studio',
+    icon: 'Tags',
+    alt: 'AI data labeling studio pre-labeling images and routing uncertain samples for review.',
+    results: [
+      { value: <em>Pre</em>, label: 'AI labels', sub: 'Suggested classes attached' },
+      { value: <em>Conf</em>, label: 'Confidence', sub: 'Uncertain samples surfaced' },
+      { value: <em>Edit</em>, label: 'Human review', sub: 'Labels remain correctable' },
+      { value: <em>Set</em>, label: 'Dataset', sub: 'Approved samples exported' },
+    ],
+    impact: [
+      { label: 'Labeling speed', value: 86, detail: 'Obvious samples move faster.' },
+      { label: 'Quality control', value: 84, detail: 'Low-confidence samples enter review.' },
+      { label: 'Reviewer focus', value: 82, detail: 'Humans spend time on uncertain cases.' },
+      { label: 'Dataset readiness', value: 80, detail: 'Approved labels are exportable.' },
+    ],
+    problemLead: 'Dataset labeling is slow when every sample starts from a blank state.',
+    problemDetail: 'Teams need AI pre-labels, confidence scores, and human review actions so speed does not reduce label quality.',
+    approachLead: 'We made AI labeling a review queue, not an automatic final answer.',
+    approachDetail: 'The labeling studio shows image grid, suggested labels, confidence scores, and approve or edit actions.',
+    bullets: ['Image grid with suggested labels.', 'Confidence score for every pre-label.', 'Approve and edit actions.', 'Human review queue for uncertain samples.'],
+    architecture: [
+      { name: 'Dataset sources', items: ['Images', 'Existing labels', 'Class taxonomy', 'Review rules'] },
+      { name: 'Pre-labeling', items: ['Model inference', 'Confidence', 'Class mapping', 'Uncertainty'] },
+      { name: 'Review decision', items: ['Approve', 'Edit', 'Escalate', 'Sample priority'] },
+      { name: 'Dataset delivery', items: ['Export labels', 'Audit log', 'Training split', 'Quality report'] },
+    ],
+    architectureNote: 'Auto-labeling works when the model handles obvious samples and humans focus on uncertainty.',
+    hard: [
+      { title: 'Label quality matters', detail: 'Fast labels can hurt training if confidence is not reviewed.' },
+      { title: 'Taxonomies evolve', detail: 'Class definitions need to stay configurable.' },
+      { title: 'Uncertainty is valuable', detail: 'Low-confidence samples should be routed, not hidden.' },
+      { title: 'Audits need history', detail: 'Edits and approvals should remain traceable.' },
+    ],
+    decisions: [
+      { key: 'Image grid', value: 'Reviewers see many samples without losing context.' },
+      { key: 'Confidence scores', value: 'Uncertainty drives queue priority.' },
+      { key: 'Approve/edit actions', value: 'Human correction is built into the surface.' },
+      { key: 'Export state', value: 'Approved samples become usable dataset output.' },
+    ],
+  }, 35),
+  visualCaseStudy({
+    id: 'fleetcam-safety-intelligence',
+    shortName: 'FleetCam Safety',
+    label: 'Fleet Vision AI',
+    clientMeta: 'Dashcam analysis · Driver coaching',
+    title: <>FleetCam safety intelligence for <em>driver risk</em>.</>,
+    lede: 'A fleet safety dashboard with dashcam frames, lane alerts, distraction flags, trip risk scores, and driver coaching insights.',
+    oneLiner: 'A computer vision workflow for fleet teams that need to detect risky driving events and coach drivers with evidence.',
+    categories: ['computer-vision', 'edge-ai', 'risk-compliance-ai-evaluation'],
+    visual: 'fleetcam-safety-intelligence',
+    icon: 'Camera',
+    alt: 'Computer vision fleet safety dashboard detecting driver risk events from dashcam footage.',
+    results: [
+      { value: <em>Lane</em>, label: 'Alert', sub: 'Drift events detected' },
+      { value: <em>Flag</em>, label: 'Distraction', sub: 'Risk behavior surfaced' },
+      { value: <em>Score</em>, label: 'Trip risk', sub: 'Events summarized' },
+      { value: <em>Coach</em>, label: 'Insight', sub: 'Manager notes generated' },
+    ],
+    impact: [
+      { label: 'Risk visibility', value: 86, detail: 'Unsafe events are detected from video.' },
+      { label: 'Coaching quality', value: 82, detail: 'Notes are tied to dashcam evidence.' },
+      { label: 'Trip review speed', value: 80, detail: 'Managers see prioritized events.' },
+      { label: 'Safety tracking', value: 84, detail: 'Scores and flags are auditable.' },
+    ],
+    problemLead: 'Fleet safety teams cannot manually review every minute of dashcam footage.',
+    problemDetail: 'They need event detection, risk labels, trip summaries, and coaching notes tied to clear visual evidence.',
+    approachLead: 'We designed the dashboard around reviewed driving events.',
+    approachDetail: 'The visual shows a road video frame, lane alert, distraction flag, trip risk score, and coaching insight panel.',
+    bullets: ['Road video frame with event labels.', 'Lane alert and distraction flag.', 'Trip risk score.', 'Driver coaching insights for manager review.'],
+    architecture: [
+      { name: 'Road inputs', items: ['Dashcam video', 'Telematics', 'Trip route', 'Driver profile'] },
+      { name: 'Vision prep', items: ['Frame sampling', 'Lane detection', 'Distraction cues', 'Event confidence'] },
+      { name: 'Safety decision', items: ['Risk event', 'Trip score', 'Severity', 'Coaching note'] },
+      { name: 'Fleet handoff', items: ['Manager review', 'Driver coaching', 'Incident log', 'Trend report'] },
+    ],
+    architectureNote: 'Fleet vision systems need to convert long video streams into reviewable, coachable safety events.',
+    hard: [
+      { title: 'Video volume is high', detail: 'The system has to prioritize events instead of creating another review burden.' },
+      { title: 'Safety labels need evidence', detail: 'Drivers and managers need to see the frame behind the flag.' },
+      { title: 'Context affects risk', detail: 'Road conditions and trip context can change interpretation.' },
+      { title: 'Coaching must be fair', detail: 'Insights should support improvement, not unexplained penalties.' },
+    ],
+    decisions: [
+      { key: 'Dashcam frame', value: 'The event evidence stays visible.' },
+      { key: 'Risk labels', value: 'Detected events are named and prioritized.' },
+      { key: 'Trip score', value: 'Managers can scan the overall risk level.' },
+      { key: 'Coaching panel', value: 'The output leads to a practical follow-up.' },
+    ],
+  }, 36),
+  visualCaseStudy({
+    id: 'fieldvision-knowledge-search',
+    shortName: 'FieldVision Search',
+    label: 'Multimodal Search',
+    clientMeta: 'Field photos · OCR snippets',
+    title: <>FieldVision knowledge search for <em>inspection evidence</em>.</>,
+    lede: 'A multimodal search interface that finds field photos, inspection notes, OCR snippets, and source-backed results.',
+    oneLiner: 'A field knowledge workflow for teams that need to search across photos, documents, notes, and inspection evidence.',
+    categories: ['document-ai-knowledge-search', 'computer-vision', 'ai-assistants-knowledge-chat'],
+    visual: 'fieldvision-knowledge-search',
+    icon: 'SearchCheck',
+    alt: 'Multimodal field search system finding inspection photos, notes, and document evidence.',
+    results: [
+      { value: <em>Photo</em>, label: 'Visual results', sub: 'Field images are searchable' },
+      { value: <em>OCR</em>, label: 'Text snippets', sub: 'Labels and forms indexed' },
+      { value: <em>Source</em>, label: 'Evidence cards', sub: 'Answers stay grounded' },
+      { value: <em>Filter</em>, label: 'Search control', sub: 'Site and date narrowing' },
+    ],
+    impact: [
+      { label: 'Evidence retrieval', value: 88, detail: 'Photos and notes become searchable.' },
+      { label: 'Answer trust', value: 86, detail: 'Source cards support each result.' },
+      { label: 'Field speed', value: 80, detail: 'Inspectors find prior evidence faster.' },
+      { label: 'Context quality', value: 84, detail: 'OCR and photo signals combine.' },
+    ],
+    problemLead: 'Field evidence is split across photos, notes, forms, and reports.',
+    problemDetail: 'Teams need to search inspection evidence by text and image context, then verify results through source cards.',
+    approachLead: 'We designed search as a multimodal evidence workspace.',
+    approachDetail: 'The interface shows search bar, photo results, OCR snippets, and cited source cards.',
+    bullets: ['Search bar with field-specific filters.', 'Photo results and inspection notes.', 'OCR text snippets from field documents.', 'Source cards for answer verification.'],
+    architecture: [
+      { name: 'Field sources', items: ['Photos', 'Inspection notes', 'Forms', 'Reports'] },
+      { name: 'Index prep', items: ['OCR', 'Embeddings', 'Metadata', 'Geo context'] },
+      { name: 'Search answer', items: ['Photo match', 'Snippet', 'Source card', 'Confidence'] },
+      { name: 'Field handoff', items: ['Evidence packet', 'Saved search', 'Reviewer note', 'Export'] },
+    ],
+    architectureNote: 'Multimodal field search works when photos, OCR text, and source cards are returned together.',
+    hard: [
+      { title: 'Evidence is mixed media', detail: 'Photos, notes, and documents require different indexing paths.' },
+      { title: 'Field metadata matters', detail: 'Site, date, asset, and inspector context improve search quality.' },
+      { title: 'OCR can be noisy', detail: 'Forms, signs, and handwritten notes need confidence handling.' },
+      { title: 'Results need proof', detail: 'Users need to inspect the source before acting.' },
+    ],
+    decisions: [
+      { key: 'Photo results', value: 'Visual evidence is treated as first-class search output.' },
+      { key: 'OCR snippets', value: 'Extracted text appears beside the image result.' },
+      { key: 'Source cards', value: 'Each answer can be verified.' },
+      { key: 'Field filters', value: 'Users can scope results by operational context.' },
+    ],
+  }, 37),
+  visualCaseStudy({
+    id: 'receipt-scanner',
+    aliases: ['on-device-receipt-scanner'],
+    shortName: 'Receipt Scanner',
+    label: 'On-Device Document AI',
+    clientMeta: 'Expense capture · Local extraction',
+    title: <>On-device receipt scanner for <em>expense data</em>.</>,
+    lede: 'A mobile receipt scanner that extracts merchant, date, total, tax, and line items directly on-device.',
+    oneLiner: 'A Core ML receipt workflow for users who need quick expense capture without sending every receipt to a remote service.',
+    categories: ['core-ml-on-device-ai', 'document-ai-knowledge-search', 'data-automation-labeling'],
+    visual: 'receipt-scanner',
+    icon: 'ReceiptText',
+    alt: 'Core ML receipt scanner extracting structured expense data directly on-device.',
+    results: [
+      { value: <em>Scan</em>, label: 'Receipt capture', sub: 'Phone camera input' },
+      { value: <em>Fields</em>, label: 'Extraction', sub: 'Merchant, date, tax, total' },
+      { value: <em>Lines</em>, label: 'Items', sub: 'Expense details parsed' },
+      { value: <em>Export</em>, label: 'Handoff', sub: 'Structured data leaves app' },
+    ],
+    impact: [
+      { label: 'Capture speed', value: 86, detail: 'Receipts become structured quickly.' },
+      { label: 'Privacy', value: 84, detail: 'Extraction can run locally.' },
+      { label: 'Expense quality', value: 80, detail: 'Fields are reviewed before export.' },
+      { label: 'Workflow fit', value: 82, detail: 'Data can move to finance tools.' },
+    ],
+    problemLead: 'Expense capture is tedious when receipt data has to be entered manually.',
+    problemDetail: 'Users need a phone workflow that scans receipts, extracts fields, supports quick review, and exports structured records.',
+    approachLead: 'We made receipt extraction a mobile review flow.',
+    approachDetail: 'The receipt scanner shows phone capture, extracted field cards, line items, and an export button.',
+    bullets: ['Phone frame with receipt scan.', 'Extracted merchant, date, total, tax, and line items.', 'Reviewable field cards.', 'Export button for expense handoff.'],
+    architecture: [
+      { name: 'Device inputs', items: ['Receipt image', 'Camera frame', 'Expense rules', 'Local model'] },
+      { name: 'Extraction prep', items: ['OCR', 'Field detection', 'Line items', 'Confidence'] },
+      { name: 'Review decision', items: ['Merchant', 'Date', 'Tax', 'Total'] },
+      { name: 'Expense handoff', items: ['CSV export', 'Accounting sync', 'User approval', 'Receipt archive'] },
+    ],
+    architectureNote: 'Receipt scanning needs clean extraction and quick user review before expense export.',
+    hard: [
+      { title: 'Receipts vary wildly', detail: 'Thermal prints, photos, tax formats, and line items all differ.' },
+      { title: 'Totals must be correct', detail: 'Expense reports depend on accurate tax and total fields.' },
+      { title: 'Mobile capture is imperfect', detail: 'Blur, shadows, and angle affect OCR.' },
+      { title: 'Export needs structure', detail: 'Finance tools need normalized records, not screenshots.' },
+    ],
+    decisions: [
+      { key: 'Mobile frame', value: 'The experience is shown where capture happens.' },
+      { key: 'Field cards', value: 'Users can review each extracted value.' },
+      { key: 'Line-item support', value: 'The workflow goes beyond simple totals.' },
+      { key: 'Export state', value: 'The end of the workflow is a usable expense record.' },
+    ],
+  }, 38),
+  visualCaseStudy({
+    id: 'evalforge-quality-bench',
+    shortName: 'EvalForge Bench',
+    label: 'AI Quality Bench',
+    clientMeta: 'Model comparison · Regression testing',
+    title: <>EvalForge AI quality bench for <em>model releases</em>.</>,
+    lede: 'A model comparison and regression testing dashboard with Model A vs Model B results, quality scores, and deployment readiness.',
+    oneLiner: 'An evaluation bench for teams comparing model versions before deploying changes to production AI workflows.',
+    categories: ['mlops-ai-infrastructure', 'risk-compliance-ai-evaluation'],
+    visual: 'evalforge-quality-bench',
+    icon: 'ClipboardCheck',
+    alt: 'AI evaluation bench comparing model versions, test results, and deployment readiness.',
+    results: [
+      { value: <em>A/B</em>, label: 'Model compare', sub: 'Versions evaluated side by side' },
+      { value: <em>Tests</em>, label: 'Result table', sub: 'Case outcomes visible' },
+      { value: <em>Score</em>, label: 'Quality', sub: 'Readiness summarized' },
+      { value: <em>Ship</em>, label: 'Recommendation', sub: 'Deployment decision supported' },
+    ],
+    impact: [
+      { label: 'Comparison clarity', value: 88, detail: 'Model versions are easier to judge.' },
+      { label: 'Regression control', value: 86, detail: 'Failed tests are visible before release.' },
+      { label: 'Deployment confidence', value: 84, detail: 'Quality scores support go or no-go decisions.' },
+      { label: 'Auditability', value: 80, detail: 'Test history stays attached to the version.' },
+    ],
+    problemLead: 'Teams need to compare model versions before a change reaches users.',
+    problemDetail: 'A model that wins on one score can regress on safety, latency, cost, or domain-specific test cases.',
+    approachLead: 'We designed EvalForge as a deployment readiness bench.',
+    approachDetail: 'The dashboard shows Model A vs Model B comparison, test result table, quality score, and deployment recommendation.',
+    bullets: ['Model A vs Model B comparison.', 'Test result table with failed cases.', 'Quality score for release readiness.', 'Deployment recommendation and review state.'],
+    architecture: [
+      { name: 'Eval sources', items: ['Model versions', 'Test cases', 'Expected outputs', 'Risk rules'] },
+      { name: 'Benchmark run', items: ['Scoring', 'Latency', 'Cost', 'Regression checks'] },
+      { name: 'Release decision', items: ['Quality score', 'Failed cases', 'Risk flags', 'Recommendation'] },
+      { name: 'Deployment handoff', items: ['Approval', 'Release note', 'Version log', 'Rollback plan'] },
+    ],
+    architectureNote: 'Evaluation benches are valuable when comparison results produce a clear release decision.',
+    hard: [
+      { title: 'One score is not enough', detail: 'Quality, safety, latency, and cost can pull in different directions.' },
+      { title: 'Tests need ownership', detail: 'Domain cases must be curated and updated over time.' },
+      { title: 'Regressions hide in details', detail: 'Averages can mask failed cases that matter.' },
+      { title: 'Deployment needs accountability', detail: 'Approvals should connect to the exact evaluation run.' },
+    ],
+    decisions: [
+      { key: 'Side-by-side models', value: 'Version comparison is the primary visual structure.' },
+      { key: 'Failed cases', value: 'Regressions are visible and actionable.' },
+      { key: 'Readiness score', value: 'The bench summarizes deployment risk.' },
+      { key: 'Release recommendation', value: 'The dashboard gives teams a clear next step.' },
+    ],
+  }, 39),
+]
+
+export const CASE_STUDIES: CaseStudy[] = [...BASE_CASE_STUDIES, ...NEW_PROJECT_CASE_STUDIES]
+
 export function getCaseStudy(caseId: string | undefined) {
   return CASE_STUDIES.find((caseStudy) => caseStudy.id === caseId || caseStudy.aliases?.includes(caseId ?? '')) ?? CASE_STUDIES[0]
+}
+
+export function CaseStudyCardVisual({ caseStudy, mode = 'card' }: { caseStudy: CaseStudy; mode?: 'card' | 'hero' }) {
+  const visual = caseStudy.cardVisual ?? caseStudy.previewVisual ?? caseStudy.coverVisual
+
+  if (caseStudy.heroVisual) {
+    return (
+      <img
+        src={caseStudy.heroVisual.src}
+        alt={caseStudy.heroVisual.alt}
+        width="1600"
+        height="1000"
+        loading={mode === 'hero' ? 'eager' : 'lazy'}
+        decoding="async"
+      />
+    )
+  }
+
+  if (visual) {
+    return (
+      <ProjectVisual
+        visual={visual}
+        title={caseStudy.shortName}
+        alt={caseStudy.alt}
+        mode={mode}
+      />
+    )
+  }
+
+  return (
+    <ProjectVisual
+      visual="ai-quality-guardrails"
+      title={caseStudy.shortName}
+      alt={`${caseStudy.shortName} AI workflow preview`}
+      mode={mode}
+    />
+  )
+}
+
+export function CaseStudyLabel({ caseStudy }: { caseStudy: CaseStudy }) {
+  const icon = iconForCaseStudy(caseStudy)
+
+  return (
+    <span className="case__project case__project--with-icon" translate="no">
+      <ProjectIcon name={icon} size={15} />
+      {caseStudy.label ?? caseStudy.shortName}
+    </span>
+  )
+}
+
+export function CaseStudyCategoryTags({ caseStudy }: { caseStudy: CaseStudy }) {
+  return (
+    <div className="case__tags">
+      {caseStudy.categories.map((categoryId) => {
+        const category = getCaseCategory(categoryId)
+        return <span key={category.id} className="case__tag">{category.shortName}</span>
+      })}
+    </div>
+  )
+}
+
+function iconForCaseStudy(caseStudy: CaseStudy): ProjectIconName {
+  if (caseStudy.icon) return caseStudy.icon
+  if (caseStudy.categories.includes('voice-ai') || caseStudy.categories.includes('voice-ai-conversation-intelligence')) return 'PhoneCall'
+  if (caseStudy.categories.includes('document-review') || caseStudy.categories.includes('document-ai-knowledge-search')) return 'FileSearch'
+  if (caseStudy.categories.includes('chatbot') || caseStudy.categories.includes('ai-assistants-knowledge-chat')) return 'MessageCircle'
+  if (caseStudy.categories.includes('python-scripts') || caseStudy.categories.includes('data-automation-labeling')) return 'TableProperties'
+  if (caseStudy.categories.includes('mvp-saas') || caseStudy.categories.includes('growth-revenue-automation')) return 'Rocket'
+  if (caseStudy.categories.includes('mlops-ai-infrastructure')) return 'ServerCog'
+  if (caseStudy.categories.includes('computer-vision')) return 'ScanEye'
+
+  return 'Workflow'
 }
 
 export function CaseStudyPage({
@@ -1848,6 +3188,7 @@ export function CaseStudyPage({
 }) {
   const selectedCase = getCaseStudy(selectedId)
   const nextCase = CASE_STUDIES[(CASE_STUDIES.findIndex((caseStudy) => caseStudy.id === selectedCase.id) + 1) % CASE_STUDIES.length]
+  const selectedIcon = iconForCaseStudy(selectedCase)
 
   const isEnhanced = !!selectedCase.hard
   const hasScreenshots = !!selectedCase.screenshots?.length
@@ -1863,9 +3204,47 @@ export function CaseStudyPage({
           <div className="cs-hero__breadcrumb">
             <a href="/">Home</a>
             <span>/</span>
-            <a href="/#work">Case Studies</a>
+            <a href="/projects">Projects</a>
             <span>/</span>
             <span translate="no">{selectedCase.shortName}</span>
+          </div>
+
+          <div className="cs-hero__kicker">
+            <div className="eyebrow">Case study · {selectedCase.index} / {CASE_STUDIES.length.toString().padStart(2, '0')}</div>
+            <div className="cs-hero__project-label">
+              <ProjectIcon name={selectedIcon} size={18} />
+              <span>{selectedCase.label ?? selectedCase.clientMeta}</span>
+            </div>
+          </div>
+          <div className="cs-hero__main" style={{ alignItems: isEnhanced ? 'start' : 'center' }}>
+            <div>
+              <h1 className="h-display">
+                {selectedCase.title}
+              </h1>
+              {selectedCase.oneLiner && (
+                <p className="cs-hero__one-liner">{selectedCase.oneLiner}</p>
+              )}
+              {!selectedCase.oneLiner && (
+                <p className="lede cs-hero__lede mt-32">{selectedCase.lede}</p>
+              )}
+              {selectedCase.liveUrl && (
+                <div className="cs-hero__actions">
+                  <a className="btn btn--accent" href={selectedCase.liveUrl} target="_blank" rel="noreferrer">
+                    Visit live site <Arrow />
+                  </a>
+                </div>
+              )}
+              <div className="cs-review-card">
+                <div className="tiny-mono">[ Client review ]</div>
+                <p>{selectedCase.quote}</p>
+                <span>&mdash; {selectedCase.quoteBy}</span>
+              </div>
+            </div>
+            {(selectedCase.coverVisual || selectedCase.heroVisual) && (
+              <figure className="cs-hero__visual" aria-label={selectedCase.alt ?? `${selectedCase.shortName} curated visual`}>
+                <CaseStudyCardVisual caseStudy={selectedCase} mode="hero" />
+              </figure>
+            )}
           </div>
 
           <div className="case-picker">
@@ -1892,39 +3271,7 @@ export function CaseStudyPage({
               </div>
             </details>
             <div className="case-picker__label case-picker__label--categories">Browse by category</div>
-            <CaseCategoryNav />
-          </div>
-
-          <div className="eyebrow mb-24">Case study · {selectedCase.index} / {CASE_STUDIES.length.toString().padStart(2, '0')}</div>
-          <div className="cs-hero__main" style={{ alignItems: isEnhanced ? 'start' : 'center' }}>
-            <div>
-              <h1 className="h-display">
-                {selectedCase.title}
-              </h1>
-              {selectedCase.oneLiner && (
-                <p className="cs-hero__one-liner">{selectedCase.oneLiner}</p>
-              )}
-              {!selectedCase.oneLiner && (
-                <p className="lede cs-hero__lede mt-32">{selectedCase.lede}</p>
-              )}
-              {selectedCase.liveUrl && (
-                <div className="cs-hero__actions">
-                  <a className="btn btn--accent" href={selectedCase.liveUrl} target="_blank" rel="noreferrer">
-                    Visit live site <Arrow />
-                  </a>
-                </div>
-              )}
-              <div className="cs-review-card">
-                <div className="tiny-mono">[ Client review ]</div>
-                <p>{selectedCase.quote}</p>
-                <span>&mdash; {selectedCase.quoteBy}</span>
-              </div>
-            </div>
-            {selectedCase.heroVisual && (
-              <figure className="cs-hero__visual" aria-label={`${selectedCase.shortName} curated visual`}>
-                <img src={selectedCase.heroVisual.src} alt={selectedCase.heroVisual.alt} width="1600" height="1000" />
-              </figure>
-            )}
+            <CaseCategoryMenu label="Category directory" />
           </div>
 
           {selectedCase.id === 'thalamus' && <ThalamusImpactStrip />}

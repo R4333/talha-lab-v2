@@ -63,6 +63,11 @@ function useSiteNavigate() {
       return
     }
 
+    if (page === 'projects') {
+      navigate({ to: '/projects' })
+      return
+    }
+
     if (page === 'case') {
       navigate({ to: '/case-studies/$caseId', params: { caseId: 'thalamus' } })
       return

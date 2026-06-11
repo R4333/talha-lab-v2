@@ -1,20 +1,18 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 
 import { CASE_STUDIES, CaseStudyCardVisual, CaseStudyCategoryTags, CaseStudyLabel } from '../components/case-study'
-import { CaseCategoryMenu, getCaseCategory } from '../components/case-categories'
+import { CaseCategoryMenu } from '../components/case-categories'
 import { CTA } from '../components/home'
-import { Arrow, Footer, Nav, type SitePage } from '../components/shared'
+import { Arrow, ArrowUpRight, Footer, Nav, type SitePage } from '../components/shared'
 import { SITE_URL, jsonLd, seo } from '../utils/seo'
 
-export const Route = createFileRoute('/case-studies/category/$categoryId')({
-  head: ({ params }) => {
-    const category = getCaseCategory(params.categoryId)
-    const path = `/case-studies/category/${category.id}`
+export const Route = createFileRoute('/projects')({
+  head: () => {
     const pageSeo = seo({
-      title: `${category.name} Projects - Talha Turab`,
-      description: `${category.name} project examples from Talha Turab: ${category.summary}`,
-      path,
-      type: 'article',
+      title: 'Projects - AI Automation Showcase by Talha Turab',
+      description:
+        'Browse AI automation, document AI, voice AI, computer vision, MLOps, and data workflow projects by Talha Turab.',
+      path: '/projects',
     })
 
     return {
@@ -23,55 +21,77 @@ export const Route = createFileRoute('/case-studies/category/$categoryId')({
         jsonLd({
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
-          name: `${category.name} projects`,
-          description: category.summary,
-          url: `${SITE_URL}${path}`,
+          name: 'Projects',
+          description: 'AI automation and applied AI project showcase by Talha Turab.',
+          url: `${SITE_URL}/projects`,
         }),
       ],
     }
   },
-  component: CaseCategoryRoute,
+  component: ProjectsRoute,
 })
 
-function CaseCategoryRoute() {
+function ProjectsRoute() {
   const siteNavigate = useSiteNavigate()
-  const { categoryId } = Route.useParams()
-  const category = getCaseCategory(categoryId)
-  const cases = CASE_STUDIES.filter((caseStudy) => caseStudy.categories.includes(category.id))
 
   return (
     <>
       <Nav page="projects" navigate={siteNavigate} />
       <main id="main">
-        <section className="section" style={{ paddingTop: 160 }}>
+        <section className="section projects-hero">
           <div className="container">
             <div className="cs-hero__breadcrumb">
               <a href="/">Home</a>
               <span>/</span>
-              <a href="/projects">Projects</a>
-              <span>/</span>
-              <span>{category.name}</span>
+              <span>Projects</span>
             </div>
-            <div className="eyebrow mb-24">Case study category</div>
-            <h1 className="h-display" style={{ maxWidth: 1000 }}>
-              {category.name} <em>projects</em>.
-            </h1>
-            <p className="lede mt-32">{category.summary}</p>
-            <p className="body mt-16" style={{ maxWidth: 680 }}>{category.proof}</p>
-            <div className="mt-48">
-              <CaseCategoryMenu activeId={category.id} label="Change category" />
+            <div className="projects-hero__layout">
+              <div>
+                <div className="eyebrow mb-24">Project showcase</div>
+                <h1 className="h-display">
+                  Applied AI projects, sorted by <em>workflow</em>.
+                </h1>
+                <p className="lede mt-32">
+                  Explore the portfolio by the business problem you want to solve: faster reviews, cleaner handoffs, sharper decisions, and tools your team can actually use.
+                </p>
+                <div className="projects-hero__actions">
+                  <a href="#all-projects" className="btn btn--accent btn--lg">
+                    View all projects <Arrow />
+                  </a>
+                  <a href="#categories" className="btn btn--ghost btn--lg">
+                    Browse categories <ArrowUpRight />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="section" style={{ paddingTop: 0 }}>
+        <section className="section projects-category-section" id="categories">
+          <div className="container">
+            <div className="section-header">
+              <div>
+                <div className="eyebrow mb-24">Browse by category</div>
+                <h2 className="h1">Find the closest <em>workflow</em>.</h2>
+              </div>
+              <p className="lede">
+                Start with the workflow that feels closest to your team. Each path leads to relevant project proof, outcomes, and examples of how the work ships.
+              </p>
+            </div>
+            <div className="projects-category-menu-wrap">
+              <CaseCategoryMenu label="Browse categories" />
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="all-projects">
           <div className="container">
             <div className="divider-mono">
-              <span>{category.name}</span>
-              <span>{cases.length} examples</span>
+              <span>All projects</span>
+              <span>{CASE_STUDIES.length} examples</span>
             </div>
-            <div className="cases">
-              {cases.map((caseStudy) => (
+            <div className="cases projects-showcase__list">
+              {CASE_STUDIES.map((caseStudy) => (
                 <a key={caseStudy.id} className="case case--preview" href={`/case-studies/${caseStudy.id}`}>
                   <div className="case__copy">
                     <div className="case__index">
@@ -91,7 +111,7 @@ function CaseCategoryRoute() {
                       <div className="case__category-tags">
                         <CaseStudyCategoryTags caseStudy={caseStudy} />
                       </div>
-                      <div className="case__cta">Open case <Arrow /></div>
+                      <div className="case__cta mt-24">Open case <Arrow /></div>
                     </div>
                   </div>
                   <div className="case__visual case__visual--cover">

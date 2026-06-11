@@ -1,6 +1,28 @@
 import { ArrowUpRight } from './shared'
+import { ProjectIcon, type ProjectIconName } from './case-study-visuals'
 
-export type CaseCategoryId = 'automation' | 'chatbot' | 'python-scripts' | 'mvp-saas' | 'voice-ai' | 'document-review'
+export type CaseCategoryId =
+  | 'automation'
+  | 'chatbot'
+  | 'python-scripts'
+  | 'mvp-saas'
+  | 'voice-ai'
+  | 'document-review'
+  | 'ai-agents-workflow-automation'
+  | 'ai-assistants-knowledge-chat'
+  | 'document-ai-knowledge-search'
+  | 'voice-ai-conversation-intelligence'
+  | 'computer-vision'
+  | 'core-ml-on-device-ai'
+  | 'mlops-ai-infrastructure'
+  | 'forecasting-decision-intelligence'
+  | 'growth-revenue-automation'
+  | 'generative-media-creator-tools'
+  | 'risk-compliance-ai-evaluation'
+  | 'data-automation-labeling'
+  | 'edge-ai'
+  | 'health-fitness-ai'
+  | 'manufacturing-ai'
 
 export type CaseCategory = {
   id: CaseCategoryId
@@ -8,6 +30,7 @@ export type CaseCategory = {
   shortName: string
   summary: string
   proof: string
+  icon: ProjectIconName
 }
 
 export const CASE_CATEGORIES: CaseCategory[] = [
@@ -17,6 +40,7 @@ export const CASE_CATEGORIES: CaseCategory[] = [
     shortName: 'Automation',
     summary: 'Repeatable work turned into a reliable workflow, dashboard, or internal tool.',
     proof: 'Best when a team is losing hours to copy-paste, review, routing, or reporting.',
+    icon: 'Workflow',
   },
   {
     id: 'chatbot',
@@ -24,6 +48,7 @@ export const CASE_CATEGORIES: CaseCategory[] = [
     shortName: 'Chatbot',
     summary: 'Support and internal assistants that answer from the right company material.',
     proof: 'Best when customers or staff keep asking the same document-heavy questions.',
+    icon: 'MessageCircle',
   },
   {
     id: 'python-scripts',
@@ -31,6 +56,7 @@ export const CASE_CATEGORIES: CaseCategory[] = [
     shortName: 'Python',
     summary: 'Small scripts that clean data, connect tools, run reports, or power a workflow.',
     proof: 'Best when the work is too important for spreadsheets and too small for a full app.',
+    icon: 'TableProperties',
   },
   {
     id: 'mvp-saas',
@@ -38,6 +64,7 @@ export const CASE_CATEGORIES: CaseCategory[] = [
     shortName: 'MVP SaaS',
     summary: 'Lean SaaS builds that prove the product, workflow, and buyer story quickly.',
     proof: 'Best when a founder needs a usable first version, not a six-month build.',
+    icon: 'Rocket',
   },
   {
     id: 'voice-ai',
@@ -45,6 +72,7 @@ export const CASE_CATEGORIES: CaseCategory[] = [
     shortName: 'Voice AI',
     summary: 'Voice, audio, and conversation tools for review, routing, and decision support.',
     proof: 'Best when calls, recordings, or spoken interactions contain the business signal.',
+    icon: 'Mic',
   },
   {
     id: 'document-review',
@@ -52,6 +80,127 @@ export const CASE_CATEGORIES: CaseCategory[] = [
     shortName: 'Documents',
     summary: 'Contract, PDF, and knowledge-base tools that make buried details easy to act on.',
     proof: 'Best when important answers live in long documents nobody has time to read.',
+    icon: 'FileSearch',
+  },
+  {
+    id: 'ai-agents-workflow-automation',
+    name: 'AI Agents & Workflow Automation',
+    shortName: 'AI Agents',
+    summary: 'Agentic systems that classify work, draft actions, route tasks, and keep humans in control.',
+    proof: 'Best when a repeatable business process needs judgment, handoffs, and auditability.',
+    icon: 'Workflow',
+  },
+  {
+    id: 'ai-assistants-knowledge-chat',
+    name: 'AI Assistants & Knowledge Chat',
+    shortName: 'Assistants',
+    summary: 'Assistants that answer questions from internal context, documents, and tool data.',
+    proof: 'Best when teams need fast answers with source context and clear escalation paths.',
+    icon: 'BotMessageSquare',
+  },
+  {
+    id: 'document-ai-knowledge-search',
+    name: 'Document AI & Knowledge Search',
+    shortName: 'Document AI',
+    summary: 'Parsing, extraction, OCR, comparison, and retrieval systems for document-heavy work.',
+    proof: 'Best when important decisions depend on fields, clauses, citations, or policy changes.',
+    icon: 'FileSearch',
+  },
+  {
+    id: 'voice-ai-conversation-intelligence',
+    name: 'Voice AI & Conversation Intelligence',
+    shortName: 'Voice Intel',
+    summary: 'Voice, call, and meeting systems that extract next steps, signals, and follow-up actions.',
+    proof: 'Best when calls contain revenue, support, or scheduling data the team cannot review manually.',
+    icon: 'PhoneCall',
+  },
+  {
+    id: 'computer-vision',
+    name: 'Computer Vision',
+    shortName: 'Vision',
+    summary: 'AI systems that analyze images, video, screenshots, camera feeds, and inspection data.',
+    proof: 'Best when quality, inventory, safety, or evidence is visible but hard to review at scale.',
+    icon: 'ScanEye',
+  },
+  {
+    id: 'core-ml-on-device-ai',
+    name: 'Core ML & On-Device AI',
+    shortName: 'On-device',
+    summary: 'Mobile AI workflows that run locally for privacy, speed, or offline use.',
+    proof: 'Best when sensitive data or live camera input should stay on the device.',
+    icon: 'Smartphone',
+  },
+  {
+    id: 'mlops-ai-infrastructure',
+    name: 'MLOps & AI Infrastructure',
+    shortName: 'MLOps',
+    summary: 'Monitoring, evaluation, versioning, and operations for AI systems in production.',
+    proof: 'Best when model quality, drift, latency, cost, and release risk need constant visibility.',
+    icon: 'ServerCog',
+  },
+  {
+    id: 'forecasting-decision-intelligence',
+    name: 'Forecasting & Decision Intelligence',
+    shortName: 'Forecasting',
+    summary: 'Predictive systems that turn business data into risk, demand, revenue, or planning signals.',
+    proof: 'Best when teams have data but still make important calls from instinct.',
+    icon: 'TrendingUp',
+  },
+  {
+    id: 'growth-revenue-automation',
+    name: 'Growth & Revenue Automation',
+    shortName: 'Revenue',
+    summary: 'Automation for lead routing, churn prevention, outreach, CRM updates, and sales follow-up.',
+    proof: 'Best when revenue signals are stuck inside inboxes, calls, spreadsheets, or manual handoffs.',
+    icon: 'Target',
+  },
+  {
+    id: 'generative-media-creator-tools',
+    name: 'Generative Media & Creator Tools',
+    shortName: 'Creator Tools',
+    summary: 'Creative workflows for hooks, scripts, captions, variants, audio, and video production.',
+    proof: 'Best when creators or marketers need more tested output without losing editorial control.',
+    icon: 'Clapperboard',
+  },
+  {
+    id: 'risk-compliance-ai-evaluation',
+    name: 'Risk, Compliance & AI Evaluation',
+    shortName: 'Risk & Eval',
+    summary: 'Guardrails, review queues, policy checks, regression tests, and risk-scored AI workflows.',
+    proof: 'Best when AI output needs evidence, approvals, and measurable quality controls.',
+    icon: 'ShieldCheck',
+  },
+  {
+    id: 'data-automation-labeling',
+    name: 'Data Automation & Labeling',
+    shortName: 'Data Ops',
+    summary: 'Data cleanup, labeling, validation, KPI reporting, and human review workflows.',
+    proof: 'Best when messy operational data needs to become a useful table, label set, or dashboard.',
+    icon: 'DatabaseZap',
+  },
+  {
+    id: 'edge-ai',
+    name: 'Edge AI',
+    shortName: 'Edge AI',
+    summary: 'AI workflows designed for local hardware, constrained devices, and near-source processing.',
+    proof: 'Best when latency, connectivity, privacy, or deployment cost makes cloud-only AI impractical.',
+    icon: 'Cpu',
+  },
+  {
+    id: 'health-fitness-ai',
+    name: 'Health/Fitness AI',
+    shortName: 'Health AI',
+    summary: 'Health, revenue cycle, fitness, and coaching workflows with careful review boundaries.',
+    proof: 'Best when sensitive workflows need clear status, evidence, and user-friendly feedback.',
+    icon: 'Activity',
+  },
+  {
+    id: 'manufacturing-ai',
+    name: 'Manufacturing AI',
+    shortName: 'Manufacturing',
+    summary: 'Inspection, anomaly detection, QA review, and production-floor AI workflows.',
+    proof: 'Best when defects, delays, or review volume create cost in physical operations.',
+    icon: 'Factory',
   },
 ]
 
@@ -59,9 +208,9 @@ export function getCaseCategory(categoryId: string | undefined) {
   return CASE_CATEGORIES.find((category) => category.id === categoryId) ?? CASE_CATEGORIES[0]
 }
 
-export function CaseCategoryNav({ activeId }: { activeId?: string }) {
+export function CaseCategoryNav({ activeId, variant = 'grid' }: { activeId?: string; variant?: 'grid' | 'compact' }) {
   return (
-    <div className="case-categories" aria-label="Case study categories">
+    <div className={`case-categories case-categories--${variant}`} aria-label="Case study categories">
       {CASE_CATEGORIES.map((category) => (
         <a
           key={category.id}
@@ -69,7 +218,7 @@ export function CaseCategoryNav({ activeId }: { activeId?: string }) {
           data-active={category.id === activeId}
           href={`/case-studies/category/${category.id}`}
         >
-          <CategoryIcon id={category.id} />
+          <ProjectIcon name={category.icon} size={58} className="case-category__icon" />
           <span>{category.shortName}</span>
           <strong>{category.name}</strong>
           <small>{category.summary}</small>
@@ -80,80 +229,38 @@ export function CaseCategoryNav({ activeId }: { activeId?: string }) {
   )
 }
 
-function CategoryIcon({ id }: { id: CaseCategoryId }) {
-  const common = {
-    width: 58,
-    height: 58,
-    viewBox: '0 0 64 64',
-    fill: 'none',
-    stroke: 'currentColor',
-    strokeWidth: 2.4,
-    strokeLinecap: 'round' as const,
-    strokeLinejoin: 'round' as const,
-    'aria-hidden': true,
-    className: 'case-category__icon',
-  }
-
-  if (id === 'automation') {
-    return (
-      <svg {...common}>
-        <circle cx="32" cy="18" r="8" />
-        <path d="M32 4v5M32 27v5M18 18h-5M51 18h-5M22 8l3.5 3.5M42 28l3.5 3.5M22 28l3.5-3.5M42 8l3.5-3.5" />
-        <path d="M32 32v10M16 42h32M16 42v10M32 42v10M48 42v10" />
-        <path d="M9 52h14v8H9zM25 52h14v8H25zM41 52h14v8H41z" />
-      </svg>
-    )
-  }
-
-  if (id === 'chatbot') {
-    return (
-      <svg {...common}>
-        <path d="M12 24c0-8 7-14 20-14s20 6 20 14-7 14-20 14H22L12 48v-13c-3-2.5-4-6.5-4-11Z" />
-        <circle cx="24" cy="24" r="2.2" />
-        <circle cx="32" cy="24" r="2.2" />
-        <circle cx="40" cy="24" r="2.2" />
-      </svg>
-    )
-  }
-
-  if (id === 'python-scripts') {
-    return (
-      <svg {...common}>
-        <path d="M18 6h21l9 9v43H18z" />
-        <path d="M39 6v11h9" />
-        <path d="M28 27c-4 2-6 5-6 9s2 7 6 9M36 27c4 2 6 5 6 9s-2 7-6 9" />
-      </svg>
-    )
-  }
-
-  if (id === 'mvp-saas') {
-    return (
-      <svg {...common}>
-        <path d="M10 14h44v36H10z" />
-        <path d="M10 22h44" />
-        <path d="M18 18h.1M24 18h.1M30 18h.1" />
-        <path d="M32 30 44 37 32 44 20 37z" />
-        <path d="M20 37v9l12 7 12-7v-9" />
-      </svg>
-    )
-  }
-
-  if (id === 'voice-ai') {
-    return (
-      <svg {...common}>
-        <path d="M32 8c-6 0-10 4-10 10v15c0 6 4 10 10 10s10-4 10-10V18c0-6-4-10-10-10Z" />
-        <path d="M16 28v5c0 9 7 16 16 16s16-7 16-16v-5M32 49v9M24 58h16" />
-        <path d="M8 28v8M56 28v8M13 24v16M51 24v16" />
-      </svg>
-    )
-  }
+export function CaseCategoryMenu({
+  activeId,
+  label = 'Category directory',
+}: {
+  activeId?: string
+  label?: string
+}) {
+  const activeCategory = CASE_CATEGORIES.find((category) => category.id === activeId)
 
   return (
-    <svg {...common}>
-      <path d="M16 6h25l9 9v43H16z" />
-      <path d="M41 6v12h9M24 23h17M24 31h13M24 39h9" />
-      <circle cx="43" cy="43" r="9" />
-      <path d="m37 43 4 4 8-9M50 50l7 7" />
-    </svg>
+    <details className="category-menu">
+      <summary className="category-menu__summary">
+        <span>{label}</span>
+        <strong>{activeCategory ? activeCategory.name : `${CASE_CATEGORIES.length} project lanes`}</strong>
+        <small>{activeCategory ? activeCategory.summary : 'Pick a workflow category to filter the project library.'}</small>
+      </summary>
+      <div className="category-menu__options" aria-label="Case study categories">
+        {CASE_CATEGORIES.map((category) => (
+          <a
+            key={category.id}
+            className="category-menu__option"
+            data-active={category.id === activeId}
+            href={`/case-studies/category/${category.id}`}
+          >
+            <ProjectIcon name={category.icon} size={22} className="category-menu__icon" />
+            <span>{category.shortName}</span>
+            <strong>{category.name}</strong>
+            <small>{category.summary}</small>
+            <i aria-hidden="true"><ArrowUpRight size={13} /></i>
+          </a>
+        ))}
+      </div>
+    </details>
   )
 }

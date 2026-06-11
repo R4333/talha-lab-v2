@@ -24,6 +24,7 @@ type SeoInput = {
   description: string
   path?: string
   image?: string
+  imageAlt?: string
   type?: 'website' | 'article' | 'profile'
 }
 
@@ -32,6 +33,7 @@ export function seo({
   description,
   path = '/',
   image = DEFAULT_IMAGE,
+  imageAlt = 'Talha Turab, independent AI automation builder',
   type = 'website',
 }: SeoInput) {
   const canonical = new URL(path, SITE_URL).toString()
@@ -47,7 +49,7 @@ export function seo({
       { property: 'og:description', content: description },
       { property: 'og:url', content: canonical },
       { property: 'og:image', content: image },
-      { property: 'og:image:alt', content: 'Talha Turab, independent AI automation builder' },
+      { property: 'og:image:alt', content: imageAlt },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: title },
       { name: 'twitter:description', content: description },

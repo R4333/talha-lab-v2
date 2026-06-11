@@ -95,12 +95,18 @@ const CASE_SEO = {
 export const Route = createFileRoute('/case-studies/$caseId')({
   head: ({ params }) => {
     const selectedCase = getCaseStudy(params.caseId)
-    const caseSeo = CASE_SEO[selectedCase.id as keyof typeof CASE_SEO] ?? CASE_SEO.thalamus
+    const caseSeo = CASE_SEO[selectedCase.id as keyof typeof CASE_SEO]
+    const seoTitle = selectedCase.seoTitle ?? caseSeo?.title ?? `${selectedCase.shortName} Case Study - Talha Turab`
+    const seoDescription = selectedCase.seoDescription ?? caseSeo?.description ?? selectedCase.lede
+    const seoImage = selectedCase.ogImage ?? (selectedCase.heroVisual?.src ? new URL(selectedCase.heroVisual.src, SITE_URL).toString() : undefined)
+    const seoImageAlt = selectedCase.alt ?? selectedCase.heroVisual?.alt ?? `${selectedCase.shortName} case study visual`
     const path = `/case-studies/${selectedCase.id}`
     const pageSeo = seo({
-      title: caseSeo.title,
-      description: caseSeo.description,
+      title: seoTitle,
+      description: seoDescription,
       path,
+      image: seoImage,
+      imageAlt: seoImageAlt,
       type: 'article',
     })
 
@@ -110,8 +116,8 @@ export const Route = createFileRoute('/case-studies/$caseId')({
         jsonLd({
           '@context': 'https://schema.org',
           '@type': 'Article',
-          headline: caseSeo.title,
-          description: caseSeo.description,
+          headline: seoTitle,
+          description: seoDescription,
           url: `${SITE_URL}${path}`,
           author: {
             '@type': 'Person',
@@ -136,8 +142,8 @@ export const Route = createFileRoute('/case-studies/$caseId')({
             {
               '@type': 'ListItem',
               position: 2,
-              name: 'Case studies',
-              item: `${SITE_URL}/#work`,
+              name: 'Projects',
+              item: `${SITE_URL}/projects`,
             },
             {
               '@type': 'ListItem',
@@ -177,6 +183,11 @@ function useSiteNavigate() {
   return (page: SitePage) => {
     if (page === 'services') {
       navigate({ to: '/services' })
+      return
+    }
+
+    if (page === 'projects') {
+      navigate({ to: '/projects' })
       return
     }
 
