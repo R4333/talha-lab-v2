@@ -6,6 +6,7 @@ import {
   Scripts,
   createRootRoute,
 } from '@tanstack/react-router'
+import { Analytics } from '@vercel/analytics/react'
 
 import stylesUrl from '../styles/styles.css?url'
 import { DEFAULT_IMAGE, SITE_NAME, SITE_URL, jsonLd } from '../utils/seo'
@@ -123,6 +124,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       <body>
         <SkipLink />
         {children}
+        <Analytics />
         <Scripts />
       </body>
     </html>
